@@ -63,6 +63,7 @@
     
     if(mrCount > 1 && success == YES)
     {
+        [db openDatabase];
         countyArr = [db newGetAllCounties];
         favSpots = [db newGetSpotFavorites];
         favCountyArr = [db newGetCountyFavorites];

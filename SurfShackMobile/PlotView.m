@@ -124,17 +124,19 @@
     NSMutableArray* yVals = [[NSMutableArray alloc] init];
     
     //    //SMOOTHING DATA
-    //    NSMutableArray* y = [[NSMutableArray alloc] init];
-    //    [y addObject:[yData objectAtIndex:0]];
-    //
-    //    double beta = 0.1;
-    //
-    //    for (int i = 1; i < [yData count]; i++)
-    //    {
-    //        double nextNum = beta*[[yData objectAtIndex:i] doubleValue] + (1-beta)*[[y objectAtIndex:(i-1)] doubleValue];
-    //
-    //        [y insertObject:[NSNumber numberWithDouble:nextNum] atIndex:i];
-    //    }
+//        NSMutableArray* y = [[NSMutableArray alloc] init];
+//        [y addObject:[yData objectAtIndex:0]];
+//    
+//        double beta = 0.1;
+//    
+//        for (int i = 1; i < [yData count]; i++)
+//        {
+//            double nextNum = beta*[[yData objectAtIndex:i] doubleValue] + (1-beta)*[[y objectAtIndex:(i-1)] doubleValue];
+//    
+//            [y insertObject:[NSNumber numberWithDouble:nextNum] atIndex:i];
+//        }
+//    yData = y;
+    
     //    ////////////////
     
     //SPITCAST DATA

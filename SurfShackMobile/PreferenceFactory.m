@@ -162,7 +162,7 @@
     {
         color = [UIColor colorWithRed:226/255.f green:216/255.f blue:148/255.f alpha:0.1];
     }
-    else if([colorKey isEqualToString: @"Gray"])
+    else if([colorKey isEqualToString: @"Grey"])
     {
         color = [UIColor colorWithRed:176/255.f green:176/255.f blue:176/255.f alpha:0.1];
     }
