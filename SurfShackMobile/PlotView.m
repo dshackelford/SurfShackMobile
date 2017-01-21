@@ -80,118 +80,129 @@
 
 -(void)plotData
 {
-    
     //INITIALIZE X AXIS VALUES ARRAY
     xVals = [[NSMutableArray alloc] init];
     
-    int hour = 0;
-    //ADD THE DISTANCE TRAVELED VALUE TO X AXIS DATA
-    for (int i = 0; i < [yData count]; i++)
+    if ([yData count] == 24) //one day showing (with hours on x-axis)
     {
-        hour = hour + 1;
-        //ADDS AS A STRING FOR PLOTTING PURPOSES
-        NSString* aValString = [NSString stringWithFormat:@"%@",[xDataNameTags objectAtIndex:i]];
-        [xVals addObject:aValString];
+        for (int i = 0; i < [yData count]; i++)
+        {
+            //ADDS AS A STRING FOR PLOTTING PURPOSES
+            NSString* aValString; //hide the 0th hours(technically the
+            if (i == 0 || i == 23) //don't want to show 0AM and 11PM
+            {
+                aValString = [NSString stringWithFormat:@""];
+            }
+            else
+            {
+                if (i < 12) //morning hours
+                {
+                    aValString = [NSString stringWithFormat:@"%@AM",[xDataNameTags objectAtIndex:i]];
+                }
+                else //afternoon hours
+                {
+                    aValString = [NSString stringWithFormat:@"%@PM",[xDataNameTags objectAtIndex:i]];
+                }
+            }
+            
+            [xVals addObject:aValString];
+        }
+    }
+    else //show days
+    {
+        for (int i = 0; i < [yData count]; i++)
+        {
+            NSLog(@"%i, %@",i,[xDataNameTags objectAtIndex:i]);
+            NSString* aValString = [xDataNameTags objectAtIndex:i];
+            
+            [xVals addObject:aValString];
+        }
     }
     
     //INITIALIZE THE DATA SETS ARRAYS
     NSMutableArray *dataSets = [[NSMutableArray alloc] init];
     NSMutableArray* yVals = [[NSMutableArray alloc] init];
     
-//    ////////////////
-//    NSMutableArray* y = [[NSMutableArray alloc] init];
-//    [y addObject:[yData objectAtIndex:0]];
-//    
-//    double beta = 0.1;
-//    
-//    for (int i = 1; i < [yData count]; i++)
-//    {
-//        double nextNum = beta*[[yData objectAtIndex:i] doubleValue] + (1-beta)*[[y objectAtIndex:(i-1)] doubleValue];
-//        
-//        [y insertObject:[NSNumber numberWithDouble:nextNum] atIndex:i];
-//    }
-//    ////////////////
-
-//    double max = 0;
+    //    //SMOOTHING DATA
+    //    NSMutableArray* y = [[NSMutableArray alloc] init];
+    //    [y addObject:[yData objectAtIndex:0]];
+    //
+    //    double beta = 0.1;
+    //
+    //    for (int i = 1; i < [yData count]; i++)
+    //    {
+    //        double nextNum = beta*[[yData objectAtIndex:i] doubleValue] + (1-beta)*[[y objectAtIndex:(i-1)] doubleValue];
+    //
+    //        [y insertObject:[NSNumber numberWithDouble:nextNum] atIndex:i];
+    //    }
+    //    ////////////////
     
-    //ADD GROUND POINTS TO THE CHARTING DATA SETS
+    //SPITCAST DATA
+    double max = [[yData objectAtIndex:0] doubleValue];
     for (int i = 0; i < [yData count]; i++)
     {
         double val = [[yData objectAtIndex:i] doubleValue];
-//        if (val > max)
-//        {
-//            max = val;
-//        }
         [yVals addObject:[[ChartDataEntry alloc] initWithX:i y:val]];
-//        [yVals addObject:[[ChartDataEntry alloc] initWithValue:val xIndex:i]];
+        
+        if (val > max)
+        {
+            max = val;
+        }
     }
     
-    //GROUND DATA AND ASTHETICS
-//    LineChartDataSet* dYData = [[LineChartDataSet alloc] initWithYVals:yVals label:plotLabel];
+    //COLOR PREFERENCE
+    NSDictionary* prefs = [PreferenceFactory getPreferences];
+    UIColor* color = [prefs objectForKey:kColorScheme];
+    
+    //MAIN DATA
     LineChartDataSet* dYData = [[LineChartDataSet alloc] initWithValues:yVals label:plotLabel];
     dYData.lineWidth = 4;
     dYData.circleRadius = 4.0;
     dYData.drawCubicEnabled = YES;
     [dYData setColor:[UIColor blueColor]];
     [dYData setCircleColor:[UIColor clearColor]];
-
-    //get colors from the preference factory soon
-    //GROUND GRADIENT
-    NSArray *gradientColors = @[(id)[ChartColorTemplates colorFromString:@"#3871cb"].CGColor,
-                                (id)[ChartColorTemplates colorFromString:@"#3894cb"].CGColor];
+    dYData.axisDependency = AxisDependencyLeft;
+    
+    //GRADIENT COLORS
+    NSArray* gradientColors = @[(id)color.CGColor,(id)[UIColor blackColor].CGColor];
+    
+    //    NSArray *gradientColors = @[(id)[ChartColorTemplates colorFromString:@"#3871cb"].CGColor,
+    //                                (id)[ChartColorTemplates colorFromString:@"#3894cb"].CGColor]; //get colors from the preference factory soon
     CGGradientRef gradient = CGGradientCreateWithColors(nil, (CFArrayRef)gradientColors, nil);
     dYData.fillAlpha = 0.5f;
     dYData.fill = [ChartFill fillWithLinearGradient:gradient angle:90.f];
     dYData.drawFilledEnabled = YES;
     CGGradientRelease(gradient);
     
-    
-    
-    //ADDING THE CURRENT TIME BAR
+    //CURRENT TIME BAR
     int currentTimeCount = [DateHandler getIndexFromCurrentTime];
-    
+    NSLog(@"current time count: %i",currentTimeCount);
     NSMutableArray* currentBarVals = [[NSMutableArray alloc] init];
-    for (int i = 0; i < [yData count]; i++)
-    {
-        if ( i == currentTimeCount)
-        {
-//            [currentBarVals addObject:[[ChartDataEntry alloc] initWithValue:[[yData objectAtIndex:i] doubleValue] xIndex:currentTimeCount]];
-            [currentBarVals addObject:[[ChartDataEntry alloc] initWithX:currentTimeCount y:[[yData objectAtIndex:i] doubleValue]]];
-        }
-        else
-        {
-//            [currentBarVals addObject:[[ChartDataEntry alloc] initWithValue:0 xIndex:currentTimeCount]];
-                        [currentBarVals addObject:[[ChartDataEntry alloc] initWithX:currentTimeCount y:0]];
-        }
-    }
+    [currentBarVals addObject:[[ChartDataEntry alloc] initWithX:currentTimeCount y:0]];
+    [currentBarVals addObject:[[ChartDataEntry alloc] initWithX:currentTimeCount y:[[yData objectAtIndex:currentTimeCount] doubleValue]]];
     
-//    LineChartDataSet* dCurrentBar = [[LineChartDataSet alloc] initWithYVals:currentBarVals label:@"current time"];
-    
-    LineChartDataSet* dCurrentBar = [[LineChartDataSet alloc] initWithValues:currentBarVals label:@"current time"];
-    
+    LineChartDataSet* dCurrentBar = [[LineChartDataSet alloc] initWithValues:currentBarVals label:@"Current Time"];
     dCurrentBar.lineWidth = 5;
     [dCurrentBar setCircleColor:[UIColor clearColor]];
     [dCurrentBar setColor:[UIColor blackColor]];
     dCurrentBar.circleRadius = 0;
     
-
-    
     //ADD THE DATA SETS
-        [dataSets addObject:dCurrentBar];
+    [dataSets addObject:dCurrentBar];
     [dataSets addObject:dYData];
-
-    //INITALIZE & ADD THE DATA FOR PLOTTING
-//    LineChartData *data = [[LineChartData alloc] initWithXVals:xVals dataSets:dataSets];
-//    [data setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:0]];
-    
-    LineChartData *data = [[LineChartData alloc] initWithDataSets:dataSets];
+    LineChartData* data = [[LineChartData alloc] initWithDataSets:dataSets];
+    [_theChartView setData:data];
+    [data setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:0]];     //removes the number values of each point
     
     //FORMAT X-AXIS
-    ChartXAxis* xAxis = _theChartView.xAxis;
-    xAxis.drawGridLinesEnabled = YES;
-    xAxis.labelPosition = XAxisLabelPositionBottom;
-    xAxis.valueFormatter = self;
-
+    ChartXAxis *xAxis = _theChartView.xAxis;
+    xAxis.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.f];
+    xAxis.granularity = 1.f;
+    xAxis.centerAxisLabelsEnabled = YES; //makes the numbers under the actual grid lines
+    xAxis.labelPosition = XAxisLabelPositionBottom; //puts the labels on the bottom line
+    xAxis.valueFormatter = self; //tells the protocol to adopt the value to string conversion!
+    xAxis.axisMinimum = 0;
+    
     //different labeling when hours or days are shown.
     if ([xVals count] == 24) //showing hours of the day
     {
@@ -229,52 +240,31 @@
         xAxis.centerAxisLabelsEnabled = YES;
     }
     
-    xAxis.labelFont =[UIFont fontWithName:@"HelveticaNeue-Light" size:20.f];
-    
     //FORMAT Y-AXIS
     ChartYAxis* Yaxis = _theChartView.leftAxis;
-    //Yaxis.valueFormatter = [[NSNumberFormatter alloc] init]; //this used to work
-    
-//    Yaxis.axisRange = 5;
-//    Yaxis.axisMaxValue = 4;
-    Yaxis.axisMinValue = 0;
-    Yaxis.labelCount = 2; //2 is the min
-    Yaxis.granularityEnabled = YES;
-//    Yaxis.valueFormatter.minimumFractionDigits = 0;
-//    Yaxis.valueFormatter.positiveSuffix = indicatorVal;
+    Yaxis.labelCount = 3; //2 is the min
+    Yaxis.granularityEnabled = YES; //no decimal points
     Yaxis.labelFont =[UIFont fontWithName:@"HelveticaNeue-Light" size:20.f];
-
+    Yaxis.valueFormatter = self; //tells the protocol to adopt the value to string conversion!
+    Yaxis.axisMaximum = max + 1;
+    Yaxis.axisMinimum = 0;
+    Yaxis.axisRange = max + 1;
+    
     ChartYAxis* rightAxis = _theChartView.rightAxis;
-   // rightAxis.valueFormatter =[[NSNumberFormatter alloc] init];
     rightAxis.enabled = NO;
-//    rightAxis.axisMinValue = 0;
-//    rightAxis.labelCount = 2;
-//    rightAxis.granularityEnabled = YES;
-//    rightAxis.valueFormatter.minimumFractionDigits = 0;
-//    rightAxis.valueFormatter.positiveSuffix = indicatorVal;
-//    rightAxis.labelFont =[UIFont fontWithName:@"HelveticaNeue-Light" size:20.f];
-
-    //SET THE DATA PROPERTY
-    [_theChartView setData:data];
-    
-    [_theChartView setDescriptionText:@""];
-    
-    
-    //ANIMATION
-    //    [chartView animateWithYAxisDuration:1.5];
-//    [chartView animateWithXAxisDuration:1.5];
-    //    chartView.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.5];
     
     //CHART LEGEND
     ChartLegend *legend = _theChartView.legend;
     legend.position = ChartLegendPositionAboveChartLeft;
     legend.position = ChartLegendPositionBelowChartLeft;
-    [legend setEnabled:NO];
     legend.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15.f];
-    _theChartView.userInteractionEnabled = NO;
+    [legend setEnabled:NO]; //don't add the legend in the ui view
     
+    //UIVIEW HANDLING
+    _theChartView.userInteractionEnabled = NO; //cannot click and drag the on the plot
+    [_theChartView sizeToFit];
+    [_theChartView setDescriptionText:@""];
 }
-
 
 //PROTOCOL IMPLEMENTATION FOR ICHARTAXISVALUEFORMATTER (WRITES THE LABLES ON AXIS VALUES
 -(NSString*)stringForValue:(double)value axis:(ChartAxisBase *)axis

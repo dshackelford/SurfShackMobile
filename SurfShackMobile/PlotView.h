@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DateHandler.h"
+#import "PreferenceFactory.h"
 
 @import Charts;
 
