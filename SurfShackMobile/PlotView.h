@@ -11,7 +11,7 @@
 
 @import Charts;
 
-@interface PlotView : UIView <ChartViewDelegate>
+@interface PlotView : UIView <ChartViewDelegate, IChartAxisValueFormatter>
 {
     NSMutableArray* yData;
     NSMutableArray* xDataNameTags;
@@ -20,6 +20,8 @@
     
     UILabel* titleLabel;
     UILabel* spitcastLabel;
+    
+    NSMutableArray* xVals;
 }
 
 @property (nonatomic, strong) IBOutlet LineChartView* chartView;

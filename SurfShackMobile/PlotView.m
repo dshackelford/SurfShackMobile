@@ -82,7 +82,7 @@
 {
     
     //INITIALIZE X AXIS VALUES ARRAY
-    NSMutableArray *xVals = [[NSMutableArray alloc] init];
+    xVals = [[NSMutableArray alloc] init];
     
     int hour = 0;
     //ADD THE DISTANCE TRAVELED VALUE TO X AXIS DATA
@@ -182,7 +182,7 @@
 
     //INITALIZE & ADD THE DATA FOR PLOTTING
 //    LineChartData *data = [[LineChartData alloc] initWithXVals:xVals dataSets:dataSets];
-// //   [data setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:0]];
+//    [data setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:0]];
     
     LineChartData *data = [[LineChartData alloc] initWithDataSets:dataSets];
     
@@ -190,17 +190,45 @@
     ChartXAxis* xAxis = _theChartView.xAxis;
     xAxis.drawGridLinesEnabled = YES;
     xAxis.labelPosition = XAxisLabelPositionBottom;
+    xAxis.valueFormatter = self;
 
     //different labeling when hours or days are shown.
-    if ([xVals count] > 25)
+    if ([xVals count] == 24) //showing hours of the day
     {
-//        [xAxis setLabelsToSkip:24];
+        [xAxis setLabelCount:5 force:YES];
+        xAxis.centerAxisLabelsEnabled = NO;
     }
-    else
+    else if([xVals count] == 48)
     {
-//        [xAxis resetLabelsToSkip];
+        [xAxis setLabelCount:3 force:YES];
+        xAxis.centerAxisLabelsEnabled = YES;
     }
-//    [xAxis setLabelsToSkip:24];
+    else if([xVals count] == 72)
+    {
+        [xAxis setLabelCount:4 force:YES];
+        xAxis.centerAxisLabelsEnabled = YES;
+    }
+    else if([xVals count] == 96)
+    {
+        [xAxis setLabelCount:5 force:YES];
+        xAxis.centerAxisLabelsEnabled = YES;
+    }
+    else if([xVals count] == 120)
+    {
+        [xAxis setLabelCount:6 force:YES];
+        xAxis.centerAxisLabelsEnabled = YES;
+    }
+    else if([xVals count] == 144)
+    {
+        [xAxis setLabelCount:7 force:YES];
+        xAxis.centerAxisLabelsEnabled = YES;
+    }
+    else if([xVals count] == 168)
+    {
+        [xAxis setLabelCount:8 force:YES];
+        xAxis.centerAxisLabelsEnabled = YES;
+    }
+    
     xAxis.labelFont =[UIFont fontWithName:@"HelveticaNeue-Light" size:20.f];
     
     //FORMAT Y-AXIS
@@ -247,6 +275,35 @@
     
 }
 
+
+//PROTOCOL IMPLEMENTATION FOR ICHARTAXISVALUEFORMATTER (WRITES THE LABLES ON AXIS VALUES
+-(NSString*)stringForValue:(double)value axis:(ChartAxisBase *)axis
+{
+    value = ceil(value);
+    
+    if (value < 0)
+    {
+        return [NSString stringWithFormat:@"w"];
+    }
+    if ([axis isKindOfClass:[ChartXAxis class]])
+    {
+        NSLog(@"X: %f",value);
+        if (value < [xVals count])
+        {
+            return [xVals objectAtIndex:value];
+        }
+        else
+        {
+            return [NSString stringWithFormat:@"x"];
+        }
+    }
+    else
+    {
+        NSLog(@"Y: %f",value);
+        NSString* str = [NSString stringWithFormat:@"%.f%@",value,indicatorVal];
+        return str;
+    }
+}
 ////CHART DELEGATE METHODS
 //- (void)chartValueSelected:(ChartViewBase* __nonnull)chartView entry:(ChartDataEntry*__nonnull)entry dataSetIndex:(NSInteger)dataSetIndex highlight:(ChartHighlight*__nonnull)highlight
 //{
