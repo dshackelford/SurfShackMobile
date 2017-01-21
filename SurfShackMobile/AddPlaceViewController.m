@@ -268,6 +268,7 @@
         NSString* title = [tableData objectAtIndex:self.selectedIndex];
         NSLog(@"%@",title);
         [destViewController setTitle:title];
+        [destViewController setCounty:[tableData objectAtIndex:self.selectedIndex]];
       
     }
 }

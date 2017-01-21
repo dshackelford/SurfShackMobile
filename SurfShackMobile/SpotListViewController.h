@@ -28,8 +28,12 @@
     NSDictionary* paragraphs;
     
     NSArray* favSpots;
+    
+    NSString* county;
 }
 
 -(void)setTitle:(NSString*)titleInit;
 -(void)setTableData:(NSMutableArray*)tableDataInit;
+-(void)setCounty:(NSString*)countyInit;
+
 @end

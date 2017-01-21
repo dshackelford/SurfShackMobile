@@ -51,6 +51,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Prepare For Segue Methods
 -(void)setTableData:(NSMutableArray*)tableDataInit
 {
     tableData = tableDataInit;
@@ -58,6 +59,10 @@
 -(void)setTitle:(NSString *)titleInit
 {
     title = titleInit;
+}
+-(void)setCounty:(NSString *)countyInit
+{
+    county = countyInit;
 }
 
 #pragma mark - Table Delegate Methods
@@ -130,9 +135,22 @@
     
     [db closeDatabase];
     
+    [self reloadTheTable];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"changedSpotFavorites" object:self];
 }
 
+//need to reload the data immediately so that the check marks will appear when the user scrolls away from checkmarked spot
+-(void)reloadTheTable
+{
+    if ([db openDatabase])
+    {
+        tableData = [db getSpotNamesInCounty:county];
+        favSpots = [db newGetSpotNameFavorites];
+    }
+    [db closeDatabase];
+    [self.tableView reloadData];
+}
 
 - (void)updateSwitchAtIndexPath:(UISegmentedControl*)segControl
 {
