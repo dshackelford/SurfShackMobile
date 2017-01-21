@@ -55,16 +55,16 @@
     if ([_favoriteSpotsArr count] > 0)
     {
         //NAVIGATION BAR BUTTONS
-        listOfSpotsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(didPressListOfSpotsButton:)];
+        listOfSpotsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(didPressListOfSpotsButton:)];
         self.navigationItem.rightBarButtonItem = listOfSpotsButton;
     
-        editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(didPressEditButton:)];
-        self.navigationItem.leftBarButtonItem = editButton;
+//        editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(didPressEditButton:)];
+//        self.navigationItem.leftBarButtonItem = editButton;
     
-        [editButton setTintColor:[UIColor clearColor]];
+//        [editButton setTintColor:[UIColor clearColor]];
     
-        refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(didPressRefreshButton:)];
-        self.navigationItem.leftBarButtonItem = refreshButton;
+//        refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(didPressRefreshButton:)];
+//        self.navigationItem.leftBarButtonItem = refreshButton;
 
         
         shouldReloadPageController = NO;
@@ -90,6 +90,8 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
+    
+    //check to see there are favorite spots selected by the user
     if ([db openDatabase])
     {
         _favoriteSpotsArr = [db newGetSpotFavorites];
@@ -99,12 +101,13 @@
     
     NSLog(@"Report Page Appeared");
     
+    //if there are favorites, download some data
     if ([_favoriteSpotsArr count] > 0)
     {
         NSLog(@"%@",_favoriteSpotsArr);
         [dataFactory getDataForSpots:_favoriteSpotsArr andCounties:_favoriteCounties];
     }
-    else
+    else //tell the user to select some favorite spots
     {
         self.title = @"ReportView";
         alertController = [UIAlertController alertControllerWithTitle:@"NO SPOTS TO LOOK UP!" message:@"Please add spots in the ADD Spot Page." preferredStyle:UIAlertControllerStyleAlert];
@@ -184,7 +187,19 @@
 
 -(IBAction)didPressRefreshButton:(id)sender
 {
-    NSLog(@"did press refresh button");
+
+//    NSLog(@"did press refresh button");
+//    // Create a new view controller and pass suitable data.
+//    ReportViewController *pageContentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ReportViewController"];
+//    
+//    pageContentViewController.index = pageControl.currentPage;
+//    [pageContentViewController refreshData];
+//    
+////    [pageContentViewController refreshData];
+//    int spotID = [[_favoriteSpotsArr objectAtIndex:pageControl.currentPage] intValue];
+//    [dataFactory removeSpotDictionary:spotID];
+//    //also add one for the county?
+//    [dataFactory getDataForSpots:_favoriteSpotsArr andCounties:_favoriteCounties];
 }
 
 -(void)changedSpotFavorites:(NSNotification*)notification
@@ -274,6 +289,7 @@
         [pageContentViewController setSpotDict:[dataFactory getASpotDictionary:aSpotName andCounty:aCounty]];
     }
     [pageContentViewController setDataFactory:dataFactory];
+    [db closeDatabase]; //jsut added
     
     return pageContentViewController;
 }

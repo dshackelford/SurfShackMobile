@@ -112,7 +112,7 @@
     {
         for (int i = 0; i < [yData count]; i++)
         {
-            NSLog(@"%i, %@",i,[xDataNameTags objectAtIndex:i]);
+//            NSLog(@"%i, %@",i,[xDataNameTags objectAtIndex:i]);
             NSString* aValString = [xDataNameTags objectAtIndex:i];
             
             [xVals addObject:aValString];
@@ -279,7 +279,7 @@
     }
     if ([axis isKindOfClass:[ChartXAxis class]])
     {
-        NSLog(@"X: %f",value);
+//        NSLog(@"X: %f",value);
         if (value < [xVals count])
         {
             return [xVals objectAtIndex:value];
@@ -291,7 +291,7 @@
     }
     else
     {
-        NSLog(@"Y: %f",value);
+//        NSLog(@"Y: %f",value);
         NSString* str = [NSString stringWithFormat:@"%.f%@",value,indicatorVal];
         return str;
     }

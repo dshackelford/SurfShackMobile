@@ -153,11 +153,25 @@
     });
 }
 
+-(void)refreshData
+{
+    aCompView.hidden = YES;
+    infoView.hidden = YES;
+    
+    headingLabel.hidden = YES;
+//    [aPlotView removeFromSuperview];
+    aPlotView.hidden = YES;
+    
+    indicator.hidden = NO;
+    [indicator startAnimating];
+    NSLog(@"attemp resfresh");
+}
+
 //if there is data, then current values can be derived thusly
 -(void)spotHasData
 {
     [indicator stopAnimating];
-    [indicator removeFromSuperview];
+    indicator.hidden = YES;
     spotDict = [dataFactory setCurrentValuesForSpotDict:spotDict];
     [self chooseDataToDisplay];
 }
@@ -330,6 +344,27 @@
     }
 }
 
+-(void)didSwipeDown:(UISwipeGestureRecognizer *)aSwipeDown
+{
+    NSLog(@"Swiped Down to refresh!");
+    [self refreshData];
+    [dataFactory removeData];
+//    [dataFactory removeSpotDictionary:[[favSpots objectAtIndex:self.index] intValue]];
+//    [dataFactory removeCountyDict]
+    [db openDatabase];
+    NSMutableArray* countyArr = [[NSMutableArray alloc] init];
+    for (NSNumber* ID in favSpots)
+    {
+        NSString* countyName = [db newGetCountyOfSpotID:[ID intValue]];
+        [countyArr addObject:countyName];
+    }
+
+    [db closeDatabase];
+    
+    [dataFactory getDataForSpots:favSpots andCounties:countyArr];
+}
+
+
 -(void)establishGestures
 {
     singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSingleTap:)];
@@ -337,9 +372,9 @@
     
 //    longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPress:)];
 //    
-//    swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDown:)];
-//    swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
-//    
+    swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDown:)];
+    swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
+//
 //    swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeUp:)];
 //    swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
 //    
@@ -347,7 +382,7 @@
     
     [self.view addGestureRecognizer:singleTap];
 //    [self.view addGestureRecognizer:longPress];
-//    [self.view addGestureRecognizer:swipeDown];
+    [self.view addGestureRecognizer:swipeDown];
 //    [self.view addGestureRecognizer:swipeUp];
 }
 

@@ -133,8 +133,8 @@
 {
 //    locationManager = [[CLLocationManager alloc] init];
 //    locationManager.delegate = self;
-    locationManager.distanceFilter = kCLDistanceFilterNone;
-    locationManager.desiredAccuracy = kCLDistanceFilterNone;
+//    locationManager.distanceFilter = kCLLocationAccuracyBest;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager requestAlwaysAuthorization];
     [locationManager requestWhenInUseAuthorization];
     
@@ -149,7 +149,7 @@
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(nonnull NSError *)error
 {
-    NSLog(@"ERROR");
+    NSLog(@"ERROR with core location finding? %@",error);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations

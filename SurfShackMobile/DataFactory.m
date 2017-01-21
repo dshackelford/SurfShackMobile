@@ -37,7 +37,7 @@
     //to avoid multithread issues with database queries
     for (NSNumber* num in spotIDArray)
     {
-        int intNum = [num integerValue];
+        int intNum = [num intValue];
 
         [db openDatabase];
         [arrOfLocs addObject: [db newGetLocationOfSpot:intNum]];
@@ -45,7 +45,7 @@
         [db closeDatabase];
     }
     
-    int currentDownloadTry = [[DateHandler getCurrentDateString] integerValue];
+    int currentDownloadTry = [[DateHandler getCurrentDateString] intValue];
     NSLog(@"%d",currentDownloadTry);
     
     if (currentDownloadTry > dateOnLastDownload)
@@ -61,7 +61,7 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
         ^{
             NSNumber* num = [spotIDArray objectAtIndex:i];
-            int intNum = [[spotIDArray objectAtIndex:i] integerValue];
+            int intNum = [[spotIDArray objectAtIndex:i] intValue];
 
             CLLocation* aLoc = [arrOfLocs objectAtIndex:i];
             NSString* spotName = [arrOfSpotNames objectAtIndex:i];
@@ -70,12 +70,12 @@
             //If I haven't already downloaed the spotsDict, don't redownload it!
             if ([spotsDict objectForKey:spotName] == nil)
             {
-                dateOnLastDownload = [[DateHandler getCurrentDateString] integerValue];
+                dateOnLastDownload = [[DateHandler getCurrentDateString] intValue];
                 
                 NSMutableDictionary* aSpotDict = [[NSMutableDictionary alloc] init];
             
                 //SURF DATA
-                NSMutableDictionary* surfData = [spitData getSurfDataForLocation:[num integerValue]];
+                NSMutableDictionary* surfData = [spitData getSurfDataForLocation:[num intValue]];
                 [aSpotDict setObject:surfData forKey:@"surf"];
             
                 //WEATHER AND SUN TIMES
@@ -402,6 +402,22 @@
     }
     
     return shortArray;
+}
+
+-(void)removeSpotDictionary:(int)spotID
+{
+    [db openDatabase];
+    NSString* spotName = [db newGetSpotNameOfSpotID:spotID];
+//    NSString* countyName
+    [db closeDatabase];
+    [spotsDict removeObjectForKey:spotName];
+}
+
+-(void)removeData
+{
+    //remove all objects from the dictionaries for a fresh download
+    [spotsDict removeAllObjects];
+    [countiesDict removeAllObjects];
 }
 
 @end

@@ -41,4 +41,7 @@
 
 -(NSMutableDictionary*)setCurrentValuesForSpotDict:(NSMutableDictionary*)spotDictInit;
 
+-(void)removeSpotDictionary:(int)spotName;
+-(void)removeData;
+
 @end
