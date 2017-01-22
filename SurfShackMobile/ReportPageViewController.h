@@ -39,6 +39,13 @@
     CGSize screenSize;
     
     BOOL shouldReloadPageController;
+    
+    UIPanGestureRecognizer* swipeDown;
+    UISwipeGestureRecognizer* swipeRight;
+    UISwipeGestureRecognizer* swipeLeft;
+    UITapGestureRecognizer* singleTap;
+    
+    CGPoint startSwipePoint;
 }
 
 @property NSArray* favoriteSpotsArr;

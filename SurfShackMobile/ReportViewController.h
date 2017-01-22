@@ -26,7 +26,7 @@
 
 
 @import Charts;
-@interface ReportViewController : MasterViewController <CLLocationManagerDelegate>
+@interface ReportViewController : MasterViewController <CLLocationManagerDelegate,UIGestureRecognizerDelegate>
 {
     DBManager* db;
     
@@ -57,15 +57,10 @@
     //REPORT LABELS
     UILabel* titleLabel;
     UILabel* headingLabel;
-    
-    //GESTURES
-    UITapGestureRecognizer* singleTap;
-    UILongPressGestureRecognizer* longPress;
-    UISwipeGestureRecognizer* swipeDown;
-    UITapGestureRecognizer* doubleTap;
-    UISwipeGestureRecognizer* swipeUp;
-    
+
     IBOutlet UIActivityIndicatorView* indicator;
+    
+    CGPoint startSwipePoint;
 }
 
 @property NSInteger index;

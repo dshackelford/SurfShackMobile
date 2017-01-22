@@ -51,7 +51,6 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     //    self.view.backgroundColor = [UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:1];
     
-    
     if ([_favoriteSpotsArr count] > 0)
     {
         //NAVIGATION BAR BUTTONS
@@ -85,6 +84,8 @@
         [alertController addAction:defaultAction];
         [self presentViewController:alertController animated:YES completion:nil];
     }
+    
+    [self establishGestures];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -449,4 +450,94 @@
     //need a better way of keeping an index of the favorites spots, dictionaries jumble them up
 }
 
+#pragma mark - Gestures
+-(void)didSwipeDown:(UIPanGestureRecognizer *)aSwipeDown
+{
+    if (aSwipeDown.state == UIGestureRecognizerStateBegan)
+    {
+        startSwipePoint = [aSwipeDown locationInView:self.view];
+        NSLog(@"swipe starts");
+    }
+    else if(aSwipeDown.state == UIGestureRecognizerStateChanged)
+    {
+        NSLog(@"swiping");
+        CGPoint currentPoint = [aSwipeDown locationInView:self.view];
+        int y = -startSwipePoint.y + currentPoint.y;
+//        NSLog(@"%d",y);
+        if(y>0 && y <75)
+        {
+            self.view.frame = CGRectMake(0, y, screenSize.width, screenSize.height);
+        }
+        else if (y > 75)
+        {
+                
+                [dataFactory removeData];
+                
+                [dataFactory getDataForSpots:_favoriteSpotsArr andCounties:_favoriteCounties];
+                
+                NSLog(@"Swiped Down to refresh!");
+                
+                //tells the report views to remove their subviews and to start the indicator
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshData" object:nil];
+                
+                [UIView animateWithDuration:.5 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    self.view.frame  = CGRectMake(0, 0, screenSize.width,screenSize.height);
+                } completion:^(BOOL finished) {
+                    
+                }];
+        }
+    }
+    else if(aSwipeDown.state == UIGestureRecognizerStateEnded)
+    {
+        
+                //move the screen back up a little bit faster
+            [UIView animateWithDuration:.25 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.view.frame  = CGRectMake(0, 0, screenSize.width,screenSize.height);
+            } completion:^(BOOL finished) {
+                
+            }];
+        
+    }
+    
+}
+
+
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    NSLog(@"started swiping");
+    return YES;
+}
+
+
+-(void)establishGestures
+{
+    singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSingleTap:)];
+    singleTap.numberOfTapsRequired = 1;
+
+    swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:nil];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    
+    swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:nil];
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    
+    swipeDown = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDown:)];
+    [swipeDown requireGestureRecognizerToFail:swipeLeft];
+    [swipeDown requireGestureRecognizerToFail:swipeRight];
+    [swipeDown requireGestureRecognizerToFail:singleTap];
+    
+    singleTap.cancelsTouchesInView = YES;
+    
+    [self.view addGestureRecognizer:swipeRight];
+    [self.view addGestureRecognizer:swipeLeft];
+    [self.view addGestureRecognizer:singleTap];
+    [self.view addGestureRecognizer:swipeDown];
+}
+
+-(void)didSingleTap:(UITapGestureRecognizer*)tapGesture
+{
+    //post notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"tap" object:nil];
+    
+}
 @end

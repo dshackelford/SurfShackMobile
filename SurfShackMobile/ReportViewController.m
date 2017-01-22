@@ -27,7 +27,7 @@
         screenSize.height = x;
     }
     
-    [self establishGestures];
+//    [self establishGestures];
     
     [db openDatabase];
     favSpots = [db newGetSpotFavorites];
@@ -47,6 +47,8 @@
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRotate:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
     
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveTap:) name:@"tap" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:@"refreshData" object:nil];
     
     
     //ADD SUBVIEWS (OFFSET Y BY 70 FOR THE TITLE BAR BEING PRESENT)
@@ -153,17 +155,17 @@
     });
 }
 
--(void)refreshData
+-(void)refreshData:(NSNotification*)notification
 {
     aCompView.hidden = YES;
     infoView.hidden = YES;
     
     headingLabel.hidden = YES;
-//    [aPlotView removeFromSuperview];
     aPlotView.hidden = YES;
     
     indicator.hidden = NO;
     [indicator startAnimating];
+    
     NSLog(@"attemp resfresh");
 }
 
@@ -324,8 +326,7 @@
     spotDict = dictInit;
 }
 
-#pragma mark - Gestures & Interactions
--(void)didSingleTap:(UITapGestureRecognizer *)aSingleTap
+-(void)didReceiveTap:(NSNotification*)notification
 {
     NSLog(@"tapped the screen, call the next view up");
     
@@ -342,49 +343,7 @@
         
         [self chooseDataToDisplay];
     }
+
 }
-
--(void)didSwipeDown:(UISwipeGestureRecognizer *)aSwipeDown
-{
-    NSLog(@"Swiped Down to refresh!");
-    [self refreshData];
-    [dataFactory removeData];
-//    [dataFactory removeSpotDictionary:[[favSpots objectAtIndex:self.index] intValue]];
-//    [dataFactory removeCountyDict]
-    [db openDatabase];
-    NSMutableArray* countyArr = [[NSMutableArray alloc] init];
-    for (NSNumber* ID in favSpots)
-    {
-        NSString* countyName = [db newGetCountyOfSpotID:[ID intValue]];
-        [countyArr addObject:countyName];
-    }
-
-    [db closeDatabase];
-    
-    [dataFactory getDataForSpots:favSpots andCounties:countyArr];
-}
-
-
--(void)establishGestures
-{
-    singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSingleTap:)];
-    singleTap.numberOfTapsRequired = 1;
-    
-//    longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPress:)];
-//    
-    swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDown:)];
-    swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
-//
-//    swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeUp:)];
-//    swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
-//    
-//    [swipeDown requireGestureRecognizerToFail:singleTap];
-    
-    [self.view addGestureRecognizer:singleTap];
-//    [self.view addGestureRecognizer:longPress];
-    [self.view addGestureRecognizer:swipeDown];
-//    [self.view addGestureRecognizer:swipeUp];
-}
-
 
 @end
