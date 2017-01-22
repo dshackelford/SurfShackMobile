@@ -127,6 +127,16 @@
     downloaded = 0;
     [self restrictRotation:YES];
     [super viewWillAppear:NO];
+    
+    if([db openDatabase] && [[db newGetAllCounties] count] > 0)
+    {
+        tableData = [db newGetAllCounties];
+        [self.tableView reloadData];
+        favSpots = [db newGetSpotFavorites];
+        favCountyArr = [db newGetCountyFavorites];
+    }
+    
+    [db closeDatabase];
 }
 
 -(IBAction)didPressCurrentLocationButton:(id)sender
