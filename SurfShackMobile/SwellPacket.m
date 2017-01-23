@@ -29,7 +29,7 @@
         
         NSDictionary* obj = [dataSet objectForKey:key];
         
-        NSNumber* dir = [obj objectForKey:@"dir"];
+//        NSNumber* dir = [obj objectForKey:@"dir"];
         
         if ([[obj objectForKey:@"dir"] isEqual:[NSNull null]])
         {

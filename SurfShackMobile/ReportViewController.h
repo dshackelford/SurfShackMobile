@@ -71,6 +71,4 @@
 -(void)setSpotDict:(NSMutableDictionary*)dictInit;
 -(void)setDataFactory:(DataFactory*)aDataFactory;
 
--(void)refreshData;
-
 @end

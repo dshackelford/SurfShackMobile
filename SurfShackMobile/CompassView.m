@@ -143,7 +143,7 @@
         [mainSwellDatum updateLabelStr:[dictInit objectForKey:@"mainSwellInfo"]];
         [secondSwellDatum updateLabelStr:[dictInit objectForKey:@"secondSwellInfo"]];
         
-        markerInitialDegree = [[dictInit objectForKey:@"currentSwellDirection"] integerValue];
+        markerInitialDegree = [[dictInit objectForKey:@"currentSwellDirection"] intValue];
         
         [self rotateMarkerView:headingInit];
     }
@@ -165,7 +165,7 @@
         [sunsetDatum updateLabelStr:[weatherDict objectForKey:@"sunset"]];
         [sunriseDatum updateLabelStr:[weatherDict objectForKey:@"sunrise"]];
         
-        markerInitialDegree = [[dictInit objectForKey:@"windDirection"] integerValue];
+        markerInitialDegree = [[dictInit objectForKey:@"windDirection"] intValue];
         
         [self rotateMarkerView:headingInit];
     }

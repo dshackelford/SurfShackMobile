@@ -42,6 +42,6 @@
 @property int selectedSection;
 @property int actualSelectedIndex;
 
--(void)showAboutVC;
+-(IBAction)showAboutVC:(id)sender;
 
 @end

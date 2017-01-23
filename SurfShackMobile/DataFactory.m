@@ -215,7 +215,7 @@
                 double height = hs*hst;
                 height = ceil(height);
         
-                int direction = [[hourSwellDict objectForKey:@"dir"] integerValue] + 180;
+                int direction = [[hourSwellDict objectForKey:@"dir"] intValue] + 180;
         
                 NSString* dirStr = [self getDirectionStrFromDegree:direction];
             
@@ -237,7 +237,7 @@
                 double height = hs*hst;
                 height = ceil(height);
             
-                int direction = [[hourSwellDict objectForKey:@"dir"] integerValue];
+                int direction = [[hourSwellDict objectForKey:@"dir"] intValue];
         
                 direction = direction + 180;
                 NSString* dirStr = [self getDirectionStrFromDegree:direction];

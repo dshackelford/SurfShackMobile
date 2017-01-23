@@ -146,7 +146,7 @@
 +(NSString*)getTimeFromPST:(NSString*)pstInit
 {
     NSArray * arr = [pstInit componentsSeparatedByString:@":"];
-    int hour = [[arr objectAtIndex:0] integerValue];
+    int hour = [[arr objectAtIndex:0] intValue];
     if (hour > 12)
     {
         hour = hour - 12;
@@ -182,7 +182,7 @@
     NSString* ts_local_string = [df_local stringFromDate:ts_utc];
     
     NSArray * arr = [ts_local_string componentsSeparatedByString:@":"];
-    int hour = [[arr objectAtIndex:0] integerValue];
+    int hour = [[arr objectAtIndex:0] intValue];
     
     return hour;
 }

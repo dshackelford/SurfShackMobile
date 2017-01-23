@@ -30,13 +30,14 @@
 +(NSString*)getIndicatorStrForHeight;
 +(NSString*)getIndicatorStrForSpeed;
 
-+(NSArray*)getSpotFavorites;
-+(void)writeSpotToFavorites:(NSString*)spotNameInit andID:(NSString*)spotIDInit;
-+(void)removeSpotFromFavotiesWithID:(NSString*)spotIDInit;
+//Got moved to the database manager
+//+(NSArray*)getSpotFavorites;
+//+(void)writeSpotToFavorites:(NSString*)spotNameInit andID:(NSString*)spotIDInit;
+//+(void)removeSpotFromFavotiesWithID:(NSString*)spotIDInit;
 
-+(NSArray*)getAllSpots;
+//+(NSArray*)getAllSpots;
 
-+(NSString*)getSpotNameFromSpotID:(NSString*)spotID;
+//+(NSString*)getSpotNameFromSpotID:(NSString*)spotID;
 
 +(NSDictionary*)getDataProviderNames;
 

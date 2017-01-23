@@ -80,7 +80,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    int selectedRow = indexPath.row;
+    int selectedRow = (int)indexPath.row;
     
     [PreferenceFactory setColorPreference:[tableData objectAtIndex:indexPath.row]];
     

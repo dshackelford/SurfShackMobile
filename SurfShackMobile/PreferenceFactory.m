@@ -19,8 +19,8 @@
     
     if ([surfDataProvider isEqualToString:@"Spitcast"])
     {
-        int shortRange = [[prefs objectForKey:kShortDataLength] integerValue];
-        int longRange = [[prefs objectForKey:kLongDataLength] integerValue];
+        int shortRange = [[prefs objectForKey:kShortDataLength] intValue];
+        int longRange = [[prefs objectForKey:kLongDataLength] intValue];
         SpitcastData* aSpitcastAcc = [[SpitcastData alloc] initWithShortLength:shortRange andLongLength:longRange];
         return aSpitcastAcc;
     }
@@ -49,7 +49,7 @@
     }
     
     NSDictionary* prefDict = [NSDictionary dictionaryWithContentsOfFile:[AppUtilities getPathToPreferenceFile]];
-    int shortRange = [[prefDict objectForKey:kShortDataLength] integerValue];
+    int shortRange = [[prefDict objectForKey:kShortDataLength] intValue];
     return shortRange;
 }
 
@@ -61,7 +61,7 @@
     }
     
     NSDictionary* prefDict = [NSDictionary dictionaryWithContentsOfFile:[AppUtilities getPathToPreferenceFile]];
-    int longRange = [[prefDict objectForKey:kLongDataLength] integerValue];
+    int longRange = [[prefDict objectForKey:kLongDataLength] intValue];
     return longRange;
 }
 

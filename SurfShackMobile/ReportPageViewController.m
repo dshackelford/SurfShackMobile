@@ -56,15 +56,6 @@
         //NAVIGATION BAR BUTTONS
         listOfSpotsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(didPressListOfSpotsButton:)];
         self.navigationItem.rightBarButtonItem = listOfSpotsButton;
-    
-//        editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(didPressEditButton:)];
-//        self.navigationItem.leftBarButtonItem = editButton;
-    
-//        [editButton setTintColor:[UIColor clearColor]];
-    
-//        refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(didPressRefreshButton:)];
-//        self.navigationItem.leftBarButtonItem = refreshButton;
-
         
         shouldReloadPageController = NO;
         // Create page view controller
@@ -285,8 +276,8 @@
     
     if([db openDatabase])
     {
-        NSString* aSpotName = [db newGetSpotNameOfSpotID:[[_favoriteSpotsArr objectAtIndex:index] integerValue]];
-        NSString* aCounty = [db newGetCountyOfSpotID:[[_favoriteSpotsArr objectAtIndex:index] integerValue]];
+        NSString* aSpotName = [db newGetSpotNameOfSpotID:[[_favoriteSpotsArr objectAtIndex:index] intValue]];
+        NSString* aCounty = [db newGetCountyOfSpotID:[[_favoriteSpotsArr objectAtIndex:index] intValue]];
         [pageContentViewController setSpotDict:[dataFactory getASpotDictionary:aSpotName andCounty:aCounty]];
     }
     [pageContentViewController setDataFactory:dataFactory];

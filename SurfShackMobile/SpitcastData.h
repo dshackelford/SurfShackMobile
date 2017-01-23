@@ -43,11 +43,14 @@
 
 
 //new stuff, savage
--(NSMutableDictionary*)getSurfDataForLocation:(int)locInit;
--(NSMutableDictionary*)getWindDataForCounty:(NSString*)countyInit;
--(NSMutableDictionary*)getTideDataForCounty:(NSString*)countyInit;
--(double)getWaterTempForCounty:(NSString*)countyInit;
--(NSMutableArray*)getSwellDataForCounty:(NSString *)countyInit;
+//-(NSMutableDictionary*)getSurfDataForLocation:(int)locInit;
+//-(NSMutableDictionary*)getWindDataForCounty:(NSString*)countyInit;
+//-(NSMutableDictionary*)getTideDataForCounty:(NSString*)countyInit;
+//-(double)getWaterTempForCounty:(NSString*)countyInit;
+//-(NSMutableArray*)getSwellDataForCounty:(NSString *)countyInit;
+//
+//-(NSMutableArray*)getAllSpotsAndCounties;
+//-(NSMutableArray*)getNearBySpots:(NSString*)latInit andLon:(NSString*)lonInit;
 
 @end
 

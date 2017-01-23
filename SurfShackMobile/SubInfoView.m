@@ -57,7 +57,7 @@
                 double hs = [[[currentSwellDataArray objectAtIndex:i] objectForKey:@"hs"] doubleValue];
                 double hst = [[todaySwellArray objectAtIndex:currentTimeIndex] getHST];
                 double height = hs*hst;
-                int direction = [[[currentSwellDataArray objectAtIndex:i] objectForKey:@"dir"] integerValue] + 180;
+                int direction = [[[currentSwellDataArray objectAtIndex:i] objectForKey:@"dir"] intValue] + 180;
                 
                 NSString* directionStr = [self getStringFromHeading:direction];
                 NSString* str = [NSString stringWithFormat:@"Height: %.fft @ Period: %.fs From %@\n",height,tp,directionStr];

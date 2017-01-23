@@ -92,7 +92,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    int selectedRow = indexPath.row;
+    int selectedRow = (int)indexPath.row;
     
     NSLog(@"touch on row %d", selectedRow);
     

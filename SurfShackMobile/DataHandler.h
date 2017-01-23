@@ -12,29 +12,19 @@
 
 @protocol DataHandler <NSObject>
 
-//@required
-//this is the main one that will be called from the report view for the rest of the views
--(void)getDataForLocations:(NSArray*)arrOfLocs;
--(NSMutableDictionary*)getDataDict;
-
-//this is the method that will be called for the first report view on a different thread then the the rest of the spots.
--(NSDictionary*)getDataForLocation:(int)locInit;
-
-//the dictionary returned will be under the key of the spotID.
-//there will be arrays for surfData/tideData/windData/units
+-(NSMutableDictionary*)getSurfDataForLocation:(int)locInit;
+-(NSMutableDictionary*)getWindDataForCounty:(NSString*)countyInit;
+-(NSMutableDictionary*)getTideDataForCounty:(NSString*)countyInit;
+-(double)getWaterTempForCounty:(NSString*)countyInit;
+-(NSMutableArray*)getSwellDataForCounty:(NSString *)countyInit;
 
 -(NSMutableArray*)getNearBySpots:(NSString*)latInit andLon:(NSString*)lonInit;
 -(NSMutableArray*)getAllSpotsAndCounties;
 
--(NSMutableArray*)getShorternedVersionOfArray:(NSMutableArray*)arrInit ofLength:(int)rangeInit;
--(NSMutableArray*)getShorternedVersionOfXValArray:(NSMutableArray*)arrInit ofLength:(int)rangeInit;
-
-
+//could these be fixed with properties?
 -(int)getShortRange;
--(int)getLongRangt;
+-(int)getLongRange;
 -(void)setShortRange:(int)rangeInit;
 -(void)setLongRange:(int)rangeInit;
-
-
 
 @end

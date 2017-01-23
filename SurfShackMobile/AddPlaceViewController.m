@@ -32,7 +32,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAddSpotsToDB:) name:@"AddedSpotsToDB" object:nil];
     
     [super viewDidLoad];
-    NSMutableArray* spotArray;
+//    NSMutableArray* spotArray;
     NSLog(@"HomeDirectory: %@",NSHomeDirectory());
     
     countyArr = [[NSMutableArray alloc] init];
@@ -246,7 +246,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.selectedIndex = indexPath.row;
+    self.selectedIndex = (int)indexPath.row;
 
     [self performSegueWithIdentifier:@"ShowSpotList" sender:self];
 }

@@ -16,7 +16,7 @@
 {
     self = [super init];
     
-    [self setDegrees:[[dataSet objectForKey:@"direction_degrees"] integerValue]];
+    [self setDegrees:[[dataSet objectForKey:@"direction_degrees"] intValue]];
     [self setDegreesText:[dataSet objectForKey:@"direction_text"]];
     [self setSpeedKTS:[[dataSet objectForKey:@"speed_kts"] doubleValue]];
     [self setSpeedMPH:[[dataSet objectForKey:@"speed_mph"] doubleValue]];
@@ -30,7 +30,7 @@
 
 -(void)setData:(id)dataSet
 {
-    [self setDegrees:[[dataSet objectForKey:@"direction_degrees"] integerValue]];
+    [self setDegrees:[[dataSet objectForKey:@"direction_degrees"] intValue]];
     [self setDegreesText:[dataSet objectForKey:@"direction_text"]];
     [self setSpeedKTS:[[dataSet objectForKey:@"speed_kts"] doubleValue]];
     [self setSpeedMPH:[[dataSet objectForKey:@"speed_mph"] doubleValue]];

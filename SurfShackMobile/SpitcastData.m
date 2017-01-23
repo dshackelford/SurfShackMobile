@@ -21,7 +21,7 @@
     
     //these vals are determined from the preferences which is called in the preference Factory that will return this object
     shortDataLength = shortLengthInit;
-    longDataLength = 6;
+    longDataLength = 6; 
     
     dataDict = [[NSMutableDictionary alloc] init];
     swellDict = [[NSMutableDictionary alloc] init];
@@ -422,12 +422,17 @@
     return shortDataLength;
 }
 
--(int)getLongRangt
+-(int)getLongRange
 {
     return longDataLength;
 }
 
 -(void)setShortRange:(int)rangeInit
+{
+    
+}
+
+-(void)setLongRange:(int)rangeInit
 {
     
 }
