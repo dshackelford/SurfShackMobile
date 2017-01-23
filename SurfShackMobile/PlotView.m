@@ -141,6 +141,7 @@
     
     //SPITCAST DATA
     double max = [[yData objectAtIndex:0] doubleValue];
+    double min = [[yData objectAtIndex:0] doubleValue];
     for (int i = 0; i < [yData count]; i++)
     {
         double val = [[yData objectAtIndex:i] doubleValue];
@@ -149,6 +150,11 @@
         if (val > max)
         {
             max = val;
+        }
+        
+        if(val < min)
+        {
+            min = val; //determine the minimum value so that the graph does not "bottom out"
         }
     }
     
@@ -249,8 +255,16 @@
     Yaxis.labelFont =[UIFont fontWithName:@"HelveticaNeue-Light" size:20.f];
     Yaxis.valueFormatter = self; //tells the protocol to adopt the value to string conversion!
     Yaxis.axisMaximum = max + 1;
-    Yaxis.axisMinimum = 0;
-    Yaxis.axisRange = max + 1;
+
+//    if(min >= 0)
+//    {
+        Yaxis.axisMinimum = 0;
+        Yaxis.axisRange = max + 1;
+//    }
+//    else
+//    {
+////        Yaxis.axisMinimum = min - 1;
+//    }
     
     ChartYAxis* rightAxis = _theChartView.rightAxis;
     rightAxis.enabled = NO;

@@ -16,7 +16,7 @@
 {
     self = [super init];
     
-    [self setBouyID:[[dataSet objectForKey:@"buoy_id"] integerValue]];
+    [self setBouyID:[[dataSet objectForKey:@"buoy_id"] intValue]];
     [self setTempC:[[dataSet objectForKey:@"celcius"] doubleValue]];
     [self setTempF:[[dataSet objectForKey:@"fahrenheit"] doubleValue]];
     [self setClothing:[dataSet objectForKey:@"wetsuit"]];
