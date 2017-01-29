@@ -41,16 +41,13 @@
 -(CLLocation*)newGetLocationOfSpot:(int)idInit;
 -(NSString*)newGetSpotNameOfSpotID:(int)idInit;
 //-(NSString*)getSpotNameOfID:(int)idInit;
+-(NSMutableArray*)newGetSpotNamesFromSearchString:(NSString*)searchString;
 
 -(BOOL)setSpot:(NSString*)spotNameInit toFav:(BOOL)favInit;
 -(NSMutableArray*)newGetSpotFavorites;
 -(NSMutableArray*)newGetSpotNameFavorites;
 -(NSString*)newGetCountyOfSpotID:(int)idInit;
 
-//-(Boolean) deleteAllMatchReports;
-//-(Boolean) deleteMatchReports :(NSMutableArray*)matches;
-//-(Boolean) deleteMatchReportsUsingTimeStamps :(NSArray*)timeStamps;
-//-(void) recreateMatchEventsInMatchReports :(NSMutableArray*) results;
 
 -(void) alterDbStructureAddMissingColumns;
 -(NSMutableArray*) newGetListOfMissingColumns;

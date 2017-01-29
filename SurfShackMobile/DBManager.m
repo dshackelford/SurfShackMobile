@@ -517,13 +517,13 @@ typedef enum
 //    NSLog(@"%@",sql);
     return [[self executeQuery:sql forReturnOf:dbCol_SpotCounty] lastObject];
 }
-//
-//-(NSString*)getSpotNameOfID:(int)idInit
-//{
-//     NSString* sql = [NSString stringWithFormat:@"SELECT SpotName FROM SpitcastSpots WHERE SpotID = %d",idInit];
-//    
-//    return [self executeStrQuery:sql];
-//}
+
+-(NSMutableArray*)newGetSpotNamesFromSearchString:(NSString*)searchString
+{
+    NSString* sql = [NSString stringWithFormat:@"SELECT * FROM SpitcastSpots WHERE SpotName LIKE '%%%@%%'",searchString];
+    
+    return [self executeQuery:sql forReturnOf:dbCol_SpotName];
+}
 
 -(NSString*)newGetSpotNameOfSpotID:(int)idInit
 {
@@ -584,88 +584,6 @@ typedef enum
     return count;
 }
 
-
-
-//-(NSMutableArray*) getMatchReports_HomeWins
-//{
-//    NSString *sql = @"SELECT * FROM MatchReports WHERE HomeTeamScore >  AwayTeamScore ORDER BY GameTimeStamp DESC";
-//    NSMutableArray* results = [self executeQueryReturnMatchReports:sql];
-//    [self recreateMatchEventsInMatchReports:results];
-//    return results;
-//}
-//
-//-(NSMutableArray*) getMatchReports_AwayWins
-//{
-//    NSString *sql = @"SELECT * FROM MatchReports WHERE AwayTeamScore >  HomeTeamScore ORDER BY GameTimeStamp DESC";
-//    NSMutableArray* results = [self executeQueryReturnMatchReports:sql];
-//    [self recreateMatchEventsInMatchReports:results];
-//    return results;
-//}
-//
-//-(NSMutableArray*) getMatchReports_Draws
-//{
-//    NSString *sql = @"SELECT * FROM MatchReports WHERE AwayTeamScore =  HomeTeamScore ORDER BY GameTimeStamp DESC";
-//    NSMutableArray* results = [self executeQueryReturnMatchReports:sql];
-//    [self recreateMatchEventsInMatchReports:results];
-//    return results;
-//}
-//
-//-(NSMutableArray*) getMatchReports_Girls
-//{
-//    NSString *sql = @"SELECT * FROM MatchReports WHERE IsMaleGender =  0 ORDER BY GameTimeStamp DESC";
-//    NSMutableArray* results = [self executeQueryReturnMatchReports:sql];
-//    [self recreateMatchEventsInMatchReports:results];
-//    return results;
-//}
-//
-//-(NSMutableArray*) getMatchReports_Boys
-//{
-//    NSString *sql = @"SELECT * FROM MatchReports WHERE IsMaleGender =  1 ORDER BY GameTimeStamp DESC";
-//    NSMutableArray* results = [self executeQueryReturnMatchReports:sql];
-//    [self recreateMatchEventsInMatchReports:results];
-//    return results;
-//}
-//
-//-(NSMutableArray*) getMatchReports_Age :(int)age
-//{
-//    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM MatchReports WHERE TeamAge =  %d ORDER BY GameTimeStamp DESC", age];
-//    NSMutableArray* results = [self executeQueryReturnMatchReports:sql];
-//    [self recreateMatchEventsInMatchReports:results];
-//    
-//    return results;
-//}
-//
-//-(NSMutableArray*) getMatchReports_Title :(NSString*)title
-//{
-//    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM MatchReports WHERE GameTitle LIKE '%@%%' ORDER BY GameTimeStamp DESC", title];
-//    NSMutableArray* results = [self executeQueryReturnMatchReports:sql];
-//    [self recreateMatchEventsInMatchReports:results];
-//    
-//    return results;
-//}
-
-/*/
- The initial databasebase design stores the original match xml as a raw string
- in column "MatchXml" of the data row. This method sends a message to a
- MatchReport instance to recreate its events list from the raw xml.
- /*/
-//-(void) recreateMatchEventsInMatchReports :(NSMutableArray*) results
-//{
-//    for(MatchReport* mr in results)
-//    {
-//        [mr recreateMatchEventsFromXml];
-//    }
-//}
-
-//-(Boolean) deleteMatchReports :(NSMutableArray*)matches
-//{
-//    Boolean somethingDeleted = false;
-//    for(MatchReport* mr in matches)
-//    {
-//        [self removeThisMatchReport:mr];
-//    }
-//    return somethingDeleted;
-//}
 
 
 

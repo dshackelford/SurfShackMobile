@@ -26,7 +26,7 @@
 #import "DBManager.h"
 #import "AppDelegate.h"
 
-@interface AddPlaceViewController : UITableViewController <CLLocationManagerDelegate>
+@interface AddPlaceViewController : UITableViewController <CLLocationManagerDelegate,UISearchBarDelegate,UISearchDisplayDelegate>
 {
     DBManager* db;
     
@@ -35,7 +35,8 @@
     UITableView* theTableView;
     
     NSArray* tableData;
-    NSArray* favSpots;
+    NSArray* favSpots; //IDS's
+    NSArray* favSpotNames; //String Names
     
     int rowHeight;
     CGFloat sectionHeader;

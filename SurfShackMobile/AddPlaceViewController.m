@@ -20,19 +20,18 @@
 
 -(void)viewDidLoad
 {
+    [super viewDidLoad];
     [self restrictRotation:YES];
     
-//    //sets the top bar to a color
+    //sets the top bar to a color
     self.navigationController.navigationBar.barTintColor = [[PreferenceFactory getPreferences] objectForKey:kColorScheme];
-//    //sets the buttons to a color tint
+    //sets the buttons to a color tint
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-//    //sets the buttons in the top bar to a color
+    //sets the buttons in the top bar to a color
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAddSpotsToDB:) name:@"AddedSpotsToDB" object:nil];
     
-    [super viewDidLoad];
-//    NSMutableArray* spotArray;
     NSLog(@"HomeDirectory: %@",NSHomeDirectory());
     
     countyArr = [[NSMutableArray alloc] init];
@@ -66,6 +65,7 @@
         [db openDatabase];
         countyArr = [db newGetAllCounties];
         favSpots = [db newGetSpotFavorites];
+        favSpotNames = [db newGetSpotNameFavorites];
         favCountyArr = [db newGetCountyFavorites];
         
         tableData = countyArr;
@@ -208,7 +208,15 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [tableData count];
+    if ([searchResults count] > 0) //found a search?
+    {
+        return [searchResults count];
+        
+    }
+    else
+    {
+        return [tableData count];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -225,22 +233,43 @@
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    arrowCell* cell = [[[NSBundle mainBundle] loadNibNamed:@"arrowCell" owner:self options:nil] lastObject];
-    [tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
-    cell.textLabel.text = [tableData objectAtIndex:indexPath.row];
-    
-    for (NSString* county in favCountyArr)
+    if([searchResults count] > 0)
     {
-        if([county isEqualToString:[tableData objectAtIndex:indexPath.row]])
+        arrowCell* cell = [[[NSBundle mainBundle] loadNibNamed:@"arrowCell" owner:self options:nil] lastObject];
+        [tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+                
+        cell.textLabel.text = [searchResults objectAtIndex:indexPath.row];
+        
+        for (NSString* spotName in favSpotNames)
         {
-            cell.textLabel.font = [UIFont boldSystemFontOfSize:17];
-            break;
+            if([spotName isEqualToString:[searchResults objectAtIndex:indexPath.row]])
+            {
+//                cell.textLabel.font = [UIFont boldSystemFontOfSize:17];
+                [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+                break;
+            }
         }
+        return cell;
     }
-    return cell;
+    else
+    {
+        arrowCell* cell = [[[NSBundle mainBundle] loadNibNamed:@"arrowCell" owner:self options:nil] lastObject];
+        [tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        cell.textLabel.text = [tableData objectAtIndex:indexPath.row];
+        
+        for (NSString* county in favCountyArr)
+        {
+            if([county isEqualToString:[tableData objectAtIndex:indexPath.row]])
+            {
+                cell.textLabel.font = [UIFont boldSystemFontOfSize:17];
+                break;
+            }
+        }
+        return cell;
+    }
 }
 
 
@@ -248,7 +277,34 @@
 {
     self.selectedIndex = (int)indexPath.row;
 
-    [self performSegueWithIdentifier:@"ShowSpotList" sender:self];
+    if([searchResults count] > 0)
+    {
+        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+        
+        [db openDatabase];
+        
+        if (cell.accessoryType == UITableViewCellAccessoryCheckmark)
+        {
+            //remove the spot from the list of favorites
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            
+            [db setSpot:[searchResults objectAtIndex:indexPath.row] toFav:NO];
+        }
+        else
+        {
+            //ass the spot to the list of favorites
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            
+            [db setSpot:[searchResults objectAtIndex:indexPath.row] toFav:YES];
+        }
+        
+        [db closeDatabase];
+
+    }
+    else //normal county list display
+    {
+        [self performSegueWithIdentifier:@"ShowSpotList" sender:self];
+    }
 }
 
 
@@ -283,13 +339,37 @@
     }
 }
 
+-(void)reloadTheTable
+{
+    if ([db openDatabase])
+    {
+        favSpots = [db newGetSpotFavorites];
+        favSpotNames = [db newGetSpotNameFavorites];
+        favCountyArr = [db newGetCountyFavorites];
+    }
+    [db closeDatabase];
+    [self.tableView reloadData];
+}
+
+
 
 #pragma mark - Search Bar Protocols
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", searchText];
-    searchResults = [tableData filteredArrayUsingPredicate:resultPredicate];
+//    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"name contains[cd] %@", searchText];
+//    NSLog(@"%@",searchText);
+    
+    [db openDatabase];
+    searchResults = [db newGetSpotNamesFromSearchString:searchText];
+    [db closeDatabase];
+    
+//    NSLog(@"%@",searchResults);
+    
+    
+    [self reloadTheTable];
+//    searchResults = [tableData filteredArrayUsingPredicate:resultPredicate];
+//    NSLog(@"%@",searchResults);
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
@@ -302,4 +382,10 @@
     return YES;
 }
 
+-(BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    searchResults = nil;
+    [self reloadTheTable];
+    return YES;
+}
 @end
