@@ -295,17 +295,54 @@
 {
     int currentTime = [DateHandler getIndexFromCurrentTime];
     NSMutableArray* tideArrInit = [[spotDictInit objectForKey:@"tide"] objectForKey:kMags];
+    double nextMaxTide = 0;
+    int nextHighTideIndex = 0;
+    double previousLowTide = 0;
+    int previousLowTideIndex = 0;
     
     for (int i = currentTime; i < [tideArrInit count]; i++)
     {
         if ([[tideArrInit objectAtIndex:i] doubleValue] > [[tideArrInit objectAtIndex:i+1] doubleValue] && [[tideArrInit objectAtIndex:i] doubleValue] > [[tideArrInit objectAtIndex:i-1] doubleValue])
         {
-            int nextHighTide = i;
-            NSString* timeStr = [DateHandler getTimeFromIndex:nextHighTide];
+            nextHighTideIndex = i;
+            NSString* timeStr = [DateHandler getTimeFromIndex:nextHighTideIndex];
             [spotDictInit setObject:timeStr forKey:@"nextHighTide"];
+            
+            nextMaxTide = [[tideArrInit objectAtIndex:i] doubleValue];
+            
             break;
         }
     }
+
+    //determine the previous low tide for tide Ratio calculation
+    for (int i = 0; i < nextHighTideIndex; i++) //search up to the next high tide
+    {
+        double localLowTide = 100;
+        int localLowTideIndex = 0;
+        
+        if ([[tideArrInit objectAtIndex:i] doubleValue] < [[tideArrInit objectAtIndex:i+1] doubleValue] && [[tideArrInit objectAtIndex:i] doubleValue] < [[tideArrInit objectAtIndex:i-1] doubleValue])
+        {
+            previousLowTideIndex = i;
+            
+            previousLowTide = [[tideArrInit objectAtIndex:i] doubleValue];
+            if(localLowTide > previousLowTide)
+            {
+                localLowTide = previousLowTide;
+            }
+        }
+    }
+    
+    double currentTide = [[tideArrInit objectAtIndex:currentTime] doubleValue];
+    double tideRatio = 1 - ((nextMaxTide - previousLowTide) - (currentTide - previousLowTide))/(nextMaxTide - previousLowTide);
+    if(tideRatio < 0.1)
+    {
+        tideRatio = 0.15; //limiting so that something shows up on scree
+    }
+    else if(tideRatio > 0.9)
+    {
+        tideRatio = 1;
+    }
+    [spotDictInit setObject:[NSNumber numberWithDouble:tideRatio] forKey:@"tideRatio"];
     
     
     for (int i = currentTime; i < [tideArrInit count]; i++)

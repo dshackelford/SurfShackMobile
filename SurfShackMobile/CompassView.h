@@ -12,6 +12,7 @@
 #import "SwellPacket.h"
 #import "Bezier.h"
 #import "PreferenceFactory.h"
+#import "DataFactory.h"
 
 @interface CompassView : UIView
 {

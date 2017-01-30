@@ -187,10 +187,7 @@
         
         tempLabel.text = @"";
         
-        double currentHeight = 3;
-        double max = 4;
-        
-        double percentageOfAngle = currentHeight/max;
+        double percentageOfAngle = [[dictInit objectForKey:@"tideRatio"] doubleValue];
         
         double angleLeftTopOfBottom = M_PI/2 + percentageOfAngle*M_PI;
         double endAngleTopRight = 2*M_PI - (percentageOfAngle*M_PI - M_PI/2);
@@ -200,12 +197,8 @@
         [partCirclePath closePath];
         
         
-//        NSDictionary* prefs = [PreferenceFactory getPreferences];
-//        UIColor* color = [prefs objectForKey:kColorScheme];
         
         tideImage = [Bezier drawColored:partCirclePath inView:self atPoint:CGPointMake(self.frame.size.width/2,self.frame.size.height/2) withColor:[UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:0.75] ofSize:CGSizeMake(rim.frame.size.width,rim.frame.size.height)];
-        
-//        tideImage = [Bezier drawColored:partCirclePath inView:self atPoint:CGPointMake(self.frame.size.width/2,self.frame.size.height/2) withColor:[UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:0.75] ofSize:CGSizeMake(rim.frame.size.width,rim.frame.size.height)];
         
         [self insertSubview:tideImage belowSubview:rim];
         
@@ -220,6 +213,19 @@
     
 }
 
+//-(double)findRelativeTideHeight:(NSDictionary*)spotDictInit
+//{
+//    DataFactory* df = [[DataFactory alloc] init];
+//    NSDictionary* tideDict = [spotDictInit objectForKey:@"tide"];
+//    NSMutableArray* shortXVals = [df getShorternedVersionOfXValArray:[tideDict objectForKey:kDayArr] ofLength:[PreferenceFactory getShortRange]];
+//    
+//    double currentHeight = 0;
+//    double max = 4;
+//    
+//    double percentageOfAngle = currentHeight/max;
+//    
+//    
+//}
 //moving the markers around the center point
 -(void)rotateMarkerView:(double)degInit
 {
