@@ -273,58 +273,6 @@ typedef enum
     return success;
 }
 
-#pragma mark - Column Updates
--(Boolean) alterDB_addSpotIDColumn
-{
-    Boolean success = false;
-    NSString *updateSQL = [NSString stringWithFormat: @"ALTER TABLE SpitcastSpots ADD COLUMN SpotID text;"];
-    success = [self executeQuery:updateSQL];
-    NSLog(@"Alter DB alterDB_addSpotIDColumn returned %@ on QUERY = %@", success ? @"TRUE" : @"FALSE", updateSQL);
-    return success;
-}
-
--(Boolean) alterDB_addSpotNameColumn
-{
-    Boolean success = false;
-    NSString *updateSQL = [NSString stringWithFormat: @"ALTER TABLE SpitcastSpots ADD COLUMN SpotName text;"];
-    success = [self executeQuery:updateSQL];
-    NSLog(@"Alter DB alterDB_addSpotNameColumn returned %@ on QUERY = %@", success ? @"TRUE" : @"FALSE", updateSQL);
-    return success;
-}
-
--(Boolean) alterDB_addSpotCountyColumn
-{
-    Boolean success = false;
-    NSString *updateSQL = [NSString stringWithFormat: @"ALTER TABLE SpitcastSpots ADD COLUMN SpotCounty text;"];
-    success = [self executeQuery:updateSQL];
-    NSLog(@"Alter DB alterDB_addSpotCountyColumn returned %@ on QUERY = %@", success ? @"TRUE" : @"FALSE", updateSQL);
-    return success;
-}
-
--(Boolean) alterDB_addSpotLatColumn
-{
-    Boolean success = false;
-    NSString *updateSQL = [NSString stringWithFormat: @"ALTER TABLE SpitcastSpots ADD COLUMN SpotLat double DEFAULT 0.0;"];
-    success = [self executeQuery:updateSQL];
-    NSLog(@"Alter DB alterDB_addSpotLatColumn returned %@ on QUERY = %@", success ? @"TRUE" : @"FALSE", updateSQL);
-    return success;
-}
--(Boolean) alterDB_addSpotLonColumn
-{
-    Boolean success = false;
-    NSString *updateSQL = [NSString stringWithFormat: @"ALTER TABLE SpitcastSpots ADD COLUMN SpotLon double DEFAULT 0.0;"];
-    success = [self executeQuery:updateSQL];
-    NSLog(@"Alter DB alterDB_addSpotLonColumn returned %@ on QUERY = %@", success ? @"TRUE" : @"FALSE", updateSQL);
-    return success;
-}
--(Boolean) alterDB_addSpotFavoriteColumn
-{
-    Boolean success = false;
-    NSString *updateSQL = [NSString stringWithFormat: @"ALTER TABLE SpitcastSpots ADD COLUMN SpotFavorite boolean DEFAULT false;"];
-    success = [self executeQuery:updateSQL];
-    NSLog(@"Alter DB alterDB_addSpotFavoriteColumn returned %@ on QUERY = %@", success ? @"TRUE" : @"FALSE", updateSQL);
-    return success;
-}
 
 -(Boolean)addSpotID:(int)spotIDInit SpotName:(NSString*)spotNameInit andCounty:(NSString*)spotCountyInit withLat:(double)latInit andLon:(double)lonInit
 {
@@ -380,32 +328,6 @@ typedef enum
     return success;
 }
 
-
-//-(NSString*) executeStrQuery :(NSString*)sql
-//{
-//    const char* sqlCstr = [sql UTF8String];
-//    Boolean success = false;
-//    sqlite3_stmt *statement;
-//    
-//    // Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
-//    // The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.
-//    if (sqlite3_prepare_v2(database, sqlCstr, -1, &statement, NULL) == SQLITE_OK)
-//    {
-//        //success = true;
-//        if(sqlite3_step(statement) == SQLITE_DONE)
-//        {
-//            success = true;
-//        }
-//    }
-////    return [NSString stringWithUTF8String:statement];
-//    
-//    return [[NSString alloc] initWithUTF8String:
-//            (const char *) sqlite3_column_text(statement,dbCol_SpotName)];
-//    
-//        sqlite3_finalize(statement);
-//}
-//
-
 -(NSMutableArray*) executeQuery:(NSString*)sql forReturnOf:(SurfShackDBColoumn)dbCol
 {
     const char* sqlCstr = [sql UTF8String];
@@ -436,7 +358,6 @@ typedef enum
                 else
                 {
                     const unsigned char* st = sqlite3_column_text(statement, dbCol);
-                    
                     [results addObject:[NSString stringWithCString:st encoding:NSUTF8StringEncoding]];
                 }
             }
@@ -551,11 +472,13 @@ typedef enum
     
     if (favInit == true)
     {
-        sql = [NSString stringWithFormat:@"UPDATE SpitcastSpots SET SpotFavorite = 1 WHERE SpotName LIKE '%%%@%%'",spotNameInit];
+//        sql = [NSString stringWithFormat:@"UPDATE SpitcastSpots SET SpotFavorite = 1 WHERE SpotName LIKE '%%%@%%'",spotNameInit];
+        sql = [NSString stringWithFormat:@"UPDATE SpitcastSpots SET SpotFavorite = 1 WHERE SpotName = '%@'",spotNameInit];
     }
     else
     {
-        sql = [NSString stringWithFormat:@"UPDATE SpitcastSpots SET SpotFavorite = 0 WHERE SpotName LIKE '%%%@%%'",spotNameInit];
+//        sql = [NSString stringWithFormat:@"UPDATE SpitcastSpots SET SpotFavorite = 0 WHERE SpotName LIKE '%%%@%%'",spotNameInit];
+        sql = [NSString stringWithFormat:@"UPDATE SpitcastSpots SET SpotFavorite = 0 WHERE SpotName = '%@'",spotNameInit];
     }
 
 //    NSLog(@"%@",sql);
@@ -585,6 +508,58 @@ typedef enum
 }
 
 
+#pragma mark - Alter Table / Column Updates
+-(Boolean) alterDB_addSpotIDColumn
+{
+    Boolean success = false;
+    NSString *updateSQL = [NSString stringWithFormat: @"ALTER TABLE SpitcastSpots ADD COLUMN SpotID text;"];
+    success = [self executeQuery:updateSQL];
+    NSLog(@"Alter DB alterDB_addSpotIDColumn returned %@ on QUERY = %@", success ? @"TRUE" : @"FALSE", updateSQL);
+    return success;
+}
+
+-(Boolean) alterDB_addSpotNameColumn
+{
+    Boolean success = false;
+    NSString *updateSQL = [NSString stringWithFormat: @"ALTER TABLE SpitcastSpots ADD COLUMN SpotName text;"];
+    success = [self executeQuery:updateSQL];
+    NSLog(@"Alter DB alterDB_addSpotNameColumn returned %@ on QUERY = %@", success ? @"TRUE" : @"FALSE", updateSQL);
+    return success;
+}
+
+-(Boolean) alterDB_addSpotCountyColumn
+{
+    Boolean success = false;
+    NSString *updateSQL = [NSString stringWithFormat: @"ALTER TABLE SpitcastSpots ADD COLUMN SpotCounty text;"];
+    success = [self executeQuery:updateSQL];
+    NSLog(@"Alter DB alterDB_addSpotCountyColumn returned %@ on QUERY = %@", success ? @"TRUE" : @"FALSE", updateSQL);
+    return success;
+}
+
+-(Boolean) alterDB_addSpotLatColumn
+{
+    Boolean success = false;
+    NSString *updateSQL = [NSString stringWithFormat: @"ALTER TABLE SpitcastSpots ADD COLUMN SpotLat double DEFAULT 0.0;"];
+    success = [self executeQuery:updateSQL];
+    NSLog(@"Alter DB alterDB_addSpotLatColumn returned %@ on QUERY = %@", success ? @"TRUE" : @"FALSE", updateSQL);
+    return success;
+}
+-(Boolean) alterDB_addSpotLonColumn
+{
+    Boolean success = false;
+    NSString *updateSQL = [NSString stringWithFormat: @"ALTER TABLE SpitcastSpots ADD COLUMN SpotLon double DEFAULT 0.0;"];
+    success = [self executeQuery:updateSQL];
+    NSLog(@"Alter DB alterDB_addSpotLonColumn returned %@ on QUERY = %@", success ? @"TRUE" : @"FALSE", updateSQL);
+    return success;
+}
+-(Boolean) alterDB_addSpotFavoriteColumn
+{
+    Boolean success = false;
+    NSString *updateSQL = [NSString stringWithFormat: @"ALTER TABLE SpitcastSpots ADD COLUMN SpotFavorite boolean DEFAULT false;"];
+    success = [self executeQuery:updateSQL];
+    NSLog(@"Alter DB alterDB_addSpotFavoriteColumn returned %@ on QUERY = %@", success ? @"TRUE" : @"FALSE", updateSQL);
+    return success;
+}
 
 
 @end

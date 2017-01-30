@@ -11,6 +11,7 @@
 #import "DatumView.h"
 #import "SwellPacket.h"
 #import "Bezier.h"
+#import "PreferenceFactory.h"
 
 @interface CompassView : UIView
 {
@@ -45,5 +46,6 @@
 
 -(void)rotateMarkerView:(double)degInit;
 -(void)decideWhichDatumToShow:(int)currentTagInit withSpotDict:(NSDictionary*)dictInit andHeading:(float)headingInit;
+-(void)updateColor;
 
 @end

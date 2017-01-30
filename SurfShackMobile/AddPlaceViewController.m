@@ -299,6 +299,8 @@
         }
         
         [db closeDatabase];
+        
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     }
     else //normal county list display

@@ -168,8 +168,7 @@
     for (int i = 0; i < self.selectedSection; i++)
     {
         rowCount = rowCount + (int)[self.tableView numberOfRowsInSection:i];
-    }
-#warning this may prove to be a problem (int) 
+    } 
     rowCount = rowCount + self.selectedRow;
     
     return  rowCount;

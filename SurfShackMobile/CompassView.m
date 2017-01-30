@@ -24,7 +24,11 @@
     [self establishTrianglePath];
     [self addDatums];
     
-    [self addMarkerToCompassOfColor:[UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:1]];
+    NSDictionary* prefs = [PreferenceFactory getPreferences];
+    UIColor* color = [prefs objectForKey:kColorScheme];
+
+//    [self addMarkerToCompassOfColor:[UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:1]];
+    [self addMarkerToCompassOfColor:color];
     
     marker1.hidden = YES;
 
@@ -75,7 +79,9 @@
     //add marker to the right side of rim
     //the 7.5 is based of trial and error
     //the 7 is just give it a white gap between triangle and rim
-    marker1 = [Bezier drawColored:trianglePath inView:self atPoint:CGPointMake(markerView.frame.size.width/2 + rim.frame.size.width/2 + 8,markerView.frame.size.height/2 + 7.5) withColor:[UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:1] ofSize:CGSizeMake(45, 45)];
+    
+//    marker1 = [Bezier drawColored:trianglePath inView:self atPoint:CGPointMake(markerView.frame.size.width/2 + rim.frame.size.width/2 + 8,markerView.frame.size.height/2 + 7.5) withColor:[UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:1] ofSize:CGSizeMake(45, 45)];
+    marker1 = [Bezier drawColored:trianglePath inView:self atPoint:CGPointMake(markerView.frame.size.width/2 + rim.frame.size.width/2 + 8,markerView.frame.size.height/2 + 7.5) withColor:[UIColor blackColor] ofSize:CGSizeMake(45, 45)];
     
     [markerView addSubview:marker1];
 }
@@ -193,7 +199,13 @@
         [partCirclePath addArcWithCenter:CGPointMake(rim.frame.size.width/2, rim.frame.size.width/2) radius:rim.frame.size.width/2 - 5 startAngle:angleLeftTopOfBottom endAngle:endAngleTopRight clockwise:NO];
         [partCirclePath closePath];
         
+        
+//        NSDictionary* prefs = [PreferenceFactory getPreferences];
+//        UIColor* color = [prefs objectForKey:kColorScheme];
+        
         tideImage = [Bezier drawColored:partCirclePath inView:self atPoint:CGPointMake(self.frame.size.width/2,self.frame.size.height/2) withColor:[UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:0.75] ofSize:CGSizeMake(rim.frame.size.width,rim.frame.size.height)];
+        
+//        tideImage = [Bezier drawColored:partCirclePath inView:self atPoint:CGPointMake(self.frame.size.width/2,self.frame.size.height/2) withColor:[UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:0.75] ofSize:CGSizeMake(rim.frame.size.width,rim.frame.size.height)];
         
         [self insertSubview:tideImage belowSubview:rim];
         
@@ -218,6 +230,13 @@
         markerView.transform = CGAffineTransformMakeRotation(angle * M_PI/180);
     }
 
+}
+
+-(void)updateColor
+{
+        NSDictionary* prefs = [PreferenceFactory getPreferences];
+        UIColor* color = [prefs objectForKey:kColorScheme];
+//    [self addMarkerToCompassOfColor:color];
 }
 
 

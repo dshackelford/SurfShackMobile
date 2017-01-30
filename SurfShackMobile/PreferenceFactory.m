@@ -145,26 +145,28 @@
 {
     //i may need to make a dictionary to handle the sub colors for the plot and markers. i.e. accent colors
     UIColor* color;
-    
+    //******
+    //alpha was 0.1 and working fine until i wanted the datapoint circles to be darker!!
+    //******
     if ([colorKey isEqualToString: @"Red"])
     {
-       color= [UIColor colorWithRed:255/255.f green:40/255.f blue:40/255.f alpha:0.1];
+       color= [UIColor colorWithRed:255/255.f green:40/255.f blue:40/255.f alpha:1];
     }
     else if([colorKey isEqualToString: @"Green"])
     {
-        color = [UIColor colorWithRed:109/255.f green:170/255.f blue:107/255.f alpha:0.1];
+        color = [UIColor colorWithRed:109/255.f green:170/255.f blue:107/255.f alpha:1];
     }
     else if([colorKey isEqualToString: @"Blue"])
     {
-        color =[UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:0.1];
+        color =[UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:1];
     }
     else if([colorKey isEqualToString: @"Tan"])
     {
-        color = [UIColor colorWithRed:226/255.f green:216/255.f blue:148/255.f alpha:0.1];
+        color = [UIColor colorWithRed:226/255.f green:216/255.f blue:148/255.f alpha:1];
     }
     else if([colorKey isEqualToString: @"Grey"])
     {
-        color = [UIColor colorWithRed:176/255.f green:176/255.f blue:176/255.f alpha:0.1];
+        color = [UIColor colorWithRed:176/255.f green:176/255.f blue:176/255.f alpha:1];
     }
 
     return color;

@@ -26,9 +26,8 @@
 -(Boolean) createNewDatabase;
 
 -(NSString*) getActiveDatabaseFilePath;
-- (Boolean) doesActiveDBFileExist;
+-(Boolean) doesActiveDBFileExist;
 
-//-(NSMutableArray*) executeQuery:(NSString*)sql forReturnOf:(SurfShackDBColoumn)dbCol;
 
 
 -(Boolean)deleteAllSpots;

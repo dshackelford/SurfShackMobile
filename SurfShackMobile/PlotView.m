@@ -167,9 +167,13 @@
     dYData.lineWidth = 4;
     dYData.circleRadius = 4.0;
     dYData.drawCubicEnabled = YES;
-    [dYData setColor:[UIColor blueColor]];
+//    [dYData setColor:color];
+    
+    [dYData setColor:color];
     [dYData setCircleColor:[UIColor clearColor]];
+//    [dYData setCircleColor:color];
     dYData.axisDependency = AxisDependencyLeft;
+
     
     //GRADIENT COLORS
     NSArray* gradientColors = @[(id)color.CGColor,(id)[UIColor blackColor].CGColor];

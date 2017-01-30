@@ -259,6 +259,7 @@
             aCompView.hidden = NO;
             infoView.hidden = NO;
             headingLabel.hidden = NO;
+            [aCompView updateColor];
         }
 
     }
