@@ -80,8 +80,8 @@
     //the 7.5 is based of trial and error
     //the 7 is just give it a white gap between triangle and rim
     
-//    marker1 = [Bezier drawColored:trianglePath inView:self atPoint:CGPointMake(markerView.frame.size.width/2 + rim.frame.size.width/2 + 8,markerView.frame.size.height/2 + 7.5) withColor:[UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:1] ofSize:CGSizeMake(45, 45)];
     marker1 = [Bezier drawColored:trianglePath inView:self atPoint:CGPointMake(markerView.frame.size.width/2 + rim.frame.size.width/2 + 8,markerView.frame.size.height/2 + 7.5) withColor:[UIColor blackColor] ofSize:CGSizeMake(45, 45)];
+//    [marker1 setFrame:CGRectMake(marker1.frame.origin.x, marker1.frame.origin.y, 25, 25)];
     
     [markerView addSubview:marker1];
 }
@@ -208,14 +208,13 @@
         bool risingTide = [[dictInit objectForKey:@"risingTide"] boolValue];
         if(risingTide)
         {
-            angle = -270; //angle is positive clockwise
+            angle = -270; //angle is positive clockwise (degrees)
         }
         else
         {
             angle = -90;
         }
-        markerView.transform = CGAffineTransformMakeRotation(angle * M_PI/180); //bottom of circle
-        //show filled up water circle
+        markerView.transform = CGAffineTransformMakeRotation(angle * M_PI/180);
     }
     
 }
