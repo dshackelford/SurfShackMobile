@@ -197,7 +197,6 @@
         [partCirclePath closePath];
         
         
-        
         tideImage = [Bezier drawColored:partCirclePath inView:self atPoint:CGPointMake(self.frame.size.width/2,self.frame.size.height/2) withColor:[UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:0.75] ofSize:CGSizeMake(rim.frame.size.width,rim.frame.size.height)];
         
         [self insertSubview:tideImage belowSubview:rim];
@@ -206,7 +205,15 @@
         [lowTideDatum updateLabelStr:[dictInit objectForKey:@"nextLowTide"]];
         
         //ask if the tide is rising or not
-        angle = -90 - 180;
+        bool risingTide = [[dictInit objectForKey:@"risingTide"] boolValue];
+        if(risingTide)
+        {
+            angle = -270; //angle is positive clockwise
+        }
+        else
+        {
+            angle = -90;
+        }
         markerView.transform = CGAffineTransformMakeRotation(angle * M_PI/180); //bottom of circle
         //show filled up water circle
     }

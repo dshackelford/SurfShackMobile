@@ -299,6 +299,7 @@
     int nextHighTideIndex = 0;
     double previousLowTide = 0;
     int previousLowTideIndex = 0;
+    int nextLowTideIndex = 0;
     
     for (int i = currentTime; i < [tideArrInit count]; i++)
     {
@@ -345,16 +346,31 @@
     [spotDictInit setObject:[NSNumber numberWithDouble:tideRatio] forKey:@"tideRatio"];
     
     
+    
     for (int i = currentTime; i < [tideArrInit count]; i++)
     {
         if ([[tideArrInit objectAtIndex:i] doubleValue] < [[tideArrInit objectAtIndex:i+1] doubleValue]  && [[tideArrInit objectAtIndex:i] doubleValue] < [[tideArrInit objectAtIndex:i-1] doubleValue])
         {
-            int nextHighTide = i;
-            NSString* timeStr = [DateHandler getTimeFromIndex:nextHighTide];
+            nextLowTideIndex = i;
+            NSString* timeStr = [DateHandler getTimeFromIndex:nextLowTideIndex];
             [spotDictInit setObject:timeStr forKey:@"nextLowTide"];
             break;
         }
     }
+    
+    //determine if tide is rising or dropping
+    bool risingTide = false;
+    if(nextHighTideIndex >= nextLowTideIndex)
+    {
+        //tide is dropping beacause it is closer to a low tide
+        risingTide = false;
+    }
+    else
+    {
+        risingTide = true;
+    }
+    
+    [spotDictInit setObject:[NSNumber numberWithBool:risingTide] forKey:@"risingTide"];
     
     return spotDictInit;
 }
