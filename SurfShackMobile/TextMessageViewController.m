@@ -24,7 +24,7 @@
     
     if(mrCount > 1 && success == YES)
     {
-        spotArray = [db newGetSomeSpots:301];
+        spotArray = [db getSomeSpots:301];
         NSLog(@"%@",spotArray);
         NSMutableArray* arr = [db getDesignListOfColumns];
         NSLog(@"%@",arr);

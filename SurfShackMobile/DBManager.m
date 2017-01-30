@@ -375,7 +375,7 @@ typedef enum
     return success;
 }
 
--(NSMutableArray*)newGetAllSpots
+-(NSMutableArray*)getAllSpots
 {
     NSString *sql = @"SELECT * FROM SpitcastSpots ORDER BY SpotID DESC";
     NSMutableArray* results = [self executeQuery:sql forReturnOf:dbCol_SpotName];
@@ -383,7 +383,7 @@ typedef enum
     return results;
 }
 
--(NSMutableArray*)newGetSomeSpots:(unsigned int)limit
+-(NSMutableArray*)getSomeSpots:(unsigned int)limit
 {
     NSString *sql = [NSString stringWithFormat:@"SELECT * FROM SpitcastSpots ORDER BY SpotID ASC LIMIT %d", limit];
     NSMutableArray* results = [self executeQuery:sql forReturnOf:dbCol_SpotID];
@@ -391,14 +391,14 @@ typedef enum
     return results;
 }
 
--(NSMutableArray*)newGetAllCounties
+-(NSMutableArray*)getAllCounties
 {
     NSString *sql = [NSString stringWithFormat:@"SELECT * FROM SpitcastSpots GROUP BY SpotCounty ORDER BY SpotLAT DESC"];
 
     return [self executeQuery:sql forReturnOf:dbCol_SpotCounty];
 }
 
--(NSMutableArray*)newGetCountyFavorites
+-(NSMutableArray*)getCountyFavorites
 {
     NSString *sql = [NSString stringWithFormat:@"SELECT * FROM SpitcastSpots WHERE SpotFavorite = 1 GROUP BY SpotCounty"];
     
@@ -410,55 +410,48 @@ typedef enum
     NSString* sql = [NSString stringWithFormat:@"SELECT * FROM SpitcastSpots WHERE SpotCounty LIKE '%%%@%%' ORDER BY SpotLat DESC",countyInit];
 //    NSString* sql = [NSString stringWithFormat:@"SELECT SpotName From SpitcastSpots WHERE SpotCounty = '%@' ORDER BY SpotLat DESC",countyInit];
 
-//    NSLog(@"%@",sql);
     return [self executeQuery:sql forReturnOf:dbCol_SpotName];
 }
 
--(NSMutableArray*)newGetSpotFavorites
+-(NSMutableArray*)getSpotFavorites
 {
     NSString* sql = [NSString stringWithFormat:@"SELECT * FROM SpitcastSpots WHERE SpotFavorite = 1"];
     
-//    NSLog(@"%@",sql);
     return [self executeQuery:sql forReturnOf:dbCol_SpotID];
 }
 
--(NSMutableArray*)newGetSpotNameFavorites
+-(NSMutableArray*)getSpotNameFavorites
 {
     NSString* sql = [NSString stringWithFormat:@"SELECT * FROM SpitcastSpots WHERE SpotFavorite = 1"];
     
-//    NSLog(@"%@",sql);
     return [self executeQuery:sql forReturnOf:dbCol_SpotName];
 }
 
 
--(NSString*)newGetCountyOfSpotID:(int)idInit
+-(NSString*)getCountyOfSpotID:(int)idInit
 {
     NSString* sql = [NSString stringWithFormat:@"SELECT * FROM SpitcastSpots WHERE SpotID = %d",idInit];
     
-//    NSLog(@"%@",sql);
     return [[self executeQuery:sql forReturnOf:dbCol_SpotCounty] lastObject];
 }
 
--(NSMutableArray*)newGetSpotNamesFromSearchString:(NSString*)searchString
+-(NSMutableArray*)getSpotNamesFromSearchString:(NSString*)searchString
 {
     NSString* sql = [NSString stringWithFormat:@"SELECT * FROM SpitcastSpots WHERE SpotName LIKE '%%%@%%'",searchString];
     
     return [self executeQuery:sql forReturnOf:dbCol_SpotName];
 }
 
--(NSString*)newGetSpotNameOfSpotID:(int)idInit
+-(NSString*)getSpotNameOfSpotID:(int)idInit
 {
     NSString* sql = [NSString stringWithFormat:@"SELECT * FROM SpitcastSpots WHERE SpotID = %d",idInit];
-    
-    //    NSLog(@"%@",sql);
     return [[self executeQuery:sql forReturnOf:dbCol_SpotName] lastObject];
 }
 
--(CLLocation*)newGetLocationOfSpot:(int)idInit
+-(CLLocation*)getLocationOfSpot:(int)idInit
 {
     NSString* sql = [NSString stringWithFormat:@"SELECT * FROM SpitcastSpots WHERE SpotID = %d",idInit];
-    
-    //    NSLog(@"%@",sql);
+
     NSNumber* lat = [[self executeQuery:sql forReturnOf:dbCol_SpotLat] lastObject];
     NSNumber* lon = [[self executeQuery:sql forReturnOf:dbCol_SpotLon] lastObject];
     
@@ -472,16 +465,13 @@ typedef enum
     
     if (favInit == true)
     {
-//        sql = [NSString stringWithFormat:@"UPDATE SpitcastSpots SET SpotFavorite = 1 WHERE SpotName LIKE '%%%@%%'",spotNameInit];
         sql = [NSString stringWithFormat:@"UPDATE SpitcastSpots SET SpotFavorite = 1 WHERE SpotName = '%@'",spotNameInit];
     }
     else
     {
-//        sql = [NSString stringWithFormat:@"UPDATE SpitcastSpots SET SpotFavorite = 0 WHERE SpotName LIKE '%%%@%%'",spotNameInit];
         sql = [NSString stringWithFormat:@"UPDATE SpitcastSpots SET SpotFavorite = 0 WHERE SpotName = '%@'",spotNameInit];
     }
 
-//    NSLog(@"%@",sql);
     return [self executeQuery:sql];
 }
 

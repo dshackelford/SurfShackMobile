@@ -29,7 +29,7 @@
     DBManager* db = [[DBManager alloc] init];
     [db openDatabase];
     
-    NSString* county = [db newGetCountyOfSpotID:locInit];
+    NSString* county = [db getCountyOfSpotID:locInit];
     
     [db closeDatabase];
     

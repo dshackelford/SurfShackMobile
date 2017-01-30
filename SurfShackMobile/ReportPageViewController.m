@@ -26,8 +26,8 @@
     db = [[DBManager alloc] init];
     if ([db openDatabase])
     {
-        _favoriteSpotsArr = [db newGetSpotFavorites]; //array of NSNumbers integers
-        _favoriteCounties = [db newGetCountyFavorites]; //array of strings
+        _favoriteSpotsArr = [db getSpotFavorites]; //array of NSNumbers integers
+        _favoriteCounties = [db getCountyFavorites]; //array of strings
     }
     [db closeDatabase];
     
@@ -46,6 +46,7 @@
     self.navigationController.navigationBar.barTintColor = color;
     
     self.tabBarController.view.tintColor = [UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:1];
+    
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     //sets the buttons to a color tint
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
@@ -86,8 +87,8 @@
     //check to see there are favorite spots selected by the user
     if ([db openDatabase])
     {
-        _favoriteSpotsArr = [db newGetSpotFavorites];
-        _favoriteCounties = [db newGetCountyFavorites];
+        _favoriteSpotsArr = [db getSpotFavorites];
+        _favoriteCounties = [db getCountyFavorites];
     }
     [db closeDatabase];
     
@@ -130,10 +131,10 @@
 -(void)changeTitle:(NSNotification*)notification
 {
     [db openDatabase];
-    _favoriteSpotsArr = [db newGetSpotFavorites];
-    if ([[db newGetSpotFavorites] count] > 0)
+    _favoriteSpotsArr = [db getSpotFavorites];
+    if ([[db getSpotFavorites] count] > 0)
     {
-        self.title = [[db newGetSpotNameFavorites] objectAtIndex:[notification.object integerValue]];
+        self.title = [[db getSpotNameFavorites] objectAtIndex:[notification.object integerValue]];
     }
     [db closeDatabase];
     
@@ -197,7 +198,7 @@
 -(void)changedSpotFavorites:(NSNotification*)notification
 {
     [db openDatabase];
-    _favoriteSpotsArr = [db newGetSpotFavorites];
+    _favoriteSpotsArr = [db getSpotFavorites];
     [theTableView reloadData];
     [db closeDatabase];
     
@@ -276,8 +277,8 @@
     
     if([db openDatabase])
     {
-        NSString* aSpotName = [db newGetSpotNameOfSpotID:[[_favoriteSpotsArr objectAtIndex:index] intValue]];
-        NSString* aCounty = [db newGetCountyOfSpotID:[[_favoriteSpotsArr objectAtIndex:index] intValue]];
+        NSString* aSpotName = [db getSpotNameOfSpotID:[[_favoriteSpotsArr objectAtIndex:index] intValue]];
+        NSString* aCounty = [db getCountyOfSpotID:[[_favoriteSpotsArr objectAtIndex:index] intValue]];
         [pageContentViewController setSpotDict:[dataFactory getASpotDictionary:aSpotName andCounty:aCounty]];
     }
     [pageContentViewController setDataFactory:dataFactory];
@@ -303,7 +304,7 @@
 {
     //show list of spaces
     [db openDatabase];
-    tableData = [[NSMutableArray alloc] initWithArray:[db newGetSpotNameFavorites]];
+    tableData = [[NSMutableArray alloc] initWithArray:[db getSpotNameFavorites]];
     [db closeDatabase];
     
     int rowHeight = 40;

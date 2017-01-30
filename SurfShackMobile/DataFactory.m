@@ -40,8 +40,8 @@
         int intNum = [num intValue];
 
         [db openDatabase];
-        [arrOfLocs addObject: [db newGetLocationOfSpot:intNum]];
-        [arrOfSpotNames addObject:[db newGetSpotNameOfSpotID:intNum]];
+        [arrOfLocs addObject: [db getLocationOfSpot:intNum]];
+        [arrOfSpotNames addObject:[db getSpotNameOfSpotID:intNum]];
         [db closeDatabase];
     }
     
@@ -347,7 +347,7 @@
     return aSpotDict;
 }
 
-
+#warning this is where 7 day break??
 -(NSMutableArray*)getShorternedVersionOfArray:(NSMutableArray*)arrInit ofLength:(int)rangeInit
 {
     NSMutableArray* shortArray = [[NSMutableArray alloc] init];
@@ -407,7 +407,7 @@
 -(void)removeSpotDictionary:(int)spotID
 {
     [db openDatabase];
-    NSString* spotName = [db newGetSpotNameOfSpotID:spotID];
+    NSString* spotName = [db getSpotNameOfSpotID:spotID];
 //    NSString* countyName
     [db closeDatabase];
     [spotsDict removeObjectForKey:spotName];

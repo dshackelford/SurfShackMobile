@@ -30,9 +30,9 @@
 //    [self establishGestures];
     
     [db openDatabase];
-    favSpots = [db newGetSpotFavorites];
-    county = [db newGetCountyOfSpotID:[[favSpots objectAtIndex:self.index] intValue]];
-    spotName = [db newGetSpotNameOfSpotID:[[favSpots objectAtIndex:self.index] intValue]];
+    favSpots = [db getSpotFavorites];
+    county = [db getCountyOfSpotID:[[favSpots objectAtIndex:self.index] intValue]];
+    spotName = [db getSpotNameOfSpotID:[[favSpots objectAtIndex:self.index] intValue]];
     [db closeDatabase];
     
     self.view.backgroundColor = [UIColor clearColor];

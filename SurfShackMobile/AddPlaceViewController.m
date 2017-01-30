@@ -63,10 +63,10 @@
     if(mrCount > 1 && success == YES)
     {
         [db openDatabase];
-        countyArr = [db newGetAllCounties];
-        favSpots = [db newGetSpotFavorites];
-        favSpotNames = [db newGetSpotNameFavorites];
-        favCountyArr = [db newGetCountyFavorites];
+        countyArr = [db getAllCounties];
+        favSpots = [db getSpotFavorites];
+        favSpotNames = [db getSpotNameFavorites];
+        favCountyArr = [db getCountyFavorites];
         
         tableData = countyArr;
         NSLog(@"%@",countyArr);
@@ -113,7 +113,7 @@
         NSLog(@"ot some spots");
     [alertController dismissViewControllerAnimated:YES completion:nil];
     [db openDatabase];
-    tableData = [db newGetAllCounties];
+    tableData = [db getAllCounties];
     [self.tableView reloadData];
     [db closeDatabase];
         
@@ -128,12 +128,12 @@
     [self restrictRotation:YES];
     [super viewWillAppear:NO];
     
-    if([db openDatabase] && [[db newGetAllCounties] count] > 0)
+    if([db openDatabase] && [[db getAllCounties] count] > 0)
     {
-        tableData = [db newGetAllCounties];
+        tableData = [db getAllCounties];
         [self.tableView reloadData];
-        favSpots = [db newGetSpotFavorites];
-        favCountyArr = [db newGetCountyFavorites];
+        favSpots = [db getSpotFavorites];
+        favCountyArr = [db getCountyFavorites];
     }
     
     [db closeDatabase];
@@ -345,9 +345,9 @@
 {
     if ([db openDatabase])
     {
-        favSpots = [db newGetSpotFavorites];
-        favSpotNames = [db newGetSpotNameFavorites];
-        favCountyArr = [db newGetCountyFavorites];
+        favSpots = [db getSpotFavorites];
+        favSpotNames = [db getSpotNameFavorites];
+        favCountyArr = [db getCountyFavorites];
     }
     [db closeDatabase];
     [self.tableView reloadData];
@@ -363,7 +363,7 @@
 //    NSLog(@"%@",searchText);
     
     [db openDatabase];
-    searchResults = [db newGetSpotNamesFromSearchString:searchText];
+    searchResults = [db getSpotNamesFromSearchString:searchText];
     [db closeDatabase];
     
 //    NSLog(@"%@",searchResults);

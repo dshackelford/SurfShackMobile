@@ -31,21 +31,21 @@
 
 
 -(Boolean)deleteAllSpots;
--(NSMutableArray*)newGetAllSpots;
--(NSMutableArray*)newGetSomeSpots:(unsigned int)limit;
+-(NSMutableArray*)getAllSpots;
+-(NSMutableArray*)getSomeSpots:(unsigned int)limit;
 -(int)getCountOfAllSpots;
--(NSMutableArray*)newGetAllCounties;
--(NSMutableArray*)newGetCountyFavorites;
+-(NSMutableArray*)getAllCounties;
+-(NSMutableArray*)getCountyFavorites;
 -(NSMutableArray*)getSpotNamesInCounty:(NSString*)countyInit;
--(CLLocation*)newGetLocationOfSpot:(int)idInit;
--(NSString*)newGetSpotNameOfSpotID:(int)idInit;
+-(CLLocation*)getLocationOfSpot:(int)idInit;
+-(NSString*)getSpotNameOfSpotID:(int)idInit;
 //-(NSString*)getSpotNameOfID:(int)idInit;
--(NSMutableArray*)newGetSpotNamesFromSearchString:(NSString*)searchString;
+-(NSMutableArray*)getSpotNamesFromSearchString:(NSString*)searchString;
 
 -(BOOL)setSpot:(NSString*)spotNameInit toFav:(BOOL)favInit;
--(NSMutableArray*)newGetSpotFavorites;
--(NSMutableArray*)newGetSpotNameFavorites;
--(NSString*)newGetCountyOfSpotID:(int)idInit;
+-(NSMutableArray*)getSpotFavorites;
+-(NSMutableArray*)getSpotNameFavorites;
+-(NSString*)getCountyOfSpotID:(int)idInit;
 
 
 -(void) alterDbStructureAddMissingColumns;

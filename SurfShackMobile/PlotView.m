@@ -167,19 +167,14 @@
     dYData.lineWidth = 4;
     dYData.circleRadius = 4.0;
     dYData.drawCubicEnabled = YES;
-//    [dYData setColor:color];
     
     [dYData setColor:color];
-    [dYData setCircleColor:[UIColor clearColor]];
-//    [dYData setCircleColor:color];
+    [dYData setCircleColor:[UIColor clearColor]]; //don't want individual data points showing
     dYData.axisDependency = AxisDependencyLeft;
 
     
     //GRADIENT COLORS
-    NSArray* gradientColors = @[(id)color.CGColor,(id)[UIColor blackColor].CGColor];
-    
-    //    NSArray *gradientColors = @[(id)[ChartColorTemplates colorFromString:@"#3871cb"].CGColor,
-    //                                (id)[ChartColorTemplates colorFromString:@"#3894cb"].CGColor]; //get colors from the preference factory soon
+    NSArray* gradientColors = @[(id)color.CGColor,(id)[UIColor clearColor].CGColor];
     CGGradientRef gradient = CGGradientCreateWithColors(nil, (CFArrayRef)gradientColors, nil);
     dYData.fillAlpha = 0.5f;
     dYData.fill = [ChartFill fillWithLinearGradient:gradient angle:90.f];

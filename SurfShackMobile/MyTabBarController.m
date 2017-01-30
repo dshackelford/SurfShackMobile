@@ -21,7 +21,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:240/255.f green:240/255.f blue:240/255.f alpha:1];
     
     //choosing which screen to go to on load up
-    if ([[db newGetSpotFavorites] count] > 0)
+    if ([[db getSpotFavorites] count] > 0)
     {
         self.selectedIndex = 0; //go to report view controller
     }

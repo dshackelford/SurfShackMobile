@@ -30,8 +30,6 @@
     double lon;
 }
 
--(void)setData:(id)dataSet;
-
 //SETTERS
 -(id)init:(id)dataSet;
 

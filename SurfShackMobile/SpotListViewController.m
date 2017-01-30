@@ -22,7 +22,7 @@
     
     db = [[DBManager alloc] init];
     [db openDatabase];
-        favSpots = [db newGetSpotNameFavorites];
+        favSpots = [db getSpotNameFavorites];
     [db closeDatabase];
     
     screenSize = CGSizeMake([UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height);
@@ -146,7 +146,7 @@
     if ([db openDatabase])
     {
         tableData = [db getSpotNamesInCounty:county];
-        favSpots = [db newGetSpotNameFavorites];
+        favSpots = [db getSpotNameFavorites];
     }
     [db closeDatabase];
     [self.tableView reloadData];
