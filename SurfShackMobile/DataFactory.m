@@ -316,7 +316,7 @@
     }
 
     //determine the previous low tide for tide Ratio calculation
-    for (int i = 0; i < nextHighTideIndex; i++) //search up to the next high tide
+    for (int i = 1; i < nextHighTideIndex; i++) //search up to the next high tide
     {
         double localLowTide = 100;
         int localLowTideIndex = 0;
