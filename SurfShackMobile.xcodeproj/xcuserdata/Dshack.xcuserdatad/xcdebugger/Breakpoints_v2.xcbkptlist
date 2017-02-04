@@ -1078,11 +1078,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfShackMobile/AddPlaceViewController.m"
-            timestampString = "507883004.097823"
+            timestampString = "507884531.076318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360"
+            startingLineNumber = "363"
+            endingLineNumber = "363"
             landmarkName = "-filterContentForSearchText:scope:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1094,11 +1094,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfShackMobile/AddPlaceViewController.m"
-            timestampString = "507883004.097823"
+            timestampString = "507884531.076318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
+            startingLineNumber = "380"
+            endingLineNumber = "380"
             landmarkName = "-searchDisplayController:shouldReloadTableForSearchString:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1638,11 +1638,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfShackMobile/AddPlaceViewController.m"
-            timestampString = "507883004.097823"
+            timestampString = "507884531.076318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "363"
-            endingLineNumber = "363"
+            startingLineNumber = "366"
+            endingLineNumber = "366"
             landmarkName = "-filterContentForSearchText:scope:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1654,11 +1654,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfShackMobile/AddPlaceViewController.m"
-            timestampString = "507881802.283925"
+            timestampString = "507884531.076318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "344"
-            endingLineNumber = "344"
+            startingLineNumber = "347"
+            endingLineNumber = "347"
             landmarkName = "-reloadTheTable"
             landmarkType = "7">
          </BreakpointContent>
@@ -1702,11 +1702,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfShackMobile/AddPlaceViewController.m"
-            timestampString = "507883072.465418"
+            timestampString = "507884531.076318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "399"
-            endingLineNumber = "399"
+            startingLineNumber = "402"
+            endingLineNumber = "402"
             landmarkName = "-searchBarCancelButtonClicked:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1734,11 +1734,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfShackMobile/AddPlaceViewController.m"
-            timestampString = "507883072.465418"
+            timestampString = "507884531.076318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "392"
-            endingLineNumber = "392"
+            startingLineNumber = "395"
+            endingLineNumber = "395"
             landmarkName = "-searchBarShouldEndEditing:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1750,11 +1750,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SurfShackMobile/AddPlaceViewController.m"
-            timestampString = "507883072.465418"
+            timestampString = "507884531.076318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "393"
-            endingLineNumber = "393"
+            startingLineNumber = "396"
+            endingLineNumber = "396"
             landmarkName = "-searchBarShouldEndEditing:"
             landmarkType = "7">
          </BreakpointContent>

@@ -299,6 +299,9 @@
         [db closeDatabase];
         
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"changedSpotFavorites" object:self];
+        [self reloadTheTable];
 
     }
     else //normal county list display
