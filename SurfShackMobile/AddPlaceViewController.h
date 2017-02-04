@@ -54,6 +54,7 @@
     NSArray* tableDataIDs;
     
     NSArray *searchResults;
+    NSString* searchString;
     
     UIAlertController* alertController;
     

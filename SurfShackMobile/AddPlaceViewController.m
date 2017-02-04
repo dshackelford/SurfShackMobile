@@ -42,7 +42,6 @@
     int mrCount = [db getCountOfAllSpots];
     [db closeDatabase];
     
-    
     screenSize = [UIScreen mainScreen].bounds.size;
     
     self.title = @"Counties";
@@ -208,10 +207,9 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([searchResults count] > 0) //found a search?
+    if (searchResults != nil) //found a search?
     {
         return [searchResults count];
-        
     }
     else
     {
@@ -233,7 +231,7 @@
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([searchResults count] > 0)
+    if(searchResults != nil)
     {
         arrowCell* cell = [[[NSBundle mainBundle] loadNibNamed:@"arrowCell" owner:self options:nil] lastObject];
         [tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
@@ -277,7 +275,7 @@
 {
     self.selectedIndex = (int)indexPath.row;
 
-    if([searchResults count] > 0)
+    if(searchResults!= nil)
     {
         UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
         
@@ -359,19 +357,18 @@
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
-//    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"name contains[cd] %@", searchText];
-//    NSLog(@"%@",searchText);
+    searchString = searchText;
     
     [db openDatabase];
     searchResults = [db getSpotNamesFromSearchString:searchText];
     [db closeDatabase];
+
     
-//    NSLog(@"%@",searchResults);
-    
-    
+    if([searchString isEqualToString: @""]) //if user hits the 'x' in the search bar, makes the table view return back to counties. Also returns the shadowed area back to county list
+    {
+        searchResults = nil;
+    }
     [self reloadTheTable];
-//    searchResults = [tableData filteredArrayUsingPredicate:resultPredicate];
-//    NSLog(@"%@",searchResults);
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
@@ -384,10 +381,24 @@
     return YES;
 }
 
+- (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
+{
+    NSLog(@"should hide the table");
+}
+
 -(BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
 {
-    searchResults = nil;
+
+    NSLog(@"serach ended editint");
     [self reloadTheTable];
     return YES;
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    NSLog(@"cancel pressed");
+    searchResults = nil;
+    searchString = nil;
+    [self reloadTheTable];
 }
 @end
