@@ -29,6 +29,10 @@
 		693EA5351D51A823008CBEEE /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EA5341D51A823008CBEEE /* LogViewController.m */; };
 		69405C9D1D4DACC8007E4617 /* SegmentedControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69405C9C1D4DACC8007E4617 /* SegmentedControlCell.m */; };
 		69405CA31D4DACDB007E4617 /* SegmentedControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69405CA21D4DACDB007E4617 /* SegmentedControlCell.xib */; };
+		69470CA01E45B681004CD7BE /* report-3-xxl.png in Resources */ = {isa = PBXBuildFile; fileRef = 69470C9F1E45B681004CD7BE /* report-3-xxl.png */; };
+		69470CA51E45B738004CD7BE /* report.png in Resources */ = {isa = PBXBuildFile; fileRef = 69470CA31E45B738004CD7BE /* report.png */; };
+		69470CA61E45B738004CD7BE /* reportXX.png in Resources */ = {isa = PBXBuildFile; fileRef = 69470CA41E45B738004CD7BE /* reportXX.png */; };
+		69470CA81E45B790004CD7BE /* report50.png in Resources */ = {isa = PBXBuildFile; fileRef = 69470CA71E45B790004CD7BE /* report50.png */; };
 		696963371D349B4C00CC3734 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 696963361D349B4C00CC3734 /* main.m */; };
 		6969633A1D349B4C00CC3734 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 696963391D349B4C00CC3734 /* AppDelegate.m */; };
 		696963401D349B4C00CC3734 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6969633E1D349B4C00CC3734 /* Main.storyboard */; };
@@ -192,6 +196,10 @@
 		69405C9C1D4DACC8007E4617 /* SegmentedControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentedControlCell.m; sourceTree = "<group>"; };
 		69405CA11D4DACD1007E4617 /* SegmentedControlCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SegmentedControlCell.h; sourceTree = "<group>"; };
 		69405CA21D4DACDB007E4617 /* SegmentedControlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedControlCell.xib; sourceTree = "<group>"; };
+		69470C9F1E45B681004CD7BE /* report-3-xxl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "report-3-xxl.png"; sourceTree = "<group>"; };
+		69470CA31E45B738004CD7BE /* report.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = report.png; sourceTree = "<group>"; };
+		69470CA41E45B738004CD7BE /* reportXX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reportXX.png; sourceTree = "<group>"; };
+		69470CA71E45B790004CD7BE /* report50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = report50.png; sourceTree = "<group>"; };
 		696963321D349B4C00CC3734 /* SurfShackMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfShackMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		696963361D349B4C00CC3734 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		696963381D349B4C00CC3734 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -370,6 +378,13 @@
 			name = "Spitcast Data";
 			sourceTree = "<group>";
 		};
+		69470CA91E45B7EF004CD7BE /* iconImage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = iconImage;
+			sourceTree = "<group>";
+		};
 		696963291D349B4C00CC3734 = {
 			isa = PBXGroup;
 			children = (
@@ -415,6 +430,11 @@
 		696963351D349B4C00CC3734 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				69470CA71E45B790004CD7BE /* report50.png */,
+				69470CA91E45B7EF004CD7BE /* iconImage */,
+				69470CA31E45B738004CD7BE /* report.png */,
+				69470CA41E45B738004CD7BE /* reportXX.png */,
+				69470C9F1E45B681004CD7BE /* report-3-xxl.png */,
 				69D1DCA61D6191B700DF29B5 /* logo120.png */,
 				69D1DCA71D6191B700DF29B5 /* logo180.png */,
 				69D1DC961D618C8800DF29B5 /* Assets.xcassets */,
@@ -731,6 +751,7 @@
 				690F86411D405DA800C33918 /* LogIcon.png in Resources */,
 				696D2BDA1D4DD85300A45E45 /* SecondaryLabelCell.xib in Resources */,
 				69D72D331D41527100980CF6 /* PickerInputCell.xib in Resources */,
+				69470CA51E45B738004CD7BE /* report.png in Resources */,
 				69D1DCA11D618E3500DF29B5 /* colorScheme.png in Resources */,
 				69B0C6D11D4B080E00653102 /* units.png in Resources */,
 				696963451D349B4C00CC3734 /* LaunchScreen.storyboard in Resources */,
@@ -739,8 +760,11 @@
 				69D1DCA31D618E3500DF29B5 /* notifications.png in Resources */,
 				690F86421D405DA800C33918 /* ReportIcon.png in Resources */,
 				69D1DC9B1D618C8800DF29B5 /* dataProvider.png in Resources */,
+				69470CA81E45B790004CD7BE /* report50.png in Resources */,
 				690F863C1D405C4600C33918 /* settingsIcon.png in Resources */,
+				69470CA01E45B681004CD7BE /* report-3-xxl.png in Resources */,
 				690F863E1D405D1B00C33918 /* AddIcon.png in Resources */,
+				69470CA61E45B738004CD7BE /* reportXX.png in Resources */,
 				69D72D2B1D41521D00980CF6 /* TextInputCell.xib in Resources */,
 				69D72D271D41521D00980CF6 /* TableView.xib in Resources */,
 				696963401D349B4C00CC3734 /* Main.storyboard in Resources */,

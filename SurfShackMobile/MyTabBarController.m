@@ -29,7 +29,7 @@
     {
         [PreferenceFactory getPreferences]; //initialize the preferences
         
-        self.selectedIndex = 2; //go to add a spot //still throw the
+        self.selectedIndex = 1; //go to add a spot //still throw the
     }
     
     [db closeDatabase];

@@ -70,11 +70,11 @@
             </objects>
             <point key="canvasLocation" x="842" y="338"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Report-->
         <scene sceneID="TXc-pE-7CA">
             <objects>
                 <navigationController id="Ycr-k2-pIm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="4oo-Tl-QOy"/>
+                    <tabBarItem key="tabBarItem" title="Report" image="reportXX.png" selectedImage="reportXX.png" id="4oo-Tl-QOy"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="r1a-rt-H5u">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -302,7 +302,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="Ycr-k2-pIm" kind="relationship" relationship="viewControllers" id="FHN-ti-tig"/>
-                        <segue destination="AfL-sN-FPe" kind="relationship" relationship="viewControllers" id="ndQ-V3-Sbf"/>
                         <segue destination="8rg-Mg-yf7" kind="relationship" relationship="viewControllers" id="yvx-m0-lh4"/>
                         <segue destination="OqQ-eb-iXK" kind="relationship" relationship="viewControllers" id="s7t-Wd-qM0"/>
                     </connections>
@@ -455,4 +454,7 @@
             <point key="canvasLocation" x="1919" y="2239"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="reportXX.png" width="25" height="25"/>
+    </resources>
 </document>
