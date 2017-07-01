@@ -26,7 +26,7 @@
     _theChartView.noDataText = @"";
     _theChartView.backgroundColor = [UIColor clearColor];
     
-    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, frame.size.width/3 - 20, 25)];
+    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, frame.size.width/2 - 20, 25)];
     titleLabel.font = [UIFont boldSystemFontOfSize:23];
     [self addSubview:titleLabel];
     
@@ -45,16 +45,28 @@
     spitcastLabel.frame = CGRectMake(self.frame.size.width - 155, 0, 175, 25);
     if (currentViewTag == 1)
     {
-        titleLabel.text = @"SURF";
+        NSString* str = @"SURF (";
+        str = [str stringByAppendingString:[PreferenceFactory getIndicatorStrForHeight]];
+        str = [str stringByAppendingString:@")"];
+        titleLabel.text = str;
     }
     else if(currentViewTag == 2)
     {
-        titleLabel.text = @"WIND";
+        NSString* str = @"WIND (";
+        str = [str stringByAppendingString:[PreferenceFactory getIndicatorStrForSpeed]];
+        str = [str stringByAppendingString:@")"];
+        titleLabel.text = str;
+
     }
     else
     {
-        titleLabel.text = @"TIDE";
+        NSString* str = @"TIDE (";
+        str = [str stringByAppendingString:[PreferenceFactory getIndicatorStrForHeight]];
+        str = [str stringByAppendingString:@")"];
+        titleLabel.text = str;
     }
+    
+    
 }
 
 #pragma mark - Plotting
@@ -82,7 +94,7 @@
 {
     //INITIALIZE X AXIS VALUES ARRAY
     xVals = [[NSMutableArray alloc] init];
-    
+
     if ([yData count] == 24) //one day showing (with hours on x-axis)
     {
         for (int i = 0; i < [yData count]; i++)
@@ -140,11 +152,22 @@
     //    ////////////////
     
     //SPITCAST DATA
-    double max = [[yData objectAtIndex:0] doubleValue];
-    double min = [[yData objectAtIndex:0] doubleValue];
+    double max = -1000;
+    double min = 1000;
     for (int i = 0; i < [yData count]; i++)
     {
         double val = [[yData objectAtIndex:i] doubleValue];
+        
+        //change the units to meter if necessary
+        if([indicatorVal isEqualToString:@"m"])
+        {
+            val = val*0.3048; //change ft to m
+        }
+        else if([indicatorVal isEqualToString:@"kts"])
+        {
+            val = val*0.868976; //
+        }
+        
         [yVals addObject:[[ChartDataEntry alloc] initWithX:i y:val]];
         
         if (val > max)
@@ -304,8 +327,8 @@
     }
     else
     {
-//        NSLog(@"Y: %f",value);
-        NSString* str = [NSString stringWithFormat:@"%.f%@",value,indicatorVal];
+//        NSString* str = [NSString stringWithFormat:@"%.f%@",value,indicatorVal]; //unit indicator here
+        NSString* str = [NSString stringWithFormat:@"%.f",value]; //unit indicator here
         return str;
     }
 }

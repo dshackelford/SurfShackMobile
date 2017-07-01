@@ -54,9 +54,12 @@
     
     if ([_favoriteSpotsArr count] > 0)
     {
-        //NAVIGATION BAR BUTTONS
-        listOfSpotsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(didPressListOfSpotsButton:)];
-        self.navigationItem.rightBarButtonItem = listOfSpotsButton;
+//        //NAVIGATION BAR BUTTONS
+//        listOfSpotsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(didPressListOfSpotsButton:)];
+//        self.navigationItem.rightBarButtonItem = listOfSpotsButton;
+        
+        refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(didPressRefreshButton:)];
+        self.navigationItem.leftBarButtonItem = refreshButton;
         
         shouldReloadPageController = NO;
         // Create page view controller
@@ -180,7 +183,17 @@
 
 -(IBAction)didPressRefreshButton:(id)sender
 {
+    [dataFactory removeData];
+    
+    [dataFactory getDataForSpots:_favoriteSpotsArr andCounties:_favoriteCounties];
+    
+    NSLog(@"Swiped Down to refresh!");
+    
+    //tells the report views to remove their subviews and to start the indicator
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshData" object:nil];
 
+    
+    
 //    NSLog(@"did press refresh button");
 //    // Create a new view controller and pass suitable data.
 //    ReportViewController *pageContentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ReportViewController"];
@@ -193,6 +206,7 @@
 //    [dataFactory removeSpotDictionary:spotID];
 //    //also add one for the county?
 //    [dataFactory getDataForSpots:_favoriteSpotsArr andCounties:_favoriteCounties];
+    
 }
 
 -(void)changedSpotFavorites:(NSNotification*)notification
@@ -513,17 +527,17 @@
     swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:nil];
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     
-    swipeDown = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDown:)];
-    [swipeDown requireGestureRecognizerToFail:swipeLeft];
-    [swipeDown requireGestureRecognizerToFail:swipeRight];
-    [swipeDown requireGestureRecognizerToFail:singleTap];
+//    swipeDown = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDown:)];
+//    [swipeDown requireGestureRecognizerToFail:swipeLeft];
+//    [swipeDown requireGestureRecognizerToFail:swipeRight];
+//    [swipeDown requireGestureRecognizerToFail:singleTap];
     
     singleTap.cancelsTouchesInView = YES;
     
     [self.view addGestureRecognizer:swipeRight];
     [self.view addGestureRecognizer:swipeLeft];
     [self.view addGestureRecognizer:singleTap];
-    [self.view addGestureRecognizer:swipeDown];
+//    [self.view addGestureRecognizer:swipeDown];
 }
 
 -(void)didSingleTap:(UITapGestureRecognizer*)tapGesture

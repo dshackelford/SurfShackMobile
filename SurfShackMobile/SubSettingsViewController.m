@@ -68,7 +68,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) //height
+    if (indexPath.row == 0) //speed
     {
         arrowCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"arrowCell" owner:self options:nil] lastObject];
         
@@ -84,7 +84,7 @@
         
         segControlView.tag = indexPath.row;
         
-        if([[PreferenceFactory getIndicatorStrForHeight] isEqualToString:@"ft"])
+        if([[PreferenceFactory getIndicatorStrForSpeed] isEqualToString:@"mph"])
         {
             segControlView.selectedSegmentIndex = 0;
         }
@@ -97,7 +97,7 @@
         
         return cell;
     }
-    else //speed
+    else //heights
     {
         arrowCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"arrowCell" owner:self options:nil] lastObject];
         
@@ -112,7 +112,7 @@
         
         
         segControlView.tag = indexPath.row;
-        if([[PreferenceFactory getIndicatorStrForSpeed] isEqualToString:@"MPH"])
+        if([[PreferenceFactory getIndicatorStrForHeight] isEqualToString:@"ft"])
         {
             segControlView.selectedSegmentIndex = 0;
         }
@@ -139,13 +139,36 @@
     
 }
 
-
 - (void)updateSwitchAtIndexPath:(UISegmentedControl*)segControl
 {
-    NSLog(@"%d",(int)segControl.tag);
-    NSLog(@"valu: %d",(int)segControl.selectedSegmentIndex);
+    NSLog(@"row: %d",(int)segControl.tag); //the row that the switch is in
+    NSLog(@"value: %d",(int)segControl.selectedSegmentIndex); //the value of the segmented control
     
     //write the new indicator value to prefernce factory here
+    if(segControl.tag == 0)
+    {
+        if(segControl.selectedSegmentIndex == 0)
+        {
+            [PreferenceFactory setIndicatorStrForSpeed:[NSString stringWithFormat:@"mph"]];
+        }
+        else
+        {
+            [PreferenceFactory setIndicatorStrForSpeed:[NSString stringWithFormat:@"kts"]];
+        }
+    }
+    else if(segControl.tag == 1)
+    {
+        
+        if(segControl.selectedSegmentIndex == 0)
+        {
+            [PreferenceFactory setIndicatorStrForHeight:[NSString stringWithFormat:@"ft"]];
+        }
+        else
+        {
+            [PreferenceFactory setIndicatorStrForHeight:[NSString stringWithFormat:@"m"]];
+        }
+
+    }
 }
 
 @end

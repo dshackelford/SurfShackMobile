@@ -142,7 +142,7 @@
 - (void)updateSwitchAtIndexPath:(UISegmentedControl*)segControl
 {
     NSLog(@"%d",(int)segControl.tag);
-    NSLog(@"valu: %d",(int)segControl.selectedSegmentIndex);
+    NSLog(@"value: %d",(int)segControl.selectedSegmentIndex);
     
     //write the new indicator value to prefernce factory here
     if(segControl.tag == 0)

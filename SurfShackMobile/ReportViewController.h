@@ -28,9 +28,7 @@
 @import Charts;
 @interface ReportViewController : MasterViewController <CLLocationManagerDelegate,UIGestureRecognizerDelegate>
 {
-    DBManager* db;
-    
-    id<DataHandler> surfDataSource; //DON'T USE THIS ANYMORE
+    DBManager* db; //local database manager for use surf spot selections
 
     //CURRENT SPOT
     DataFactory* dataFactory;

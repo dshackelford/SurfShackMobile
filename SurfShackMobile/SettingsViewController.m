@@ -182,7 +182,7 @@
     {
         SubSettingsViewController *destViewController = segue.destinationViewController;
         
-        [destViewController setTableData:[[NSMutableArray alloc] initWithArray:@[@"Height",@"Speed"]]];
+        [destViewController setTableData:[[NSMutableArray alloc] initWithArray:@[@"Speed",@"Height"]]];
         NSMutableArray* segArray = [[NSMutableArray alloc] initWithArray:@[@[@"MPH",@"Kts"],@[@"ft",@"m"]]];
             
         [destViewController setSegControlArrays:segArray];

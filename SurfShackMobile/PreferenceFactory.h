@@ -20,6 +20,8 @@
 #define kColorScheme @"ColorScheme"
 #define kScreenSizeWidth @"ScreenSizeWidth"
 #define kScreenSizeHeight @"ScreenSizeHeight"
+#define kHeightUnit @"heightUnit"
+#define kSpeedUnit @"speedUnit"
 
 @interface PreferenceFactory :NSObject
 {
@@ -27,8 +29,6 @@
 }
 
 +(id<DataHandler>)getDataService;
-+(NSString*)getIndicatorStrForHeight;
-+(NSString*)getIndicatorStrForSpeed;
 
 //Got moved to the database manager
 //+(NSArray*)getSpotFavorites;
@@ -46,6 +46,11 @@
 
 +(void)setLongRange:(int)rangeInit;
 +(void)setShortRange:(int)rangeInit;
+
++(NSString*)getIndicatorStrForHeight;
++(NSString*)getIndicatorStrForSpeed;
++(void)setIndicatorStrForHeight:(NSString*)indicatorStr;
++(void)setIndicatorStrForSpeed:(NSString*)indicatorStr;
 
 +(NSDictionary*)getPreferences;
 

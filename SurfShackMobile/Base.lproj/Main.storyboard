@@ -70,11 +70,11 @@
             </objects>
             <point key="canvasLocation" x="842" y="338"/>
         </scene>
-        <!--Report-->
+        <!--Navigation Controller-->
         <scene sceneID="TXc-pE-7CA">
             <objects>
                 <navigationController id="Ycr-k2-pIm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Report" image="reportXX.png" selectedImage="reportXX.png" id="4oo-Tl-QOy"/>
+                    <tabBarItem key="tabBarItem" selectedImage="reportXX.png" systemItem="favorites" id="4oo-Tl-QOy"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="r1a-rt-H5u">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

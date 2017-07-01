@@ -21,13 +21,11 @@
     
     if (screenSize.width > screenSize.height) //maintain a constant screen size for consistency
     {
-        //swap the values for a load in horizaontal
+        //swap the values for a load in horizontal
         double x = screenSize.width;
         screenSize.width = screenSize.height;
         screenSize.height = x;
     }
-    
-//    [self establishGestures];
     
     [db openDatabase];
     favSpots = [db getSpotFavorites];
@@ -166,7 +164,7 @@
     indicator.hidden = NO;
     [indicator startAnimating];
     
-    NSLog(@"attemp resfresh");
+    NSLog(@"attempt resfresh");
 }
 
 //if there is data, then current values can be derived thusly
@@ -176,6 +174,7 @@
     indicator.hidden = YES;
     spotDict = [dataFactory setCurrentValuesForSpotDict:spotDict];
     [self chooseDataToDisplay];
+    NSLog(@"height units: %@",[PreferenceFactory getIndicatorStrForHeight]);
 }
 
 
@@ -207,32 +206,35 @@
     
         //the comp view will parse the spotDict for the current values and display them thusly
         [aCompView decideWhichDatumToShow:currentView withSpotDict:spotDict andHeading:heading];
-        
-        //surf View!
-        if (currentView == 1)
+        NSString* indicatorStr;         //surf View!
+        if (currentView == 1) //surf view!
         {
             infoDict = [aSpotDict objectForKey:@"surf"];
+            indicatorStr = [PreferenceFactory getIndicatorStrForHeight];
+
         }
         //wind View!
         else if(currentView == 2)
         {
             infoDict = [aSpotDict objectForKey:@"wind"];
+            indicatorStr = [PreferenceFactory getIndicatorStrForSpeed];
         }
         //tide View!
         else if(currentView == 3)
         {
             infoDict = [aSpotDict objectForKey:@"tide"];
+            indicatorStr = [PreferenceFactory getIndicatorStrForHeight];
         }
     
         UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-        
+
         if(orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)
         {
             NSMutableArray* longMags = [dataFactory getShorternedVersionOfArray:[infoDict objectForKey:kMags] ofLength:[PreferenceFactory getLongRange]];
             
             NSMutableArray* longXVals = [dataFactory getShorternedVersionOfXValArray:[infoDict objectForKey:kDayArr] ofLength:[PreferenceFactory getLongRange]];
             
-            [aPlotView establishViewWithData:longMags withXVals:longXVals withIndicatorVal:[infoDict objectForKey:kIndicatorStr] andPlotLabel:[infoDict objectForKey:@"plotLabel"]];
+            [aPlotView establishViewWithData:longMags withXVals:longXVals withIndicatorVal:indicatorStr andPlotLabel:[infoDict objectForKey:@"plotLabel"]];
             
             NSLog(@"width: %f, height: %f",screenSize.width,screenSize.height);
             
@@ -251,7 +253,7 @@
             
             NSMutableArray* shortXVals = [dataFactory getShorternedVersionOfXValArray:[infoDict objectForKey:kDayArr] ofLength:[PreferenceFactory getShortRange]];
             
-            [aPlotView establishViewWithData:shortMags withXVals:shortXVals withIndicatorVal:[infoDict objectForKey:kIndicatorStr] andPlotLabel:[infoDict objectForKey:@"plotLabel"]];
+            [aPlotView establishViewWithData:shortMags withXVals:shortXVals withIndicatorVal:indicatorStr andPlotLabel:[infoDict objectForKey:@"plotLabel"]];
             
             [aPlotView updateFrame:CGRectMake(0,screenSize.height - screenSize.height/3 - 75, screenSize.width, screenSize.height/3) forCurrentView:currentView];
   

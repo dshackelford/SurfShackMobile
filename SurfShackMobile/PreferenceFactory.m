@@ -31,14 +31,41 @@
 
 +(NSString*)getIndicatorStrForHeight
 {
-    //ask the file first for waht the user wants (could be m,ft,mi,etc...)
-    return @"ft";
+    if ([AppUtilities doesFileExistAtPath:[AppUtilities getPathToPreferenceFile]] == NO)
+    {
+        [PreferenceFactory createPreferences];
+    }
+    
+    NSDictionary* prefDict = [NSDictionary dictionaryWithContentsOfFile:[AppUtilities getPathToPreferenceFile]];
+    NSString* heightUnit = [NSString stringWithFormat:@"%@",[prefDict objectForKey:kHeightUnit]];
+    if([heightUnit isEqual:[NSNull null]])
+    {
+        return @"ft"; //catch all
+    }
+    else
+    {
+        return heightUnit;
+    }
 }
 
 +(NSString*)getIndicatorStrForSpeed
 {
-    //ask file for mph,kts
-    return @"mph";
+    if ([AppUtilities doesFileExistAtPath:[AppUtilities getPathToPreferenceFile]] == NO)
+    {
+        [PreferenceFactory createPreferences];
+    }
+    
+    NSDictionary* prefDict = [NSDictionary dictionaryWithContentsOfFile:[AppUtilities getPathToPreferenceFile]];
+    NSString* speedUnit = [NSString stringWithFormat:@"%@",[prefDict objectForKey:kSpeedUnit]];
+    
+    if([speedUnit isEqualToString:@""])
+    {
+        return @"mph"; //catch all
+    }
+    else
+    {
+        return speedUnit;
+    }
 }
 
 +(int)getShortRange
@@ -63,6 +90,27 @@
     NSDictionary* prefDict = [NSDictionary dictionaryWithContentsOfFile:[AppUtilities getPathToPreferenceFile]];
     int longRange = [[prefDict objectForKey:kLongDataLength] intValue];
     return longRange;
+}
+
+#pragma mark - Setters
++(void)setIndicatorStrForHeight:(NSString*)indicatorStr
+{
+    //preferenes will have already been created to select the day range before the user will set it
+    NSDictionary* prefDict = [NSDictionary dictionaryWithContentsOfFile:[AppUtilities getPathToPreferenceFile]];
+    
+    [prefDict setValue:indicatorStr forKey:kHeightUnit];
+    
+    [prefDict writeToFile:[AppUtilities getPathToPreferenceFile] atomically:YES];
+}
+
++(void)setIndicatorStrForSpeed:(NSString*)indicatorStr
+{
+    //preferenes will have already been created to select the day range before the user will set it
+    NSDictionary* prefDict = [NSDictionary dictionaryWithContentsOfFile:[AppUtilities getPathToPreferenceFile]];
+    
+    [prefDict setValue:indicatorStr forKey:kSpeedUnit];
+    
+    [prefDict writeToFile:[AppUtilities getPathToPreferenceFile] atomically:YES];
 }
 
 +(void)setShortRange:(int)rangeInit
@@ -125,10 +173,10 @@
     
     //ADDING TO THE DICTIONARY SHOULD HAPPEN IN THE SETTINGS
     
-    NSArray* keys=@[kUserName,kShortDataLength,kLongDataLength,kSurfDataProvider,kColorScheme,kScreenSizeWidth,kScreenSizeHeight];
+    NSArray* keys=@[kUserName,kShortDataLength,kLongDataLength,kSurfDataProvider,kColorScheme,kScreenSizeWidth,kScreenSizeHeight,kHeightUnit,kSpeedUnit];
     
 //    UIColor* color = [PreferenceFactory getUIColorForKey:@"Blue"];
-    NSArray* objects=@[@"",@3,@6,@"Spitcast",@"Blue",@1,@1];
+    NSArray* objects=@[@"",@3,@6,@"Spitcast",@"Blue",@1,@1,@"ft",@"mph"];
     
     NSMutableDictionary* myDictionary =[[NSMutableDictionary alloc] initWithObjects:objects forKeys:keys];
     
