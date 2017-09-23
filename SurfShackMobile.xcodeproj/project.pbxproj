@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2EDEC8316AE9A7DE8203DA01 /* Pods_SurfShackMobileUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E685C9BA0F295E1CB945EA3 /* Pods_SurfShackMobileUITests.framework */; };
 		690601F61D3DE8AF009696DE /* DateHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 690601F51D3DE8AF009696DE /* DateHandler.m */; };
-		690A7DD21E31CF5B004795B0 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696C1F941E2DE51800D94D8E /* Charts.framework */; };
-		690A7DD31E31CF5B004795B0 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 696C1F941E2DE51800D94D8E /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		690CE32A1D4406CF00450774 /* PreferenceFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 690CE3291D4406CF00450774 /* PreferenceFactory.m */; };
 		690CE3311D441D6700450774 /* Bezier.m in Sources */ = {isa = PBXBuildFile; fileRef = 690CE3301D441D6700450774 /* Bezier.m */; };
 		690CE33D1D442ED900450774 /* SurfShackMobileCountyCollectingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 690CE33C1D442ED900450774 /* SurfShackMobileCountyCollectingTests.m */; };
@@ -65,7 +64,6 @@
 		69B426241D472EE6006E4712 /* arrowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B426231D472EE6006E4712 /* arrowCell.m */; };
 		69CBBA7B1D52DF34005E3BCA /* CurrentWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBBA7A1D52DF34005E3BCA /* CurrentWeather.m */; };
 		69CBBA811D52E077005E3BCA /* WeatherPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBBA801D52E077005E3BCA /* WeatherPacket.m */; };
-		69CBBA851D52E0C6005E3BCA /* LowPassFilterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBBA841D52E0C6005E3BCA /* LowPassFilterTests.m */; };
 		69CBBA891D52E5D4005E3BCA /* CurrentWeatherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBBA881D52E5D4005E3BCA /* CurrentWeatherTests.m */; };
 		69CC59521D5AE95B00F504B0 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CC59511D5AE95B00F504B0 /* DBManager.m */; };
 		69CC59541D5AE9D300F504B0 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 69CC59531D5AE9D300F504B0 /* libsqlite3.tbd */; };
@@ -90,16 +88,11 @@
 		69DB19F81D484E63000F500B /* TidePacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DB19F71D484E63000F500B /* TidePacket.m */; };
 		69EDF4301D7B6A5B00B310EA /* SubInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69EDF42F1D7B6A5B00B310EA /* SubInfoView.m */; };
 		69FC29EF1D59881F008F53E9 /* SpotListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FC29EE1D59881F008F53E9 /* SpotListViewController.m */; };
+		86E2B345246991771969356E /* Pods_SurfShackMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6120C0F2B1D6D7B3F94C348E /* Pods_SurfShackMobile.framework */; };
+		EAB73B768DC254A8F46BFD14 /* Pods_SurfShackMobileTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A84FA5239C0B49D433EBB6E /* Pods_SurfShackMobileTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		690A7DD41E31CF5B004795B0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 696C1F8D1E2DE51800D94D8E /* Charts.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 06165F231D8110E600722320;
-			remoteInfo = Charts;
-		};
 		6969634C1D349B4C00CC3734 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6969632A1D349B4C00CC3734 /* Project object */;
@@ -114,27 +107,6 @@
 			remoteGlobalIDString = 696963311D349B4C00CC3734;
 			remoteInfo = SurfShackMobile;
 		};
-		696C1F931E2DE51800D94D8E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 696C1F8D1E2DE51800D94D8E /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 06165F241D8110E600722320;
-			remoteInfo = Charts;
-		};
-		696C1F951E2DE51800D94D8E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 696C1F8D1E2DE51800D94D8E /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 06B120D51D811E6200D14B02;
-			remoteInfo = ChartsRealm;
-		};
-		696C1F971E2DE51800D94D8E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 696C1F8D1E2DE51800D94D8E /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 06165F2E1D8110E600722320;
-			remoteInfo = ChartsTests;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -144,7 +116,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				690A7DD31E31CF5B004795B0 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -162,6 +133,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		03F8FA2BC4C51B3DB1400EA0 /* Pods-SurfShackMobileUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SurfShackMobileUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SurfShackMobileUITests/Pods-SurfShackMobileUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		072A905480F2920A39F04836 /* Pods-SurfShackMobileUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SurfShackMobileUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SurfShackMobileUITests/Pods-SurfShackMobileUITests.release.xcconfig"; sourceTree = "<group>"; };
+		1A84FA5239C0B49D433EBB6E /* Pods_SurfShackMobileTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SurfShackMobileTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D8332A5C90FFC962257F451 /* Pods-SurfShackMobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SurfShackMobileTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SurfShackMobileTests/Pods-SurfShackMobileTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6120C0F2B1D6D7B3F94C348E /* Pods_SurfShackMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SurfShackMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		690601F11D3DE8A8009696DE /* DateHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DateHandler.h; sourceTree = "<group>"; };
 		690601F51D3DE8AF009696DE /* DateHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateHandler.m; sourceTree = "<group>"; };
 		690CE3291D4406CF00450774 /* PreferenceFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceFactory.m; sourceTree = "<group>"; };
@@ -216,7 +192,6 @@
 		6969635C1D349B4C00CC3734 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6969636B1D349B8B00CC3734 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		6969636D1D349B9400CC3734 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		696C1F8D1E2DE51800D94D8E /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		696D2BC91D4DCDB700A45E45 /* AboutPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutPageViewController.m; sourceTree = "<group>"; };
 		696D2BCE1D4DCDBE00A45E45 /* AboutPageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutPageViewController.h; sourceTree = "<group>"; };
 		696D2BCF1D4DCF0E00A45E45 /* subViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = subViewController.m; sourceTree = "<group>"; };
@@ -260,7 +235,6 @@
 		69CBBA7A1D52DF34005E3BCA /* CurrentWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentWeather.m; sourceTree = "<group>"; };
 		69CBBA7F1D52DF3C005E3BCA /* CurrentWeather.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrentWeather.h; sourceTree = "<group>"; };
 		69CBBA801D52E077005E3BCA /* WeatherPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherPacket.m; sourceTree = "<group>"; };
-		69CBBA841D52E0C6005E3BCA /* LowPassFilterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LowPassFilterTests.m; sourceTree = "<group>"; };
 		69CBBA861D52E0E9005E3BCA /* WeatherPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherPacket.h; sourceTree = "<group>"; };
 		69CBBA881D52E5D4005E3BCA /* CurrentWeatherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentWeatherTests.m; sourceTree = "<group>"; };
 		69CC594D1D5AE95500F504B0 /* DBManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
@@ -297,6 +271,10 @@
 		69EDF4341D7B6A6100B310EA /* SubInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubInfoView.h; sourceTree = "<group>"; };
 		69FC29EE1D59881F008F53E9 /* SpotListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotListViewController.m; sourceTree = "<group>"; };
 		69FC29F21D59884C008F53E9 /* SpotListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpotListViewController.h; sourceTree = "<group>"; };
+		9C7E706705C032A39673E310 /* Pods-SurfShackMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SurfShackMobileTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SurfShackMobileTests/Pods-SurfShackMobileTests.release.xcconfig"; sourceTree = "<group>"; };
+		9E685C9BA0F295E1CB945EA3 /* Pods_SurfShackMobileUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SurfShackMobileUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2C82AD1AD371871418B7A05 /* Pods-SurfShackMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SurfShackMobile.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SurfShackMobile/Pods-SurfShackMobile.debug.xcconfig"; sourceTree = "<group>"; };
+		DDD95E84A6C154B608D1F299 /* Pods-SurfShackMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SurfShackMobile.release.xcconfig"; path = "Pods/Target Support Files/Pods-SurfShackMobile/Pods-SurfShackMobile.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -304,9 +282,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				690A7DD21E31CF5B004795B0 /* Charts.framework in Frameworks */,
 				69CC59541D5AE9D300F504B0 /* libsqlite3.tbd in Frameworks */,
 				697C89A51D485CD300DDB435 /* CoreLocation.framework in Frameworks */,
+				86E2B345246991771969356E /* Pods_SurfShackMobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +292,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAB73B768DC254A8F46BFD14 /* Pods_SurfShackMobileTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +300,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EDEC8316AE9A7DE8203DA01 /* Pods_SurfShackMobileUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,13 +368,14 @@
 		696963291D349B4C00CC3734 = {
 			isa = PBXGroup;
 			children = (
-				696C1F8D1E2DE51800D94D8E /* Charts.xcodeproj */,
 				69CC59531D5AE9D300F504B0 /* libsqlite3.tbd */,
 				697C89A41D485CD300DDB435 /* CoreLocation.framework */,
 				696963341D349B4C00CC3734 /* SurfShackMobile */,
 				6969634E1D349B4C00CC3734 /* SurfShackMobileTests */,
 				696963591D349B4C00CC3734 /* SurfShackMobileUITests */,
 				696963331D349B4C00CC3734 /* Products */,
+				D03DDA04EEB741395B92BECD /* Pods */,
+				9C5906FF43535E9F7C2FA560 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -460,7 +441,6 @@
 			children = (
 				6969634F1D349B4C00CC3734 /* SurfShackMobileStringTests.m */,
 				690CE33C1D442ED900450774 /* SurfShackMobileCountyCollectingTests.m */,
-				69CBBA841D52E0C6005E3BCA /* LowPassFilterTests.m */,
 				69CBBA881D52E5D4005E3BCA /* CurrentWeatherTests.m */,
 			);
 			path = SurfShackMobileTests;
@@ -474,16 +454,6 @@
 				6969635C1D349B4C00CC3734 /* Info.plist */,
 			);
 			path = SurfShackMobileUITests;
-			sourceTree = "<group>";
-		};
-		696C1F8E1E2DE51800D94D8E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				696C1F941E2DE51800D94D8E /* Charts.framework */,
-				696C1F961E2DE51800D94D8E /* ChartsRealm.framework */,
-				696C1F981E2DE51800D94D8E /* ChartsTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		696D2BD51D4DD2E600A45E45 /* Settings */ = {
@@ -606,6 +576,29 @@
 			name = "Add A Spot";
 			sourceTree = "<group>";
 		};
+		9C5906FF43535E9F7C2FA560 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6120C0F2B1D6D7B3F94C348E /* Pods_SurfShackMobile.framework */,
+				1A84FA5239C0B49D433EBB6E /* Pods_SurfShackMobileTests.framework */,
+				9E685C9BA0F295E1CB945EA3 /* Pods_SurfShackMobileUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D03DDA04EEB741395B92BECD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D2C82AD1AD371871418B7A05 /* Pods-SurfShackMobile.debug.xcconfig */,
+				DDD95E84A6C154B608D1F299 /* Pods-SurfShackMobile.release.xcconfig */,
+				2D8332A5C90FFC962257F451 /* Pods-SurfShackMobileTests.debug.xcconfig */,
+				9C7E706705C032A39673E310 /* Pods-SurfShackMobileTests.release.xcconfig */,
+				03F8FA2BC4C51B3DB1400EA0 /* Pods-SurfShackMobileUITests.debug.xcconfig */,
+				072A905480F2920A39F04836 /* Pods-SurfShackMobileUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -613,16 +606,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6969635F1D349B4C00CC3734 /* Build configuration list for PBXNativeTarget "SurfShackMobile" */;
 			buildPhases = (
+				F891489EA7C3396E778EF1DC /* [CP] Check Pods Manifest.lock */,
 				6969632E1D349B4C00CC3734 /* Sources */,
 				6969632F1D349B4C00CC3734 /* Frameworks */,
 				696963301D349B4C00CC3734 /* Resources */,
 				69AF08171D8F99FB00ADB5AD /* Embed PlugIns */,
 				690A7DD61E31CF5B004795B0 /* Embed Frameworks */,
+				3FB3D03212DFB04085919073 /* [CP] Embed Pods Frameworks */,
+				8901D097F1034CACFB37F6E4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				690A7DD51E31CF5B004795B0 /* PBXTargetDependency */,
 			);
 			name = SurfShackMobile;
 			productName = SurfShackMobile;
@@ -633,9 +628,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 696963621D349B4C00CC3734 /* Build configuration list for PBXNativeTarget "SurfShackMobileTests" */;
 			buildPhases = (
+				733B39DCB21FD9B21F5FBAFA /* [CP] Check Pods Manifest.lock */,
 				696963471D349B4C00CC3734 /* Sources */,
 				696963481D349B4C00CC3734 /* Frameworks */,
 				696963491D349B4C00CC3734 /* Resources */,
+				5F22FF546D44AF1652DB7A10 /* [CP] Embed Pods Frameworks */,
+				5E2C8DEE0F3F92B6C9EC32CF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -651,9 +649,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 696963651D349B4C00CC3734 /* Build configuration list for PBXNativeTarget "SurfShackMobileUITests" */;
 			buildPhases = (
+				C4B2B1EBB367A194424DC491 /* [CP] Check Pods Manifest.lock */,
 				696963521D349B4C00CC3734 /* Sources */,
 				696963531D349B4C00CC3734 /* Frameworks */,
 				696963541D349B4C00CC3734 /* Resources */,
+				ECBCA0C44D808EBB2A26E405 /* [CP] Embed Pods Frameworks */,
+				2D455FCE4FCAA5A7501639E8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -700,12 +701,6 @@
 			mainGroup = 696963291D349B4C00CC3734;
 			productRefGroup = 696963331D349B4C00CC3734 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 696C1F8E1E2DE51800D94D8E /* Products */;
-					ProjectRef = 696C1F8D1E2DE51800D94D8E /* Charts.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				696963311D349B4C00CC3734 /* SurfShackMobile */,
@@ -714,30 +709,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		696C1F941E2DE51800D94D8E /* Charts.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Charts.framework;
-			remoteRef = 696C1F931E2DE51800D94D8E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		696C1F961E2DE51800D94D8E /* ChartsRealm.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ChartsRealm.framework;
-			remoteRef = 696C1F951E2DE51800D94D8E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		696C1F981E2DE51800D94D8E /* ChartsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ChartsTests.xctest;
-			remoteRef = 696C1F971E2DE51800D94D8E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		696963301D349B4C00CC3734 /* Resources */ = {
@@ -790,6 +761,156 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2D455FCE4FCAA5A7501639E8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SurfShackMobileUITests/Pods-SurfShackMobileUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3FB3D03212DFB04085919073 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SurfShackMobile/Pods-SurfShackMobile-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SurfShackMobile/Pods-SurfShackMobile-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5E2C8DEE0F3F92B6C9EC32CF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SurfShackMobileTests/Pods-SurfShackMobileTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5F22FF546D44AF1652DB7A10 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SurfShackMobileTests/Pods-SurfShackMobileTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		733B39DCB21FD9B21F5FBAFA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SurfShackMobileTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8901D097F1034CACFB37F6E4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SurfShackMobile/Pods-SurfShackMobile-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C4B2B1EBB367A194424DC491 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SurfShackMobileUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ECBCA0C44D808EBB2A26E405 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SurfShackMobileUITests/Pods-SurfShackMobileUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F891489EA7C3396E778EF1DC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SurfShackMobile-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6969632E1D349B4C00CC3734 /* Sources */ = {
@@ -849,7 +970,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69CBBA851D52E0C6005E3BCA /* LowPassFilterTests.m in Sources */,
 				690CE33D1D442ED900450774 /* SurfShackMobileCountyCollectingTests.m in Sources */,
 				69CBBA891D52E5D4005E3BCA /* CurrentWeatherTests.m in Sources */,
 				696963501D349B4C00CC3734 /* SurfShackMobileStringTests.m in Sources */,
@@ -867,11 +987,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		690A7DD51E31CF5B004795B0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Charts;
-			targetProxy = 690A7DD41E31CF5B004795B0 /* PBXContainerItemProxy */;
-		};
 		6969634D1D349B4C00CC3734 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 696963311D349B4C00CC3734 /* SurfShackMobile */;
@@ -992,6 +1107,7 @@
 		};
 		696963601D349B4C00CC3734 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2C82AD1AD371871418B7A05 /* Pods-SurfShackMobile.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1007,6 +1123,7 @@
 		};
 		696963611D349B4C00CC3734 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DDD95E84A6C154B608D1F299 /* Pods-SurfShackMobile.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1022,6 +1139,7 @@
 		};
 		696963631D349B4C00CC3734 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2D8332A5C90FFC962257F451 /* Pods-SurfShackMobileTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = SurfShackMobileTests/Info.plist;
@@ -1034,6 +1152,7 @@
 		};
 		696963641D349B4C00CC3734 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C7E706705C032A39673E310 /* Pods-SurfShackMobileTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = SurfShackMobileTests/Info.plist;
@@ -1046,6 +1165,7 @@
 		};
 		696963661D349B4C00CC3734 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03F8FA2BC4C51B3DB1400EA0 /* Pods-SurfShackMobileUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = SurfShackMobileUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1057,6 +1177,7 @@
 		};
 		696963671D349B4C00CC3734 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 072A905480F2920A39F04836 /* Pods-SurfShackMobileUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = SurfShackMobileUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
