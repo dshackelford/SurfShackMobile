@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "ReportPageViewController.h"
 
+#import "OfflineData.h"
+
 @implementation ReportPageViewController
 
 -(void)viewDidLoad
@@ -30,7 +32,7 @@
         _favoriteCounties = [db getCountyFavorites]; //array of strings
     }
     [db closeDatabase];
-    
+
     screenSize = [UIScreen mainScreen].bounds.size;
     
     pageControl = [UIPageControl appearance];
@@ -81,6 +83,11 @@
     }
     
     [self establishGestures];
+    OfflineData* offData = [[OfflineData alloc] init];
+    
+    //read from persist file
+    //display immediately from persist file until new data comes in
+    //shade data to show that it is a day old
 }
 
 -(void)viewDidAppear:(BOOL)animated

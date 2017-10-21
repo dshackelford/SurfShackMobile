@@ -32,6 +32,7 @@
 		69470CA51E45B738004CD7BE /* report.png in Resources */ = {isa = PBXBuildFile; fileRef = 69470CA31E45B738004CD7BE /* report.png */; };
 		69470CA61E45B738004CD7BE /* reportXX.png in Resources */ = {isa = PBXBuildFile; fileRef = 69470CA41E45B738004CD7BE /* reportXX.png */; };
 		69470CA81E45B790004CD7BE /* report50.png in Resources */ = {isa = PBXBuildFile; fileRef = 69470CA71E45B790004CD7BE /* report50.png */; };
+		6949876F1F97107A008AE728 /* OfflineData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949876E1F97107A008AE728 /* OfflineData.m */; };
 		696963371D349B4C00CC3734 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 696963361D349B4C00CC3734 /* main.m */; };
 		6969633A1D349B4C00CC3734 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 696963391D349B4C00CC3734 /* AppDelegate.m */; };
 		696963401D349B4C00CC3734 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6969633E1D349B4C00CC3734 /* Main.storyboard */; };
@@ -175,6 +176,9 @@
 		69470CA31E45B738004CD7BE /* report.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = report.png; sourceTree = "<group>"; };
 		69470CA41E45B738004CD7BE /* reportXX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reportXX.png; sourceTree = "<group>"; };
 		69470CA71E45B790004CD7BE /* report50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = report50.png; sourceTree = "<group>"; };
+		6949876A1F7719C5008AE728 /* SurfShackMobile-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SurfShackMobile-Bridging-Header.h"; sourceTree = "<group>"; };
+		6949876D1F971070008AE728 /* OfflineData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OfflineData.h; sourceTree = "<group>"; };
+		6949876E1F97107A008AE728 /* OfflineData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OfflineData.m; sourceTree = "<group>"; };
 		696963321D349B4C00CC3734 /* SurfShackMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfShackMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		696963361D349B4C00CC3734 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		696963381D349B4C00CC3734 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -342,8 +346,11 @@
 				690CE3291D4406CF00450774 /* PreferenceFactory.m */,
 				69CC594D1D5AE95500F504B0 /* DBManager.h */,
 				69CC59511D5AE95B00F504B0 /* DBManager.m */,
+				6949876D1F971070008AE728 /* OfflineData.h */,
+				6949876E1F97107A008AE728 /* OfflineData.m */,
 				6934B9E61D5BA28C001D729A /* DBTableColumn.h */,
 				6934B9E11D5BA281001D729A /* DBTableColumn.m */,
+				6949876A1F7719C5008AE728 /* SurfShackMobile-Bridging-Header.h */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -678,6 +685,7 @@
 					696963311D349B4C00CC3734 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 5C7WP8NCS7;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					6969634A1D349B4C00CC3734 = {
@@ -786,10 +794,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SurfShackMobile/Pods-SurfShackMobile-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -938,6 +948,7 @@
 				697A29011D652DF700EDF8BC /* CompassView.m in Sources */,
 				6934B9E21D5BA281001D729A /* DBTableColumn.m in Sources */,
 				69A8DEF91D4DA090000D4412 /* SubSettingsViewController.m in Sources */,
+				6949876F1F97107A008AE728 /* OfflineData.m in Sources */,
 				690CE3311D441D6700450774 /* Bezier.m in Sources */,
 				69CBBA7B1D52DF34005E3BCA /* CurrentWeather.m in Sources */,
 				69281EC61D5427DD00FD39BF /* ReportPageViewController.m in Sources */,
@@ -1022,6 +1033,7 @@
 		6969635D1D349B4C00CC3734 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1067,6 +1079,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1074,6 +1087,7 @@
 		6969635E1D349B4C00CC3734 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1099,7 +1113,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1112,6 +1126,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1123,6 +1138,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 5C7WP8NCS7;
@@ -1130,6 +1146,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = DshackTech.SurfShackMobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SurfShackMobile/SurfShackMobile-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1139,6 +1158,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Dylan  Shackelford (4A28XS784E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 5C7WP8NCS7;
@@ -1146,6 +1166,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = DshackTech.SurfShackMobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SurfShackMobile/SurfShackMobile-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

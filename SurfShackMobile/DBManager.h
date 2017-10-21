@@ -29,7 +29,6 @@
 -(Boolean) doesActiveDBFileExist;
 
 
-
 -(Boolean)deleteAllSpots;
 -(NSMutableArray*)getAllSpots;
 -(NSMutableArray*)getSomeSpots:(unsigned int)limit;
