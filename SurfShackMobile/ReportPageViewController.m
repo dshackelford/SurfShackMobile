@@ -83,7 +83,6 @@
     }
     
     [self establishGestures];
-    OfflineData* offData = [[OfflineData alloc] init];
     
     //read from persist file
     //display immediately from persist file until new data comes in

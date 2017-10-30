@@ -10,7 +10,7 @@
 #import "OfflineData.h"
 
 @implementation OfflineData
-
+/*
 -(id)init
 {
     self = [super init];
@@ -26,10 +26,33 @@
     
     return self;
 }
-
--(void)writeDictToFile
+*/
+//Saves a current dict for a reportView controller with the key that is the spitcast ID number
++(void)saveSpotDict:(NSMutableDictionary*)aSpotDict withID:(int)idInit
 {
+    NSLog(@"path: %@",[AppUtilities getPathToOfflineData]);
     
+    NSMutableDictionary* offlineDict = [NSMutableDictionary dictionary ];
+    //get offlineDict from file
+    if([AppUtilities doesFileExistAtPath:[AppUtilities getPathToOfflineData]])
+    {
+    
+        offlineDict = [NSMutableDictionary dictionaryWithContentsOfFile:[AppUtilities getPathToOfflineData]];
+    }
+    else
+    {
+        //make the offline file
+        NSFileManager* appInfo = [NSFileManager defaultManager];
+         [appInfo createFileAtPath:[AppUtilities getPathToOfflineData] contents:nil attributes:nil];
+    }
+     offlineDict = [NSMutableDictionary dictionary ];
+    NSString* idStr = [NSString stringWithFormat:@"%i",idInit];
+    
+    [offlineDict removeObjectForKey:idStr];
+    
+    [offlineDict setObject:aSpotDict forKey:idStr];
+    
+    [offlineDict writeToFile:[AppUtilities getPathToOfflineData] atomically:YES];
 }
 
 @end

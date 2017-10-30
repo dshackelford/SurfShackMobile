@@ -72,7 +72,7 @@
 {
     NSString* basePath = NSHomeDirectory();
     
-    NSString* newPath = [basePath stringByAppendingPathComponent:@"Documents/SpitcastDatabase.sqlite"];
+    NSString* newPath = [basePath stringByAppendingPathComponent:@"/Documents/SpitcastDatabase.sqlite"];
     return newPath;
 }
 
@@ -80,7 +80,8 @@
 {
     NSString* basePath = NSHomeDirectory();
     
-    NSString* newPath = [basePath stringByAppendingPathComponent:@"Documents/OfflineDatabase.sqlite"];
+    //NSString* newPath = [basePath stringByAppendingPathComponent:@"Documents/OfflineDatabase.sqlite"];
+    NSString* newPath = [basePath stringByAppendingString:@"/Documents/OfflineDonwload"];
     return newPath;
 }
 

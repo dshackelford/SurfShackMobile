@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ReportViewController.h"
+#import "OfflineData.h"
 
 @implementation ReportViewController
 
@@ -173,6 +174,8 @@
     [indicator stopAnimating];
     indicator.hidden = YES;
     spotDict = [dataFactory setCurrentValuesForSpotDict:spotDict];
+    [OfflineData saveSpotDict:spotDict withID:[[favSpots objectAtIndex:self.index] intValue]];
+    
     [self chooseDataToDisplay];
     NSLog(@"height units: %@",[PreferenceFactory getIndicatorStrForHeight]);
 }
