@@ -35,6 +35,7 @@
     [self addSubview:spitcastLabel];
     spitcastLabel.text = @"(Powered by Spitcast.com)";
     
+    self.isOfflineData = true; //default to offline color sceme
     return self;
 }
 
@@ -183,7 +184,13 @@
     
     //COLOR PREFERENCE
     NSDictionary* prefs = [PreferenceFactory getPreferences];
+    
     UIColor* color = [prefs objectForKey:kColorScheme];
+    
+    if(self.isOfflineData)
+    {
+        color = [UIColor orangeColor];
+    }
     
     //MAIN DATA
     LineChartDataSet* dYData = [[LineChartDataSet alloc] initWithValues:yVals label:plotLabel];

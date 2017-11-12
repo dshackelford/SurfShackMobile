@@ -114,10 +114,11 @@
     //set the title bar in the pageview controller
     [[NSNotificationCenter defaultCenter] postNotificationName:@"changeTitle" object:[NSNumber numberWithInteger:self.index]];
     
-    spotDict  = [dataFactory getASpotDictionary:spotName andCounty:county];
+    NSMutableDictionary* tempDict  = [dataFactory getASpotDictionary:spotName andCounty:county];
     
-    if (spotDict != nil)
+    if (tempDict != nil)
     {
+        spotDict = tempDict;
         [self spotHasData];
     }
     else
@@ -177,6 +178,7 @@
     indicator.hidden = YES;
     spotDict = [dataFactory setCurrentValuesForSpotDict:spotDict];
     [OfflineData saveSpotDict:spotDict withID:[[favSpots objectAtIndex:self.index] intValue]];
+    aPlotView.isOfflineData = false;
     [self chooseDataToDisplay];
     NSLog(@"height units: %@",[PreferenceFactory getIndicatorStrForHeight]);
 }

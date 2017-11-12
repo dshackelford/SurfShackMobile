@@ -57,12 +57,20 @@
     NSData* receivedData = [[NSData alloc]initWithContentsOfURL:theURL];
     
     //PARSE THE DATA GRABBED FROM SPITCAST - HAS 35 DATA PACKAGES FOR ONE HOUR EACH
+    if(receivedData)
+    {
+        NSDictionary* jsonDataArray = [NSJSONSerialization JSONObjectWithData:receivedData options:0 error:nil];
+        
+        [theConnection cancel];
+        
+        return  jsonDataArray;
+    }
+    else
+    {
+        [theConnection cancel];
+        return nil;
+    }
     
-    NSDictionary* jsonDataArray = [NSJSONSerialization JSONObjectWithData:receivedData options:0 error:nil];
-    
-    [theConnection cancel];
-    
-    return  jsonDataArray;
 }
 
 @end

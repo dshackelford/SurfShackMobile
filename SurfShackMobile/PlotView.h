@@ -25,6 +25,7 @@
     NSMutableArray* xVals;
 }
 
+@property BOOL isOfflineData;
 @property (nonatomic, strong) IBOutlet LineChartView* chartView;
 @property (nonatomic,strong) IBOutlet LineChartView* theChartView;
 

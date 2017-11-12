@@ -95,7 +95,12 @@
                 
                 [aSpotDict setObject:aWeatherDict forKey:@"weatherDict"];
             
-                if (spotName != nil)
+                if([[surfData objectForKey:@"mags"] count] == 0)
+                {
+                    //no internet, won't throw the spot has data link
+                    NSLog(@"NO INTERNET for spots dict");
+                }
+                else if (spotName != nil)
                 {
                     [spotsDict setObject:aSpotDict forKey:spotName];
                 
@@ -132,10 +137,19 @@
                 NSMutableArray* swellArr = [spitData getSwellDataForCounty:spitCounty];
                 [aCountyDict setObject:swellArr forKey:@"swellDict"];
             
-                [countiesDict setObject:aCountyDict forKey:county];
             
-                [[NSNotificationCenter defaultCenter] postNotificationName:county object:aCountyDict];
-                NSLog(@"downloaded a county dict :%@",county);
+                if([[swellArr objectAtIndex:0] count] == 0)
+                {
+                    //no internet, won't throw the spot has data link
+                    NSLog(@"NO INTERNET for counties");
+                }
+                else
+                {
+                    [countiesDict setObject:aCountyDict forKey:county];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:county object:aCountyDict];
+                    NSLog(@"downloaded a county dict :%@",county);
+                }
+                
             }
         });
     }
@@ -157,7 +171,7 @@
 {
     //get the first day array of swells
     
-    if ([[aSpotDictInit objectForKey:@"swellDict"] count] > 0)
+    if ([[[aSpotDictInit objectForKey:@"swellDict"] objectAtIndex:0] count] > 0)
     {
         NSMutableArray* swellArr = [[aSpotDictInit objectForKey:@"swellDict"] objectAtIndex:0];
     
