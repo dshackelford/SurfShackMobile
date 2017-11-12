@@ -22,6 +22,10 @@
 
     NSMutableDictionary* offlineDict = [NSMutableDictionary dictionaryWithContentsOfFile:[AppUtilities getPathToOfflineData]];
     
+    if(offlineDict == nil)
+    {
+        offlineDict = [NSMutableDictionary dictionary];
+    }
     NSString* idStr = [NSString stringWithFormat:@"%i",idInit];
     
     [offlineDict removeObjectForKey:idStr];
