@@ -89,11 +89,13 @@
     locationManager.distanceFilter = kCLDistanceFilterNone;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager requestAlwaysAuthorization];
-
     
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeColor:) name:@"changeColorPref" object:nil];
+    
+    spotDict = [OfflineData getOfflineDataForID:[[favSpots objectAtIndex:self.index] intValue]];
+    [self chooseDataToDisplay];
 }
 
 -(void)changeColor:(NSNotification*)notification
@@ -175,7 +177,6 @@
     indicator.hidden = YES;
     spotDict = [dataFactory setCurrentValuesForSpotDict:spotDict];
     [OfflineData saveSpotDict:spotDict withID:[[favSpots objectAtIndex:self.index] intValue]];
-    
     [self chooseDataToDisplay];
     NSLog(@"height units: %@",[PreferenceFactory getIndicatorStrForHeight]);
 }

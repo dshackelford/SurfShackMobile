@@ -79,9 +79,27 @@
 +(NSString*)getPathToOfflineData
 {
     NSString* basePath = NSHomeDirectory();
+
+    NSString* newPath = [basePath stringByAppendingString:@"/Documents/OfflineData"];
     
-    //NSString* newPath = [basePath stringByAppendingPathComponent:@"Documents/OfflineDatabase.sqlite"];
-    NSString* newPath = [basePath stringByAppendingString:@"/Documents/OfflineDonwload"];
+    if(![AppUtilities doesFileExistAtPath:newPath])
+    {
+        [AppUtilities addFileNameInPath:newPath];
+    }
+    
+    return newPath;
+}
+
++(NSString*)getPathToOfflineDatabase
+{
+    NSString* basePath = NSHomeDirectory();
+    
+    NSString* newPath = [basePath stringByAppendingString:@"/Documents/OfflineDatabase.sqlite"];
+    
+    if(![AppUtilities doesFileExistAtPath:newPath])
+    {
+        [AppUtilities addFileNameInPath:newPath];
+    }
     return newPath;
 }
 

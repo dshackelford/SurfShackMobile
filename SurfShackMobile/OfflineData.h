@@ -15,11 +15,7 @@
 
 @interface OfflineData : NSObject
 
-//@property NSString* filePath;
-//@property NSString* fileName;
-
-//-(id)init;
 +(void)saveSpotDict:(NSMutableDictionary*)aSpotDict withID:(int)idInit;
-
++(NSMutableDictionary*)getOfflineDataForID:(int)idInit;
 @end
 #endif /* OfflineData_h */

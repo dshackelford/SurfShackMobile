@@ -8,44 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import "OfflineData.h"
+#import "FMDB.h"
 
 @implementation OfflineData
-/*
--(id)init
-{
-    self = [super init];
-    
-    FMDatabase *db = [FMDatabase databaseWithPath:[AppUtilities getPathToOfflineData]];
-    
-    if(![db open])
-    {
-        
-    }
-    
-    //bool success = [db executeStatements:sql];
-    
-    return self;
-}
-*/
+
 //Saves a current dict for a reportView controller with the key that is the spitcast ID number
 +(void)saveSpotDict:(NSMutableDictionary*)aSpotDict withID:(int)idInit
 {
     NSLog(@"path: %@",[AppUtilities getPathToOfflineData]);
     
-    NSMutableDictionary* offlineDict = [NSMutableDictionary dictionary ];
-    //get offlineDict from file
-    if([AppUtilities doesFileExistAtPath:[AppUtilities getPathToOfflineData]])
-    {
+    //remove non-textual data for storage
+    [aSpotDict removeObjectForKey:@"swellDict"];
+
+    NSMutableDictionary* offlineDict = [NSMutableDictionary dictionaryWithContentsOfFile:[AppUtilities getPathToOfflineData]];
     
-        offlineDict = [NSMutableDictionary dictionaryWithContentsOfFile:[AppUtilities getPathToOfflineData]];
-    }
-    else
-    {
-        //make the offline file
-        NSFileManager* appInfo = [NSFileManager defaultManager];
-         [appInfo createFileAtPath:[AppUtilities getPathToOfflineData] contents:nil attributes:nil];
-    }
-     offlineDict = [NSMutableDictionary dictionary ];
     NSString* idStr = [NSString stringWithFormat:@"%i",idInit];
     
     [offlineDict removeObjectForKey:idStr];
@@ -54,5 +30,18 @@
     
     [offlineDict writeToFile:[AppUtilities getPathToOfflineData] atomically:YES];
 }
+
++(NSMutableDictionary*)getOfflineDataForID:(int)idInit
+{
+    NSString* idStr = [NSString stringWithFormat:@"%i",idInit];
+    
+    NSMutableDictionary* offlineDict = [NSMutableDictionary dictionaryWithContentsOfFile:[AppUtilities getPathToOfflineData]];
+    
+    NSMutableDictionary* spotDict = [offlineDict objectForKey:idStr];
+    
+    return spotDict;
+}
+
+
 
 @end

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SpitcastData.h"
+#import "OfflineData.h"
 //#import "SpitcastData+Wind.h"
 //#import "SpitcastData+Tide.h"
 //#import "SpitcastData+Swell.h"
@@ -142,7 +143,6 @@
         
         [surfDataDayRange addObject:aDayDataArray];
     }
-    
     //RETURN MUTABLE ARRAY OF HOURLY DATA SETS
     return surfDataDayRange;
 }

@@ -37,6 +37,7 @@
 
 +(NSString*) getPathToAppDatabase;
 +(NSString*)getPathToOfflineData;
++(NSString*)getPathToOfflineDatabase;
 
 +(void)addFileNameInPath:(NSString*)path;
 
