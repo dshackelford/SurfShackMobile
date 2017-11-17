@@ -24,6 +24,8 @@
 #import "DatumView.h"
 #import "SubInfoView.h"
 
+#import "ActivityResponder.h"
+
 
 @import Charts;
 @interface ReportViewController : MasterViewController <CLLocationManagerDelegate,UIGestureRecognizerDelegate>
@@ -55,13 +57,12 @@
     //REPORT LABELS
     UILabel* titleLabel;
     UILabel* headingLabel;
-
-    IBOutlet UIActivityIndicatorView* indicator;
     
     CGPoint startSwipePoint;
 }
 
 @property NSInteger index;
+@property id<ActivityResponder> activityDelegate;
 
 -(void)chooseDataToDisplay;
 

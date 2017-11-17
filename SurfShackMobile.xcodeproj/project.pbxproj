@@ -229,6 +229,7 @@
 		69A8DEF01D4D13C3000D4412 /* SurfPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurfPacket.h; sourceTree = "<group>"; };
 		69A8DEF81D4DA090000D4412 /* SubSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubSettingsViewController.m; sourceTree = "<group>"; };
 		69A8DEFA1D4DA099000D4412 /* SubSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubSettingsViewController.h; sourceTree = "<group>"; };
+		69AA89C51FBECA090052DE1B /* ActivityResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityResponder.h; sourceTree = "<group>"; };
 		69B0C6D01D4B080E00653102 /* units.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = units.png; sourceTree = "<group>"; };
 		69B0C6D51D4B190600653102 /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 		69B0C6D71D4B190E00653102 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
@@ -491,6 +492,7 @@
 				69281EC51D5427DD00FD39BF /* ReportPageViewController.m */,
 				690F86451D408A2400C33918 /* ReportViewController.h */,
 				690F86431D408A1E00C33918 /* ReportViewController.m */,
+				69AA89C51FBECA090052DE1B /* ActivityResponder.h */,
 				697A29051D657B9A00EDF8BC /* DatumView.h */,
 				697A29031D657B9300EDF8BC /* DatumView.m */,
 				697A29021D652E0900EDF8BC /* CompassView.h */,

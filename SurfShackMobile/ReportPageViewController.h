@@ -15,10 +15,11 @@
 #import "arrowCell.h"
 #import "DBManager.h"
 #import "DateHandler.h"
+#import "ActivityResponder.h"
 
 #import "DataFactory.h"
 
-@interface ReportPageViewController : UIViewController <UIPageViewControllerDataSource,UIPageViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface ReportPageViewController : UIViewController <UIPageViewControllerDataSource,UIPageViewControllerDelegate, UITableViewDelegate, UITableViewDataSource,ActivityResponder>
 {
     DBManager* db;
     DataFactory* dataFactory;
@@ -47,6 +48,9 @@
     
     CGPoint startSwipePoint;
 }
+
+@property UIActivityIndicatorView* activityView;
+@property IBOutlet UIBarButtonItem* activityIndicatorButton;
 
 @property NSArray* favoriteSpotsArr;
 @property NSArray* favoriteCounties;

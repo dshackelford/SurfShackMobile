@@ -41,27 +41,25 @@
     pageControl.backgroundColor = [UIColor clearColor];
 
     
+    //CHOOSE COLORS FROM THE COLOR SCHEME IN PREFERENCE, IT SHOULD BE A DICTIONARY FOR EACH COLOR SCHEME THAT HAS PLOT VIEW COLORS AND BAR COLORS.
     NSDictionary* prefs = [PreferenceFactory getPreferences];
     UIColor* color = [prefs objectForKey:kColorScheme];
     
-    //CHOOSE COLORS FROM THE COLOR SCHEME IN PREFERENCE, IT SHOULD BE A DICTIONARY FOR EACH COLOR SCHEME THAT HAS PLOT VIEW COLORS AND BAR COLORS.
     self.navigationController.navigationBar.barTintColor = color;
+    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor]; //buttons to a color tint
+    //    self.view.backgroundColor = [UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:1];
     
     self.tabBarController.view.tintColor = [UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:1];
     
-    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-    //sets the buttons to a color tint
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    //    self.view.backgroundColor = [UIColor colorWithRed:22/255.f green:119/255.f blue:205/255.f alpha:1];
-    
     if ([_favoriteSpotsArr count] > 0)
     {
-//        //NAVIGATION BAR BUTTONS
-//        listOfSpotsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(didPressListOfSpotsButton:)];
-//        self.navigationItem.rightBarButtonItem = listOfSpotsButton;
-        
         refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(didPressRefreshButton:)];
-        self.navigationItem.leftBarButtonItem = refreshButton;
+        
+        self.activityView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+        self.activityIndicatorButton = [[UIBarButtonItem alloc] initWithCustomView:self.activityView];
+        self.navigationItem.leftBarButtonItem = self.activityIndicatorButton;
+        [self.activityView startAnimating];
         
         shouldReloadPageController = NO;
         // Create page view controller
@@ -83,10 +81,6 @@
     }
     
     [self establishGestures];
-    
-    //read from persist file
-    //display immediately from persist file until new data comes in
-    //shade data to show that it is a day old
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -197,22 +191,9 @@
     
     //tells the report views to remove their subviews and to start the indicator
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshData" object:nil];
-
     
-    
-//    NSLog(@"did press refresh button");
-//    // Create a new view controller and pass suitable data.
-//    ReportViewController *pageContentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ReportViewController"];
-//    
-//    pageContentViewController.index = pageControl.currentPage;
-//    [pageContentViewController refreshData];
-//    
-////    [pageContentViewController refreshData];
-//    int spotID = [[_favoriteSpotsArr objectAtIndex:pageControl.currentPage] intValue];
-//    [dataFactory removeSpotDictionary:spotID];
-//    //also add one for the county?
-//    [dataFactory getDataForSpots:_favoriteSpotsArr andCounties:_favoriteCounties];
-    
+    [self navigationItem].leftBarButtonItem = self.activityIndicatorButton;
+    [self.activityView startAnimating];
 }
 
 -(void)changedSpotFavorites:(NSNotification*)notification
@@ -236,11 +217,26 @@
     }
 }
 
+#pragma mark - Activity Responder Methods
 
+-(void)isLoadingData:(BOOL)isLoading
+{
+    if(isLoading)
+    {
+        self.navigationItem.leftBarButtonItem = self.activityIndicatorButton;
+        [self.activityView startAnimating];
+    }
+    else
+    {
+        [self.activityView stopAnimating];
+        self.navigationItem.leftBarButtonItem = refreshButton;
+    }
+}
 #pragma mark - Page View Controller Delegate Methods
 -(void)addPageViewController
 {
     ReportViewController *startingViewController = [self viewControllerAtIndex:0];
+    startingViewController.activityDelegate = self;
     NSArray *viewControllers = @[startingViewController];
     [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     

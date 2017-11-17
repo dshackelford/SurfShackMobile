@@ -93,7 +93,7 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeColor:) name:@"changeColorPref" object:nil];
-    
+    [self.activityDelegate isLoadingData:true];
     spotDict = [OfflineData getOfflineDataForID:[[favSpots objectAtIndex:self.index] intValue]];
     [self chooseDataToDisplay];
 }
@@ -123,8 +123,7 @@
     }
     else
     {
-        //and wait for the notifications to come in
-        [indicator startAnimating];
+         [self.activityDelegate isLoadingData:true];
     }
     
     [super viewWillAppear:YES];
@@ -164,18 +163,15 @@
     
     headingLabel.hidden = YES;
     aPlotView.hidden = YES;
-    
-    indicator.hidden = NO;
-    [indicator startAnimating];
-    
+    [self.activityDelegate isLoadingData:true];
     NSLog(@"attempt resfresh");
 }
 
 //if there is data, then current values can be derived thusly
 -(void)spotHasData
 {
-    [indicator stopAnimating];
-    indicator.hidden = YES;
+    [self.activityDelegate isLoadingData:false]; //tell pageViewController that I'm done downloading
+    
     spotDict = [dataFactory setCurrentValuesForSpotDict:spotDict];
     [OfflineData saveSpotDict:spotDict withID:[[favSpots objectAtIndex:self.index] intValue]];
     aPlotView.isOfflineData = false;
