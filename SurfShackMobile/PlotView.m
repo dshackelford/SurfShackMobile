@@ -189,7 +189,7 @@
     
     if(self.isOfflineData)
     {
-        color = [UIColor orangeColor];
+        color = [UIColor grayColor];
     }
     
     //MAIN DATA

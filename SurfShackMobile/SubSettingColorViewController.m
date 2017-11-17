@@ -22,9 +22,9 @@
     
     colorPref = [PreferenceFactory getColorPreference];
     
-    tableData = [NSMutableArray arrayWithArray:@[@"Red",@"Green",@"Blue",@"Tan",@"Grey"]];
+    tableData = [NSMutableArray arrayWithArray:@[@"Red",@"Green",@"Blue",@"Tan"]];
     
-    colorDict = [NSDictionary dictionaryWithObjects:@[@"Sunset Red",@"Seagrass Green",@"Ocean Blue",@"Sand Tan",@"Dawnpatrol Grey"] forKeys:@[@"Red",@"Green",@"Blue",@"Tan",@"Grey"]];
+    colorDict = [NSDictionary dictionaryWithObjects:@[@"Sunset Red",@"Seagrass Green",@"Ocean Blue",@"Sand Tan"] forKeys:@[@"Red",@"Green",@"Blue",@"Tan"]];
     
     self.navigationItem.title = title;
 }
