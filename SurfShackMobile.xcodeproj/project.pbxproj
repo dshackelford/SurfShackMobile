@@ -450,13 +450,6 @@
 			path = Report;
 			sourceTree = "<group>";
 		};
-		69470CA91E45B7EF004CD7BE /* iconImage */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = iconImage;
-			sourceTree = "<group>";
-		};
 		696963291D349B4C00CC3734 = {
 			isa = PBXGroup;
 			children = (
@@ -503,26 +496,8 @@
 		696963351D349B4C00CC3734 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				69470CA71E45B790004CD7BE /* report50.png */,
-				69470CA91E45B7EF004CD7BE /* iconImage */,
-				69470CA31E45B738004CD7BE /* report.png */,
-				69470CA41E45B738004CD7BE /* reportXX.png */,
-				69470C9F1E45B681004CD7BE /* report-3-xxl.png */,
-				69D1DCA61D6191B700DF29B5 /* logo120.png */,
-				69D1DCA71D6191B700DF29B5 /* logo180.png */,
 				69D1DC961D618C8800DF29B5 /* Assets.xcassets */,
 				69D1DC971D618C8800DF29B5 /* Base.lproj */,
-				69D1DC9C1D618E3500DF29B5 /* alarms.png */,
-				69D1DC9D1D618E3500DF29B5 /* colorScheme.png */,
-				69D1DC9E1D618E3500DF29B5 /* dayRange.png */,
-				69D1DC9F1D618E3500DF29B5 /* notifications.png */,
-				69D1DC981D618C8800DF29B5 /* dataProvider.png */,
-				69B0C6D01D4B080E00653102 /* units.png */,
-				690F863F1D405DA800C33918 /* LogIcon.png */,
-				690F86401D405DA800C33918 /* ReportIcon.png */,
-				690F863D1D405D1B00C33918 /* AddIcon.png */,
-				690F863B1D405C4600C33918 /* settingsIcon.png */,
-				690F86361D405B0900C33918 /* textMessage.png */,
 				696963361D349B4C00CC3734 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -577,12 +552,37 @@
 		697B48511FCE8B0D00BC0698 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				697B48521FCE8B6100BC0698 /* Images */,
 				69371B401D3727F800562493 /* PlotView.h */,
 				69371B411D3727FF00562493 /* PlotView.m */,
 				690CE3321D441D6C00450774 /* Bezier.h */,
 				690CE3301D441D6700450774 /* Bezier.m */,
 			);
 			path = Graphics;
+			sourceTree = "<group>";
+		};
+		697B48521FCE8B6100BC0698 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				69470CA31E45B738004CD7BE /* report.png */,
+				69470CA41E45B738004CD7BE /* reportXX.png */,
+				69470C9F1E45B681004CD7BE /* report-3-xxl.png */,
+				69D1DCA61D6191B700DF29B5 /* logo120.png */,
+				69D1DCA71D6191B700DF29B5 /* logo180.png */,
+				69470CA71E45B790004CD7BE /* report50.png */,
+				69D1DC9C1D618E3500DF29B5 /* alarms.png */,
+				69D1DC9D1D618E3500DF29B5 /* colorScheme.png */,
+				69D1DC9E1D618E3500DF29B5 /* dayRange.png */,
+				69D1DC9F1D618E3500DF29B5 /* notifications.png */,
+				69D1DC981D618C8800DF29B5 /* dataProvider.png */,
+				69B0C6D01D4B080E00653102 /* units.png */,
+				690F863F1D405DA800C33918 /* LogIcon.png */,
+				690F86401D405DA800C33918 /* ReportIcon.png */,
+				690F863D1D405D1B00C33918 /* AddIcon.png */,
+				690F863B1D405C4600C33918 /* settingsIcon.png */,
+				690F86361D405B0900C33918 /* textMessage.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		9C5906FF43535E9F7C2FA560 /* Frameworks */ = {
