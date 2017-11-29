@@ -477,14 +477,14 @@
 		696963341D349B4C00CC3734 /* SurfShackMobile */ = {
 			isa = PBXGroup;
 			children = (
-				691B6A931FCE88F400774AC3 /* Utilities */,
 				696963381D349B4C00CC3734 /* AppDelegate.h */,
 				696963391D349B4C00CC3734 /* AppDelegate.m */,
+				691B6A931FCE88F400774AC3 /* Utilities */,
 				697B48521FCE8B6100BC0698 /* Images */,
 				697B48511FCE8B0D00BC0698 /* Graphics */,
-				697B48501FCE8A8900BC0698 /* TableViewNIBS */,
 				691B6A981FCE89D500774AC3 /* ViewControllers */,
 				691B6A951FCE899300774AC3 /* SpitcastData */,
+				697B48501FCE8A8900BC0698 /* TableViewNIBS */,
 				691B6A941FCE897E00774AC3 /* OpenWeather */,
 				696963411D349B4C00CC3734 /* Assets.xcassets */,
 				696963431D349B4C00CC3734 /* LaunchScreen.storyboard */,
