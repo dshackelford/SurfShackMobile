@@ -331,16 +331,6 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
-		690F86481D408AD600C33918 /* Spitcast Data */ = {
-			isa = PBXGroup;
-			children = (
-				699521191D3619E60073114D /* SpitcastData.h */,
-				699521171D3619DA0073114D /* SpitcastData.m */,
-				69A8DEED1D4D1202000D4412 /* Packets */,
-			);
-			name = "Spitcast Data";
-			sourceTree = "<group>";
-		};
 		691B6A931FCE88F400774AC3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,6 +354,50 @@
 				6949876A1F7719C5008AE728 /* SurfShackMobile-Bridging-Header.h */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		691B6A941FCE897E00774AC3 /* OpenWeather */ = {
+			isa = PBXGroup;
+			children = (
+				69CBBA7F1D52DF3C005E3BCA /* CurrentWeather.h */,
+				69CBBA7A1D52DF34005E3BCA /* CurrentWeather.m */,
+				69CBBA861D52E0E9005E3BCA /* WeatherPacket.h */,
+				69CBBA801D52E077005E3BCA /* WeatherPacket.m */,
+			);
+			path = OpenWeather;
+			sourceTree = "<group>";
+		};
+		691B6A951FCE899300774AC3 /* SpitcastData */ = {
+			isa = PBXGroup;
+			children = (
+				691B6A971FCE89A800774AC3 /* Packets */,
+				699521191D3619E60073114D /* SpitcastData.h */,
+				699521171D3619DA0073114D /* SpitcastData.m */,
+			);
+			path = SpitcastData;
+			sourceTree = "<group>";
+		};
+		691B6A971FCE89A800774AC3 /* Packets */ = {
+			isa = PBXGroup;
+			children = (
+				69A8DEEC1D4D11F7000D4412 /* InfoPacket.h */,
+				69A8DEEA1D4D11F1000D4412 /* InfoPacket.m */,
+				69A8DEF01D4D13C3000D4412 /* SurfPacket.h */,
+				69A8DEEE1D4D13BE000D4412 /* SurfPacket.m */,
+				690CE3431D4533F600450774 /* WindPacket.h */,
+				690CE3411D4533F000450774 /* WindPacket.m */,
+				6992DFD51D66855D005A4368 /* WaterTempPacket.h */,
+				6992DFD31D668556005A4368 /* WaterTempPacket.m */,
+				69DB19F91D484E69000F500B /* TidePacket.h */,
+				69DB19F71D484E63000F500B /* TidePacket.m */,
+				69310B6E1D3897730087C5BE /* CountyInfoPacket.h */,
+				69310B6C1D38976C0087C5BE /* CountyInfoPacket.m */,
+				697C89A31D485AB300DDB435 /* NearByPacket.h */,
+				697C89A11D485AAC00DDB435 /* NearByPacket.m */,
+				69D051CA1D58146200C46CDF /* SwellPacket.h */,
+				69D051C51D58145B00C46CDF /* SwellPacket.m */,
+			);
+			path = Packets;
 			sourceTree = "<group>";
 		};
 		69470CA91E45B7EF004CD7BE /* iconImage */ = {
@@ -402,9 +436,9 @@
 			children = (
 				691B6A931FCE88F400774AC3 /* Utilities */,
 				696963381D349B4C00CC3734 /* AppDelegate.h */,
+				691B6A951FCE899300774AC3 /* SpitcastData */,
 				696963391D349B4C00CC3734 /* AppDelegate.m */,
-				69CBBA871D52E0EE005E3BCA /* OpenWeatherAPI */,
-				690F86481D408AD600C33918 /* Spitcast Data */,
+				691B6A941FCE897E00774AC3 /* OpenWeather */,
 				690F86461D408AA400C33918 /* ViewControllers */,
 				69D72D341D4152B400980CF6 /* TableView NIBs */,
 				69D72D351D4152FF00980CF6 /* Plotting */,
@@ -501,40 +535,6 @@
 				69EDF42F1D7B6A5B00B310EA /* SubInfoView.m */,
 			);
 			name = "Report VIew";
-			sourceTree = "<group>";
-		};
-		69A8DEED1D4D1202000D4412 /* Packets */ = {
-			isa = PBXGroup;
-			children = (
-				69A8DEEC1D4D11F7000D4412 /* InfoPacket.h */,
-				69A8DEEA1D4D11F1000D4412 /* InfoPacket.m */,
-				69A8DEF01D4D13C3000D4412 /* SurfPacket.h */,
-				69A8DEEE1D4D13BE000D4412 /* SurfPacket.m */,
-				690CE3431D4533F600450774 /* WindPacket.h */,
-				690CE3411D4533F000450774 /* WindPacket.m */,
-				6992DFD51D66855D005A4368 /* WaterTempPacket.h */,
-				6992DFD31D668556005A4368 /* WaterTempPacket.m */,
-				69DB19F91D484E69000F500B /* TidePacket.h */,
-				69DB19F71D484E63000F500B /* TidePacket.m */,
-				69310B6E1D3897730087C5BE /* CountyInfoPacket.h */,
-				69310B6C1D38976C0087C5BE /* CountyInfoPacket.m */,
-				697C89A31D485AB300DDB435 /* NearByPacket.h */,
-				697C89A11D485AAC00DDB435 /* NearByPacket.m */,
-				69D051CA1D58146200C46CDF /* SwellPacket.h */,
-				69D051C51D58145B00C46CDF /* SwellPacket.m */,
-			);
-			name = Packets;
-			sourceTree = "<group>";
-		};
-		69CBBA871D52E0EE005E3BCA /* OpenWeatherAPI */ = {
-			isa = PBXGroup;
-			children = (
-				69CBBA7F1D52DF3C005E3BCA /* CurrentWeather.h */,
-				69CBBA7A1D52DF34005E3BCA /* CurrentWeather.m */,
-				69CBBA861D52E0E9005E3BCA /* WeatherPacket.h */,
-				69CBBA801D52E077005E3BCA /* WeatherPacket.m */,
-			);
-			name = OpenWeatherAPI;
 			sourceTree = "<group>";
 		};
 		69D72D341D4152B400980CF6 /* TableView NIBs */ = {
