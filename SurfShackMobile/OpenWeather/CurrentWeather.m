@@ -44,20 +44,13 @@
 -(NSDictionary*)retunJsonDataFromURLString:(NSString*)stringInit
 {
     NSURL* theURL = [NSURL URLWithString:stringInit];
-    NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     
-    NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig];
-    
-    [session dataTaskWithURL:theURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-    }
-   // NSURLRequest* theRequest = [NSURLRequest requestWithURL:theURL];
+    NSURLRequest* theRequest = [NSURLRequest requestWithURL:theURL];
     
     //MAKE THE CONNECTION TO THE INTERNET
-    //NSURLConnection* theConnection = [NSURLConnection connectionWithRequest:theRequest delegate:nil];
-    //    NSURLSession
+    NSURLConnection* theConnection = [NSURLConnection connectionWithRequest:theRequest delegate:nil];
     
-    //[theConnection start];
+    [theConnection start];
     
     //COLLECT THE NECESSARY DATA
     NSData* receivedData = [[NSData alloc]initWithContentsOfURL:theURL];

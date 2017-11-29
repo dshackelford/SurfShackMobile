@@ -248,20 +248,43 @@
 {
     NSURL* theURL = [NSURL URLWithString:stringInit];
     
-    NSURLRequest* theRequest = [NSURLRequest requestWithURL:theURL];
+    NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig];
+    
+    [session dataTaskWithURL:theURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+    {
+        /*
+        if (receivedData != nil)
+        {
+            NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:receivedData options:0 error:nil];
+            
+            [theConnection cancel];
+            
+            return  jsonDataArray;
+        }
+        else
+        {
+            [theConnection cancel];
+            return nil;
+        }*/
+    }];
+    
+    
+    //NSURLRequest* theRequest = [NSURLRequest requestWithURL:theURL];
     
     //MAKE THE CONNECTION TO THE INTERNET
-    NSURLConnection* theConnection = [NSURLConnection connectionWithRequest:theRequest delegate:nil];
+    //NSURLConnection* theConnection = [NSURLConnection connectionWithRequest:theRequest delegate:nil];
     //    NSURLSession
     
-    [theConnection start];
+    //[theConnection start];
     
     //COLLECT THE NECESSARY DATA
-    NSData* receivedData = [[NSData alloc]initWithContentsOfURL:theURL];
+   // NSData* receivedData = [[NSData alloc]initWithContentsOfURL:theURL];
     
     //PARSE THE DATA GRABBED FROM SPITCAST - HAS 35 DATA PACKAGES FOR ONE HOUR EACH
 
-    if (receivedData != nil)
+    /*if (receivedData != nil)
     {
         NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:receivedData options:0 error:nil];
         
@@ -273,7 +296,7 @@
     {
         [theConnection cancel];
         return nil;
-    }
+    }*/
 }
 
 -(NSMutableArray*)organizeArrayByTime:(NSMutableArray*)arrayInit andDate:(NSString*)dateInit
