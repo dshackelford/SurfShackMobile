@@ -331,7 +331,17 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
-		690F86471D408ABD00C33918 /* Utilities */ = {
+		690F86481D408AD600C33918 /* Spitcast Data */ = {
+			isa = PBXGroup;
+			children = (
+				699521191D3619E60073114D /* SpitcastData.h */,
+				699521171D3619DA0073114D /* SpitcastData.m */,
+				69A8DEED1D4D1202000D4412 /* Packets */,
+			);
+			name = "Spitcast Data";
+			sourceTree = "<group>";
+		};
+		691B6A931FCE88F400774AC3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				690F864C1D40930200C33918 /* DataHandler.h */,
@@ -353,17 +363,7 @@
 				6934B9E11D5BA281001D729A /* DBTableColumn.m */,
 				6949876A1F7719C5008AE728 /* SurfShackMobile-Bridging-Header.h */,
 			);
-			name = Utilities;
-			sourceTree = "<group>";
-		};
-		690F86481D408AD600C33918 /* Spitcast Data */ = {
-			isa = PBXGroup;
-			children = (
-				699521191D3619E60073114D /* SpitcastData.h */,
-				699521171D3619DA0073114D /* SpitcastData.m */,
-				69A8DEED1D4D1202000D4412 /* Packets */,
-			);
-			name = "Spitcast Data";
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		69470CA91E45B7EF004CD7BE /* iconImage */ = {
@@ -400,9 +400,9 @@
 		696963341D349B4C00CC3734 /* SurfShackMobile */ = {
 			isa = PBXGroup;
 			children = (
+				691B6A931FCE88F400774AC3 /* Utilities */,
 				696963381D349B4C00CC3734 /* AppDelegate.h */,
 				696963391D349B4C00CC3734 /* AppDelegate.m */,
-				690F86471D408ABD00C33918 /* Utilities */,
 				69CBBA871D52E0EE005E3BCA /* OpenWeatherAPI */,
 				690F86481D408AD600C33918 /* Spitcast Data */,
 				690F86461D408AA400C33918 /* ViewControllers */,
