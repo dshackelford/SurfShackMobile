@@ -312,25 +312,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		690F86461D408AA400C33918 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				6969633E1D349B4C00CC3734 /* Main.storyboard */,
-				69B0C6D71D4B190E00653102 /* MasterViewController.h */,
-				69B0C6D51D4B190600653102 /* MasterViewController.m */,
-				69D1DC8E1D60E8F700DF29B5 /* MyTabBarController.h */,
-				69D1DC921D60E90000DF29B5 /* MyTabBarController.m */,
-				69D4608F1D5D7D8B005275EF /* TextMessageViewController.h */,
-				69D4608A1D5D7D80005275EF /* TextMessageViewController.m */,
-				693EA5361D51A829008CBEEE /* LogViewController.h */,
-				693EA5341D51A823008CBEEE /* LogViewController.m */,
-				69FC29F31D598B3F008F53E9 /* Add A Spot */,
-				696D2BD51D4DD2E600A45E45 /* Settings */,
-				697A24481D5438130093A161 /* Report VIew */,
-			);
-			name = ViewControllers;
-			sourceTree = "<group>";
-		};
 		691B6A931FCE88F400774AC3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -400,6 +381,75 @@
 			path = Packets;
 			sourceTree = "<group>";
 		};
+		691B6A981FCE89D500774AC3 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				691B6A9C1FCE8A2400774AC3 /* Report */,
+				6969633E1D349B4C00CC3734 /* Main.storyboard */,
+				69B0C6D71D4B190E00653102 /* MasterViewController.h */,
+				69B0C6D51D4B190600653102 /* MasterViewController.m */,
+				69D1DC8E1D60E8F700DF29B5 /* MyTabBarController.h */,
+				69D1DC921D60E90000DF29B5 /* MyTabBarController.m */,
+				69D4608F1D5D7D8B005275EF /* TextMessageViewController.h */,
+				69D4608A1D5D7D80005275EF /* TextMessageViewController.m */,
+				693EA5361D51A829008CBEEE /* LogViewController.h */,
+				693EA5341D51A823008CBEEE /* LogViewController.m */,
+				691B6A9A1FCE8A0B00774AC3 /* Settings */,
+				691B6A991FCE89FC00774AC3 /* AddSpot */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		691B6A991FCE89FC00774AC3 /* AddSpot */ = {
+			isa = PBXGroup;
+			children = (
+				697C89A61D49089D00DDB435 /* AddPlaceViewController.h */,
+				697C89A71D4908A600DDB435 /* AddPlaceViewController.m */,
+				69FC29F21D59884C008F53E9 /* SpotListViewController.h */,
+				69FC29EE1D59881F008F53E9 /* SpotListViewController.m */,
+			);
+			path = AddSpot;
+			sourceTree = "<group>";
+		};
+		691B6A9A1FCE8A0B00774AC3 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				6969636D1D349B9400CC3734 /* SettingsViewController.h */,
+				6969636B1D349B8B00CC3734 /* SettingsViewController.m */,
+				696D2BD11D4DCF1400A45E45 /* subViewController.h */,
+				696D2BCF1D4DCF0E00A45E45 /* subViewController.m */,
+				69A8DEFA1D4DA099000D4412 /* SubSettingsViewController.h */,
+				69A8DEF81D4DA090000D4412 /* SubSettingsViewController.m */,
+				696D2BD41D4DD2DF00A45E45 /* SubSettingColorViewController.h */,
+				696D2BD21D4DD2D200A45E45 /* SubSettingColorViewController.m */,
+				696D2BCE1D4DCDBE00A45E45 /* AboutPageViewController.h */,
+				696D2BC91D4DCDB700A45E45 /* AboutPageViewController.m */,
+				6975BD811D826AFC0012B029 /* SurfDataProviderViewController.h */,
+				6975BD7C1D826AF60012B029 /* SurfDataProviderViewController.m */,
+				696D2BDD1D4EC8A200A45E45 /* DayRangeViewController.h */,
+				696D2BDB1D4EC89A00A45E45 /* DayRangeViewController.m */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		691B6A9C1FCE8A2400774AC3 /* Report */ = {
+			isa = PBXGroup;
+			children = (
+				69281ECA1D5427E700FD39BF /* ReportPageViewController.h */,
+				69281EC51D5427DD00FD39BF /* ReportPageViewController.m */,
+				690F86451D408A2400C33918 /* ReportViewController.h */,
+				690F86431D408A1E00C33918 /* ReportViewController.m */,
+				69AA89C51FBECA090052DE1B /* ActivityResponder.h */,
+				697A29051D657B9A00EDF8BC /* DatumView.h */,
+				697A29031D657B9300EDF8BC /* DatumView.m */,
+				697A29021D652E0900EDF8BC /* CompassView.h */,
+				697A29001D652DF700EDF8BC /* CompassView.m */,
+				69EDF4341D7B6A6100B310EA /* SubInfoView.h */,
+				69EDF42F1D7B6A5B00B310EA /* SubInfoView.m */,
+			);
+			path = Report;
+			sourceTree = "<group>";
+		};
 		69470CA91E45B7EF004CD7BE /* iconImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -436,10 +486,10 @@
 			children = (
 				691B6A931FCE88F400774AC3 /* Utilities */,
 				696963381D349B4C00CC3734 /* AppDelegate.h */,
-				691B6A951FCE899300774AC3 /* SpitcastData */,
 				696963391D349B4C00CC3734 /* AppDelegate.m */,
+				691B6A981FCE89D500774AC3 /* ViewControllers */,
+				691B6A951FCE899300774AC3 /* SpitcastData */,
 				691B6A941FCE897E00774AC3 /* OpenWeather */,
-				690F86461D408AA400C33918 /* ViewControllers */,
 				69D72D341D4152B400980CF6 /* TableView NIBs */,
 				69D72D351D4152FF00980CF6 /* Plotting */,
 				696963411D349B4C00CC3734 /* Assets.xcassets */,
@@ -498,45 +548,6 @@
 			path = SurfShackMobileUITests;
 			sourceTree = "<group>";
 		};
-		696D2BD51D4DD2E600A45E45 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				6969636D1D349B9400CC3734 /* SettingsViewController.h */,
-				6969636B1D349B8B00CC3734 /* SettingsViewController.m */,
-				696D2BD11D4DCF1400A45E45 /* subViewController.h */,
-				696D2BCF1D4DCF0E00A45E45 /* subViewController.m */,
-				69A8DEFA1D4DA099000D4412 /* SubSettingsViewController.h */,
-				69A8DEF81D4DA090000D4412 /* SubSettingsViewController.m */,
-				696D2BD41D4DD2DF00A45E45 /* SubSettingColorViewController.h */,
-				696D2BD21D4DD2D200A45E45 /* SubSettingColorViewController.m */,
-				696D2BCE1D4DCDBE00A45E45 /* AboutPageViewController.h */,
-				696D2BC91D4DCDB700A45E45 /* AboutPageViewController.m */,
-				6975BD811D826AFC0012B029 /* SurfDataProviderViewController.h */,
-				6975BD7C1D826AF60012B029 /* SurfDataProviderViewController.m */,
-				696D2BDD1D4EC8A200A45E45 /* DayRangeViewController.h */,
-				696D2BDB1D4EC89A00A45E45 /* DayRangeViewController.m */,
-			);
-			name = Settings;
-			sourceTree = "<group>";
-		};
-		697A24481D5438130093A161 /* Report VIew */ = {
-			isa = PBXGroup;
-			children = (
-				69281ECA1D5427E700FD39BF /* ReportPageViewController.h */,
-				69281EC51D5427DD00FD39BF /* ReportPageViewController.m */,
-				690F86451D408A2400C33918 /* ReportViewController.h */,
-				690F86431D408A1E00C33918 /* ReportViewController.m */,
-				69AA89C51FBECA090052DE1B /* ActivityResponder.h */,
-				697A29051D657B9A00EDF8BC /* DatumView.h */,
-				697A29031D657B9300EDF8BC /* DatumView.m */,
-				697A29021D652E0900EDF8BC /* CompassView.h */,
-				697A29001D652DF700EDF8BC /* CompassView.m */,
-				69EDF4341D7B6A6100B310EA /* SubInfoView.h */,
-				69EDF42F1D7B6A5B00B310EA /* SubInfoView.m */,
-			);
-			name = "Report VIew";
-			sourceTree = "<group>";
-		};
 		69D72D341D4152B400980CF6 /* TableView NIBs */ = {
 			isa = PBXGroup;
 			children = (
@@ -572,17 +583,6 @@
 				690CE3301D441D6700450774 /* Bezier.m */,
 			);
 			name = Plotting;
-			sourceTree = "<group>";
-		};
-		69FC29F31D598B3F008F53E9 /* Add A Spot */ = {
-			isa = PBXGroup;
-			children = (
-				697C89A61D49089D00DDB435 /* AddPlaceViewController.h */,
-				697C89A71D4908A600DDB435 /* AddPlaceViewController.m */,
-				69FC29F21D59884C008F53E9 /* SpotListViewController.h */,
-				69FC29EE1D59881F008F53E9 /* SpotListViewController.m */,
-			);
-			name = "Add A Spot";
 			sourceTree = "<group>";
 		};
 		9C5906FF43535E9F7C2FA560 /* Frameworks */ = {
