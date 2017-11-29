@@ -487,11 +487,11 @@
 				691B6A931FCE88F400774AC3 /* Utilities */,
 				696963381D349B4C00CC3734 /* AppDelegate.h */,
 				696963391D349B4C00CC3734 /* AppDelegate.m */,
+				697B48511FCE8B0D00BC0698 /* Graphics */,
+				697B48501FCE8A8900BC0698 /* TableViewNIBS */,
 				691B6A981FCE89D500774AC3 /* ViewControllers */,
 				691B6A951FCE899300774AC3 /* SpitcastData */,
 				691B6A941FCE897E00774AC3 /* OpenWeather */,
-				69D72D341D4152B400980CF6 /* TableView NIBs */,
-				69D72D351D4152FF00980CF6 /* Plotting */,
 				696963411D349B4C00CC3734 /* Assets.xcassets */,
 				696963431D349B4C00CC3734 /* LaunchScreen.storyboard */,
 				696963461D349B4C00CC3734 /* Info.plist */,
@@ -548,7 +548,7 @@
 			path = SurfShackMobileUITests;
 			sourceTree = "<group>";
 		};
-		69D72D341D4152B400980CF6 /* TableView NIBs */ = {
+		697B48501FCE8A8900BC0698 /* TableViewNIBS */ = {
 			isa = PBXGroup;
 			children = (
 				69D72D201D41521D00980CF6 /* TableView.xib */,
@@ -571,10 +571,10 @@
 				696D2BD61D4DD83D00A45E45 /* SecondaryLabelCell.m */,
 				696D2BD91D4DD85300A45E45 /* SecondaryLabelCell.xib */,
 			);
-			name = "TableView NIBs";
+			path = TableViewNIBS;
 			sourceTree = "<group>";
 		};
-		69D72D351D4152FF00980CF6 /* Plotting */ = {
+		697B48511FCE8B0D00BC0698 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
 				69371B401D3727F800562493 /* PlotView.h */,
@@ -582,7 +582,7 @@
 				690CE3321D441D6C00450774 /* Bezier.h */,
 				690CE3301D441D6700450774 /* Bezier.m */,
 			);
-			name = Plotting;
+			path = Graphics;
 			sourceTree = "<group>";
 		};
 		9C5906FF43535E9F7C2FA560 /* Frameworks */ = {
