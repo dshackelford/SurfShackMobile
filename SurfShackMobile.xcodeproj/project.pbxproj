@@ -56,6 +56,13 @@
 		6992DFD41D668556005A4368 /* WaterTempPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992DFD31D668556005A4368 /* WaterTempPacket.m */; };
 		699521181D3619DA0073114D /* SpitcastData.m in Sources */ = {isa = PBXBuildFile; fileRef = 699521171D3619DA0073114D /* SpitcastData.m */; };
 		699EBEF21FCFEC3E000BA1BB /* SurfShackMobile.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 699EBEF11FCFEC3D000BA1BB /* SurfShackMobile.rtf */; };
+		69A29FA01FCFF8730060854E /* alarms.pxm in Resources */ = {isa = PBXBuildFile; fileRef = 69A29F991FCFF8720060854E /* alarms.pxm */; };
+		69A29FA11FCFF8730060854E /* logo.pxm in Resources */ = {isa = PBXBuildFile; fileRef = 69A29F9A1FCFF8720060854E /* logo.pxm */; };
+		69A29FA21FCFF8730060854E /* colorScheme.pxm in Resources */ = {isa = PBXBuildFile; fileRef = 69A29F9B1FCFF8720060854E /* colorScheme.pxm */; };
+		69A29FA31FCFF8730060854E /* notifications.pxm in Resources */ = {isa = PBXBuildFile; fileRef = 69A29F9C1FCFF8720060854E /* notifications.pxm */; };
+		69A29FA41FCFF8730060854E /* units.pxm in Resources */ = {isa = PBXBuildFile; fileRef = 69A29F9D1FCFF8720060854E /* units.pxm */; };
+		69A29FA51FCFF8730060854E /* dataProvider.pxm in Resources */ = {isa = PBXBuildFile; fileRef = 69A29F9E1FCFF8720060854E /* dataProvider.pxm */; };
+		69A29FA61FCFF8730060854E /* dayRange.pxm in Resources */ = {isa = PBXBuildFile; fileRef = 69A29F9F1FCFF8730060854E /* dayRange.pxm */; };
 		69A8DEEB1D4D11F1000D4412 /* InfoPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A8DEEA1D4D11F1000D4412 /* InfoPacket.m */; };
 		69A8DEEF1D4D13BE000D4412 /* SurfPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A8DEEE1D4D13BE000D4412 /* SurfPacket.m */; };
 		69A8DEF91D4DA090000D4412 /* SubSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A8DEF81D4DA090000D4412 /* SubSettingsViewController.m */; };
@@ -224,6 +231,13 @@
 		699521191D3619E60073114D /* SpitcastData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpitcastData.h; sourceTree = "<group>"; };
 		699EBEF11FCFEC3D000BA1BB /* SurfShackMobile.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = SurfShackMobile.rtf; sourceTree = "<group>"; };
 		699EBEF31FCFF12E000BA1BB /* DataCollector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataCollector.h; sourceTree = "<group>"; };
+		69A29F991FCFF8720060854E /* alarms.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = alarms.pxm; sourceTree = "<group>"; };
+		69A29F9A1FCFF8720060854E /* logo.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = logo.pxm; sourceTree = "<group>"; };
+		69A29F9B1FCFF8720060854E /* colorScheme.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = colorScheme.pxm; sourceTree = "<group>"; };
+		69A29F9C1FCFF8720060854E /* notifications.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = notifications.pxm; sourceTree = "<group>"; };
+		69A29F9D1FCFF8720060854E /* units.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = units.pxm; sourceTree = "<group>"; };
+		69A29F9E1FCFF8720060854E /* dataProvider.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = dataProvider.pxm; sourceTree = "<group>"; };
+		69A29F9F1FCFF8730060854E /* dayRange.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = dayRange.pxm; sourceTree = "<group>"; };
 		69A8DEEA1D4D11F1000D4412 /* InfoPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoPacket.m; sourceTree = "<group>"; };
 		69A8DEEC1D4D11F7000D4412 /* InfoPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoPacket.h; sourceTree = "<group>"; };
 		69A8DEEE1D4D13BE000D4412 /* SurfPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurfPacket.m; sourceTree = "<group>"; };
@@ -567,6 +581,7 @@
 		697B48521FCE8B6100BC0698 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				69A29F981FCFF8420060854E /* Pixelmator */,
 				697B48571FCE989400BC0698 /* AppIcons */,
 				699EBEF01FCFEBA8000BA1BB /* SettingsIcons */,
 			);
@@ -601,6 +616,20 @@
 				69B0C6D01D4B080E00653102 /* units.png */,
 			);
 			path = SettingsIcons;
+			sourceTree = "<group>";
+		};
+		69A29F981FCFF8420060854E /* Pixelmator */ = {
+			isa = PBXGroup;
+			children = (
+				69A29F991FCFF8720060854E /* alarms.pxm */,
+				69A29F9B1FCFF8720060854E /* colorScheme.pxm */,
+				69A29F9E1FCFF8720060854E /* dataProvider.pxm */,
+				69A29F9F1FCFF8730060854E /* dayRange.pxm */,
+				69A29F9A1FCFF8720060854E /* logo.pxm */,
+				69A29F9C1FCFF8720060854E /* notifications.pxm */,
+				69A29F9D1FCFF8720060854E /* units.pxm */,
+			);
+			path = Pixelmator;
 			sourceTree = "<group>";
 		};
 		9C5906FF43535E9F7C2FA560 /* Frameworks */ = {
@@ -749,6 +778,7 @@
 				697B48601FCE98D500BC0698 /* logo29x2.png in Resources */,
 				696D2BDA1D4DD85300A45E45 /* SecondaryLabelCell.xib in Resources */,
 				69D72D331D41527100980CF6 /* PickerInputCell.xib in Resources */,
+				69A29FA51FCFF8730060854E /* dataProvider.pxm in Resources */,
 				69D1DCA11D618E3500DF29B5 /* colorScheme.png in Resources */,
 				69B0C6D11D4B080E00653102 /* units.png in Resources */,
 				697B48631FCE98D500BC0698 /* logo20x3.png in Resources */,
@@ -756,14 +786,20 @@
 				696963421D349B4C00CC3734 /* Assets.xcassets in Resources */,
 				697B485F1FCE98D500BC0698 /* logo20.png in Resources */,
 				69B4261A1D472EB4006E4712 /* arrowCell.xib in Resources */,
+				69A29FA61FCFF8730060854E /* dayRange.pxm in Resources */,
 				69D1DCA31D618E3500DF29B5 /* notifications.png in Resources */,
+				69A29FA31FCFF8730060854E /* notifications.pxm in Resources */,
+				69A29FA41FCFF8730060854E /* units.pxm in Resources */,
 				697B48621FCE98D500BC0698 /* logo29x3.png in Resources */,
 				699EBEF21FCFEC3E000BA1BB /* SurfShackMobile.rtf in Resources */,
 				697B48651FCE98D500BC0698 /* logo40x3.png in Resources */,
 				69D1DC9B1D618C8800DF29B5 /* dataProvider.png in Resources */,
+				69A29FA11FCFF8730060854E /* logo.pxm in Resources */,
 				69D72D2B1D41521D00980CF6 /* TextInputCell.xib in Resources */,
 				697B48561FCE959200BC0698 /* logo1024.png in Resources */,
+				69A29FA01FCFF8730060854E /* alarms.pxm in Resources */,
 				69D72D271D41521D00980CF6 /* TableView.xib in Resources */,
+				69A29FA21FCFF8730060854E /* colorScheme.pxm in Resources */,
 				696963401D349B4C00CC3734 /* Main.storyboard in Resources */,
 				697B48641FCE98D500BC0698 /* logo40x2.png in Resources */,
 				69D1DCA91D6191B700DF29B5 /* logo60x3.png in Resources */,
