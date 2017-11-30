@@ -14,11 +14,6 @@
 		690CE33D1D442ED900450774 /* SurfShackMobileCountyCollectingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 690CE33C1D442ED900450774 /* SurfShackMobileCountyCollectingTests.m */; };
 		690CE33F1D452EB600450774 /* CountyHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 690CE33E1D452EB600450774 /* CountyHandler.m */; };
 		690CE3421D4533F000450774 /* WindPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 690CE3411D4533F000450774 /* WindPacket.m */; };
-		690F86371D405B0900C33918 /* textMessage.png in Resources */ = {isa = PBXBuildFile; fileRef = 690F86361D405B0900C33918 /* textMessage.png */; };
-		690F863C1D405C4600C33918 /* settingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 690F863B1D405C4600C33918 /* settingsIcon.png */; };
-		690F863E1D405D1B00C33918 /* AddIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 690F863D1D405D1B00C33918 /* AddIcon.png */; };
-		690F86411D405DA800C33918 /* LogIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 690F863F1D405DA800C33918 /* LogIcon.png */; };
-		690F86421D405DA800C33918 /* ReportIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 690F86401D405DA800C33918 /* ReportIcon.png */; };
 		690F86441D408A1E00C33918 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690F86431D408A1E00C33918 /* ReportViewController.m */; };
 		69281EC61D5427DD00FD39BF /* ReportPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69281EC51D5427DD00FD39BF /* ReportPageViewController.m */; };
 		69310B681D3882EF0087C5BE /* AppUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 69310B671D3882EF0087C5BE /* AppUtilities.m */; };
@@ -28,10 +23,6 @@
 		693EA5351D51A823008CBEEE /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EA5341D51A823008CBEEE /* LogViewController.m */; };
 		69405C9D1D4DACC8007E4617 /* SegmentedControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69405C9C1D4DACC8007E4617 /* SegmentedControlCell.m */; };
 		69405CA31D4DACDB007E4617 /* SegmentedControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69405CA21D4DACDB007E4617 /* SegmentedControlCell.xib */; };
-		69470CA01E45B681004CD7BE /* report-3-xxl.png in Resources */ = {isa = PBXBuildFile; fileRef = 69470C9F1E45B681004CD7BE /* report-3-xxl.png */; };
-		69470CA51E45B738004CD7BE /* report.png in Resources */ = {isa = PBXBuildFile; fileRef = 69470CA31E45B738004CD7BE /* report.png */; };
-		69470CA61E45B738004CD7BE /* reportXX.png in Resources */ = {isa = PBXBuildFile; fileRef = 69470CA41E45B738004CD7BE /* reportXX.png */; };
-		69470CA81E45B790004CD7BE /* report50.png in Resources */ = {isa = PBXBuildFile; fileRef = 69470CA71E45B790004CD7BE /* report50.png */; };
 		6949876F1F97107A008AE728 /* OfflineData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949876E1F97107A008AE728 /* OfflineData.m */; };
 		696963371D349B4C00CC3734 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 696963361D349B4C00CC3734 /* main.m */; };
 		6969633A1D349B4C00CC3734 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 696963391D349B4C00CC3734 /* AppDelegate.m */; };
@@ -157,11 +148,6 @@
 		690CE3401D452EBD00450774 /* CountyHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountyHandler.h; sourceTree = "<group>"; };
 		690CE3411D4533F000450774 /* WindPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindPacket.m; sourceTree = "<group>"; };
 		690CE3431D4533F600450774 /* WindPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindPacket.h; sourceTree = "<group>"; };
-		690F86361D405B0900C33918 /* textMessage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = textMessage.png; sourceTree = "<group>"; };
-		690F863B1D405C4600C33918 /* settingsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingsIcon.png; sourceTree = "<group>"; };
-		690F863D1D405D1B00C33918 /* AddIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddIcon.png; sourceTree = "<group>"; };
-		690F863F1D405DA800C33918 /* LogIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogIcon.png; sourceTree = "<group>"; };
-		690F86401D405DA800C33918 /* ReportIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ReportIcon.png; sourceTree = "<group>"; };
 		690F86431D408A1E00C33918 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportViewController.m; sourceTree = "<group>"; };
 		690F86451D408A2400C33918 /* ReportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportViewController.h; sourceTree = "<group>"; };
 		690F864C1D40930200C33918 /* DataHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataHandler.h; sourceTree = "<group>"; };
@@ -180,10 +166,6 @@
 		69405C9C1D4DACC8007E4617 /* SegmentedControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentedControlCell.m; sourceTree = "<group>"; };
 		69405CA11D4DACD1007E4617 /* SegmentedControlCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SegmentedControlCell.h; sourceTree = "<group>"; };
 		69405CA21D4DACDB007E4617 /* SegmentedControlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedControlCell.xib; sourceTree = "<group>"; };
-		69470C9F1E45B681004CD7BE /* report-3-xxl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "report-3-xxl.png"; sourceTree = "<group>"; };
-		69470CA31E45B738004CD7BE /* report.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = report.png; sourceTree = "<group>"; };
-		69470CA41E45B738004CD7BE /* reportXX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reportXX.png; sourceTree = "<group>"; };
-		69470CA71E45B790004CD7BE /* report50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = report50.png; sourceTree = "<group>"; };
 		6949876A1F7719C5008AE728 /* SurfShackMobile-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SurfShackMobile-Bridging-Header.h"; sourceTree = "<group>"; };
 		6949876D1F971070008AE728 /* OfflineData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OfflineData.h; sourceTree = "<group>"; };
 		6949876E1F97107A008AE728 /* OfflineData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OfflineData.m; sourceTree = "<group>"; };
@@ -581,21 +563,7 @@
 			isa = PBXGroup;
 			children = (
 				697B48571FCE989400BC0698 /* AppIcons */,
-				69470CA31E45B738004CD7BE /* report.png */,
-				69470CA41E45B738004CD7BE /* reportXX.png */,
-				69470C9F1E45B681004CD7BE /* report-3-xxl.png */,
-				69470CA71E45B790004CD7BE /* report50.png */,
-				69D1DC9C1D618E3500DF29B5 /* alarms.png */,
-				69D1DC9D1D618E3500DF29B5 /* colorScheme.png */,
-				69D1DC9E1D618E3500DF29B5 /* dayRange.png */,
-				69D1DC9F1D618E3500DF29B5 /* notifications.png */,
-				69D1DC981D618C8800DF29B5 /* dataProvider.png */,
-				69B0C6D01D4B080E00653102 /* units.png */,
-				690F863F1D405DA800C33918 /* LogIcon.png */,
-				690F86401D405DA800C33918 /* ReportIcon.png */,
-				690F863D1D405D1B00C33918 /* AddIcon.png */,
-				690F863B1D405C4600C33918 /* settingsIcon.png */,
-				690F86361D405B0900C33918 /* textMessage.png */,
+				699EBEF01FCFEBA8000BA1BB /* SettingsIcons */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -615,6 +583,19 @@
 				69D1DCA71D6191B700DF29B5 /* logo60x3.png */,
 			);
 			path = AppIcons;
+			sourceTree = "<group>";
+		};
+		699EBEF01FCFEBA8000BA1BB /* SettingsIcons */ = {
+			isa = PBXGroup;
+			children = (
+				69D1DC9C1D618E3500DF29B5 /* alarms.png */,
+				69D1DC9D1D618E3500DF29B5 /* colorScheme.png */,
+				69D1DC9E1D618E3500DF29B5 /* dayRange.png */,
+				69D1DC9F1D618E3500DF29B5 /* notifications.png */,
+				69D1DC981D618C8800DF29B5 /* dataProvider.png */,
+				69B0C6D01D4B080E00653102 /* units.png */,
+			);
+			path = SettingsIcons;
 			sourceTree = "<group>";
 		};
 		9C5906FF43535E9F7C2FA560 /* Frameworks */ = {
@@ -760,12 +741,9 @@
 				69405CA31D4DACDB007E4617 /* SegmentedControlCell.xib in Resources */,
 				69D1DC9A1D618C8800DF29B5 /* Base.lproj in Resources */,
 				69D1DCA81D6191B700DF29B5 /* logo60x2.png in Resources */,
-				690F86371D405B0900C33918 /* textMessage.png in Resources */,
-				690F86411D405DA800C33918 /* LogIcon.png in Resources */,
 				697B48601FCE98D500BC0698 /* logo29x2.png in Resources */,
 				696D2BDA1D4DD85300A45E45 /* SecondaryLabelCell.xib in Resources */,
 				69D72D331D41527100980CF6 /* PickerInputCell.xib in Resources */,
-				69470CA51E45B738004CD7BE /* report.png in Resources */,
 				69D1DCA11D618E3500DF29B5 /* colorScheme.png in Resources */,
 				69B0C6D11D4B080E00653102 /* units.png in Resources */,
 				697B48631FCE98D500BC0698 /* logo20x3.png in Resources */,
@@ -774,15 +752,9 @@
 				697B485F1FCE98D500BC0698 /* logo20.png in Resources */,
 				69B4261A1D472EB4006E4712 /* arrowCell.xib in Resources */,
 				69D1DCA31D618E3500DF29B5 /* notifications.png in Resources */,
-				690F86421D405DA800C33918 /* ReportIcon.png in Resources */,
 				697B48621FCE98D500BC0698 /* logo29x3.png in Resources */,
 				697B48651FCE98D500BC0698 /* logo40x3.png in Resources */,
 				69D1DC9B1D618C8800DF29B5 /* dataProvider.png in Resources */,
-				69470CA81E45B790004CD7BE /* report50.png in Resources */,
-				690F863C1D405C4600C33918 /* settingsIcon.png in Resources */,
-				69470CA01E45B681004CD7BE /* report-3-xxl.png in Resources */,
-				690F863E1D405D1B00C33918 /* AddIcon.png in Resources */,
-				69470CA61E45B738004CD7BE /* reportXX.png in Resources */,
 				69D72D2B1D41521D00980CF6 /* TextInputCell.xib in Resources */,
 				697B48561FCE959200BC0698 /* logo1024.png in Resources */,
 				69D72D271D41521D00980CF6 /* TableView.xib in Resources */,
