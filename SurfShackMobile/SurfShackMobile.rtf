@@ -1,0 +1,295 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf100
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red0\green116\blue0;}
+{\*\expandedcolortbl;;\csgenericrgb\c14902\c14902\c14902;\csgenericrgb\c0\c45490\c0;}
+\margl1440\margr1440\vieww12600\viewh19820\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc\partightenfactor0
+
+\f0\b\fs50 \cf0 //SURFSHACK_MOBILE
+\b0\fs28 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 //\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97
+\b \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
+
+\fs30 \cf0 To Do List
+\b0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf0 NOW\
+
+\b0 	
+\i \ul Report View
+\i0 \ulnone \
+- fix tide ratio\
+- add slider on \
+- maybe update the temperature more often then the surf predictions?\
+- make the preferences connect to the units set in the settings\
+- when its the next day, reload the data, still doesn\'92t work\
+- handing nil swell data better\
+- Download Error handling!!\
+- Fix negative numbers on tide (don\'92t set the minimum as zero for the tide plot)\
+- Displaying the temperature units within the compass (also depending on preferences as well)\
+\
+	
+\i \ul Log View
+\i0 \ulnone \
+- Probably should use a date picker for log view, rather then make my own one\
+- Change the background color\
+- how will i search for matching conditions. add a table of spots that ave been logged, so when i download the forecast for the same spot, i will ask for surf height, wind, swell, and see what the deviations are. if they are within a 5%? deviation, then i will notify user only if the log report was good, if the log says it wasn\'92t good, i give a subtle notification that i didn\'92t have fun at this time. (UIAlterView subclass that pops up from the bottom)\
+\
+	
+\i \ul Settings\ulnone \
+
+\i0 - make the icons smaller like in the apple\'92s settings app\
+- Add tips button in top right like an info button\
+- add a setting for smoothing of data \
+\
+	
+\i \ul Add spot
+\i0 \ulnone \
+- Add nearby spot list generation\
+- when search results are shown, show both name and county\
+\
+	
+\i \ul Map View
+\i0 \ulnone \
+- add a map icon that shows google maps with dots indicating where the beach breaks are, i already know the lat/lon of each spot, show i think is should be able to locate it on a map that way. Allows the user to see a physical representation of the beach angling.\
+\
+	
+\i \ul About Page	\
+
+\i0 \ulnone Save the writes up in an XML?\
+	- I think it\'92ll be quicker on load up\
+	- also, edit them!\
+\
+
+\b SOON
+\b0 \
+- add beach line on compass rim\
+- add a top menu button to change the number of days directly in the report view\
+- Add ability to tap the list of favorite spots and load the index of that spot in the report view\
+- add a table under the loading indicator (grabbing forecast data\'85)\
+- change the direction of gradient on plots to match the direction of swell/wind?\
+- When at night, show the next day\'92s surf report\
+- make it fit for the iPhone 5\
+- long press on plot displays two data sets (tide and surf // surf and wind [User preference?])\
+- Texting someone?\
+- Add a table of all the favorite surf plots, add the bar button icon to the top left to display this feature, able to interact with each cell as if it were its own report view (i.e. tapping though wind/surf/tide, although idk how rotation would work, probably would be turned off. \
+- Figure out why app says high energy impact?\
+- For first release, add a buoy data section instead of texting that will show the raw county bout data, so the first screen will have a list of counties like in the add spot view controller, but click on it, and the data for the swell readings comes up in a brute force text display. \
+- figure out how to make compass markers different sizes, so the scale of information can better be portrayed\
+\
+
+\b LATER
+\b0 \
+- If the current time is past sunset, then turn current day into tomorrow for more relevance\
+- show multiple compass markers if there are multiple swells?\
+- Putting a simple low pass filter on the data to smooth it out\
+- Set alarms for firing forecasts\
+- what happened when app goes into the background\
+- Add surf data tips while waiting for surf download to happen,\
+	add all the tips in the settings page as a fun place to read\
+- Delete app and test that all file creations work!!!\
+- What if Jack Muhlis updates how many spots are on spit cast, should I reload the all-spot file?\
+- drag finger along plot and change the information on compass and seconding info labels. \'93Future scoping\'94\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs28 \cf0 //\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97
+\fs30 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
+
+\b \cf0 	Features \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b0 \cf0 Version 1.0\
+- Rotate into full week!\
+- Interactive data (information that adjusts to your specific location and heading)\
+- Spot Search (search for spots by county, nearby, or by knowing a name)\
+\
+Version 2.0\
+- Surf Logs (Tell the app when a surf session was good and it\'92ll remember it to better predict good surfing next time round!)\
+- Surf notifications (Alarms when surf is firing in morning)\
+\
+Version 3.0\
+- Share the Stoke (Text friend when a spot is predicted to fire in an elegantly created info picture)\
+- MapKit added to find where spots\
+\
+Version 4.0\
+- Quick Look (list of favorite spots with surf height in table view)\
+- Future Scoping\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs28 \cf0 //\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97
+\fs30 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
+
+\b \cf0 Settings\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b0 \cf0 Units\
+	- Length: ft/m\
+	- Speed: mph/kts\
+	- Temp: F/C\
+	- Turn current day into tomorrow at night for more relevance?\
+Color Scheme\
+	- Plot: sea grass green, wave break blue, pacific blue, sunset red, dawn patrol gray, \
+	- background matching current weather outside\
+Interaction\
+	- don\'92t rotate compass with human movement\
+	- I don\'92t want my plots to show when i rotate the view\
+Data Service (list the providers with a little description about how awesome they are)\
+	- Spitcast, OpenWeahter API \
+	\'97\'97\'97\'97\'97\'97\'97\
+Day Range\
+	- Short: 1-6 day\
+	- Long: 3 - 7 day\
+Notifications\
+	- Notify when surf matches logged session\
+	- Notify if any predicted surf is to be good under certain criteria\
+		- height\
+		- swell size\
+		- wind\
+	- Alarm set for there is a predicted forecast that is firing\
+	\'97\'97\'97\'97\'97\'97\'97\
+Location Services\
+	- ON/OFF\
+Contacts\
+	- ON/OFF\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs28 \cf0 //\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97
+\fs30 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
+
+\b \cf0 Report Categories\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b0 \cf0 Surf\
+	- height forecast\
+	- swell direction\
+	- inside compass is the water temp\
+	- swell period and swell height\
+\
+Tide\
+	- Tide forecast\
+	- Tide going up or down\
+	- inside compass is filled up to reflect the tide\
+\
+Wind\
+	- Wind forecast\
+	- Air temp inside compass\
+	- nodes for wind direction\
+	- sunsetting and sunrise\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs28 \cf0 //\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97
+\fs30 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
+
+\b \cf0 Buttons on Tab Controller
+\b0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 1. Settings\
+2. Text\
+3. Report View\
+4. Log a surf session \
+5. Places  (add and delete list of places)\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs28 \cf0 //\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc\partightenfactor0
+
+\b \cf0 Spit cast API notes\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b0\fs30 \cf0 http://api.spitcast.com/api/spot/forecast/1/?dcat=day&dval=20160723\
+http://api.spitcast.com/api/spot/forecast/1/?dcat=week\
+\
+\'93dcat\'94 = date category\
+\'93dval\'94 = date value\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs28 \cf0 //\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc\partightenfactor0
+
+\b\fs30 \cf0 Open Weather API
+\b0 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \expnd0\expndtw0\kerning0
+KEY: 481f39c90c0b12397c3177c8c09ce3cf\
+\
+http://api.openweathermap.org/data/2.5/weather?lat=32.75&lon=-117.25&APPID=481f39c90c0b12397c3177c8c09ce3cf\cf0 \kerning1\expnd0\expndtw0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs28 \cf0 //\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc\partightenfactor0
+
+\b\fs30 \cf0 Tips (show while downloading reports / similar to about)\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b0 \cf0 - When at a break with a buoy, when you can\'92t see it, there is a wave coming.\
+- How to find criss cross swells that allow shoulders at a normal closed out beach break.\
+- types of break\
+- types of sand breaks\
+- pacific ocean swell systems and how they are seasonally formed\
+- how are clouds formed (high and low pressure)\
+- add some suggestions or correct here I\'92m wrong?\
+- Buoy data: long periods mean stronger more consistent swell, short periods means more turbulence\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs28 \cf0 //\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97
+\b \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc\partightenfactor0
+\cf0 Class Hierarchy
+\b0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 spitDataPackets (hold all the getters and setters in this files, make the other packets inherit from this)\
+	time\
+	day\
+	tideType\
+	windType\
+	waveHeight\
+	spotID\
+	spotName\
+	county etc..\
+\
+subPackets differ based on their url link\
+make sure that subPackets may have different keys for similar inherited objects, may have to rewrite. \
+\
+SurfPackets\
+	-(double)getPlotMag \'97> returns waveHeight\
+WindPackets\
+	-(double)getPlotMag \'97> returns waveHeight\
+TidePackets\
+	-(double)getPlotMag \'97> returns waveHeight\
+\
+//\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97
+\b \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc\partightenfactor0
+\cf0 XCODE TIPS\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b0 \cf0 change app icon name by setting the bundle display name in plist\
+\
+\pard\tx674\pardeftab674\pardirnatural\partightenfactor0
+
+\f1 \cf3 \CocoaLigature0 //-(void)viewDidLayoutSubviews\cf0 \
+\cf3 //\{\cf0 \
+\cf3 //    if (viewSet == NO)\cf0 \
+\cf3 //    \{\cf0 \
+\cf3 //        [self chooseDataToDisplay];\cf0 \
+\cf3 //        viewSet = YES;\cf0 \
+\cf3 //    \}\cf0 \
+\cf3 //\}\
+
+\f0 \cf0 \CocoaLigature1 \
+to add the history back in, go to the view controller, right click, drag relationships to tab bar controller\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 //\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc\partightenfactor0
+
+\b\fs50 \cf0 //SURFSHACK_MOBILE_DSHACKTECH  }

@@ -55,6 +55,7 @@
 		6992DFD21D667D64005A4368 /* DataFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992DFD11D667D64005A4368 /* DataFactory.m */; };
 		6992DFD41D668556005A4368 /* WaterTempPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992DFD31D668556005A4368 /* WaterTempPacket.m */; };
 		699521181D3619DA0073114D /* SpitcastData.m in Sources */ = {isa = PBXBuildFile; fileRef = 699521171D3619DA0073114D /* SpitcastData.m */; };
+		699EBEF21FCFEC3E000BA1BB /* SurfShackMobile.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 699EBEF11FCFEC3D000BA1BB /* SurfShackMobile.rtf */; };
 		69A8DEEB1D4D11F1000D4412 /* InfoPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A8DEEA1D4D11F1000D4412 /* InfoPacket.m */; };
 		69A8DEEF1D4D13BE000D4412 /* SurfPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A8DEEE1D4D13BE000D4412 /* SurfPacket.m */; };
 		69A8DEF91D4DA090000D4412 /* SubSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A8DEF81D4DA090000D4412 /* SubSettingsViewController.m */; };
@@ -221,6 +222,7 @@
 		6992DFD51D66855D005A4368 /* WaterTempPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaterTempPacket.h; sourceTree = "<group>"; };
 		699521171D3619DA0073114D /* SpitcastData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpitcastData.m; sourceTree = "<group>"; };
 		699521191D3619E60073114D /* SpitcastData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpitcastData.h; sourceTree = "<group>"; };
+		699EBEF11FCFEC3D000BA1BB /* SurfShackMobile.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = SurfShackMobile.rtf; sourceTree = "<group>"; };
 		69A8DEEA1D4D11F1000D4412 /* InfoPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoPacket.m; sourceTree = "<group>"; };
 		69A8DEEC1D4D11F7000D4412 /* InfoPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoPacket.h; sourceTree = "<group>"; };
 		69A8DEEE1D4D13BE000D4412 /* SurfPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurfPacket.m; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 		696963351D349B4C00CC3734 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				699EBEF11FCFEC3D000BA1BB /* SurfShackMobile.rtf */,
 				69D1DC961D618C8800DF29B5 /* Assets.xcassets */,
 				69D1DC971D618C8800DF29B5 /* Base.lproj */,
 				696963361D349B4C00CC3734 /* main.m */,
@@ -753,6 +756,7 @@
 				69B4261A1D472EB4006E4712 /* arrowCell.xib in Resources */,
 				69D1DCA31D618E3500DF29B5 /* notifications.png in Resources */,
 				697B48621FCE98D500BC0698 /* logo29x3.png in Resources */,
+				699EBEF21FCFEC3E000BA1BB /* SurfShackMobile.rtf in Resources */,
 				697B48651FCE98D500BC0698 /* logo40x3.png in Resources */,
 				69D1DC9B1D618C8800DF29B5 /* dataProvider.png in Resources */,
 				69D72D2B1D41521D00980CF6 /* TextInputCell.xib in Resources */,
