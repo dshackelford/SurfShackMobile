@@ -26,8 +26,26 @@
     
     dataDict = [[NSMutableDictionary alloc] init];
     swellDict = [[NSMutableDictionary alloc] init];
+    
+    //self.dataCollector = dataCollecterInit; //i.e. the dataFactory <DataCollector>
     return self;
 }
+
+-(void)startSurfDataDownloadForLocation:(int)locInit
+{
+    [self getSurfHeightDataForID:locInit]; //starts the thread for downloading surf height
+}
+
+//this method is called from
+-(void)surfDataReceived:(NSMutableArray*)surfDataArray
+{
+    NSMutableDictionary* aSurfDict =[self makeDictionaryForData:surfDataArray ofTypeHeight:YES];
+    
+    [aSurfDict setObject:@"Surf Height (Powered by Spitcast)" forKey:@"plotLabel"];
+    
+    
+}
+
 
 -(NSMutableDictionary*)getSurfDataForLocation:(int)locInit
 {
@@ -126,25 +144,44 @@
         //ESTABLISH THE URL TO GRAB INFO FROM
         NSString* stringURL = [NSString stringWithFormat:@"http://api.spitcast.com/api/spot/forecast/%d/?dcat=day&dval=%@",locInit,[dateStrArray objectAtIndex:i]];
         
-        //PARSE THE DATA GRABBED FROM SPITCAST - HAS 35 DATA PACKAGES FOR ONE HOUR EACH
-        NSArray* jsonDataArray = [self retunJsonDataFromURLString:stringURL];
         
-        //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
-        NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
+        NSURLSession* session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
         
-        //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
-        for (id dataSet in jsonDataArray)
-        {
-            SurfPacket* surfPacket = [[SurfPacket alloc] init:dataSet];
-            [aDayDataArray addObject:surfPacket];
-        }
-        
-        aDayDataArray = [self organizeArrayByTime:aDayDataArray andDate:[dateStrArray objectAtIndex:i]];
-        
-        [surfDataDayRange addObject:aDayDataArray];
+        [[session dataTaskWithURL:[NSURL URLWithString:stringURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+          {
+              if(error)
+              {
+                  NSLog(@"there was an error in getting json data from url in spitcast");
+              }
+              else
+              {
+                  NSLog(@"json data download completed");
+                  NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                  NSLog(@"%@",jsonDataArray);
+                  
+                  //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
+                  NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
+                  
+                  //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
+                  for (id dataSet in jsonDataArray)
+                  {
+                      SurfPacket* surfPacket = [[SurfPacket alloc] init:dataSet];
+                      [aDayDataArray addObject:surfPacket];
+                  }
+                  
+                  aDayDataArray = [self organizeArrayByTime:aDayDataArray andDate:[dateStrArray objectAtIndex:i]];
+                  
+                  [self.surfDataDayRange addObject:aDayDataArray];
+              }
+          }] resume];
     }
-    //RETURN MUTABLE ARRAY OF HOURLY DATA SETS
-    return surfDataDayRange;
+    
+    return nil;
+}
+
+-(void)surfDayCollected:(NSMutableArray*)aDayDataArray
+{
+    [self.surfDataDayRange addObject:aDayDataArray];
 }
 
 -(NSMutableArray*)getWindData:(NSMutableArray*)dateStrArray andCounty:(NSString*)county
@@ -220,21 +257,37 @@
         NSString* stringURL = [NSString stringWithFormat:@"http://api.spitcast.com/api/county/swell/%@/?dcat=day&dval=%@",countyInit,[dateStrArray objectAtIndex:i]];
         
         //PARSE THE DATA GRABBED FROM SPITCAST - HAS 35 DATA PACKAGES FOR ONE HOUR EACH
-        NSArray* jsonDataArray = [self retunJsonDataFromURLString:stringURL];
+        //NSArray* jsonDataArray = [self retunJsonDataFromURLString:stringURL];
         
-        //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
-        NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
+        NSURLSession* session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
         
-        //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
-        for (id dataSet in jsonDataArray)
-        {
-            SwellPacket* swellData = [[SwellPacket alloc] init:dataSet];
-            [aDayDataArray addObject:swellData];
-        }
-        
-        aDayDataArray = [self organizeArrayByTime:aDayDataArray andDate:[dateStrArray objectAtIndex:i]];
-        
-        [tideDataDayRange addObject:aDayDataArray];
+        NSLog(@"started downloadtask %i",i);
+        [[session dataTaskWithURL:[NSURL URLWithString:stringURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+          {
+              if(error)
+              {
+                  NSLog(@"there was an error in getting json data from url in spitcast");
+              }
+              else
+              {
+                  NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                  
+                  NSLog(@"started downloadtask %i",i);
+                  //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
+                  NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
+                  
+                  //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
+                  for (id dataSet in jsonDataArray)
+                  {
+                      SwellPacket* swellData = [[SwellPacket alloc] init:dataSet];
+                      [aDayDataArray addObject:swellData];
+                  }
+                  
+                  aDayDataArray = [self organizeArrayByTime:aDayDataArray andDate:[dateStrArray objectAtIndex:i]];
+                  
+                  [tideDataDayRange addObject:aDayDataArray];
+              }
+          }] resume];
     }
     
     //RETURN MUTABLE ARRAY OF HOURLY DATA SETS
@@ -267,8 +320,6 @@
     }] resume];
     
     
-    
-    
     NSURLRequest* theRequest = [NSURLRequest requestWithURL:theURL];
     
     //MAKE THE CONNECTION TO THE INTERNET
@@ -295,6 +346,7 @@
         [theConnection cancel];
         return nil;
     }
+     
 }
 
 -(NSMutableArray*)organizeArrayByTime:(NSMutableArray*)arrayInit andDate:(NSString*)dateInit

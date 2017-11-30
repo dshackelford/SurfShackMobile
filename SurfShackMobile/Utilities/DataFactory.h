@@ -14,7 +14,9 @@
 #import "CurrentWeather.h"
 #import "DateHandler.h"
 
-@interface DataFactory : NSObject
+#import "DataCollector.h"
+
+@interface DataFactory : NSObject <DataCollector>
 {
     NSMutableDictionary* spotsDict; //obj: array of surf, key is the spotID
     NSMutableDictionary* countiesDict; //obj: array of countyDictionaries

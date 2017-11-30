@@ -12,6 +12,10 @@
 
 @protocol DataHandler <NSObject>
 
+//NSURLSession workarounds
+-(void)startSurfDataDownloadForLocation:(int)locInit;
+
+//old stuff
 -(NSMutableDictionary*)getSurfDataForLocation:(int)locInit;
 -(NSMutableDictionary*)getWindDataForCounty:(NSString*)countyInit;
 -(NSMutableDictionary*)getTideDataForCounty:(NSString*)countyInit;

@@ -15,8 +15,9 @@
 {
     self = [super init];
     
-    //I wanna change this init
-    spitData = [[SpitcastData alloc] initWithShortLength:3 andLongLength:6];
+    //should be this factory has one object that conforms to data handler protocol
+    //data hander should be renamed to data source?
+    spitData = [[SpitcastData alloc] initWithShortLength:3 andLongLength:6]; //include reference to self here as the data collector?
     
     spotsDict = [[NSMutableDictionary alloc] init];
     countiesDict = [[NSMutableDictionary alloc] init];
@@ -28,7 +29,50 @@
     return self;
 }
 
+-(void)surfDataDictReceived:(NSMutableDictionary*)surfData
+{
+    NSMutableDictionary* aSpotDict = [[NSMutableDictionary alloc] init];
+    
+    [aSpotDict setObject:surfData forKey:@"surf"];
+    
+    /*
+    //WEATHER AND SUN TIMES
+    CurrentWeather* aweath = [[CurrentWeather alloc] init];
+    
+    [aweath getCurrentWeatherForLoc:aLoc];
+    
+    NSMutableDictionary* aWeatherDict = [[NSMutableDictionary alloc] init];
+    
+    NSString* temp = [NSString stringWithFormat:@"%d",(int)[aweath getTemp]];
+    NSString* sunset = [aweath getSunset];
+    NSString* sunrise = [aweath getSunrise];
+    
+    [aWeatherDict setObject:temp forKey:@"temp"];
+    [aWeatherDict setObject:sunset forKey:@"sunset"];
+    [aWeatherDict setObject:sunrise forKey:@"sunrise"];
+    
+    [aSpotDict setObject:aWeatherDict forKey:@"weatherDict"];
+    */
+    if([[surfData objectForKey:@"mags"] count] == 0)
+    {
+        //no internet, won't throw the spot has data link
+        NSLog(@"NO INTERNET for spots dict");
+    }
+    else if (spotName != nil)
+    {
+        [spotsDict setObject:aSpotDict forKey:[aSpotDict objectForKey:<#(nonnull id)#>]];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:spotName object:spotsDict];
+        NSLog(@"downloaded a spot dict: %@",spotName);
+    }
+    else
+    {
+        NSLog(@"got a NIL spot for %@! withID:%d",spotName,intNum);
+    }
+}
+
 //arrOfLocs holds an array of spotID's
+//this is called from report page view contorller
 -(void)getDataForSpots:(NSArray*)spotIDArray andCounties:(NSArray*)countiesArray
 {
     NSMutableArray* arrOfLocs = [[NSMutableArray alloc] init];
@@ -72,11 +116,13 @@
             {
                 dateOnLastDownload = [[DateHandler getCurrentDateString] intValue];
                 
-                NSMutableDictionary* aSpotDict = [[NSMutableDictionary alloc] init];
+                //NSMutableDictionary* aSpotDict = [[NSMutableDictionary alloc] init];
             
                 //SURF DATA
-                NSMutableDictionary* surfData = [spitData getSurfDataForLocation:[num intValue]];
-                [aSpotDict setObject:surfData forKey:@"surf"];
+                //NSMutableDictionary* surfData = [spitData getSurfDataForLocation:[num intValue]];
+                [spitData startSurfDataDownloadForLocation:[num intValue]];
+                
+                /*[aSpotDict setObject:surfData forKey:@"surf"];
             
                 //WEATHER AND SUN TIMES
                 CurrentWeather* aweath = [[CurrentWeather alloc] init];
@@ -110,7 +156,7 @@
                 else
                 {
                     NSLog(@"got a NIL spot for %@! withID:%d",spotName,intNum);
-                }
+                }*/
             }
         });
         
@@ -153,6 +199,11 @@
             }
         });
     }
+}
+
+-(void)surfDataGathered:(NSMutableArray*)arrayInit
+{
+    
 }
 
 //this gets called every time a report view will appear, therefore I find it prudent not have to download anything, all the data should be present, this method just parses it

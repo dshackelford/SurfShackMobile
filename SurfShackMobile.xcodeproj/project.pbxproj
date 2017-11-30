@@ -223,6 +223,7 @@
 		699521171D3619DA0073114D /* SpitcastData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpitcastData.m; sourceTree = "<group>"; };
 		699521191D3619E60073114D /* SpitcastData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpitcastData.h; sourceTree = "<group>"; };
 		699EBEF11FCFEC3D000BA1BB /* SurfShackMobile.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = SurfShackMobile.rtf; sourceTree = "<group>"; };
+		699EBEF31FCFF12E000BA1BB /* DataCollector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataCollector.h; sourceTree = "<group>"; };
 		69A8DEEA1D4D11F1000D4412 /* InfoPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoPacket.m; sourceTree = "<group>"; };
 		69A8DEEC1D4D11F7000D4412 /* InfoPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoPacket.h; sourceTree = "<group>"; };
 		69A8DEEE1D4D13BE000D4412 /* SurfPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurfPacket.m; sourceTree = "<group>"; };
@@ -316,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				690F864C1D40930200C33918 /* DataHandler.h */,
+				699EBEF31FCFF12E000BA1BB /* DataCollector.h */,
 				6992DFCD1D667D5C005A4368 /* DataFactory.h */,
 				6992DFD11D667D64005A4368 /* DataFactory.m */,
 				690CE3401D452EBD00450774 /* CountyHandler.h */,

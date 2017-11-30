@@ -19,8 +19,8 @@
 #import "SwellPacket.h"
 #import "WaterTempPacket.h"
 
-
 #import "DBManager.h"
+#import "DataCollector.h"
 
 @interface SpitcastData : NSObject <DataHandler>
 {
@@ -36,22 +36,14 @@
     NSMutableArray* countyList;
 }
 
+@property id<DataCollector> dataCollector;
+@property NSMutableArray* surfDataDayRange;
+
 -(id)initWithShortLength:(int)shortLengthInit andLongLength:(int)longLengthInit;
 
 -(NSArray*)retunJsonDataFromURLString:(NSString*)stringInit;
 
 -(NSMutableArray*)organizeArrayByTime:(NSMutableArray*)arrayInit andDate:(NSString*)dateInit;
-
-
-//new stuff, savage
-//-(NSMutableDictionary*)getSurfDataForLocation:(int)locInit;
-//-(NSMutableDictionary*)getWindDataForCounty:(NSString*)countyInit;
-//-(NSMutableDictionary*)getTideDataForCounty:(NSString*)countyInit;
-//-(double)getWaterTempForCounty:(NSString*)countyInit;
-//-(NSMutableArray*)getSwellDataForCounty:(NSString *)countyInit;
-//
-//-(NSMutableArray*)getAllSpotsAndCounties;
-//-(NSMutableArray*)getNearBySpots:(NSString*)latInit andLon:(NSString*)lonInit;
 
 @end
 
