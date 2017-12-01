@@ -21,7 +21,8 @@
     {
         int shortRange = [[prefs objectForKey:kShortDataLength] intValue];
         int longRange = [[prefs objectForKey:kLongDataLength] intValue];
-        SpitcastData* aSpitcastAcc = [[SpitcastData alloc] initWithShortLength:shortRange andLongLength:longRange];
+        
+        SpitcastData* aSpitcastAcc = [[SpitcastData alloc] initWithShortLength:shortRange andLongLength:longRange andCollector:nil];
         return aSpitcastAcc;
     }
     //else if(surfDataProvider isEqualToString:@"MagicSeaweed")

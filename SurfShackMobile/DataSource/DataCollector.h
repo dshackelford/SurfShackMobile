@@ -12,7 +12,13 @@
 @protocol DataCollector
 
 -(void)surfDataDictReceived:(NSMutableDictionary*)surfData;
+-(void)tideDataDictReceived:(NSMutableDictionary*)tideData;
+-(void)windDataDictReceived:(NSMutableDictionary*)windData;
+-(void)swellDataDictReceived:(NSMutableDictionary*)windData;
 
+
+-(void)weatherDataDictReceived:(NSMutableDictionary*)windData;
+-(void)waterTempDataDictReceived:(NSMutableDictionary*)windData;
 @end
 
 #endif /* DataCollecter_h */

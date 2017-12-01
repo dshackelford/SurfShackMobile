@@ -21,8 +21,9 @@
 
 #import "DBManager.h"
 #import "DataCollector.h"
+#import "DataSource.h"
 
-@interface SpitcastData : NSObject <DataHandler>
+@interface SpitcastData : NSObject <DataHandler,DataSource>
 {
     //these values will be set in the factory based of the preferences
     DBManager* db;
@@ -37,9 +38,6 @@
 }
 
 @property id<DataCollector> dataCollector;
-@property NSMutableArray* surfDataDayRange;
-
--(id)initWithShortLength:(int)shortLengthInit andLongLength:(int)longLengthInit;
 
 -(NSArray*)retunJsonDataFromURLString:(NSString*)stringInit;
 

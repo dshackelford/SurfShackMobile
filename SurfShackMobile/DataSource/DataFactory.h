@@ -14,6 +14,7 @@
 #import "CurrentWeather.h"
 #import "DateHandler.h"
 
+#import "DataSource.h" //spitcast
 #import "DataCollector.h"
 
 @interface DataFactory : NSObject <DataCollector>
@@ -27,6 +28,8 @@
     
     int dateOnLastDownload;
 }
+
+@property id<DataSource> source;
 
 -(void)getDataForSpots:(NSArray*)spotIDArray andCounties:(NSArray*)countiesArray;
 

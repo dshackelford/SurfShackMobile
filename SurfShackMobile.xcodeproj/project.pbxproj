@@ -86,6 +86,7 @@
 		69D1DCA81D6191B700DF29B5 /* logo60x2.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D1DCA61D6191B700DF29B5 /* logo60x2.png */; };
 		69D1DCA91D6191B700DF29B5 /* logo60x3.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D1DCA71D6191B700DF29B5 /* logo60x3.png */; };
 		69D4608B1D5D7D80005275EF /* TextMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D4608A1D5D7D80005275EF /* TextMessageViewController.m */; };
+		69D5B9E21FD1122F0094B637 /* downloadOperationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5B9E11FD1122F0094B637 /* downloadOperationTests.m */; };
 		69D72D271D41521D00980CF6 /* TableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D72D201D41521D00980CF6 /* TableView.xib */; };
 		69D72D281D41521D00980CF6 /* TextDisplayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D72D221D41521D00980CF6 /* TextDisplayCell.m */; };
 		69D72D291D41521D00980CF6 /* TextDisplayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D72D231D41521D00980CF6 /* TextDisplayCell.xib */; };
@@ -174,7 +175,6 @@
 		69405C9C1D4DACC8007E4617 /* SegmentedControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentedControlCell.m; sourceTree = "<group>"; };
 		69405CA11D4DACD1007E4617 /* SegmentedControlCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SegmentedControlCell.h; sourceTree = "<group>"; };
 		69405CA21D4DACDB007E4617 /* SegmentedControlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedControlCell.xib; sourceTree = "<group>"; };
-		6949876A1F7719C5008AE728 /* SurfShackMobile-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SurfShackMobile-Bridging-Header.h"; sourceTree = "<group>"; };
 		6949876D1F971070008AE728 /* OfflineData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OfflineData.h; sourceTree = "<group>"; };
 		6949876E1F97107A008AE728 /* OfflineData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OfflineData.m; sourceTree = "<group>"; };
 		696963321D349B4C00CC3734 /* SurfShackMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfShackMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,6 +274,8 @@
 		69D1DCA71D6191B700DF29B5 /* logo60x3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo60x3.png; sourceTree = "<group>"; };
 		69D4608A1D5D7D80005275EF /* TextMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextMessageViewController.m; sourceTree = "<group>"; };
 		69D4608F1D5D7D8B005275EF /* TextMessageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextMessageViewController.h; sourceTree = "<group>"; };
+		69D5B9DE1FD105220094B637 /* DataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataSource.h; sourceTree = "<group>"; };
+		69D5B9E11FD1122F0094B637 /* downloadOperationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = downloadOperationTests.m; sourceTree = "<group>"; };
 		69D72D201D41521D00980CF6 /* TableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableView.xib; sourceTree = "<group>"; };
 		69D72D211D41521D00980CF6 /* TextDisplayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDisplayCell.h; sourceTree = "<group>"; };
 		69D72D221D41521D00980CF6 /* TextDisplayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextDisplayCell.m; sourceTree = "<group>"; };
@@ -331,9 +333,6 @@
 			isa = PBXGroup;
 			children = (
 				690F864C1D40930200C33918 /* DataHandler.h */,
-				699EBEF31FCFF12E000BA1BB /* DataCollector.h */,
-				6992DFCD1D667D5C005A4368 /* DataFactory.h */,
-				6992DFD11D667D64005A4368 /* DataFactory.m */,
 				690CE3401D452EBD00450774 /* CountyHandler.h */,
 				690CE33E1D452EB600450774 /* CountyHandler.m */,
 				690601F11D3DE8A8009696DE /* DateHandler.h */,
@@ -342,13 +341,12 @@
 				69310B671D3882EF0087C5BE /* AppUtilities.m */,
 				690CE32E1D4406D600450774 /* PreferenceFactory.h */,
 				690CE3291D4406CF00450774 /* PreferenceFactory.m */,
-				69CC594D1D5AE95500F504B0 /* DBManager.h */,
-				69CC59511D5AE95B00F504B0 /* DBManager.m */,
 				6949876D1F971070008AE728 /* OfflineData.h */,
 				6949876E1F97107A008AE728 /* OfflineData.m */,
+				69CC594D1D5AE95500F504B0 /* DBManager.h */,
+				69CC59511D5AE95B00F504B0 /* DBManager.m */,
 				6934B9E61D5BA28C001D729A /* DBTableColumn.h */,
 				6934B9E11D5BA281001D729A /* DBTableColumn.m */,
-				6949876A1F7719C5008AE728 /* SurfShackMobile-Bridging-Header.h */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -367,9 +365,9 @@
 		691B6A951FCE899300774AC3 /* SpitcastData */ = {
 			isa = PBXGroup;
 			children = (
-				691B6A971FCE89A800774AC3 /* Packets */,
 				699521191D3619E60073114D /* SpitcastData.h */,
 				699521171D3619DA0073114D /* SpitcastData.m */,
+				691B6A971FCE89A800774AC3 /* Packets */,
 			);
 			path = SpitcastData;
 			sourceTree = "<group>";
@@ -499,7 +497,7 @@
 				697B48521FCE8B6100BC0698 /* Images */,
 				697B48511FCE8B0D00BC0698 /* Graphics */,
 				691B6A981FCE89D500774AC3 /* ViewControllers */,
-				691B6A951FCE899300774AC3 /* SpitcastData */,
+				69D5B9DF1FD1053D0094B637 /* DataSource */,
 				697B48501FCE8A8900BC0698 /* TableViewNIBS */,
 				691B6A941FCE897E00774AC3 /* OpenWeather */,
 				696963411D349B4C00CC3734 /* Assets.xcassets */,
@@ -527,6 +525,7 @@
 				6969634F1D349B4C00CC3734 /* SurfShackMobileStringTests.m */,
 				690CE33C1D442ED900450774 /* SurfShackMobileCountyCollectingTests.m */,
 				69CBBA881D52E5D4005E3BCA /* CurrentWeatherTests.m */,
+				69D5B9E11FD1122F0094B637 /* downloadOperationTests.m */,
 			);
 			path = SurfShackMobileTests;
 			sourceTree = "<group>";
@@ -630,6 +629,18 @@
 				69A29F9D1FCFF8720060854E /* units.pxm */,
 			);
 			path = Pixelmator;
+			sourceTree = "<group>";
+		};
+		69D5B9DF1FD1053D0094B637 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				6992DFCD1D667D5C005A4368 /* DataFactory.h */,
+				6992DFD11D667D64005A4368 /* DataFactory.m */,
+				69D5B9DE1FD105220094B637 /* DataSource.h */,
+				699EBEF31FCFF12E000BA1BB /* DataCollector.h */,
+				691B6A951FCE899300774AC3 /* SpitcastData */,
+			);
+			path = DataSource;
 			sourceTree = "<group>";
 		};
 		9C5906FF43535E9F7C2FA560 /* Frameworks */ = {
@@ -1040,6 +1051,7 @@
 				690CE33D1D442ED900450774 /* SurfShackMobileCountyCollectingTests.m in Sources */,
 				69CBBA891D52E5D4005E3BCA /* CurrentWeatherTests.m in Sources */,
 				696963501D349B4C00CC3734 /* SurfShackMobileStringTests.m in Sources */,
+				69D5B9E21FD1122F0094B637 /* downloadOperationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

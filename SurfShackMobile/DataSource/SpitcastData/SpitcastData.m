@@ -15,8 +15,9 @@
 
 
 @implementation SpitcastData
+@synthesize collector;
 
--(id)initWithShortLength:(int)shortLengthInit andLongLength:(int)longLengthInit
+-(id)initWithShortLength:(int)shortLengthInit andLongLength:(int)longLengthInit andCollector:(id<DataCollector>)collectorInit
 {
     self = [super init];
     
@@ -27,37 +28,158 @@
     dataDict = [[NSMutableDictionary alloc] init];
     swellDict = [[NSMutableDictionary alloc] init];
     
-    //self.dataCollector = dataCollecterInit; //i.e. the dataFactory <DataCollector>
+    self.collector = collectorInit;
+
     return self;
 }
 
 -(void)startSurfDataDownloadForLocation:(int)locInit
 {
-    [self getSurfHeightDataForID:locInit]; //starts the thread for downloading surf height
+    NSString* stringURL = [NSString stringWithFormat:@"http://api.spitcast.com/api/spot/forecast/%d/?dcat=week",locInit];
+    
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    [[session dataTaskWithURL:[NSURL URLWithString:stringURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+      {
+          NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+          //NSInteger internalServerError = 500;
+          NSLog(@"Error code: %ld",(long)httpResponse.statusCode);
+          if(error)
+          {
+              NSLog(@"there was an error in getting json data from url in spitcast");
+          }
+          /*else if(httpResponse.statusCode  == 500)
+           {
+           NSLog(@"link does not work: internal server error 500. Try a differt ID?");
+           //need to increment errors for partial download
+           }*/
+          else
+          {
+              NSLog(@"json data download completed");
+              NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+              NSLog(@"%@",jsonDataArray);
+              
+              //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
+              NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
+              
+              //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
+              for (id dataSet in jsonDataArray)
+              {
+                  SurfPacket* surfPacket = [[SurfPacket alloc] init:dataSet];
+                  [aDayDataArray addObject:surfPacket];
+              }
+              
+              NSString* prevDay =[(SurfPacket*)[aDayDataArray objectAtIndex:0] getDay];
+              NSMutableArray* tempDayArray = [NSMutableArray array];
+              NSMutableArray* weekArray = [NSMutableArray array];
+              
+              for(SurfPacket* packet in aDayDataArray)
+              {
+                  NSString* day = [packet getDay];
+                  
+                  if(![day isEqualToString:prevDay])
+                  {
+                      //found the next day
+                      [weekArray addObject:tempDayArray.mutableCopy];
+                      [tempDayArray removeAllObjects];
+                  }
+                  else
+                  {
+                      //add this packet to current temp array
+                      [tempDayArray addObject:packet];
+                  }
+                  prevDay = day;
+              }
+              
+              NSMutableDictionary* aSurfDict =[self makeDictionaryForData:weekArray ofTypeHeight:YES];
+              [aSurfDict setObject:@"Surf Height (Powered by Spitcast)" forKey:@"plotLabel"];
+              [aSurfDict setObject:[NSNumber numberWithInt:locInit] forKey:@"spotID"];
+              [self.collector surfDataDictReceived:aSurfDict];
+          }
+      }] resume];
 }
 
-//this method is called from
--(void)surfDataReceived:(NSMutableArray*)surfDataArray
+-(void)startWindDataDownloadForCounty:(NSString*)countyInit
 {
-    NSMutableDictionary* aSurfDict =[self makeDictionaryForData:surfDataArray ofTypeHeight:YES];
+    NSString* stringURL = [NSString stringWithFormat:@"http://api.spitcast.com/api/county/wind/%@/?dcat=week",countyInit];
+        
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
-    [aSurfDict setObject:@"Surf Height (Powered by Spitcast)" forKey:@"plotLabel"];
-    
+    [[session dataTaskWithURL:[NSURL URLWithString:stringURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+      {
+          NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+          //NSInteger internalServerError = 500;
+          NSLog(@"Error code: %ld",(long)httpResponse.statusCode);
+          if(error)
+          {
+              NSLog(@"there was an error in getting json data from url in spitcast");
+          }
+          /*else if(httpResponse.statusCode  == 500)
+           {
+           NSLog(@"link does not work: internal server error 500. Try a differt ID?");
+           //need to increment errors for partial download
+           }*/
+          else
+          {
+              NSLog(@"json data download completed");
+              NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+              NSLog(@"%@",jsonDataArray);
+              
+              //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
+              NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
+              
+              //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
+              for (id dataSet in jsonDataArray)
+              {
+                  WindPacket* surfPacket = [[WindPacket alloc] init:dataSet];
+                  [aDayDataArray addObject:surfPacket];
+              }
+              
+              NSString* prevDay =[(WindPacket*)[aDayDataArray objectAtIndex:0] getDay];
+              NSMutableArray* tempDayArray = [NSMutableArray array];
+              NSMutableArray* weekArray = [NSMutableArray array];
+              
+              for(WindPacket* packet in aDayDataArray)
+              {
+                  NSString* day = [packet getDay];
+                  
+                  if(![day isEqualToString:prevDay])
+                  {
+                      //found the next day
+                      [weekArray addObject:tempDayArray.mutableCopy];
+                      [tempDayArray removeAllObjects];
+                  }
+                  else
+                  {
+                      //add this packet to current temp array
+                      [tempDayArray addObject:packet];
+                  }
+                  prevDay = day;
+              }
+              
+              NSMutableDictionary* aWindDict =[self makeDictionaryForData:weekArray ofTypeHeight:NO];
+              
+              NSMutableArray* windDirectionArray = [[NSMutableArray alloc] init];
+              
+              for (int i = 0; i < [[weekArray objectAtIndex:0] count]; i++)
+              {
+                  WindPacket* windPacket = [[weekArray objectAtIndex:0] objectAtIndex:i];
+                  [windDirectionArray addObject:[NSNumber numberWithInteger:[windPacket getDirectionDegrees]]];
+              }
+              
+              [aWindDict setObject:windDirectionArray forKey:@"windDirectionArray"];
+              
+              [aWindDict setObject:@"Wind (Powered by Spitcast)" forKey:@"plotLabel"];
+              
+              [aWindDict setObject:@"Surf Height (Powered by Spitcast)" forKey:@"plotLabel"];
+              
+              [self.collector windDataDictReceived:aWindDict];
+          }
+      }] resume];
     
 }
 
-
--(NSMutableDictionary*)getSurfDataForLocation:(int)locInit
-{
-    NSMutableArray* surfData = [self getSurfHeightDataForID:locInit];
-
-    NSMutableDictionary* aSurfDict =  [self makeDictionaryForData:surfData ofTypeHeight:YES];
-    
-    [aSurfDict setObject:@"Surf Height (Powered by Spitcast)" forKey:@"plotLabel"];
-    
-    return aSurfDict;
-}
-
+/*
 -(NSMutableDictionary*)getWindDataForCounty:(NSString*)countyInit
 {
     NSMutableArray* windData = [self getWindData:[DateHandler getArrayOfDayStrings:longDataLength]  andCounty:countyInit];
@@ -78,8 +200,77 @@
     [windDict setObject:@"Wind (Powered by Spitcast)" forKey:@"plotLabel"];
     
     return windDict;
+}*/
+
+-(void)startTideDataDownloadForCounty:(NSString*)countyInit
+{
+    NSString* stringURL = [NSString stringWithFormat:@"http://api.spitcast.com/api/county/tide/%@/?dcat=week",countyInit];
+    
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    [[session dataTaskWithURL:[NSURL URLWithString:stringURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+      {
+          NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+          //NSInteger internalServerError = 500;
+          NSLog(@"Error code: %ld",(long)httpResponse.statusCode);
+          if(error)
+          {
+              NSLog(@"there was an error in getting json data from url in spitcast");
+          }
+          /*else if(httpResponse.statusCode  == 500)
+           {
+           NSLog(@"link does not work: internal server error 500. Try a differt ID?");
+           //need to increment errors for partial download
+           }*/
+          else
+          {
+              NSLog(@"json data download completed");
+              NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+              NSLog(@"%@",jsonDataArray);
+              
+              //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
+              NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
+              
+              //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
+              for (id dataSet in jsonDataArray)
+              {
+                  TidePacket* surfPacket = [[TidePacket alloc] init:dataSet];
+                  [aDayDataArray addObject:surfPacket];
+              }
+              
+              NSString* prevDay =[(TidePacket*)[aDayDataArray objectAtIndex:0] getDay];
+              NSMutableArray* tempDayArray = [NSMutableArray array];
+              NSMutableArray* weekArray = [NSMutableArray array];
+              
+              for(TidePacket* packet in aDayDataArray)
+              {
+                  NSString* day = [packet getDay];
+                  
+                  if(![day isEqualToString:prevDay])
+                  {
+                      //found the next day
+                      [weekArray addObject:tempDayArray.mutableCopy];
+                      [tempDayArray removeAllObjects];
+                  }
+                  else
+                  {
+                      //add this packet to current temp array
+                      [tempDayArray addObject:packet];
+                  }
+                  prevDay = day;
+              }
+              
+              //probably need to run organize by time somewhere??
+              NSMutableDictionary* tideDict = [self makeDictionaryForData:weekArray ofTypeHeight:YES];
+              
+              [tideDict setObject:@"Tide (Powered by Spitcast)" forKey:@"plotLabel"];
+              
+              [self.collector tideDataDictReceived:tideDict];
+          }
+      }] resume];
 }
 
+/*
 -(NSMutableDictionary*)getTideDataForCounty:(NSString*)countyInit
 {
     NSMutableArray* tideData = [self getTideData:[DateHandler getArrayOfDayStrings:longDataLength]  andCounty:countyInit];
@@ -89,28 +280,8 @@
     [tideDict setObject:@"Tide (Powered by Spitcast)" forKey:@"plotLabel"];
     
     return tideDict;
-}
+}*/
 
--(NSMutableDictionary*)makeDictionaryForData:(NSMutableArray*)dataArrayInit ofTypeHeight:(BOOL)heightBool
-{
-    NSMutableArray* mags = [self getMagnitudesFromPackets:dataArrayInit];
-    NSMutableArray* days = [self getDaysFromPackets:dataArrayInit];
-    
-    NSString* indicatorStr;
-    if (heightBool == YES)
-    {
-        indicatorStr = [PreferenceFactory getIndicatorStrForHeight];
-    }
-    else
-    {
-        indicatorStr = [PreferenceFactory getIndicatorStrForSpeed];
-    }
-    
-    NSMutableDictionary* aDict = [[NSMutableDictionary alloc] initWithObjects:@[mags,days,indicatorStr] forKeys:@[kMags,kDayArr,kIndicatorStr]];
-    
-    return aDict;
-
-}
 
 
 -(double)getWaterTempForCounty:(NSString*)countyInit
@@ -134,56 +305,8 @@
     return [[aDayDataArray lastObject] getTempF];
 }
 
--(NSMutableArray*)getSurfHeightDataForID:(int)locInit
-{
-    NSMutableArray* surfDataDayRange = [[NSMutableArray alloc] init];
-    NSMutableArray* dateStrArray = [DateHandler getArrayOfDayStrings:7];
-    
-    for (int i = 0; i < [dateStrArray count]; i++)
-    {
-        //ESTABLISH THE URL TO GRAB INFO FROM
-        NSString* stringURL = [NSString stringWithFormat:@"http://api.spitcast.com/api/spot/forecast/%d/?dcat=day&dval=%@",locInit,[dateStrArray objectAtIndex:i]];
-        
-        
-        NSURLSession* session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-        
-        [[session dataTaskWithURL:[NSURL URLWithString:stringURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
-          {
-              if(error)
-              {
-                  NSLog(@"there was an error in getting json data from url in spitcast");
-              }
-              else
-              {
-                  NSLog(@"json data download completed");
-                  NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                  NSLog(@"%@",jsonDataArray);
-                  
-                  //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
-                  NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
-                  
-                  //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
-                  for (id dataSet in jsonDataArray)
-                  {
-                      SurfPacket* surfPacket = [[SurfPacket alloc] init:dataSet];
-                      [aDayDataArray addObject:surfPacket];
-                  }
-                  
-                  aDayDataArray = [self organizeArrayByTime:aDayDataArray andDate:[dateStrArray objectAtIndex:i]];
-                  
-                  [self.surfDataDayRange addObject:aDayDataArray];
-              }
-          }] resume];
-    }
-    
-    return nil;
-}
 
--(void)surfDayCollected:(NSMutableArray*)aDayDataArray
-{
-    [self.surfDataDayRange addObject:aDayDataArray];
-}
-
+/*
 -(NSMutableArray*)getWindData:(NSMutableArray*)dateStrArray andCounty:(NSString*)county
 {
     NSMutableArray* windDataDayRange = [[NSMutableArray alloc] init];
@@ -213,8 +336,9 @@
     
     //RETURN MUTABLE ARRAY OF HOURLY DATA SETS
     return windDataDayRange;
-}
+}*/
 
+/*
 -(NSMutableArray*)getTideData:(NSMutableArray*)dateStrArray andCounty:(NSString*)county
 {
     NSMutableArray* tideDataDayRange = [[NSMutableArray alloc] init];
@@ -244,6 +368,75 @@
     
     //RETURN MUTABLE ARRAY OF HOURLY DATA SETS
     return tideDataDayRange;
+}
+*/
+
+-(void)startSwellDataDownloadForCounty:(NSString*)countyInit
+{
+    NSString* stringURL = [NSString stringWithFormat:@"http://api.spitcast.com/api/county/swell/%@/?dcat=week",countyInit];
+    
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    [[session dataTaskWithURL:[NSURL URLWithString:stringURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+      {
+          NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+          //NSInteger internalServerError = 500;
+          NSLog(@"Error code: %ld",(long)httpResponse.statusCode);
+          if(error)
+          {
+              NSLog(@"there was an error in getting json data from url in spitcast");
+          }
+          /*else if(httpResponse.statusCode  == 500)
+           {
+           NSLog(@"link does not work: internal server error 500. Try a differt ID?");
+           //need to increment errors for partial download
+           }*/
+          else
+          {
+              NSLog(@"json data download completed");
+              NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+              NSLog(@"%@",jsonDataArray);
+              
+              //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
+              NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
+              
+              //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
+              for (id dataSet in jsonDataArray)
+              {
+                  SwellPacket* surfPacket = [[SwellPacket alloc] init:dataSet];
+                  [aDayDataArray addObject:surfPacket];
+              }
+              
+              NSString* prevDay =[(SwellPacket*)[aDayDataArray objectAtIndex:0] getDay];
+              NSMutableArray* tempDayArray = [NSMutableArray array];
+              NSMutableArray* weekArray = [NSMutableArray array];
+              
+              for(SwellPacket* packet in aDayDataArray)
+              {
+                  NSString* day = [packet getDay];
+                  
+                  if(![day isEqualToString:prevDay])
+                  {
+                      //found the next day
+                      [weekArray addObject:tempDayArray.mutableCopy];
+                      [tempDayArray removeAllObjects];
+                  }
+                  else
+                  {
+                      //add this packet to current temp array
+                      [tempDayArray addObject:packet];
+                  }
+                  prevDay = day;
+              }
+              
+              //probably need to run organize by time somewhere??
+              NSMutableDictionary* swellDict = [self makeDictionaryForData:weekArray ofTypeHeight:YES];
+              
+              
+              
+              [self.collector swellDataDictReceived:swellDict];
+          }
+      }] resume];
 }
 
 -(NSMutableArray*)getSwellDataForCounty:(NSString *)countyInit
@@ -294,6 +487,7 @@
     return tideDataDayRange;
     
 }
+
 
 
 #pragma mark - DATA AQUISITION // Preparation
@@ -406,6 +600,27 @@
 }
 
 #pragma mark - Getting Plot Data
+-(NSMutableDictionary*)makeDictionaryForData:(NSMutableArray*)dataArrayInit ofTypeHeight:(BOOL)heightBool
+{
+    NSMutableArray* mags = [self getMagnitudesFromPackets:dataArrayInit];
+    NSMutableArray* days = [self getDaysFromPackets:dataArrayInit];
+    
+    NSString* indicatorStr;
+    if (heightBool == YES)
+    {
+        indicatorStr = [PreferenceFactory getIndicatorStrForHeight];
+    }
+    else
+    {
+        indicatorStr = [PreferenceFactory getIndicatorStrForSpeed];
+    }
+    
+    NSMutableDictionary* aDict = [[NSMutableDictionary alloc] initWithObjects:@[mags,days,indicatorStr] forKeys:@[kMags,kDayArr,kIndicatorStr]];
+    
+    return aDict;
+    
+}
+
 -(NSMutableArray*)getDaysFromPackets:(NSMutableArray*)dataArrayInit
 {
     NSMutableArray* dayArray = [[NSMutableArray alloc] init];
