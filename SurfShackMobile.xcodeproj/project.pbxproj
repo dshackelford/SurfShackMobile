@@ -332,21 +332,13 @@
 		691B6A931FCE88F400774AC3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				690F864C1D40930200C33918 /* DataHandler.h */,
-				690CE3401D452EBD00450774 /* CountyHandler.h */,
-				690CE33E1D452EB600450774 /* CountyHandler.m */,
+				692951961FD13D46001F6FA8 /* SQL_DB */,
 				690601F11D3DE8A8009696DE /* DateHandler.h */,
 				690601F51D3DE8AF009696DE /* DateHandler.m */,
 				69310B661D3882EF0087C5BE /* AppUtilities.h */,
 				69310B671D3882EF0087C5BE /* AppUtilities.m */,
 				690CE32E1D4406D600450774 /* PreferenceFactory.h */,
 				690CE3291D4406CF00450774 /* PreferenceFactory.m */,
-				6949876D1F971070008AE728 /* OfflineData.h */,
-				6949876E1F97107A008AE728 /* OfflineData.m */,
-				69CC594D1D5AE95500F504B0 /* DBManager.h */,
-				69CC59511D5AE95B00F504B0 /* DBManager.m */,
-				6934B9E61D5BA28C001D729A /* DBTableColumn.h */,
-				6934B9E11D5BA281001D729A /* DBTableColumn.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -365,6 +357,8 @@
 		691B6A951FCE899300774AC3 /* SpitcastData */ = {
 			isa = PBXGroup;
 			children = (
+				690CE3401D452EBD00450774 /* CountyHandler.h */,
+				690CE33E1D452EB600450774 /* CountyHandler.m */,
 				699521191D3619E60073114D /* SpitcastData.h */,
 				699521171D3619DA0073114D /* SpitcastData.m */,
 				691B6A971FCE89A800774AC3 /* Packets */,
@@ -398,6 +392,7 @@
 		691B6A981FCE89D500774AC3 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				697B48501FCE8A8900BC0698 /* TableViewNIBS */,
 				691B6A9C1FCE8A2400774AC3 /* Report */,
 				6969633E1D349B4C00CC3734 /* Main.storyboard */,
 				69B0C6D71D4B190E00653102 /* MasterViewController.h */,
@@ -464,6 +459,37 @@
 			path = Report;
 			sourceTree = "<group>";
 		};
+		692951941FD13CDC001F6FA8 /* ForecastData */ = {
+			isa = PBXGroup;
+			children = (
+				6992DFCD1D667D5C005A4368 /* DataFactory.h */,
+				6992DFD11D667D64005A4368 /* DataFactory.m */,
+				699EBEF31FCFF12E000BA1BB /* DataCollector.h */,
+				69D5B9DF1FD1053D0094B637 /* DataSource */,
+			);
+			path = ForecastData;
+			sourceTree = "<group>";
+		};
+		692951951FD13D08001F6FA8 /* Offline */ = {
+			isa = PBXGroup;
+			children = (
+				6949876D1F971070008AE728 /* OfflineData.h */,
+				6949876E1F97107A008AE728 /* OfflineData.m */,
+			);
+			path = Offline;
+			sourceTree = "<group>";
+		};
+		692951961FD13D46001F6FA8 /* SQL_DB */ = {
+			isa = PBXGroup;
+			children = (
+				69CC594D1D5AE95500F504B0 /* DBManager.h */,
+				69CC59511D5AE95B00F504B0 /* DBManager.m */,
+				6934B9E61D5BA28C001D729A /* DBTableColumn.h */,
+				6934B9E11D5BA281001D729A /* DBTableColumn.m */,
+			);
+			path = SQL_DB;
+			sourceTree = "<group>";
+		};
 		696963291D349B4C00CC3734 = {
 			isa = PBXGroup;
 			children = (
@@ -497,9 +523,7 @@
 				697B48521FCE8B6100BC0698 /* Images */,
 				697B48511FCE8B0D00BC0698 /* Graphics */,
 				691B6A981FCE89D500774AC3 /* ViewControllers */,
-				69D5B9DF1FD1053D0094B637 /* DataSource */,
-				697B48501FCE8A8900BC0698 /* TableViewNIBS */,
-				691B6A941FCE897E00774AC3 /* OpenWeather */,
+				692951941FD13CDC001F6FA8 /* ForecastData */,
 				696963411D349B4C00CC3734 /* Assets.xcassets */,
 				696963431D349B4C00CC3734 /* LaunchScreen.storyboard */,
 				696963461D349B4C00CC3734 /* Info.plist */,
@@ -634,11 +658,11 @@
 		69D5B9DF1FD1053D0094B637 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
-				6992DFCD1D667D5C005A4368 /* DataFactory.h */,
-				6992DFD11D667D64005A4368 /* DataFactory.m */,
+				690F864C1D40930200C33918 /* DataHandler.h */,
 				69D5B9DE1FD105220094B637 /* DataSource.h */,
-				699EBEF31FCFF12E000BA1BB /* DataCollector.h */,
+				691B6A941FCE897E00774AC3 /* OpenWeather */,
 				691B6A951FCE899300774AC3 /* SpitcastData */,
+				692951951FD13D08001F6FA8 /* Offline */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
