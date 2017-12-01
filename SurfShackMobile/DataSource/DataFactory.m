@@ -109,7 +109,7 @@
     }
     else if (spotName != nil)
     {
-        [spotsDict setObject:aSpotDict forKey:[aSpotDict objectForKey:<#(nonnull id)#>]];
+        [spotsDict setObject:aSpotDict forKey:[aSpotDict objectForKey:]];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:spotName object:spotsDict];
         NSLog(@"downloaded a spot dict: %@",spotName);
