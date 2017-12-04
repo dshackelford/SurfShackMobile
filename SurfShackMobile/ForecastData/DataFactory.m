@@ -79,6 +79,16 @@
     [countiesDict setObject:aCountyDict forKey:[swellData objectForKey:@"spotID"]];
 }
 
+- (void)waterTempDataDictReceived:(NSMutableDictionary *)windData {
+    <#code#>
+}
+
+
+- (void)weatherDataDictReceived:(NSMutableDictionary *)windData {
+    <#code#>
+}
+
+
 
 -(void)weatherDataReceived
 {
@@ -256,10 +266,6 @@
     }
 }
 
--(void)surfDataGathered:(NSMutableArray*)arrayInit
-{
-    
-}
 
 //this gets called every time a report view will appear, therefore I find it prudent not have to download anything, all the data should be present, this method just parses it
 -(NSMutableDictionary*)setCurrentValuesForSpotDict:(NSMutableDictionary*)spotDictInit

@@ -1,0 +1,9 @@
+.DS_Store
+SurfShackMobile/.DS_Store
+
+pods/
+Podfile.lock
+
+SurfShackMobile.xcodeproj/xcuserdata/
+SurfShackMobile.xcworkspace/xcuserdata/*
+SurfShackMobile.xcodeproj/project.xcworkspace/xcuserdata/
