@@ -6,8 +6,8 @@ target 'SurfShackMobile' do
   use_frameworks!
 
   # Pods for SurfShackMobile
-  pod 'Charts'
-  pod 'FMDB'
+  pod 'Charts','3.0.4'
+  pod 'FMDB','2.7.2'
 
   target 'SurfShackMobileTests' do
     inherit! :search_paths
