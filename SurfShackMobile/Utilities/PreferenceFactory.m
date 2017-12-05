@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PreferenceFactory.h"
 #import "SpitcastData.h"
+#import "CurrentWeather.h"
 
 @implementation PreferenceFactory
 
@@ -29,6 +30,22 @@
     //else if(surfDataProvider isEqualToString:@"MagicSeaweed")
     
     return nil;
+}
+
++(id<DataSource>)getWeatherServiceWithCollector:(id<DataCollector>)collectorInit
+{
+    //NSDictionary* prefs = [PreferenceFactory getPreferences];
+    
+    //NSString* weatherDataProvider = [prefs objectForKey:kSurfDataProvider];
+    
+    //if ([surfDataProvider isEqualToString:@"Spitcast"])
+   // {
+        id<DataSource> openWeather = [[CurrentWeather alloc] initWithCollector:collectorInit];
+        return openWeather;
+    //}
+    //else if(surfDataProvider isEqualToString:@"Australia Daily weather")
+    
+    //return nil;
 }
 
 +(NSString*)getIndicatorStrForHeight

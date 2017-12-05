@@ -28,7 +28,8 @@
     int dateOnLastDownload;
 }
 
-@property id<DataSource> source;
+@property id<DataSource> surfSource;
+@property id<DataSource> weatherSource;
 
 -(void)getDataForSpots:(NSArray*)spotIDArray andCounties:(NSArray*)countiesArray;
 

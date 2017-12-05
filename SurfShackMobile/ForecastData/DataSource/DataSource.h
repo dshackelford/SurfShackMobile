@@ -16,6 +16,7 @@
 @property id<DataCollector> collector;
 
 -(id)initWithShortLength:(int)shortLengthInit andLongLength:(int)longLengthInit andCollector:(id<DataCollector>)collectorInit;
+-(id)initWithCollector:(id<DataCollector>)collectorInit;
 
 //NSURLSession workarounds
 -(void)startSurfDataDownloadForLocation:(int)locInit;
@@ -39,6 +40,9 @@
 -(int)getLongRange;
 -(void)setShortRange:(int)rangeInit;
 -(void)setLongRange:(int)rangeInit;
+
+//weather portion
+-(void)getCurrentWeatherForLoc::(CLLocation*)locInit;
 
 @end
 

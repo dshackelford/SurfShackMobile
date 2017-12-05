@@ -15,32 +15,57 @@
 {
     //ESTABLISH THE URL TO GRAB INFO FROM
     NSString* stringURL = [NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/weather?lat=%.2f&lon=%.2f&APPID=%@",locInit.coordinate.latitude,locInit.coordinate.longitude,[AppUtilities getOpenWeatherKey]];
+    
+    NSURL* theURL = [NSURL URLWithString:stringURL];
+    
+    NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig];
+    
+    [[session dataTaskWithURL:theURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+      {
+          if(error)
+          {
+              NSLog(@"there was an error in getting json data from url in spitcast");
+          }
+          else
+          {
+              NSLog(@"json data download completed");
+              NSDictionary* jsonDataDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+
+              self.weatherPacket = [[WeatherPacket alloc] init:jsonDataDict];
+              
+              [self.collector weatherDataDictReceived:jsonDataDict];
+              
+          }
+      }] resume];
+    
         
     //PARSE THE DATA GRABBED FROM SPITCAST - HAS 35 DATA PACKAGES FOR ONE HOUR EACH
-    NSDictionary* jsonDataDict = [self retunJsonDataFromURLString:stringURL];
+    //NSDictionary* jsonDataDict = [self retunJsonDataFromURLString:stringURL];
     
-    weatherPacket = [[WeatherPacket alloc] init:jsonDataDict];
 }
 
 -(double)getTemp
 {
-    return [weatherPacket getTemp];
+    return self.weatherPacket.getTemp;
 }
 -(NSString*)getSunrise
 {
-    return [weatherPacket getSunriseTime];
+    return self.weatherPacket.getSunriseTime;
 }
 
 -(NSString*)getSunset
 {
-    return [weatherPacket getSunsetTime];
+    return self.weatherPacket.getSunsetTime;
 }
 
 -(NSString*)getDescription
 {
-    return [weatherPacket getDescription];
+    return self.weatherPacket.getDescription;
 }
 
+/*
 -(NSDictionary*)retunJsonDataFromURLString:(NSString*)stringInit
 {
     NSURL* theURL = [NSURL URLWithString:stringInit];
@@ -70,6 +95,6 @@
         return nil;
     }
     
-}
+}*/
 
 @end

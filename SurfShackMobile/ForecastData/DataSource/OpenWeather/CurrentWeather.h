@@ -10,13 +10,12 @@
 #import "AppUtilities.h"
 #import "CoreLocation/CoreLocation.h"
 #import "WeatherPacket.h"
+#import "DataSource.h"
 
-@interface CurrentWeather : NSObject
-{
-    WeatherPacket* weatherPacket;
-}
+@interface CurrentWeather : NSObject <DataSource>
 
--(void)getCurrentWeatherForLoc:(CLLocation*)locInit;
+@property WeatherPacket* weatherPacket;
+
 -(double)getTemp;
 -(NSString*)getSunrise;
 -(NSString*)getSunset;

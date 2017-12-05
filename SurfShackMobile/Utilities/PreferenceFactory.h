@@ -30,14 +30,7 @@
 
 +(id<DataSource>)getDataServiceWithCollector:(id<DataCollector>)collectorInit;
 
-//Got moved to the database manager
-//+(NSArray*)getSpotFavorites;
-//+(void)writeSpotToFavorites:(NSString*)spotNameInit andID:(NSString*)spotIDInit;
-//+(void)removeSpotFromFavotiesWithID:(NSString*)spotIDInit;
-
-//+(NSArray*)getAllSpots;
-
-//+(NSString*)getSpotNameFromSpotID:(NSString*)spotID;
++(id<DataSource>)getWeatherServiceWithCollector:(id<DataCollector>)collectorInit;
 
 +(NSDictionary*)getDataProviderNames;
 
