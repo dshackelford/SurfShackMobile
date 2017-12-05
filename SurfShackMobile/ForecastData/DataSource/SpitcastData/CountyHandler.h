@@ -8,14 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "AppUtilities.h"
-#import "PreferenceFactory.h"
-#import "SpitcastData.h"
 #import "DBManager.h"
-#import "CountyInfoPacket.h"
 
 @interface CountyHandler : NSObject
 
-+(void)createCountiesFile;
 +(NSString*)getCountyOfSpot:(int)locInit;
 +(NSString*)moldStringForURL:(NSString*)strInit;
 @end

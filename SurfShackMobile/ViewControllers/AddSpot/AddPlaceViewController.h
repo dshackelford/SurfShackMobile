@@ -10,7 +10,6 @@
 #import "SpitcastData.h"
 #import "AppUtilities.h"
 #import "PlotView.h"
-#import "DataHandler.h"
 #import "CountyHandler.h"
 
 #import "TextInputCell.h"
@@ -26,7 +25,9 @@
 #import "DBManager.h"
 #import "AppDelegate.h"
 
-@interface AddPlaceViewController : UITableViewController <CLLocationManagerDelegate,UISearchBarDelegate,UISearchDisplayDelegate>
+#import "DataCollector.h"
+
+@interface AddPlaceViewController : UITableViewController <CLLocationManagerDelegate,UISearchBarDelegate,UISearchDisplayDelegate,DataCollector>
 {
     DBManager* db;
     

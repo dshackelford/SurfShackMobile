@@ -30,8 +30,9 @@
 -(double)getWaterTempForCounty:(NSString*)countyInit;
 -(NSMutableArray*)getSwellDataForCounty:(NSString *)countyInit;
 
--(NSMutableArray*)getNearBySpots:(NSString*)latInit andLon:(NSString*)lonInit;
--(NSMutableArray*)getAllSpotsAndCounties;
+
+-(void)getNearBySpots:(NSString*)latInit andLon:(NSString*)lonInit;
+-(void)getAllSpotsAndCounties;
 
 //could these be fixed with properties?
 -(int)getShortRange;

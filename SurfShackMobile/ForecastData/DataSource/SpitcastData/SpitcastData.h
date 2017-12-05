@@ -6,7 +6,6 @@
 //  Copyright © 2016 Dylan Shackelford. All rights reserved.
 //
 #import "AppUtilities.h"
-#import "DataHandler.h"
 #import "DateHandler.h"
 #import "CountyHandler.h"
 #import "PreferenceFactory.h"
@@ -23,7 +22,7 @@
 #import "DataCollector.h"
 #import "DataSource.h"
 
-@interface SpitcastData : NSObject <DataHandler,DataSource>
+@interface SpitcastData : NSObject <DataSource>
 {
     //these values will be set in the factory based of the preferences
     DBManager* db;

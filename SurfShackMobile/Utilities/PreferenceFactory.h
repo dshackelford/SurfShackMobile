@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SpitcastData.h"
-#import "DataHandler.h"
+#import "DataSource.h"
 #import "AppUtilities.h"
 #import "CountyHandler.h"
+#import "DataCollector.h"
 
 //k is for key
 #define kUserName @"UserName"
@@ -28,7 +28,7 @@
     
 }
 
-+(id<DataHandler>)getDataService;
++(id<DataSource>)getDataServiceWithCollector:(id<DataCollector>)collectorInit;
 
 //Got moved to the database manager
 //+(NSArray*)getSpotFavorites;

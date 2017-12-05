@@ -80,12 +80,12 @@
 }
 
 - (void)waterTempDataDictReceived:(NSMutableDictionary *)windData {
-    <#code#>
+    
 }
 
 
 - (void)weatherDataDictReceived:(NSMutableDictionary *)windData {
-    <#code#>
+    
 }
 
 

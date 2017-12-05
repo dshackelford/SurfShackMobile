@@ -159,7 +159,6 @@
 		690CE3431D4533F600450774 /* WindPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindPacket.h; sourceTree = "<group>"; };
 		690F86431D408A1E00C33918 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportViewController.m; sourceTree = "<group>"; };
 		690F86451D408A2400C33918 /* ReportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportViewController.h; sourceTree = "<group>"; };
-		690F864C1D40930200C33918 /* DataHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataHandler.h; sourceTree = "<group>"; };
 		69281EC51D5427DD00FD39BF /* ReportPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportPageViewController.m; sourceTree = "<group>"; };
 		69281ECA1D5427E700FD39BF /* ReportPageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportPageViewController.h; sourceTree = "<group>"; };
 		69310B661D3882EF0087C5BE /* AppUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUtilities.h; sourceTree = "<group>"; };
@@ -658,7 +657,6 @@
 		69D5B9DF1FD1053D0094B637 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
-				690F864C1D40930200C33918 /* DataHandler.h */,
 				69D5B9DE1FD105220094B637 /* DataSource.h */,
 				691B6A941FCE897E00774AC3 /* OpenWeather */,
 				691B6A951FCE899300774AC3 /* SpitcastData */,

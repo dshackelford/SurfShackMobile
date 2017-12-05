@@ -270,19 +270,6 @@
       }] resume];
 }
 
-/*
--(NSMutableDictionary*)getTideDataForCounty:(NSString*)countyInit
-{
-    NSMutableArray* tideData = [self getTideData:[DateHandler getArrayOfDayStrings:longDataLength]  andCounty:countyInit];
-    
-    NSMutableDictionary* tideDict = [self makeDictionaryForData:tideData ofTypeHeight:YES];
-    
-    [tideDict setObject:@"Tide (Powered by Spitcast)" forKey:@"plotLabel"];
-    
-    return tideDict;
-}*/
-
-
 
 -(double)getWaterTempForCounty:(NSString*)countyInit
 {
@@ -438,7 +425,7 @@
           }
       }] resume];
 }
-
+/*
 -(NSMutableArray*)getSwellDataForCounty:(NSString *)countyInit
 {
     NSMutableArray* dateStrArray = [DateHandler getArrayOfDayStrings:[PreferenceFactory getLongRange]];
@@ -486,11 +473,12 @@
     //RETURN MUTABLE ARRAY OF HOURLY DATA SETS
     return tideDataDayRange;
     
-}
+}*/
 
 
 
 #pragma mark - DATA AQUISITION // Preparation
+/*
 -(NSArray*)retunJsonDataFromURLString:(NSString*)stringInit
 {
     NSURL* theURL = [NSURL URLWithString:stringInit];
@@ -541,7 +529,7 @@
         return nil;
     }
      
-}
+}*/
 
 -(NSMutableArray*)organizeArrayByTime:(NSMutableArray*)arrayInit andDate:(NSString*)dateInit
 {
@@ -660,11 +648,43 @@
 
 
 #pragma mark - Location Data
--(NSMutableArray*)getAllSpotsAndCounties
+-(void)getAllSpotsAndCounties
 {
     //ESTABLISH THE URL TO GRAB INFO FROM
     NSString* stringURL = [NSString stringWithFormat:@"http://api.spitcast.com/api/spot/all"];
 
+    NSURL* theURL = [NSURL URLWithString:stringURL];
+    
+    NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig];
+    
+    [[session dataTaskWithURL:theURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+      {
+          if(error)
+          {
+              NSLog(@"there was an error in getting json data from url in spitcast");
+          }
+          else
+          {
+              NSLog(@"json data download completed");
+              NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+              NSLog(@"%@",jsonDataArray);
+              
+               NSMutableArray* allSpotData = [[NSMutableArray alloc] init];
+              
+              //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
+              for (id dataSet in jsonDataArray)
+              {
+                  CountyInfoPacket* aCountyPacket = [[CountyInfoPacket alloc] init:dataSet];
+                  [allSpotData addObject:aCountyPacket];
+              }
+              
+              [self.collector countyAndSpotsReceived:allSpotData];
+          }
+      }] resume];
+    
+    /*
     //PARSE THE DATA GRABBED FROM SPITCAST - HAS 35 DATA PACKAGES FOR ONE HOUR EACH
     NSArray* jsonDataArray = [self retunJsonDataFromURLString:stringURL];
 
@@ -679,14 +699,47 @@
     }
 
     //RETURN MUTABLE ARRAY OF HOURLY DATA SETS
-    return allSpotData;
+    return allSpotData;*/
 }
 
--(NSMutableArray*)getNearBySpots:(NSString*)latInit andLon:(NSString*)lonInit
+-(void)getNearBySpots:(NSString*)latInit andLon:(NSString*)lonInit
 {
     //ESTABLISH THE URL TO GRAB INFO FROM
     NSString* stringURL = [NSString stringWithFormat:@"http://api.spitcast.com/api/spot/nearby?longitude=%@&latitude=%@",lonInit,latInit];
+
+    NSURL* theURL = [NSURL URLWithString:stringURL];
     
+    NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig];
+    
+    [[session dataTaskWithURL:theURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+      {
+          if(error)
+          {
+              NSLog(@"there was an error in getting json data from url in spitcast");
+          }
+          else
+          {
+              NSLog(@"json data download completed");
+              NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+              NSLog(@"%@",jsonDataArray);
+              
+              //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
+              NSMutableArray* nearBySpotArray = [[NSMutableArray alloc] init];
+              
+              //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
+              for (id dataSet in jsonDataArray)
+              {
+                  NearByPacket* nearByPacket = [[NearByPacket alloc] init:dataSet];
+                  [nearBySpotArray addObject:nearByPacket];
+              }
+              
+              [self.collector nearbySpotsReceived:nearBySpotArray];
+          }
+      }] resume];
+    
+    /*
     //PARSE THE DATA GRABBED FROM SPITCAST - HAS 35 DATA PACKAGES FOR ONE HOUR EACH
     NSArray* jsonDataArray = [self retunJsonDataFromURLString:stringURL];
     
@@ -701,7 +754,7 @@
     }
     
     //RETURN MUTABLE ARRAY OF HOURLY DATA SETS
-    return nearBySpotArray;
+    return nearBySpotArray;*/
 }
 
 

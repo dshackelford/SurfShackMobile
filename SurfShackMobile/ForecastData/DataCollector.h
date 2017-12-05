@@ -19,6 +19,9 @@
 
 -(void)weatherDataDictReceived:(NSMutableDictionary*)windData;
 -(void)waterTempDataDictReceived:(NSMutableDictionary*)windData;
+
+-(void)countyAndSpotsReceived:(NSMutableArray*)countiesArray;
+-(void)nearbySpotsReceived:(NSMutableArray*)nearbySpotsArray;
 @end
 
 #endif /* DataCollecter_h */

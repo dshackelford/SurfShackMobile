@@ -10,7 +10,6 @@
 #import "ReportViewController.h"
 #import "AppUtilities.h"
 #import "PreferenceFactory.h"
-#import "DataHandler.h"
 #import "CoreLocation/CoreLocation.h"
 #import "arrowCell.h"
 #import "DBManager.h"

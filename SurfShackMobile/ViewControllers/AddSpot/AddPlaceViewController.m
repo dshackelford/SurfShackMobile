@@ -77,23 +77,8 @@
         alertController = [UIAlertController alertControllerWithTitle:@"Finding Spots" message:@"please wait a second for this to happen" preferredStyle:UIAlertControllerStyleAlert];
         [self presentViewController:alertController animated:YES completion:nil];
 
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
-                                                  ^{
-        SpitcastData* dataService = [PreferenceFactory getDataService];
-        NSMutableArray* allSpotData = [dataService getAllSpotsAndCounties];
-
-        [db openDatabase];
-        
-        for (CountyInfoPacket* spotData in allSpotData)
-        {
-            [db addSpotID:[spotData getSpotID] SpotName:[spotData getSpotName] andCounty:[spotData getCountyName] withLat:[spotData getLat] andLon:[spotData getLon]];
-        }
-        
-        [db closeDatabase];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"AddedSpotsToDB" object:nil];
-                                                      
-        });
+        id<DataSource> dataService = [PreferenceFactory getDataServiceWithCollector:self];
+        [dataService getAllSpotsAndCounties];
     }
     
     [super viewDidLoad];
@@ -179,15 +164,32 @@
 
 -(void)addDataToTable
 {
-    id<DataHandler> dataService = [PreferenceFactory getDataService];
+    id<DataSource> dataService = [PreferenceFactory getDataServiceWithCollector:self];
+    //activity indicator start here before donwload?
+    [dataService getNearBySpots:lat andLon:lon];
+}
+#pragma mark - DataCollector Methods
+-(void)countyAndSpotsReceived:(NSMutableArray *)countiesArray
+{
+    [db openDatabase];
     
-    NSArray* nearByData = [dataService getNearBySpots:lat andLon:lon];
+    for (CountyInfoPacket* spotData in countiesArray)
+    {
+        [db addSpotID:[spotData getSpotID] SpotName:[spotData getSpotName] andCounty:[spotData getCountyName] withLat:[spotData getLat] andLon:[spotData getLon]];
+    }
     
+    [db closeDatabase];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"AddedSpotsToDB" object:nil];
+}
+
+-(void)nearbySpotsReceived:(NSMutableArray *)nearbySpotsArray
+{
     [indicator stopAnimating];
     
     NSMutableArray* nearBySpotNames = [[NSMutableArray alloc] init];
     
-    for (id obj in nearByData)
+    for (id obj in nearbySpotsArray)
     {
         [nearBySpotNames addObject:[obj getSpotName]];
     }

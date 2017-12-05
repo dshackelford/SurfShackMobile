@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "PreferenceFactory.h"
+#import "SpitcastData.h"
 
 @implementation PreferenceFactory
 
-+(id<DataHandler>)getDataService
++(id<DataSource>)getDataServiceWithCollector:(id<DataCollector>)collectorInit
 {
     NSDictionary* prefs = [PreferenceFactory getPreferences];
     
@@ -22,7 +23,7 @@
         int shortRange = [[prefs objectForKey:kShortDataLength] intValue];
         int longRange = [[prefs objectForKey:kLongDataLength] intValue];
         
-        SpitcastData* aSpitcastAcc = [[SpitcastData alloc] initWithShortLength:shortRange andLongLength:longRange andCollector:nil];
+        id<DataSource> aSpitcastAcc = [[SpitcastData alloc] initWithShortLength:shortRange andLongLength:longRange andCollector:collectorInit];
         return aSpitcastAcc;
     }
     //else if(surfDataProvider isEqualToString:@"MagicSeaweed")

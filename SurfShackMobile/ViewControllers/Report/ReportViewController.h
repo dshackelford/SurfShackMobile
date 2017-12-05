@@ -9,7 +9,6 @@
 #import "MasterViewController.h"
 #import "SpitcastData.h"
 #import "PlotView.h"
-#import "DataHandler.h"
 #import "Bezier.h"
 
 #import "arrowCell.h"
