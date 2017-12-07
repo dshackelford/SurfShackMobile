@@ -10,6 +10,7 @@
 #define DataSource_h
 
 #import "DataCollector.h"
+@import CoreLocation;
 
 @protocol DataSource
 
@@ -19,10 +20,15 @@
 -(id)initWithCollector:(id<DataCollector>)collectorInit;
 
 //NSURLSession workarounds
--(void)startSurfDataDownloadForLocation:(int)locInit;
+-(void)startSurfDataDownloadForSpotID:(int)spotIDInit;
 -(void)startTideDataDownloadForCounty:(NSString*)countyInit;
 -(void)startWindDataDownloadForCounty:(NSString*)countyInit;
 -(void)startSwellDataDownloadForCounty:(NSString*)countyInit;
+
+-(void)startWaterTempDownloadForCounty:(NSString*)countyInit;
+-(void)startWeatherDownloadForLoc:(CLLocation*)locInit andSpotID:(int)spotID;
+
+
 
 //old stuff
 -(NSMutableDictionary*)getSurfDataForLocation:(int)locInit;
@@ -42,7 +48,6 @@
 -(void)setLongRange:(int)rangeInit;
 
 //weather portion
--(void)getCurrentWeatherForLoc::(CLLocation*)locInit;
 
 @end
 

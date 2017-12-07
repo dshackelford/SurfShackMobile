@@ -19,11 +19,14 @@
     double temp;
     NSString* sunsetTime;
     NSString* sunriseTime;
+    int spotID;
 }
 
 
 //SETTERS
 -(id)init:(id)dataSet;
+
+-(NSMutableDictionary*)makeDict;
 
 -(void)setLat:(NSString*)latInit;
 -(void)setLon:(NSString*)lonInit;

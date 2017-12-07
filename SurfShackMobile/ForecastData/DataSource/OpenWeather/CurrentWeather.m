@@ -11,7 +11,16 @@
 
 @implementation CurrentWeather
 
--(void)getCurrentWeatherForLoc:(CLLocation*)locInit
+-(id)initWithCollector:(id<DataCollector>)collectorInit
+{
+    self = [super init];
+    
+    self.collector = collectorInit;
+    
+    return self;
+}
+
+-(void)startWeatherDownloadForLoc:(CLLocation*)locInit andSpotID:(int)spotID
 {
     //ESTABLISH THE URL TO GRAB INFO FROM
     NSString* stringURL = [NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/weather?lat=%.2f&lon=%.2f&APPID=%@",locInit.coordinate.latitude,locInit.coordinate.longitude,[AppUtilities getOpenWeatherKey]];
@@ -32,10 +41,10 @@
           {
               NSLog(@"json data download completed");
               NSDictionary* jsonDataDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-
+              [jsonDataDict setValue:[NSNumber numberWithInteger:spotID] forKey:@"spotID"];
               self.weatherPacket = [[WeatherPacket alloc] init:jsonDataDict];
               
-              [self.collector weatherDataDictReceived:jsonDataDict];
+              [self.collector weatherDataDictReceived:[self.weatherPacket makeDict]];
               
           }
       }] resume];
@@ -45,6 +54,8 @@
     //NSDictionary* jsonDataDict = [self retunJsonDataFromURLString:stringURL];
     
 }
+
+
 
 -(double)getTemp
 {
@@ -96,5 +107,7 @@
     }
     
 }*/
+
+@synthesize collector;
 
 @end

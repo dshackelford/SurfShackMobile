@@ -23,9 +23,69 @@
     
     db = [[DBManager alloc] init];
     
-    dateOnLastDownload = 0;
+    dateOnLastDownload = 0; //probably should read from a file?
     
     return self;
+}
+
+//arrOfLocs holds an array of spotID's
+//this is called from report page view contorller
+-(void)getDataForSpots:(NSArray*)spotIDArray andCounties:(NSArray*)countiesArray
+{
+    NSMutableArray* arrOfLocs = [[NSMutableArray alloc] init];
+    NSMutableArray* arrOfSpotNames = [[NSMutableArray alloc] init];
+    
+    //to avoid multithread issues with database queries
+    for (NSNumber* num in spotIDArray)
+    {
+        int intNum = [num intValue];
+        
+        [db openDatabase];
+        [arrOfLocs addObject: [db getLocationOfSpot:intNum]];
+        [arrOfSpotNames addObject:[db getSpotNameOfSpotID:intNum]];
+        [db closeDatabase];
+    }
+    
+    int currentDownloadTry = [[DateHandler getCurrentDateString] intValue];
+    NSLog(@"%d",currentDownloadTry);
+    
+    if (currentDownloadTry > dateOnLastDownload)
+    {
+        //remove all objects from the dictionaries for a fresh download
+        [spotsDict removeAllObjects];
+        [countiesDict removeAllObjects];
+    }
+    
+    //SPOT DATA
+    for (int i = 0; i < [spotIDArray count]; i++)
+    {
+        int spotID = [[spotIDArray objectAtIndex:i] intValue];
+
+        CLLocation* aLoc = [arrOfLocs objectAtIndex:i];
+        NSString* spotName = [arrOfSpotNames objectAtIndex:i];
+
+        //If I haven't already downloaed the spotsDict, don't redownload it!
+        if ([spotsDict objectForKey:spotName] == nil)
+        {
+            dateOnLastDownload = [[DateHandler getCurrentDateString] intValue];
+
+            [self.surfSource startSurfDataDownloadForSpotID:spotID];
+            [self.weatherSource startWeatherDownloadForLoc:aLoc andSpotID:spotID];
+        }
+    }
+    
+    //COUNTY DATA
+    for (NSString* county in countiesArray)
+    {
+        if ([countiesDict objectForKey:county] == nil)
+        {
+           NSString* spitCounty = [CountyHandler moldStringForURL:county];
+           
+           [self.surfSource startWindDataDownloadForCounty:spitCounty];
+           [self.surfSource startTideDataDownloadForCounty:spitCounty];
+           [self.surfSource startSwellDataDownloadForCounty:spitCounty];
+        }
+    }
 }
 
 -(void)surfDataDictReceived:(NSMutableDictionary*)surfData
@@ -80,7 +140,7 @@
     [countiesDict setObject:aCountyDict forKey:[swellData objectForKey:@"spotID"]];
 }
 
-- (void)waterTempDataDictReceived:(NSMutableDictionary *)windData
+- (void)waterTempDataDictReceived:(NSMutableDictionary *)waterTempData
 {
     
 }
@@ -88,146 +148,10 @@
 
 - (void)weatherDataDictReceived:(NSMutableDictionary *)weatherData
 {
-     NSMutableDictionary* aWeatherDict = [[NSMutableDictionary alloc] init];
-     
-     NSString* temp = [NSString stringWithFormat:@"%d",(int)[aweath getTemp]];
-     NSString* sunset = [aweath getSunset];
-     NSString* sunrise = [aweath getSunrise];
-     
-     [aWeatherDict setObject:temp forKey:@"temp"];
-     [aWeatherDict setObject:sunset forKey:@"sunset"];
-     [aWeatherDict setObject:sunrise forKey:@"sunrise"];
-     
-     [aSpotDict setObject:aWeatherDict forKey:@"weatherDict"];
-     */
-    
-    /*
-     if([[surfData objectForKey:@"mags"] count] == 0)
-     {
-     //no internet, won't throw the spot has data link
-     NSLog(@"NO INTERNET for spots dict");
-     }
-     else if (spotName != nil)
-     {
-     [spotsDict setObject:aSpotDict forKey:[aSpotDict objectForKey:]];
-     
-     [[NSNotificationCenter defaultCenter] postNotificationName:spotName object:spotsDict];
-     NSLog(@"downloaded a spot dict: %@",spotName);
-     }
-     else
-     {
-     NSLog(@"got a NIL spot for %@! withID:%d",spotName,intNum);
-     }*/
-}
-
-
-
-//arrOfLocs holds an array of spotID's
-//this is called from report page view contorller
--(void)getDataForSpots:(NSArray*)spotIDArray andCounties:(NSArray*)countiesArray
-{
-    NSMutableArray* arrOfLocs = [[NSMutableArray alloc] init];
-    NSMutableArray* arrOfSpotNames = [[NSMutableArray alloc] init];
-    
-    //to avoid multithread issues with database queries
-    for (NSNumber* num in spotIDArray)
-    {
-        int intNum = [num intValue];
-
-        [db openDatabase];
-        [arrOfLocs addObject: [db getLocationOfSpot:intNum]];
-        [arrOfSpotNames addObject:[db getSpotNameOfSpotID:intNum]];
-        [db closeDatabase];
-    }
-    
-    int currentDownloadTry = [[DateHandler getCurrentDateString] intValue];
-    NSLog(@"%d",currentDownloadTry);
-    
-    if (currentDownloadTry > dateOnLastDownload)
-    {
-        //remove all objects from the dictionaries for a fresh download
-        [spotsDict removeAllObjects];
-        [countiesDict removeAllObjects];
-    }
-    
-    //UNIQUE TO SPOT DATA
-    for (int i = 0; i < [spotIDArray count]; i++)
-    {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
-        ^{
-            NSNumber* num = [spotIDArray objectAtIndex:i];
-            int intNum = [[spotIDArray objectAtIndex:i] intValue];
-
-            CLLocation* aLoc = [arrOfLocs objectAtIndex:i];
-            NSString* spotName = [arrOfSpotNames objectAtIndex:i];
-            
-            
-            //If I haven't already downloaed the spotsDict, don't redownload it!
-            if ([spotsDict objectForKey:spotName] == nil)
-            {
-                dateOnLastDownload = [[DateHandler getCurrentDateString] intValue];
-                
-                //NSMutableDictionary* aSpotDict = [[NSMutableDictionary alloc] init];
-            
-                //SURF DATA
-                //NSMutableDictionary* surfData = [spitData getSurfDataForLocation:[num intValue]];
-                [self.surfSource startSurfDataDownloadForLocation:[num intValue]];
-                
-                /*[aSpotDict setObject:surfData forKey:@"surf"];
-            
-                //WEATHER AND SUN TIMES
-                CurrentWeather* aweath = [[CurrentWeather alloc] init];
-                           
-                [aweath getCurrentWeatherForLoc:aLoc];
-            
-                NSMutableDictionary* aWeatherDict = [[NSMutableDictionary alloc] init];
-                           
-                NSString* temp = [NSString stringWithFormat:@"%d",(int)[aweath getTemp]];
-                NSString* sunset = [aweath getSunset];
-                NSString* sunrise = [aweath getSunrise];
-                           
-                [aWeatherDict setObject:temp forKey:@"temp"];
-                [aWeatherDict setObject:sunset forKey:@"sunset"];
-                [aWeatherDict setObject:sunrise forKey:@"sunrise"];
-                
-                [aSpotDict setObject:aWeatherDict forKey:@"weatherDict"];
-            
-                if([[surfData objectForKey:@"mags"] count] == 0)
-                {
-                    //no internet, won't throw the spot has data link
-                    NSLog(@"NO INTERNET for spots dict");
-                }
-                else if (spotName != nil)
-                {
-                    [spotsDict setObject:aSpotDict forKey:spotName];
-                
-                    [[NSNotificationCenter defaultCenter] postNotificationName:spotName object:spotsDict];
-                    NSLog(@"downloaded a spot dict: %@",spotName);
-                }
-                else
-                {
-                    NSLog(@"got a NIL spot for %@! withID:%d",spotName,intNum);
-                }*/
-            }
-        });
-        
-    }
-    
-    //UNIQUE TO COUNTY DATA
-    for (NSString* county in countiesArray)
-    {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
-        ^{
-            if ([countiesDict objectForKey:county] == nil)
-            {
-                NSString* spitCounty = [CountyHandler moldStringForURL:county];
-                
-                [self.surfSource startWindDataDownloadForCounty:spitCounty];
-                [self.surfSource startTideDataDownloadForCounty:spitCounty];
-                [self.surfSource startSwellDataDownloadForCounty:spitCounty];
-            }
-        });
-    }
+    NSString* spotID = [weatherData objectForKey:@"spotID"];
+    NSMutableDictionary* aSpotDict = [spotsDict objectForKey:spotID];
+    [aSpotDict setObject:weatherData forKey:@"weatherDict"];
+    [spotsDict setObject:aSpotDict forKey:spotID];
 }
 
 

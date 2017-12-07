@@ -18,7 +18,7 @@
 
 
 - (void)weatherDataDictReceived:(NSMutableDictionary *)weatherData;
--(void)waterTempDataDictReceived:(NSMutableDictionary*)waterTemp;
+- (void)waterTempDataDictReceived:(NSMutableDictionary *)waterTempData;
 
 -(void)countyAndSpotsReceived:(NSMutableArray*)countiesArray;
 -(void)nearbySpotsReceived:(NSMutableArray*)nearbySpotsArray;
