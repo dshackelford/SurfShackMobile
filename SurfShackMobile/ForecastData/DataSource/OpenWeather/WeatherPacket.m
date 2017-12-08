@@ -20,7 +20,6 @@
     [self setTemp:[[dataSet objectForKey:@"main"] valueForKey:@"temp"]];
     [self setSunsetTime:[[dataSet objectForKey:@"sys"] valueForKey:@"sunset"]];
     [self setSunriseTime:[[dataSet objectForKey:@"sys"] valueForKey:@"sunrise"]];
-    spotID = [[dataSet objectForKey:@"spotID"] integerValue];
     
     return self;
 }
@@ -33,7 +32,6 @@
     [aDict setObject:sunriseTime forKey:@"sunrise"];
     [aDict setObject:[NSNumber numberWithDouble:temp] forKey:@"temp"];
     [aDict setObject:[NSNumber numberWithInt:spotID] forKey:@"spotID"];
-    
     return aDict;
 }
 

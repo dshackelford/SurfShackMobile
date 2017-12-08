@@ -69,8 +69,8 @@
         {
             dateOnLastDownload = [[DateHandler getCurrentDateString] intValue];
 
-            [self.surfSource startSurfDataDownloadForSpotID:spotID];
-            [self.weatherSource startWeatherDownloadForLoc:aLoc andSpotID:spotID];
+            [self.surfSource startSurfDataDownloadForSpotID:spotID andSpotName:spotName];
+            [self.weatherSource startWeatherDownloadForLoc:aLoc andSpotID:spotID andSpotName:spotName];
         }
     }
     
@@ -80,17 +80,18 @@
         if ([countiesDict objectForKey:county] == nil)
         {
            NSString* spitCounty = [CountyHandler moldStringForURL:county];
-           
-           [self.surfSource startWindDataDownloadForCounty:spitCounty];
-           [self.surfSource startTideDataDownloadForCounty:spitCounty];
-           [self.surfSource startSwellDataDownloadForCounty:spitCounty];
+            
+            [self.surfSource startWaterTempDownloadForCounty:spitCounty];
+            [self.surfSource startWindDataDownloadForCounty:spitCounty];
+            [self.surfSource startTideDataDownloadForCounty:spitCounty];
+            [self.surfSource startSwellDataDownloadForCounty:spitCounty];
         }
     }
 }
 
 -(void)surfDataDictReceived:(NSMutableDictionary*)surfData
 {
-    NSMutableDictionary* aSpotDict = [spotsDict objectForKey:[surfData objectForKey:@"spotID"]];
+    NSMutableDictionary* aSpotDict = [spotsDict objectForKey:[surfData objectForKey:@"spotName"]];
     if(aSpotDict == nil)
     {
         aSpotDict = [NSMutableDictionary dictionary];
@@ -98,12 +99,13 @@
     
     [aSpotDict setObject:surfData forKey:@"surf"];
     
-    [spotsDict setObject:aSpotDict forKey:[surfData objectForKey:@"spotID"]];
+    [spotsDict setObject:aSpotDict forKey:[surfData objectForKey:@"spotName"]];
+    [self checkSpotDict];
 }
 
 -(void)tideDataDictReceived:(NSMutableDictionary *)tideData
 {
-    NSMutableDictionary* aCountyDict = [spotsDict objectForKey:[tideData objectForKey:@"countyID"]];
+    NSMutableDictionary* aCountyDict = [countiesDict objectForKey:[tideData objectForKey:@"countyID"]];
     if(aCountyDict == nil)
     {
         aCountyDict = [NSMutableDictionary dictionary];
@@ -111,12 +113,13 @@
     
     [aCountyDict setObject:tideData forKey:@"tide"];
     
-    [countiesDict setObject:aCountyDict forKey:[tideData objectForKey:@"spotID"]];
+    [countiesDict setObject:aCountyDict forKey:[tideData objectForKey:@"countyID"]];
+    [self checkCountyDict];
 }
 
 -(void)windDataDictReceived:(NSMutableDictionary *)windData
 {
-    NSMutableDictionary* aCountyDict = [spotsDict objectForKey:[windData objectForKey:@"countyID"]];
+    NSMutableDictionary* aCountyDict = [countiesDict objectForKey:[windData objectForKey:@"countyID"]];
     if(aCountyDict == nil)
     {
         aCountyDict = [NSMutableDictionary dictionary];
@@ -124,34 +127,88 @@
     
     [aCountyDict setObject:windData forKey:@"wind"];
     
-    [countiesDict setObject:aCountyDict forKey:[windData objectForKey:@"spotID"]];
+    [countiesDict setObject:aCountyDict forKey:[windData objectForKey:@"countyID"]];
+    [self checkCountyDict];
 }
 
 -(void)swellDataDictReceived:(NSMutableDictionary *)swellData
 {
-    NSMutableDictionary* aCountyDict = [spotsDict objectForKey:[swellData objectForKey:@"countyID"]];
+    NSMutableDictionary* aCountyDict = [countiesDict objectForKey:[swellData objectForKey:@"countyID"]];
     if(aCountyDict == nil)
     {
         aCountyDict = [NSMutableDictionary dictionary];
     }
     
-    [aCountyDict setObject:swellData forKey:@"wind"];
+    [aCountyDict setObject:swellData forKey:@"swell"];
     
-    [countiesDict setObject:aCountyDict forKey:[swellData objectForKey:@"spotID"]];
+    [countiesDict setObject:aCountyDict forKey:[swellData objectForKey:@"countyID"]];
+    [self checkCountyDict];
 }
 
 - (void)waterTempDataDictReceived:(NSMutableDictionary *)waterTempData
 {
+    NSMutableDictionary* aCountyDict = [countiesDict objectForKey:[waterTempData objectForKey:@"countyID"]];
+    if(aCountyDict == nil)
+    {
+        aCountyDict = [NSMutableDictionary dictionary];
+    }
     
+    [aCountyDict setObject:[waterTempData objectForKey:@"waterTemp"] forKey:@"waterTemp"];
+    
+    [countiesDict setObject:aCountyDict forKey:[waterTempData objectForKey:@"countyID"]];
+    [self checkCountyDict];
 }
 
 
 - (void)weatherDataDictReceived:(NSMutableDictionary *)weatherData
 {
-    NSString* spotID = [weatherData objectForKey:@"spotID"];
-    NSMutableDictionary* aSpotDict = [spotsDict objectForKey:spotID];
+    NSMutableDictionary* aSpotDict = [spotsDict objectForKey:[weatherData objectForKey:@"spotName"]];
+    if(aSpotDict == nil)
+    {
+        aSpotDict = [NSMutableDictionary dictionary];
+    }
     [aSpotDict setObject:weatherData forKey:@"weatherDict"];
-    [spotsDict setObject:aSpotDict forKey:spotID];
+
+    [spotsDict setObject:aSpotDict forKey:[weatherData objectForKey:@"spotName"]];
+     [self checkSpotDict];
+}
+
+-(void)checkCountyDict
+{
+    for(NSString* key in [countiesDict allKeys])
+    {
+        NSMutableDictionary* countyDict = [countiesDict objectForKey:key];
+        
+        NSLog(@"county keys %@",[countyDict allKeys]);
+        if([[countyDict allKeys] count] == 4) //swell/wind/tide/watertemp
+        {
+            NSLog(@"sent county notification under key: %@",key);
+            NSOperationQueue* q = [NSOperationQueue mainQueue];
+            NSBlockOperation* op = [NSBlockOperation blockOperationWithBlock:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:key object:countyDict];
+            }];
+            [q addOperation:op];
+        }
+    }
+}
+
+-(void)checkSpotDict
+{
+    for(NSString* key in [spotsDict allKeys])
+    {
+        NSMutableDictionary* spotDict = [spotsDict objectForKey:key];
+        
+        NSLog(@"spot keys %@",[spotDict allKeys]);
+        if([[spotDict allKeys] count] == 2)
+        {
+            NSLog(@"sent spot notification under key: %@",key);
+            NSOperationQueue* q = [NSOperationQueue mainQueue];
+            NSBlockOperation* op = [NSBlockOperation blockOperationWithBlock:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:key object:spotDict];
+            }];
+            [q addOperation:op];
+        }
+    }
 }
 
 

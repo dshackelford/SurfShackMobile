@@ -20,13 +20,13 @@
 -(id)initWithCollector:(id<DataCollector>)collectorInit;
 
 //NSURLSession workarounds
--(void)startSurfDataDownloadForSpotID:(int)spotIDInit;
+-(void)startSurfDataDownloadForSpotID:(int)spotIDInit andSpotName:(NSString*)spotNameInit;
 -(void)startTideDataDownloadForCounty:(NSString*)countyInit;
 -(void)startWindDataDownloadForCounty:(NSString*)countyInit;
 -(void)startSwellDataDownloadForCounty:(NSString*)countyInit;
 
 -(void)startWaterTempDownloadForCounty:(NSString*)countyInit;
--(void)startWeatherDownloadForLoc:(CLLocation*)locInit andSpotID:(int)spotID;
+-(void)startWeatherDownloadForLoc:(CLLocation*)locInit andSpotID:(int)spotID andSpotName:(NSString*)spotNameInit;
 
 
 

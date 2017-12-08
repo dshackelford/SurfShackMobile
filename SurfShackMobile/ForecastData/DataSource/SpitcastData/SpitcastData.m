@@ -30,7 +30,7 @@
     return self;
 }
 
--(void)startSurfDataDownloadForSpotID:(int)spotIDInit
+-(void)startSurfDataDownloadForSpotID:(int)spotIDInit andSpotName:(NSString *)spotNameInit
 {
     NSString* stringURL = [NSString stringWithFormat:@"http://api.spitcast.com/api/spot/forecast/%d/?dcat=week",spotIDInit];
     
@@ -52,9 +52,9 @@
            }*/
           else
           {
-              NSLog(@"json data download completed");
+              NSLog(@"json surf data download completed");
               NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-              NSLog(@"%@",jsonDataArray);
+              //NSLog(@"%@",jsonDataArray);
               
               //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
               NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
@@ -90,7 +90,7 @@
               
               NSMutableDictionary* aSurfDict =[self makeDictionaryForData:weekArray ofTypeHeight:YES];
               [aSurfDict setObject:@"Surf Height (Powered by Spitcast)" forKey:@"plotLabel"];
-              [aSurfDict setObject:[NSNumber numberWithInt:spotIDInit] forKey:@"spotID"];
+              [aSurfDict setObject:spotNameInit forKey:@"spotName"];
               [self.collector surfDataDictReceived:aSurfDict];
           }
       }] resume];
@@ -118,9 +118,9 @@
            }*/
           else
           {
-              NSLog(@"json data download completed");
+              NSLog(@"json wind data download completed");
               NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-              NSLog(@"%@",jsonDataArray);
+              //NSLog(@"%@",jsonDataArray);
               
               //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
               NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
@@ -158,10 +158,13 @@
               
               NSMutableArray* windDirectionArray = [[NSMutableArray alloc] init];
               
-              for (int i = 0; i < [[weekArray objectAtIndex:0] count]; i++)
+              for (int i = 0; i < [weekArray count] - 1; i++)
               {
-                  WindPacket* windPacket = [[weekArray objectAtIndex:0] objectAtIndex:i];
-                  [windDirectionArray addObject:[NSNumber numberWithInteger:[windPacket getDirectionDegrees]]];
+                  for(int j = 0; j < [[weekArray objectAtIndex:i] count] - 1; j ++)
+                  {
+                      WindPacket* windPacket = [[weekArray objectAtIndex:i] objectAtIndex:j];
+                      [windDirectionArray addObject:[NSNumber numberWithInteger:[windPacket getDirectionDegrees]]];
+                  }
               }
               
               [aWindDict setObject:windDirectionArray forKey:@"windDirectionArray"];
@@ -169,7 +172,7 @@
               [aWindDict setObject:@"Wind (Powered by Spitcast)" forKey:@"plotLabel"];
               
               [aWindDict setObject:@"Surf Height (Powered by Spitcast)" forKey:@"plotLabel"];
-              
+              [aWindDict setValue:countyInit forKey:@"countyID"];
               [self.collector windDataDictReceived:aWindDict];
           }
       }] resume];
@@ -199,9 +202,9 @@
            }*/
           else
           {
-              NSLog(@"json data download completed");
+              NSLog(@"json tide data download completed");
               NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-              NSLog(@"%@",jsonDataArray);
+              //NSLog(@"%@",jsonDataArray);
               
               //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
               NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
@@ -239,14 +242,14 @@
               NSMutableDictionary* tideDict = [self makeDictionaryForData:weekArray ofTypeHeight:YES];
               
               [tideDict setObject:@"Tide (Powered by Spitcast)" forKey:@"plotLabel"];
-              
+              [tideDict setValue:countyInit forKey:@"countyID"];
               [self.collector tideDataDictReceived:tideDict];
           }
       }] resume];
 }
 
 
--(void)startWaterTempForCounty:(NSString*)countyInit
+-(void)startWaterTempDownloadForCounty:(NSString*)countyInit
 {
     NSString* stringURL = [NSString stringWithFormat:@"http://api.spitcast.com/api/county/water-temperature/%@/?dcat=week",countyInit];
     
@@ -268,16 +271,16 @@
            }*/
           else
           {
-              NSLog(@"json data download completed");
+              NSLog(@"json water temp data download completed");
               NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-              NSLog(@"%@",jsonDataArray);
+              //NSLog(@"%@",jsonDataArray);
               
               WaterTempPacket* waterTemp = [[WaterTempPacket alloc] init:jsonDataArray];
               
               NSMutableDictionary* tempDict = [NSMutableDictionary dictionary];
 #warning this should probably ask the preferencs what the units are?
               [tempDict setObject:[NSNumber numberWithDouble:[waterTemp getTempF]] forKey:@"waterTemp"];
-              
+              [tempDict setValue:countyInit forKey:@"countyID"];
               [self.collector waterTempDataDictReceived:tempDict];
           }
       }] resume];
@@ -305,9 +308,9 @@
            }*/
           else
           {
-              NSLog(@"json data download completed");
+              NSLog(@"json swell data download completed");
               NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-              NSLog(@"%@",jsonDataArray);
+              //NSLog(@"%@",jsonDataArray);
               
               //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
               NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
@@ -344,7 +347,7 @@
               //probably need to run organize by time somewhere??
               NSMutableDictionary* swellDict = [self makeDictionaryForData:weekArray ofTypeHeight:YES];
               
-              
+              [swellDict setValue:countyInit forKey:@"countyID"];
               
               [self.collector swellDataDictReceived:swellDict];
           }

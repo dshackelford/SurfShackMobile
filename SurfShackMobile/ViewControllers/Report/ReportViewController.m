@@ -31,15 +31,20 @@
     [db openDatabase];
     favSpots = [db getSpotFavorites];
     county = [db getCountyOfSpotID:[[favSpots objectAtIndex:self.index] intValue]];
+    county = [CountyHandler moldStringForURL:county];
     spotName = [db getSpotNameOfSpotID:[[favSpots objectAtIndex:self.index] intValue]];
+    NSString* spotID = [NSString stringWithFormat:@"%i",[[favSpots objectAtIndex:self.index] intValue]];
+    NSLog(@"this report view's spotID : \"%@\"",spotID);
     [db closeDatabase];
     
     self.view.backgroundColor = [UIColor clearColor];
 
     NSLog(@"current spot:%@",spotName);
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actOnSpotData:) name:[NSString stringWithFormat:@"%@",spotName] object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actOnCountyData:) name:[NSString stringWithFormat:@"%@",county] object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actOnSpotData:) name:spotName object:nil];
+    NSLog(@"registered spot notification under %@",spotName);
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actOnCountyData:) name:county object:nil];
     
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
@@ -132,28 +137,22 @@
 
 -(void)actOnSpotData:(NSNotification*)notification
 {
-    dispatch_async(dispatch_get_main_queue(), ^()
+    NSLog(@"got some spot data for %@",spotName);
+    spotDict  = [dataFactory getASpotDictionary:spotName andCounty:county];
+    if (spotDict != nil)
     {
-        NSLog(@"got some spot data for %@",spotName);
-        spotDict  = [dataFactory getASpotDictionary:spotName andCounty:county];
-        if (spotDict != nil)
-        {
-            [self spotHasData];
-        }
-    });
+        [self spotHasData];
+    }
 }
 
 -(void)actOnCountyData:(NSNotification*)notification
 {
-    dispatch_async(dispatch_get_main_queue(), ^()
+    NSLog(@"got some county data for %@",county);
+    spotDict  = [dataFactory getASpotDictionary:spotName andCounty:county];
+    if (spotDict != nil)
     {
-        NSLog(@"got some county data for %@",county);
-        spotDict  = [dataFactory getASpotDictionary:spotName andCounty:county];
-        if (spotDict != nil)
-        {
-            [self spotHasData];
-        }
-    });
+        [self spotHasData];
+    }
 }
 
 -(void)refreshData:(NSNotification*)notification

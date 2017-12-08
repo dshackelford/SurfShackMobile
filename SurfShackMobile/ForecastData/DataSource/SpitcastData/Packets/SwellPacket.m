@@ -33,7 +33,8 @@
         
         if ([[obj objectForKey:@"dir"] isEqual:[NSNull null]])
         {
-            NSLog(@"swell data portion is null");
+#warning still need to figure out how to handle nill portions
+           // NSLog(@"swell data portion is null");
         }
 
         else
