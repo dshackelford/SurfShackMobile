@@ -11,6 +11,7 @@
 
 @protocol DataCollector
 
+@optional
 -(void)surfDataDictReceived:(NSMutableDictionary*)surfData;
 -(void)tideDataDictReceived:(NSMutableDictionary*)tideData;
 -(void)windDataDictReceived:(NSMutableDictionary*)windData;

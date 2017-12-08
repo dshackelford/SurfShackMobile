@@ -202,6 +202,7 @@
     [self performSegueWithIdentifier:@"ShowSpotList" sender:self];
 }
 
+
 #pragma mark - UITableViewProtocols
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -237,14 +238,14 @@
     {
         arrowCell* cell = [[[NSBundle mainBundle] loadNibNamed:@"arrowCell" owner:self options:nil] lastObject];
         [tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-                
+        
         cell.textLabel.text = [searchResults objectAtIndex:indexPath.row];
         
         for (NSString* spotName in favSpotNames)
         {
             if([spotName isEqualToString:[searchResults objectAtIndex:indexPath.row]])
             {
-//                cell.textLabel.font = [UIFont boldSystemFontOfSize:17];
+                //                cell.textLabel.font = [UIFont boldSystemFontOfSize:17];
                 [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
                 break;
             }
@@ -255,7 +256,7 @@
     {
         arrowCell* cell = [[[NSBundle mainBundle] loadNibNamed:@"arrowCell" owner:self options:nil] lastObject];
         [tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-
+        
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         cell.textLabel.text = [tableData objectAtIndex:indexPath.row];
@@ -276,7 +277,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.selectedIndex = (int)indexPath.row;
-
+    
     if(searchResults!= nil)
     {
         UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -304,7 +305,7 @@
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"changedSpotFavorites" object:self];
         [self reloadTheTable];
-
+        
     }
     else //normal county list display
     {
@@ -340,7 +341,7 @@
         NSLog(@"%@",title);
         [destViewController setTitle:title];
         [destViewController setCounty:[tableData objectAtIndex:self.selectedIndex]];
-      
+        
     }
 }
 
@@ -359,15 +360,14 @@
 
 
 #pragma mark - Search Bar Protocols
-
-- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     searchString = searchText;
     
     [db openDatabase];
     searchResults = [db getSpotNamesFromSearchString:searchText];
     [db closeDatabase];
-
+    
     
     if([searchString isEqualToString: @""]) //if user hits the 'x' in the search bar, makes the table view return back to counties. Also returns the shadowed area back to county list
     {
@@ -376,25 +376,11 @@
     [self reloadTheTable];
 }
 
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
-{
-    [self filterContentForSearchText:searchString
-                               scope:[[self.searchDisplayController.searchBar scopeButtonTitles]
-                                      objectAtIndex:[self.searchDisplayController.searchBar
-                                                     selectedScopeButtonIndex]]];
-    
-    return YES;
-}
-
-- (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
-{
-    NSLog(@"should hide the table");
-}
 
 -(BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
 {
-
-    NSLog(@"serach ended editint");
+    
+    NSLog(@"search ended editint");
     [self reloadTheTable];
     return YES;
 }
@@ -406,4 +392,5 @@
     searchString = nil;
     [self reloadTheTable];
 }
+
 @end

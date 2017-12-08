@@ -27,7 +27,7 @@
 
 #import "DataCollector.h"
 
-@interface AddPlaceViewController : UITableViewController <CLLocationManagerDelegate,UISearchBarDelegate,UISearchDisplayDelegate,DataCollector>
+@interface AddPlaceViewController : UITableViewController <CLLocationManagerDelegate,UISearchBarDelegate, UISearchControllerDelegate,DataCollector>
 {
     DBManager* db;
     
@@ -65,6 +65,8 @@
     BOOL nearByList;
     int downloaded;
 }
+
+@property UISearchController* searchController;
 
 @property int selectedIndex;
 
