@@ -30,6 +30,13 @@
     return self;
 }
 
+-(id)initWithCollector:(id<DataCollector>)collectorInit
+{
+    self = [super init];
+    self.collector = collectorInit;
+    return self;
+}
+
 -(void)startSurfDataDownloadForSpotID:(int)spotIDInit andSpotName:(NSString *)spotNameInit
 {
     NSString* stringURL = [NSString stringWithFormat:@"http://api.spitcast.com/api/spot/forecast/%d/?dcat=week",spotIDInit];
@@ -356,7 +363,7 @@
 
 
 #pragma mark - DATA AQUISITION // Preparation
-
+/*
 -(NSMutableArray*)organizeArrayByTime:(NSMutableArray*)arrayInit andDate:(NSString*)dateInit
 {
     NSMutableArray* holdArray = [[NSMutableArray alloc] init];
@@ -411,7 +418,7 @@
     
     
     return holdArray;
-}
+}*/
 
 #pragma mark - Getting Plot Data
 -(NSMutableDictionary*)makeDictionaryForData:(NSMutableArray*)dataArrayInit ofTypeHeight:(BOOL)heightBool
@@ -509,23 +516,6 @@
               [self.collector countyAndSpotsReceived:allSpotData];
           }
       }] resume];
-    
-    /*
-    //PARSE THE DATA GRABBED FROM SPITCAST - HAS 35 DATA PACKAGES FOR ONE HOUR EACH
-    NSArray* jsonDataArray = [self retunJsonDataFromURLString:stringURL];
-
-    //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
-    NSMutableArray* allSpotData = [[NSMutableArray alloc] init];
-
-    //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
-    for (id dataSet in jsonDataArray)
-    {
-        CountyInfoPacket* aCountyPacket = [[CountyInfoPacket alloc] init:dataSet];
-        [allSpotData addObject:aCountyPacket];
-    }
-
-    //RETURN MUTABLE ARRAY OF HOURLY DATA SETS
-    return allSpotData;*/
 }
 
 -(void)getNearBySpots:(NSString*)latInit andLon:(NSString*)lonInit
@@ -564,43 +554,10 @@
               [self.collector nearbySpotsReceived:nearBySpotArray];
           }
       }] resume];
-    
-    /*
-    //PARSE THE DATA GRABBED FROM SPITCAST - HAS 35 DATA PACKAGES FOR ONE HOUR EACH
-    NSArray* jsonDataArray = [self retunJsonDataFromURLString:stringURL];
-    
-    //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
-    NSMutableArray* nearBySpotArray = [[NSMutableArray alloc] init];
-    
-    //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
-    for (id dataSet in jsonDataArray)
-    {
-        NearByPacket* nearByPacket = [[NearByPacket alloc] init:dataSet];
-        [nearBySpotArray addObject:nearByPacket];
-    }
-    
-    //RETURN MUTABLE ARRAY OF HOURLY DATA SETS
-    return nearBySpotArray;*/
+
 }
 
-
--(int)getShortRange
-{
-    return shortDataLength;
-}
-
--(int)getLongRange
-{
-    return longDataLength;
-}
-
--(void)setShortRange:(int)rangeInit
-{
-    
-}
-
--(void)setLongRange:(int)rangeInit
-{
+- (void)startWeatherDownloadForLoc:(CLLocation *)locInit andSpotID:(int)spotID andSpotName:(NSString *)spotNameInit {
     
 }
 

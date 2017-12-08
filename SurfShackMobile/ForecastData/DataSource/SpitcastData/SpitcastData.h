@@ -38,9 +38,7 @@
 
 @property id<DataCollector> dataCollector;
 
--(NSArray*)retunJsonDataFromURLString:(NSString*)stringInit;
-
--(NSMutableArray*)organizeArrayByTime:(NSMutableArray*)arrayInit andDate:(NSString*)dateInit;
+//-(NSMutableArray*)organizeArrayByTime:(NSMutableArray*)arrayInit andDate:(NSString*)dateInit;
 
 @end
 

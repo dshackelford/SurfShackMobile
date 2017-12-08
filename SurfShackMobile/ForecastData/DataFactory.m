@@ -390,7 +390,7 @@
     for (int i = 1; i < nextHighTideIndex; i++) //search up to the next high tide
     {
         double localLowTide = 100;
-        int localLowTideIndex = 0;
+        //int localLowTideIndex = 0;
         
         if ([[tideArrInit objectAtIndex:i] doubleValue] < [[tideArrInit objectAtIndex:i+1] doubleValue] && [[tideArrInit objectAtIndex:i] doubleValue] < [[tideArrInit objectAtIndex:i-1] doubleValue])
         {

@@ -50,10 +50,6 @@
           }
       }] resume];
     
-        
-    //PARSE THE DATA GRABBED FROM SPITCAST - HAS 35 DATA PACKAGES FOR ONE HOUR EACH
-    //NSDictionary* jsonDataDict = [self retunJsonDataFromURLString:stringURL];
-    
 }
 
 
@@ -77,37 +73,6 @@
     return self.weatherPacket.getDescription;
 }
 
-/*
--(NSDictionary*)retunJsonDataFromURLString:(NSString*)stringInit
-{
-    NSURL* theURL = [NSURL URLWithString:stringInit];
-    
-    NSURLRequest* theRequest = [NSURLRequest requestWithURL:theURL];
-    
-    //MAKE THE CONNECTION TO THE INTERNET
-    NSURLConnection* theConnection = [NSURLConnection connectionWithRequest:theRequest delegate:nil];
-    
-    [theConnection start];
-    
-    //COLLECT THE NECESSARY DATA
-    NSData* receivedData = [[NSData alloc]initWithContentsOfURL:theURL];
-    
-    //PARSE THE DATA GRABBED FROM SPITCAST - HAS 35 DATA PACKAGES FOR ONE HOUR EACH
-    if(receivedData)
-    {
-        NSDictionary* jsonDataArray = [NSJSONSerialization JSONObjectWithData:receivedData options:0 error:nil];
-        
-        [theConnection cancel];
-        
-        return  jsonDataArray;
-    }
-    else
-    {
-        [theConnection cancel];
-        return nil;
-    }
-    
-}*/
 
 @synthesize collector;
 

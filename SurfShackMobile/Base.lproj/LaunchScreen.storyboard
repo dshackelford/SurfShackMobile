@@ -33,23 +33,27 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="logo120.png" translatesAutoresizingMaskIntoConstraints="NO" id="Z5y-dq-9fl">
-                                <rect key="frame" x="100" y="72.5" width="120" height="120"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright @ 2017 DshackTech. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1OP-8J-nsO">
                                 <rect key="frame" x="38" y="554" width="244" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo60x3.png" translatesAutoresizingMaskIntoConstraints="NO" id="VmT-zJ-Gpz">
+                                <rect key="frame" x="95" y="78" width="130" height="130"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="130" id="2KW-Eg-8qt"/>
+                                    <constraint firstAttribute="height" constant="130" id="q3A-ef-fhf"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="nCI-2Z-olv" firstAttribute="top" secondItem="Z5y-dq-9fl" secondAttribute="bottom" constant="75" id="9To-it-RXp"/>
+                            <constraint firstItem="nCI-2Z-olv" firstAttribute="top" secondItem="VmT-zJ-Gpz" secondAttribute="bottom" constant="60" id="CNE-wH-Ohw"/>
                             <constraint firstItem="nCI-2Z-olv" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Iq2-Se-BX9"/>
+                            <constraint firstItem="VmT-zJ-Gpz" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="JLP-nr-Fwy"/>
                             <constraint firstItem="1OP-8J-nsO" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Oaj-NB-MWg"/>
                             <constraint firstItem="Obt-1g-DCL" firstAttribute="top" secondItem="nCI-2Z-olv" secondAttribute="bottom" constant="30" id="St8-fM-Wht"/>
-                            <constraint firstItem="Z5y-dq-9fl" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Yv0-xp-fGc"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="1OP-8J-nsO" secondAttribute="bottom" constant="2" id="cGv-HN-gfW"/>
                             <constraint firstItem="nCI-2Z-olv" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="oaw-L7-502"/>
                             <constraint firstItem="Obt-1g-DCL" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="zTh-mG-DiY"/>
@@ -62,6 +66,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo120.png" width="120" height="120"/>
+        <image name="logo60x3.png" width="180" height="180"/>
     </resources>
 </document>

@@ -248,8 +248,8 @@
 
 -(void)updateColor
 {
-        NSDictionary* prefs = [PreferenceFactory getPreferences];
-        UIColor* color = [prefs objectForKey:kColorScheme];
+        //NSDictionary* prefs = [PreferenceFactory getPreferences];
+        //UIColor* color = [prefs objectForKey:kColorScheme];
 //    [self addMarkerToCompassOfColor:color];
 }
 
