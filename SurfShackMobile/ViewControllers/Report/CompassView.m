@@ -165,9 +165,11 @@
         
         //show air temp
         NSDictionary* weatherDict = [dictInit objectForKey:@"weatherDict"];
-        tempLabel.text = [weatherDict objectForKey:@"temp"];
+        double temp = [[weatherDict valueForKey:@"temp"] doubleValue];
+        tempLabel.text = [NSString stringWithFormat:@"%.f",temp];
         tempLabel.font = [UIFont boldSystemFontOfSize:50];
-        
+        //tempLabel.textAlignment = NSTextAlignmentCenter;
+        //tempLabel.adjustsFontSizeToFitWidth = YES;
         [sunsetDatum updateLabelStr:[weatherDict objectForKey:@"sunset"]];
         [sunriseDatum updateLabelStr:[weatherDict objectForKey:@"sunrise"]];
         
