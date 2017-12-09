@@ -26,6 +26,7 @@
 		6949876F1F97107A008AE728 /* OfflineData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949876E1F97107A008AE728 /* OfflineData.m */; };
 		695D66581FDA7BE800FC562D /* MapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 695D66571FDA7BE800FC562D /* MapVC.m */; };
 		695D665B1FDA7C6000FC562D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 695D665A1FDA7C6000FC562D /* MapKit.framework */; };
+		695D665E1FDBC52A00FC562D /* SpotAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 695D665D1FDBC52A00FC562D /* SpotAnnotation.m */; };
 		696963371D349B4C00CC3734 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 696963361D349B4C00CC3734 /* main.m */; };
 		6969633A1D349B4C00CC3734 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 696963391D349B4C00CC3734 /* AppDelegate.m */; };
 		696963401D349B4C00CC3734 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6969633E1D349B4C00CC3734 /* Main.storyboard */; };
@@ -181,6 +182,8 @@
 		695D66571FDA7BE800FC562D /* MapVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapVC.m; sourceTree = "<group>"; };
 		695D66591FDA7BF100FC562D /* MapVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapVC.h; sourceTree = "<group>"; };
 		695D665A1FDA7C6000FC562D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		695D665C1FDBC52100FC562D /* SpotAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpotAnnotation.h; sourceTree = "<group>"; };
+		695D665D1FDBC52A00FC562D /* SpotAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpotAnnotation.m; sourceTree = "<group>"; };
 		696963321D349B4C00CC3734 /* SurfShackMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfShackMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		696963361D349B4C00CC3734 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		696963381D349B4C00CC3734 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -501,6 +504,8 @@
 			children = (
 				695D66591FDA7BF100FC562D /* MapVC.h */,
 				695D66571FDA7BE800FC562D /* MapVC.m */,
+				695D665C1FDBC52100FC562D /* SpotAnnotation.h */,
+				695D665D1FDBC52A00FC562D /* SpotAnnotation.m */,
 			);
 			path = MapVC;
 			sourceTree = "<group>";
@@ -1084,6 +1089,7 @@
 				696963371D349B4C00CC3734 /* main.m in Sources */,
 				69B0C6D61D4B190600653102 /* MasterViewController.m in Sources */,
 				6992DFD21D667D64005A4368 /* DataFactory.m in Sources */,
+				695D665E1FDBC52A00FC562D /* SpotAnnotation.m in Sources */,
 				69310B6D1D38976C0087C5BE /* CountyInfoPacket.m in Sources */,
 				696D2BD31D4DD2D200A45E45 /* SubSettingColorViewController.m in Sources */,
 				697C89A81D4908A600DDB435 /* AddPlaceViewController.m in Sources */,

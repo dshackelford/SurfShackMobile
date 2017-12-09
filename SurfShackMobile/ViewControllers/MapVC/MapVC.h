@@ -13,7 +13,7 @@
 #import <MapKit/MapKit.h>
 
 
-@interface MapVC : UIViewController
+@interface MapVC : UIViewController <MKMapViewDelegate>
 
 @property MKMapView* mapView;
 
