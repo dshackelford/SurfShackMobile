@@ -24,6 +24,7 @@
 		69405C9D1D4DACC8007E4617 /* SegmentedControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69405C9C1D4DACC8007E4617 /* SegmentedControlCell.m */; };
 		69405CA31D4DACDB007E4617 /* SegmentedControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69405CA21D4DACDB007E4617 /* SegmentedControlCell.xib */; };
 		6949876F1F97107A008AE728 /* OfflineData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949876E1F97107A008AE728 /* OfflineData.m */; };
+		695D66601FDBCCB700FC562D /* DBQueries.m in Sources */ = {isa = PBXBuildFile; fileRef = 695D665F1FDBCCB700FC562D /* DBQueries.m */; };
 		696963371D349B4C00CC3734 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 696963361D349B4C00CC3734 /* main.m */; };
 		6969633A1D349B4C00CC3734 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 696963391D349B4C00CC3734 /* AppDelegate.m */; };
 		696963401D349B4C00CC3734 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6969633E1D349B4C00CC3734 /* Main.storyboard */; };
@@ -176,6 +177,8 @@
 		69405CA21D4DACDB007E4617 /* SegmentedControlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedControlCell.xib; sourceTree = "<group>"; };
 		6949876D1F971070008AE728 /* OfflineData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OfflineData.h; sourceTree = "<group>"; };
 		6949876E1F97107A008AE728 /* OfflineData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OfflineData.m; sourceTree = "<group>"; };
+		695D665F1FDBCCB700FC562D /* DBQueries.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBQueries.m; sourceTree = "<group>"; };
+		695D66611FDBCCBE00FC562D /* DBQueries.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBQueries.h; sourceTree = "<group>"; };
 		696963321D349B4C00CC3734 /* SurfShackMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfShackMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		696963361D349B4C00CC3734 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		696963381D349B4C00CC3734 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -339,6 +342,8 @@
 				69310B671D3882EF0087C5BE /* AppUtilities.m */,
 				690CE32E1D4406D600450774 /* PreferenceFactory.h */,
 				690CE3291D4406CF00450774 /* PreferenceFactory.m */,
+				695D66611FDBCCBE00FC562D /* DBQueries.h */,
+				695D665F1FDBCCB700FC562D /* DBQueries.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1044,6 +1049,7 @@
 				69CBBA7B1D52DF34005E3BCA /* CurrentWeather.m in Sources */,
 				69281EC61D5427DD00FD39BF /* ReportPageViewController.m in Sources */,
 				69371B421D3727FF00562493 /* PlotView.m in Sources */,
+				695D66601FDBCCB700FC562D /* DBQueries.m in Sources */,
 				69A8DEEB1D4D11F1000D4412 /* InfoPacket.m in Sources */,
 				69A8DEEF1D4D13BE000D4412 /* SurfPacket.m in Sources */,
 				69D4608B1D5D7D80005275EF /* TextMessageViewController.m in Sources */,

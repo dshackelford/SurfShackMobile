@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "PreferenceFactory.h"
+#import "AppUtilities.h"
 #import "DBManager.h"
+#import <FMDB/FMDB.h>
 
 @interface MyTabBarController : UITabBarController
 {
     DBManager* db;
+    FMDatabase* fmdb;
 }
 @end

@@ -15,6 +15,7 @@
 
 #import "DataSource.h" //spitcast
 #import "DataCollector.h"
+#import <FMDB/FMDB.h>
 
 @interface DataFactory : NSObject <DataCollector>
 {
@@ -24,7 +25,7 @@
     SpitcastData* spitData;
     
     DBManager* db;
-    
+    FMDatabase* fmdb;
     int dateOnLastDownload;
 }
 
