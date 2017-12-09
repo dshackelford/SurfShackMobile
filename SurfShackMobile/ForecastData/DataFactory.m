@@ -227,19 +227,22 @@
 -(NSMutableDictionary*)setCurrentSwellDirection:(NSMutableDictionary*)aSpotDictInit
 {
     //get the first day array of swells
+    NSMutableArray* swellArray = [[aSpotDictInit objectForKey:@"swell"] objectForKey:@"swellArray"];
     
-    if ([[[aSpotDictInit objectForKey:@"swellDict"] objectAtIndex:0] count] > 0)
+    if ([swellArray count] > 0)
     {
-        NSMutableArray* swellArr = [[aSpotDictInit objectForKey:@"swellDict"] objectAtIndex:0];
+        //NSMutableArray* swellArr = [[aSpotDictInit objectForKey:@"swellDict"] objectAtIndex:0];
     
         int currentIndex = [DateHandler getIndexFromCurrentTime];
     
-        NSMutableDictionary* hourSwellDict = [[[swellArr objectAtIndex:currentIndex] getSwellDataArray] objectAtIndex:0];
-    
-    
-        if ([hourSwellDict objectForKey:@"dir"] != nil)
+#warning this should include a division of current index by day number, not just day 0 especially when I add the movable bar in the plot view
+        NSMutableArray* hourSwellArray = [[[swellArray objectAtIndex:0] objectAtIndex:currentIndex] objectForKey:@"swellArray"];
+        
+#warning should iterate through the hour array for all potential swells
+#warning also need to check if its nill as well
+        if ([[hourSwellArray objectAtIndex:0] objectForKey:@"dir"] != nil)
         {
-            double currentDirection = [[hourSwellDict objectForKey:@"dir"] doubleValue];
+            double currentDirection = [[[hourSwellArray objectAtIndex:0] objectForKey:@"dir"] doubleValue];
             currentDirection = currentDirection + 180;
             
             [aSpotDictInit setObject:[NSNumber numberWithDouble:currentDirection] forKey:@"currentSwellDirection"];

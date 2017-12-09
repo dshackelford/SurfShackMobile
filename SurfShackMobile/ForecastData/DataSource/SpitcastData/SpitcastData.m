@@ -352,10 +352,25 @@
               }
               
               //probably need to run organize by time somewhere??
-              NSMutableDictionary* swellDict = [self makeDictionaryForData:weekArray ofTypeHeight:YES];
+              //NSMutableDictionary* swellDict = [self makeDictionaryForData:weekArray ofTypeHeight:YES];
               
+              NSMutableArray* dictWeekArray = [NSMutableArray array];
+              
+              for(int i = 0; i < [weekArray count]; i = i + 1)
+              {
+                  NSMutableArray* dictArray = [NSMutableArray array];
+                  
+                  for(SwellPacket* packet in [weekArray objectAtIndex:i])
+                  {
+                      [dictArray addObject:[packet makeDictFromPacket]];
+                  }
+                  
+                  [dictWeekArray addObject:dictArray];
+              }
+              
+              NSMutableDictionary* swellDict = [NSMutableDictionary dictionary];
+              [swellDict setObject:dictWeekArray forKey:@"swellArray"];
               [swellDict setValue:countyInit forKey:@"countyID"];
-              
               [self.collector swellDataDictReceived:swellDict];
           }
       }] resume];
