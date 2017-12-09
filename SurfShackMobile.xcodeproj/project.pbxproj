@@ -24,6 +24,8 @@
 		69405C9D1D4DACC8007E4617 /* SegmentedControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69405C9C1D4DACC8007E4617 /* SegmentedControlCell.m */; };
 		69405CA31D4DACDB007E4617 /* SegmentedControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69405CA21D4DACDB007E4617 /* SegmentedControlCell.xib */; };
 		6949876F1F97107A008AE728 /* OfflineData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949876E1F97107A008AE728 /* OfflineData.m */; };
+		695D66581FDA7BE800FC562D /* MapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 695D66571FDA7BE800FC562D /* MapVC.m */; };
+		695D665B1FDA7C6000FC562D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 695D665A1FDA7C6000FC562D /* MapKit.framework */; };
 		696963371D349B4C00CC3734 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 696963361D349B4C00CC3734 /* main.m */; };
 		6969633A1D349B4C00CC3734 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 696963391D349B4C00CC3734 /* AppDelegate.m */; };
 		696963401D349B4C00CC3734 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6969633E1D349B4C00CC3734 /* Main.storyboard */; };
@@ -176,6 +178,9 @@
 		69405CA21D4DACDB007E4617 /* SegmentedControlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedControlCell.xib; sourceTree = "<group>"; };
 		6949876D1F971070008AE728 /* OfflineData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OfflineData.h; sourceTree = "<group>"; };
 		6949876E1F97107A008AE728 /* OfflineData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OfflineData.m; sourceTree = "<group>"; };
+		695D66571FDA7BE800FC562D /* MapVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapVC.m; sourceTree = "<group>"; };
+		695D66591FDA7BF100FC562D /* MapVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapVC.h; sourceTree = "<group>"; };
+		695D665A1FDA7C6000FC562D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		696963321D349B4C00CC3734 /* SurfShackMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfShackMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		696963361D349B4C00CC3734 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		696963381D349B4C00CC3734 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -304,6 +309,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				695D665B1FDA7C6000FC562D /* MapKit.framework in Frameworks */,
 				69CC59541D5AE9D300F504B0 /* libsqlite3.tbd in Frameworks */,
 				697C89A51D485CD300DDB435 /* CoreLocation.framework in Frameworks */,
 				521F8A4DDE57B9D20C68883D /* Pods_SurfShackMobile.framework in Frameworks */,
@@ -392,17 +398,16 @@
 		691B6A981FCE89D500774AC3 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				697B48501FCE8A8900BC0698 /* TableViewNIBS */,
-				691B6A9C1FCE8A2400774AC3 /* Report */,
 				6969633E1D349B4C00CC3734 /* Main.storyboard */,
 				69B0C6D71D4B190E00653102 /* MasterViewController.h */,
 				69B0C6D51D4B190600653102 /* MasterViewController.m */,
 				69D1DC8E1D60E8F700DF29B5 /* MyTabBarController.h */,
 				69D1DC921D60E90000DF29B5 /* MyTabBarController.m */,
-				69D4608F1D5D7D8B005275EF /* TextMessageViewController.h */,
-				69D4608A1D5D7D80005275EF /* TextMessageViewController.m */,
-				693EA5361D51A829008CBEEE /* LogViewController.h */,
-				693EA5341D51A823008CBEEE /* LogViewController.m */,
+				697B48501FCE8A8900BC0698 /* TableViewNIBS */,
+				691B6A9C1FCE8A2400774AC3 /* Report */,
+				695D66561FDA7BBA00FC562D /* TextVC */,
+				695D66551FDA7BB100FC562D /* LogVC */,
+				695D66541FDA7BA300FC562D /* MapVC */,
 				691B6A9A1FCE8A0B00774AC3 /* Settings */,
 				691B6A991FCE89FC00774AC3 /* AddSpot */,
 			);
@@ -489,6 +494,33 @@
 				6934B9E11D5BA281001D729A /* DBTableColumn.m */,
 			);
 			path = SQL_DB;
+			sourceTree = "<group>";
+		};
+		695D66541FDA7BA300FC562D /* MapVC */ = {
+			isa = PBXGroup;
+			children = (
+				695D66591FDA7BF100FC562D /* MapVC.h */,
+				695D66571FDA7BE800FC562D /* MapVC.m */,
+			);
+			path = MapVC;
+			sourceTree = "<group>";
+		};
+		695D66551FDA7BB100FC562D /* LogVC */ = {
+			isa = PBXGroup;
+			children = (
+				693EA5361D51A829008CBEEE /* LogViewController.h */,
+				693EA5341D51A823008CBEEE /* LogViewController.m */,
+			);
+			path = LogVC;
+			sourceTree = "<group>";
+		};
+		695D66561FDA7BBA00FC562D /* TextVC */ = {
+			isa = PBXGroup;
+			children = (
+				69D4608F1D5D7D8B005275EF /* TextMessageViewController.h */,
+				69D4608A1D5D7D80005275EF /* TextMessageViewController.m */,
+			);
+			path = TextVC;
 			sourceTree = "<group>";
 		};
 		696963291D349B4C00CC3734 = {
@@ -670,6 +702,7 @@
 		9C5906FF43535E9F7C2FA560 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				695D665A1FDA7C6000FC562D /* MapKit.framework */,
 				1443FD1058B068227E151216 /* Pods_SurfShackMobile.framework */,
 				A2EDC3C287DC2F1249A659C3 /* Pods_SurfShackMobileTests.framework */,
 				DC9790ECBF83D3E980AC2053 /* Pods_SurfShackMobileUITests.framework */,
@@ -1027,6 +1060,7 @@
 				690CE32A1D4406CF00450774 /* PreferenceFactory.m in Sources */,
 				69D72D281D41521D00980CF6 /* TextDisplayCell.m in Sources */,
 				69310B681D3882EF0087C5BE /* AppUtilities.m in Sources */,
+				695D66581FDA7BE800FC562D /* MapVC.m in Sources */,
 				69D72D321D41527100980CF6 /* PickerInputCell.m in Sources */,
 				6969633A1D349B4C00CC3734 /* AppDelegate.m in Sources */,
 				690CE3421D4533F000450774 /* WindPacket.m in Sources */,
