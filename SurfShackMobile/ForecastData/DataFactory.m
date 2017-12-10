@@ -226,6 +226,7 @@
 
 -(NSMutableDictionary*)setCurrentSwellDirection:(NSMutableDictionary*)aSpotDictInit
 {
+    NSLog(@"setting current swell direction");
     //get the first day array of swells
     NSMutableArray* swellArray = [[aSpotDictInit objectForKey:@"swell"] objectForKey:@"swellArray"];
     
@@ -240,7 +241,7 @@
         
 #warning should iterate through the hour array for all potential swells
 #warning also need to check if its nill as well
-        if ([[hourSwellArray objectAtIndex:0] objectForKey:@"dir"] != nil)
+        if (![[[hourSwellArray objectAtIndex:0] objectForKey:@"dir"] isEqual:[NSNull null]])
         {
             double currentDirection = [[[hourSwellArray objectAtIndex:0] objectForKey:@"dir"] doubleValue];
             currentDirection = currentDirection + 180;
@@ -254,6 +255,7 @@
 
 -(NSMutableDictionary*)setCurrentWindDirection:(NSMutableDictionary*)aSpotDictInit
 {
+        NSLog(@"setting current wind direction");
     NSMutableDictionary* windDict = [aSpotDictInit objectForKey:@"wind"];
 
     int currentIndex = [DateHandler getIndexFromCurrentTime];
@@ -267,12 +269,17 @@
 
 -(NSMutableDictionary*)setCurrentImportantSwells:(NSMutableDictionary*)aSpotDictInit
 {
+        NSLog(@"setting current important swells");
     NSMutableArray* weekSwellArray = [[aSpotDictInit objectForKey:@"swell"] objectForKey:@"swellArray"];
     NSMutableArray* daySwellArray = [weekSwellArray objectAtIndex:0];
     int currentIndex = [DateHandler getIndexFromCurrentTime];
     NSMutableArray* hourSwellArray = [[daySwellArray  objectAtIndex:currentIndex] objectForKey:@"swellArray"];
     
-    double hst = [[[daySwellArray  objectAtIndex:currentIndex] objectForKey:@"hst"] doubleValue];
+    double hst = 0;
+    if([[daySwellArray objectAtIndex:currentIndex] objectForKey:@"hst"] != nil)
+    {
+        hst = [[[daySwellArray  objectAtIndex:currentIndex] objectForKey:@"hst"] doubleValue];
+    }
     int count = 0;
     
     for(int i = 0; i < 5; i = i + 1)
@@ -281,7 +288,7 @@
         
         if(aSwellDict != nil)
         {
-            if([aSwellDict objectForKey:@"tp"] && [aSwellDict objectForKey:@"hs"] && [aSwellDict objectForKey:@"dir"])
+            if(![[aSwellDict objectForKey:@"tp"] isEqual:[NSNull null]] && ![[aSwellDict objectForKey:@"hs"] isEqual:[NSNull null]] && ![[aSwellDict objectForKey:@"dir"] isEqual:[NSNull null]])
             {
                 double tp = [[aSwellDict objectForKey:@"tp"] doubleValue];
                 double hs = [[aSwellDict objectForKey:@"hs"] doubleValue];
