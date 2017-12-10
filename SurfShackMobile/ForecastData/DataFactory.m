@@ -267,58 +267,43 @@
 
 -(NSMutableDictionary*)setCurrentImportantSwells:(NSMutableDictionary*)aSpotDictInit
 {
-    if ([[aSpotDictInit objectForKey:@"swellDict"] count] > 0)
+    NSMutableArray* weekSwellArray = [[aSpotDictInit objectForKey:@"swell"] objectForKey:@"swellArray"];
+    NSMutableArray* daySwellArray = [weekSwellArray objectAtIndex:0];
+    int currentIndex = [DateHandler getIndexFromCurrentTime];
+    NSMutableArray* hourSwellArray = [[daySwellArray  objectAtIndex:currentIndex] objectForKey:@"swellArray"];
+    
+    double hst = [[[daySwellArray  objectAtIndex:currentIndex] objectForKey:@"hst"] doubleValue];
+    int count = 0;
+    
+    for(int i = 0; i < 5; i = i + 1)
     {
-        //get the first day array of swells
-        NSMutableArray* swellArr = [[aSpotDictInit objectForKey:@"swellDict"] objectAtIndex:0];
-    
-        int currentIndex = [DateHandler getIndexFromCurrentTime];
-    
-        NSMutableDictionary* hourSwellDict = [[NSMutableDictionary alloc] init];
-    
-        if ([[swellArr objectAtIndex:currentIndex] getSwellDataArray] > 0 &&[[swellArr objectAtIndex:currentIndex] getSwellDataArray] != nil )
+        NSMutableDictionary* aSwellDict = [hourSwellArray objectAtIndex:0];
+        
+        if(aSwellDict != nil)
         {
-
-            hourSwellDict = [[[swellArr objectAtIndex:currentIndex] getSwellDataArray] objectAtIndex:0];
-    
-            if(hourSwellDict != nil)
+            if([aSwellDict objectForKey:@"tp"] && [aSwellDict objectForKey:@"hs"] && [aSwellDict objectForKey:@"dir"])
             {
-                double hst = [[swellArr objectAtIndex:currentIndex] getHST];
-                double tp = [[hourSwellDict objectForKey:@"tp"] doubleValue];
-                double hs = [[hourSwellDict objectForKey:@"hs"] doubleValue];
+                double tp = [[aSwellDict objectForKey:@"tp"] doubleValue];
+                double hs = [[aSwellDict objectForKey:@"hs"] doubleValue];
+                
                 double height = hs*hst;
                 height = ceil(height);
-        
-                int direction = [[hourSwellDict objectForKey:@"dir"] intValue] + 180;
-        
+                
+                int direction = [[aSwellDict objectForKey:@"dir"] intValue] + 180;
                 NSString* dirStr = [self getDirectionStrFromDegree:direction];
-            
-                NSString* mainSwellInfo = [NSString stringWithFormat:@"Dir: %@ \nTP: %.fs \nHt: %.f ft",dirStr,tp,height];
-        
-                [aSpotDictInit setObject:mainSwellInfo forKey:@"mainSwellInfo"];
-            }
-
-        }
-        if ([[[swellArr objectAtIndex:currentIndex] getSwellDataArray] count] > 1)
-        {
-            hourSwellDict = [[[swellArr objectAtIndex:currentIndex] getSwellDataArray] objectAtIndex:1];
-    
-            if(hourSwellDict != nil)
-            {
-                double hst = [[swellArr objectAtIndex:currentIndex] getHST];
-                double tp = [[hourSwellDict objectForKey:@"tp"] doubleValue];
-                double hs = [[hourSwellDict objectForKey:@"hs"] doubleValue];
-                double height = hs*hst;
-                height = ceil(height);
-            
-                int direction = [[hourSwellDict objectForKey:@"dir"] intValue];
-        
-                direction = direction + 180;
-                NSString* dirStr = [self getDirectionStrFromDegree:direction];
-            
-                NSString* secondSwellInfo = [NSString stringWithFormat:@"Dir: %@ \nTP: %.fs \nHt: %.f ft",dirStr,tp,height];
-        
-                [aSpotDictInit setObject:secondSwellInfo forKey:@"secondSwellInfo"];
+                
+                NSString* swellInfoStr = [NSString stringWithFormat:@"Dir: %@ \nTP: %.fs \nHt: %.f ft",dirStr,tp,height];
+                
+                if(count == 0)
+                {
+                    [aSpotDictInit setObject:swellInfoStr forKey:@"mainSwellInfo"];
+                    count = count + 1;
+                }
+                else
+                {
+                    [aSpotDictInit setObject:swellInfoStr forKey:@"secondSwellInfo"];
+                    break;
+                }
             }
         }
     }
