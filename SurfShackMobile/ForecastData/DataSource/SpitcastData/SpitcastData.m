@@ -22,8 +22,8 @@
     shortDataLength = shortLengthInit;
     longDataLength = 6; 
     
-    dataDict = [[NSMutableDictionary alloc] init];
-    swellDict = [[NSMutableDictionary alloc] init];
+    //dataDict = [[NSMutableDictionary alloc] init];
+    //swellDict = [[NSMutableDictionary alloc] init];
     
     self.collector = collectorInit;
 
@@ -68,7 +68,10 @@
               
               if([jsonDataArray count] > 0 || jsonDataArray == nil)
               {
-                  NSLog(@"nothgin was downloaded");
+                  NSLog(@"no surf data was downloaded");
+                  NSMutableDictionary* surfDict = [NSMutableDictionary dictionary];
+                  [surfDict setValue:spotNameInit forKey:@"spotName"];
+                  [self.collector surfDataDictReceived:surfDict];
                   return;
               }
               //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
@@ -140,7 +143,10 @@
               
               if([jsonDataArray count] > 0 || jsonDataArray == nil)
               {
-                  NSLog(@"nothgin was downloaded");
+                  NSLog(@"no wind data was downloaded");
+                  NSMutableDictionary* windDict = [NSMutableDictionary dictionary];
+                  [windDict setValue:countyInit forKey:@"countyID"];
+                  [self.collector windDataDictReceived:windDict];
                   return;
               }
               
@@ -231,7 +237,10 @@
               
               if([jsonDataArray count] > 0 || jsonDataArray == nil)
               {
-                  NSLog(@"nothgin was downloaded");
+                  NSLog(@"no tide data was downloaded");
+                  NSMutableDictionary* tidDict = [NSMutableDictionary dictionary];
+                  [tidDict setValue:countyInit forKey:@"countyID"];
+                  [self.collector tideDataDictReceived:tidDict];
                   return;
               }
               
@@ -304,7 +313,10 @@
               
               if([jsonDataArray count] > 0 || jsonDataArray == nil)
               {
-                  NSLog(@"nothgin was downloaded");
+                  NSLog(@"no water temp data was downloaded");
+                  NSMutableDictionary* waterTempDict = [NSMutableDictionary dictionary];
+                  [waterTempDict setValue:countyInit forKey:@"countyID"];
+                  [self.collector waterTempDataDictReceived:waterTempDict];
                   return;
               }
               
@@ -348,8 +360,10 @@
               
               if([jsonDataArray count] > 0 || jsonDataArray == nil)
               {
-                  NSLog(@"nothgin was downloaded");
-                  //[self.collector swellDataDictReceived:nil];
+                  NSLog(@"no swell data was downloaded");
+                  NSMutableDictionary* swellDict = [NSMutableDictionary dictionary];
+                  [swellDict setValue:countyInit forKey:@"countyID"];
+                  [self.collector swellDataDictReceived:swellDict];
                   return;
               }
               

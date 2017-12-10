@@ -97,9 +97,20 @@
         aSpotDict = [NSMutableDictionary dictionary];
     }
     
-    [aSpotDict setObject:surfData forKey:@"surf"];
-    
-    [spotsDict setObject:aSpotDict forKey:[surfData objectForKey:@"spotName"]];
+    if([[surfData allKeys] count] != 1)
+    {
+        [aSpotDict setObject:surfData forKey:@"surf"];
+        
+        [spotsDict setObject:aSpotDict forKey:[surfData objectForKey:@"spotName"]];
+    }
+    else
+    {
+        NSLog(@"surf data not found for spot %@",[surfData objectForKey:@"spotName"]);
+        NSString* str = @"no data";
+        [aSpotDict setObject:str forKey:@"surf"];
+        
+        [spotsDict setObject:aSpotDict forKey:[surfData objectForKey:@"spotName"]];
+    }
     [self checkSpotDict];
 }
 
@@ -111,8 +122,17 @@
         aCountyDict = [NSMutableDictionary dictionary];
     }
     
-    [aCountyDict setObject:tideData forKey:@"tide"];
-    
+    if([[tideData allKeys] count] != 1)
+    {
+        [aCountyDict setObject:tideData forKey:@"tide"];
+    }
+    else
+    {
+        NSLog(@"tide data not found for spot %@",[tideData objectForKey:@"countyID"]);
+        NSString* str = @"no data";
+        [aCountyDict setObject:str forKey:@"tide"];
+    }
+
     [countiesDict setObject:aCountyDict forKey:[tideData objectForKey:@"countyID"]];
     [self checkCountyDict];
 }
@@ -125,7 +145,15 @@
         aCountyDict = [NSMutableDictionary dictionary];
     }
     
-    [aCountyDict setObject:windData forKey:@"wind"];
+    if([[windData allKeys] count] != 1)
+    {
+        [aCountyDict setObject:windData forKey:@"wind"];
+    }
+    else
+    {
+        NSLog(@"wind data not found for spot %@",[windData objectForKey:@"countyID"]);
+        [aCountyDict setObject:@"no data" forKey:@"wind"];
+    }
     
     [countiesDict setObject:aCountyDict forKey:[windData objectForKey:@"countyID"]];
     [self checkCountyDict];
@@ -134,12 +162,21 @@
 -(void)swellDataDictReceived:(NSMutableDictionary *)swellData
 {
     NSMutableDictionary* aCountyDict = [countiesDict objectForKey:[swellData objectForKey:@"countyID"]];
+    
     if(aCountyDict == nil)
     {
         aCountyDict = [NSMutableDictionary dictionary];
     }
     
-    [aCountyDict setObject:swellData forKey:@"swell"];
+    if(!([[swellData allKeys] count] == 1))
+    {
+        [aCountyDict setObject:swellData forKey:@"swell"];
+    }
+    else
+    {
+        NSLog(@"swell data not found for spot %@",[swellData objectForKey:@"countyID"]);
+        [aCountyDict setObject:@"no data" forKey:@"swell"];
+    }
     
     [countiesDict setObject:aCountyDict forKey:[swellData objectForKey:@"countyID"]];
     [self checkCountyDict];
@@ -153,7 +190,15 @@
         aCountyDict = [NSMutableDictionary dictionary];
     }
     
-    [aCountyDict setObject:[waterTempData objectForKey:@"waterTemp"] forKey:@"waterTemp"];
+    if([[waterTempData allKeys] count] != 1)
+    {
+        [aCountyDict setObject:[waterTempData objectForKey:@"waterTemp"] forKey:@"waterTemp"];
+    }
+    else
+    {
+        NSLog(@"water temp data not found for spot %@",[waterTempData objectForKey:@"countyID"]);
+        [aCountyDict setObject:@"no data" forKey:@"waterTemp"];
+    }
     
     [countiesDict setObject:aCountyDict forKey:[waterTempData objectForKey:@"countyID"]];
     [self checkCountyDict];
@@ -167,8 +212,16 @@
     {
         aSpotDict = [NSMutableDictionary dictionary];
     }
-    [aSpotDict setObject:weatherData forKey:@"weatherDict"];
-
+    
+    if([[weatherData allKeys] count] != 1)
+    {
+        [aSpotDict setObject:weatherData forKey:@"weatherDict"];
+    }
+    else
+    {
+        NSLog(@"weather data no found for spot %@",[weatherData objectForKey:@"spotName"]);
+        [aSpotDict setObject:@"no data" forKey:@"weatherDict"];
+    }
     [spotsDict setObject:aSpotDict forKey:[weatherData objectForKey:@"spotName"]];
      [self checkSpotDict];
 }
@@ -179,7 +232,16 @@
     {
         NSMutableDictionary* countyDict = [countiesDict objectForKey:key];
         
+        for(NSString* key in countyDict)
+        {
+            if([[countyDict objectForKey:key] isEqualToString:@"no data"])
+            {
+                NSLog(@"no data!!!!!");
+            }
+        }
+        
         NSLog(@"county keys %@",[countyDict allKeys]);
+        
         if([[countyDict allKeys] count] == 4) //swell/wind/tide/watertemp
         {
             NSLog(@"sent county notification under key: %@",key);
