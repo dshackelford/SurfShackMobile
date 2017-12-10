@@ -34,9 +34,11 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
+	<string>Surf_Shack can use GPS to give better surf forecasting data. </string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your message goes here</string>
+	<string>Surf_Shack can use GPS to give better surf forecasting data. </string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Surf_Shack can use GPS to give better surf forecasting data. </string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

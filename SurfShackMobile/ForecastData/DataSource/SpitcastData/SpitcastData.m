@@ -349,7 +349,7 @@
               if([jsonDataArray count] > 0 || jsonDataArray == nil)
               {
                   NSLog(@"nothgin was downloaded");
-                  [self.collector swellDataDictReceived:nil];
+                  //[self.collector swellDataDictReceived:nil];
                   return;
               }
               
