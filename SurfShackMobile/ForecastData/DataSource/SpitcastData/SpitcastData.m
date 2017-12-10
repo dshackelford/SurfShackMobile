@@ -66,6 +66,11 @@
               //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
               NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
               
+              if([jsonDataArray count] > 0 || jsonDataArray == nil)
+              {
+                  NSLog(@"nothgin was downloaded");
+                  return;
+              }
               //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
               for (id dataSet in jsonDataArray)
               {
@@ -131,6 +136,13 @@
               
               //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
               NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
+              
+              
+              if([jsonDataArray count] > 0 || jsonDataArray == nil)
+              {
+                  NSLog(@"nothgin was downloaded");
+                  return;
+              }
               
               //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
               for (id dataSet in jsonDataArray)
@@ -216,6 +228,13 @@
               //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
               NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
               
+              
+              if([jsonDataArray count] > 0 || jsonDataArray == nil)
+              {
+                  NSLog(@"nothgin was downloaded");
+                  return;
+              }
+              
               //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
               for (id dataSet in jsonDataArray)
               {
@@ -282,6 +301,13 @@
               NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
               //NSLog(@"%@",jsonDataArray);
               
+              
+              if([jsonDataArray count] > 0 || jsonDataArray == nil)
+              {
+                  NSLog(@"nothgin was downloaded");
+                  return;
+              }
+              
               WaterTempPacket* waterTemp = [[WaterTempPacket alloc] init:jsonDataArray];
               
               NSMutableDictionary* tempDict = [NSMutableDictionary dictionary];
@@ -318,6 +344,14 @@
               NSLog(@"json swell data download completed");
               NSArray* jsonDataArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
               //NSLog(@"%@",jsonDataArray);
+              
+              
+              if([jsonDataArray count] > 0 || jsonDataArray == nil)
+              {
+                  NSLog(@"nothgin was downloaded");
+                  [self.collector swellDataDictReceived:nil];
+                  return;
+              }
               
               //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
               NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
