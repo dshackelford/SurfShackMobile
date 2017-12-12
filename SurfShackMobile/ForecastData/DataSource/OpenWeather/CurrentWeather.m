@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CurrentWeather.h"
+#import <AsyncBlockOperation/AsyncBlockOperation.h>
 
 @implementation CurrentWeather
 
@@ -20,7 +21,7 @@
     return self;
 }
 
--(void)startWeatherDownloadForLoc:(CLLocation*)locInit andSpotID:(int)spotID andSpotName:(NSString *)spotNameInit
+-(void)startWeatherDownloadForLoc:(CLLocation*)locInit andSpotID:(int)spotID andSpotName:(NSString *)spotNameInit andOp:(AsyncBlockOperation *)op
 {
     //ESTABLISH THE URL TO GRAB INFO FROM
     NSString* stringURL = [NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/weather?lat=%.2f&lon=%.2f&APPID=%@",locInit.coordinate.latitude,locInit.coordinate.longitude,[AppUtilities getOpenWeatherKey]];
@@ -39,14 +40,14 @@
           }
           else
           {
-              NSLog(@"json weather data download completed");
+              NSLog(@"%@ spot weather data download completed",spotNameInit);
               NSMutableDictionary* jsonDataDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
               //[jsonDataDict setValue:[NSNumber numberWithInteger:spotID] forKey:@"spotID"];
               self.weatherPacket = [[WeatherPacket alloc] init:jsonDataDict];
               NSMutableDictionary* weatherDict = [self.weatherPacket makeDict];
               [weatherDict setObject:spotNameInit forKey:@"spotName"];
               [self.collector weatherDataDictReceived:weatherDict];
-              
+              [op complete];
           }
       }] resume];
     

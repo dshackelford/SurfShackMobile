@@ -97,6 +97,8 @@
     
     [super viewDidLoad];
     
+    self.noDataCount = 0;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeColor:) name:@"changeColorPref" object:nil];
     [self.activityDelegate isLoadingData:true];
     spotDict = [OfflineData getOfflineDataForID:[[favSpots objectAtIndex:self.index] intValue]];
@@ -137,24 +139,41 @@
 
 -(void)actOnSpotData:(NSNotification*)notification
 {
-    NSLog(@"got some spot data for %@",spotName);
-    spotDict  = [dataFactory getASpotDictionary:spotName andCounty:county];
-    if (spotDict != nil)
-    {
-        [self spotHasData];
-    }
+    NSLog(@"%@ received spot data notifcation",spotName);
+    [self grabData];
 }
 
 -(void)actOnCountyData:(NSNotification*)notification
 {
-    NSLog(@"got some county data for %@",county);
+    NSLog(@"%@ received county data notification",county);
+    [self grabData];
+}
+-(void)grabData
+{
     spotDict  = [dataFactory getASpotDictionary:spotName andCounty:county];
     if (spotDict != nil)
     {
         [self spotHasData];
     }
+    else
+    {
+        self.noDataCount = self.noDataCount + 1;
+        if(self.noDataCount == 2)
+        {
+            //no data for this site!
+            [self.activityDelegate isLoadingData:false];
+            [self showNoDataAlert];
+        }
+    }
 }
 
+-(void)showNoDataAlert
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Data Missing" message:@"There seems to be missing data for this spot, try another spot close to this one." preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
 -(void)refreshData:(NSNotification*)notification
 {
     aCompView.hidden = YES;

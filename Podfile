@@ -8,6 +8,7 @@ target 'SurfShackMobile' do
   # Pods for SurfShackMobile
   pod 'Charts','3.0.4'
   pod 'FMDB','2.7.2'
+  pod 'AsyncBlockOperation'
 
   target 'SurfShackMobileTests' do
     inherit! :search_paths
