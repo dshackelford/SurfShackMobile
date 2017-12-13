@@ -78,7 +78,7 @@
                 }];
                 [q addOperation:notifOp];
                 NSLog(@"%@ spot dict finished. Should do smeothing here",spotName);
-                
+               //we know the users list of spots, iterate through that list, check for county name, and then send notifications out for spotname to reportViewcontroller rather then having report vie controller check it twice, they should have no knowledge of both spot/county differences.
             }];
             
             AsyncBlockOperation *surfOp = [AsyncBlockOperation blockOperationWithBlock:^(AsyncBlockOperation *surfOp) {
@@ -476,19 +476,18 @@
     }
     [spotDictInit setObject:[NSNumber numberWithDouble:tideRatio] forKey:@"tideRatio"];
     
-    
     if(currentTime == 0)
     {
-        currentTime = 1; //push it up one for checking. we automatcially know that the next low tide of consequence will bein the future. 
-        for (int i = currentTime; i < [tideArrInit count]; i++)
+        currentTime = 1; //push it up one for checking. we automatcially know that the next low tide of consequence will bein the future.
+    }
+    for (int i = currentTime; i < [tideArrInit count]; i++)
+    {
+        if ([[tideArrInit objectAtIndex:i] doubleValue] < [[tideArrInit objectAtIndex:i+1] doubleValue]  && [[tideArrInit objectAtIndex:i] doubleValue] < [[tideArrInit objectAtIndex:i-1] doubleValue])
         {
-            if ([[tideArrInit objectAtIndex:i] doubleValue] < [[tideArrInit objectAtIndex:i+1] doubleValue]  && [[tideArrInit objectAtIndex:i] doubleValue] < [[tideArrInit objectAtIndex:i-1] doubleValue])
-            {
-                nextLowTideIndex = i;
-                NSString* timeStr = [DateHandler getTimeFromIndex:nextLowTideIndex];
-                [spotDictInit setObject:timeStr forKey:@"nextLowTide"];
-                break;
-            }
+            nextLowTideIndex = i;
+            NSString* timeStr = [DateHandler getTimeFromIndex:nextLowTideIndex];
+            [spotDictInit setObject:timeStr forKey:@"nextLowTide"];
+            break;
         }
     }
     
