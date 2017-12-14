@@ -50,6 +50,7 @@
 		697B48631FCE98D500BC0698 /* logo20x3.png in Resources */ = {isa = PBXBuildFile; fileRef = 697B485C1FCE98D400BC0698 /* logo20x3.png */; };
 		697B48641FCE98D500BC0698 /* logo40x2.png in Resources */ = {isa = PBXBuildFile; fileRef = 697B485D1FCE98D400BC0698 /* logo40x2.png */; };
 		697B48651FCE98D500BC0698 /* logo40x3.png in Resources */ = {isa = PBXBuildFile; fileRef = 697B485E1FCE98D400BC0698 /* logo40x3.png */; };
+		697C34911FDE319E00D719C8 /* AsyncOperationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 697C34901FDE319E00D719C8 /* AsyncOperationTests.m */; };
 		697C89A21D485AAC00DDB435 /* NearByPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 697C89A11D485AAC00DDB435 /* NearByPacket.m */; };
 		697C89A51D485CD300DDB435 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697C89A41D485CD300DDB435 /* CoreLocation.framework */; };
 		697C89A81D4908A600DDB435 /* AddPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697C89A71D4908A600DDB435 /* AddPlaceViewController.m */; };
@@ -220,6 +221,7 @@
 		697B485C1FCE98D400BC0698 /* logo20x3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo20x3.png; sourceTree = "<group>"; };
 		697B485D1FCE98D400BC0698 /* logo40x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo40x2.png; sourceTree = "<group>"; };
 		697B485E1FCE98D400BC0698 /* logo40x3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo40x3.png; sourceTree = "<group>"; };
+		697C34901FDE319E00D719C8 /* AsyncOperationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AsyncOperationTests.m; sourceTree = "<group>"; };
 		697C89A11D485AAC00DDB435 /* NearByPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearByPacket.m; sourceTree = "<group>"; };
 		697C89A31D485AB300DDB435 /* NearByPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NearByPacket.h; sourceTree = "<group>"; };
 		697C89A41D485CD300DDB435 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -556,6 +558,7 @@
 				690CE33C1D442ED900450774 /* SurfShackMobileCountyCollectingTests.m */,
 				69CBBA881D52E5D4005E3BCA /* CurrentWeatherTests.m */,
 				69D5B9E11FD1122F0094B637 /* downloadOperationTests.m */,
+				697C34901FDE319E00D719C8 /* AsyncOperationTests.m */,
 			);
 			path = SurfShackMobileTests;
 			sourceTree = "<group>";
@@ -889,11 +892,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SurfShackMobile/Pods-SurfShackMobile-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AsyncBlockOperation/AsyncBlockOperation.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AsyncBlockOperation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 			);
@@ -1079,6 +1084,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				690CE33D1D442ED900450774 /* SurfShackMobileCountyCollectingTests.m in Sources */,
+				697C34911FDE319E00D719C8 /* AsyncOperationTests.m in Sources */,
 				69CBBA891D52E5D4005E3BCA /* CurrentWeatherTests.m in Sources */,
 				696963501D349B4C00CC3734 /* SurfShackMobileStringTests.m in Sources */,
 				69D5B9E21FD1122F0094B637 /* downloadOperationTests.m in Sources */,

@@ -62,6 +62,7 @@
 
 @property NSInteger index;
 @property id<ActivityResponder> activityDelegate;
+@property int noDataCount;
 
 -(void)chooseDataToDisplay;
 

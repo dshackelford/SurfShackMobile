@@ -31,8 +31,8 @@
     int longDataLength;
     
     
-    NSMutableDictionary* dataDict;
-    NSMutableDictionary* swellDict;
+    //NSMutableDictionary* dataDict;
+    //NSMutableDictionary* swellDict;
     NSMutableArray* countyList;
 }
 

@@ -10,7 +10,7 @@
 #import <XCTest/XCTest.h>
 #import "SpitcastData.h"
 #import "DataCollector.h"
-
+#import "DataSource.h"
 
 @interface downloadOperationTests : XCTestCase <DataCollector>
 {
@@ -35,16 +35,16 @@
 -(void)testDonwload
 {
     downloadExpectation = [self expectationWithDescription:@"asynchronous download"];
-    SpitcastData* spit = [[SpitcastData alloc] initWithShortLength:3 andLongLength:6 andCollector:self];
-    [spit startSurfDataDownloadForLocation:122];
+    id<DataSource> spit = [[SpitcastData alloc] initWithShortLength:3 andLongLength:6 andCollector:self];
+    [spit startSurfDataDownloadForSpotID:122 andSpotName:@"spot name"];
     [self waitForExpectationsWithTimeout:30 handler:^(NSError * _Nullable error) {
         NSLog(@"expectations failed due to timeout");
     }];
 }
 
 - (void)testExample {
-    SpitcastData* spit = [[SpitcastData alloc] initWithShortLength:3 andLongLength:6 andCollector:self];
-    [spit startSurfDataDownloadForLocation:11]; //122
+    id<DataSource> spit = [[SpitcastData alloc] initWithShortLength:3 andLongLength:6 andCollector:self];
+    [spit startSurfDataDownloadForSpotID:11 andSpotName:@"test name"]; //122
 }
 
 -(void)surfDataDictReceived:(NSMutableDictionary *)surfData
