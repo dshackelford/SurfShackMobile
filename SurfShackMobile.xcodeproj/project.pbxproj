@@ -53,6 +53,13 @@
 		697C89A21D485AAC00DDB435 /* NearByPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 697C89A11D485AAC00DDB435 /* NearByPacket.m */; };
 		697C89A51D485CD300DDB435 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697C89A41D485CD300DDB435 /* CoreLocation.framework */; };
 		697C89A81D4908A600DDB435 /* AddPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697C89A71D4908A600DDB435 /* AddPlaceViewController.m */; };
+		69863BC51FE3AEF7001530C1 /* SurfData.m in Sources */ = {isa = PBXBuildFile; fileRef = 69863BC41FE3AEF7001530C1 /* SurfData.m */; };
+		69863BC81FE3AF0A001530C1 /* DataCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 69863BC71FE3AF0A001530C1 /* DataCategory.m */; };
+		69863BCB1FE3B72B001530C1 /* WeatherData.m in Sources */ = {isa = PBXBuildFile; fileRef = 69863BCA1FE3B72B001530C1 /* WeatherData.m */; };
+		69863BCF1FE3B743001530C1 /* WindData.m in Sources */ = {isa = PBXBuildFile; fileRef = 69863BCE1FE3B743001530C1 /* WindData.m */; };
+		69863BD11FE3B749001530C1 /* TideData.m in Sources */ = {isa = PBXBuildFile; fileRef = 69863BD01FE3B749001530C1 /* TideData.m */; };
+		69863BD51FE3B75F001530C1 /* SwellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 69863BD41FE3B75F001530C1 /* SwellData.m */; };
+		69863BD71FE3B97B001530C1 /* WaterTempData.m in Sources */ = {isa = PBXBuildFile; fileRef = 69863BD61FE3B97B001530C1 /* WaterTempData.m */; };
 		6992DFD21D667D64005A4368 /* DataFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992DFD11D667D64005A4368 /* DataFactory.m */; };
 		6992DFD41D668556005A4368 /* WaterTempPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992DFD31D668556005A4368 /* WaterTempPacket.m */; };
 		699521181D3619DA0073114D /* SpitcastData.m in Sources */ = {isa = PBXBuildFile; fileRef = 699521171D3619DA0073114D /* SpitcastData.m */; };
@@ -224,6 +231,20 @@
 		697C89A41D485CD300DDB435 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		697C89A61D49089D00DDB435 /* AddPlaceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddPlaceViewController.h; sourceTree = "<group>"; };
 		697C89A71D4908A600DDB435 /* AddPlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPlaceViewController.m; sourceTree = "<group>"; };
+		69863BC41FE3AEF7001530C1 /* SurfData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SurfData.m; sourceTree = "<group>"; };
+		69863BC61FE3AEFE001530C1 /* SurfData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurfData.h; sourceTree = "<group>"; };
+		69863BC71FE3AF0A001530C1 /* DataCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataCategory.m; sourceTree = "<group>"; };
+		69863BC91FE3AF16001530C1 /* DataCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataCategory.h; sourceTree = "<group>"; };
+		69863BCA1FE3B72B001530C1 /* WeatherData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherData.m; sourceTree = "<group>"; };
+		69863BCC1FE3B733001530C1 /* WeatherData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherData.h; sourceTree = "<group>"; };
+		69863BCD1FE3B73A001530C1 /* WindData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindData.h; sourceTree = "<group>"; };
+		69863BCE1FE3B743001530C1 /* WindData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WindData.m; sourceTree = "<group>"; };
+		69863BD01FE3B749001530C1 /* TideData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TideData.m; sourceTree = "<group>"; };
+		69863BD21FE3B750001530C1 /* TideData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TideData.h; sourceTree = "<group>"; };
+		69863BD31FE3B757001530C1 /* SwellData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwellData.h; sourceTree = "<group>"; };
+		69863BD41FE3B75F001530C1 /* SwellData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwellData.m; sourceTree = "<group>"; };
+		69863BD61FE3B97B001530C1 /* WaterTempData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaterTempData.m; sourceTree = "<group>"; };
+		69863BD81FE3B983001530C1 /* WaterTempData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaterTempData.h; sourceTree = "<group>"; };
 		6992DFCD1D667D5C005A4368 /* DataFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataFactory.h; sourceTree = "<group>"; };
 		6992DFD11D667D64005A4368 /* DataFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataFactory.m; sourceTree = "<group>"; };
 		6992DFD31D668556005A4368 /* WaterTempPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterTempPacket.m; sourceTree = "<group>"; };
@@ -363,6 +384,7 @@
 				690CE33E1D452EB600450774 /* CountyHandler.m */,
 				699521191D3619E60073114D /* SpitcastData.h */,
 				699521171D3619DA0073114D /* SpitcastData.m */,
+				69863BC31FE3AEDE001530C1 /* DataCategories */,
 				691B6A971FCE89A800774AC3 /* Packets */,
 			);
 			path = SpitcastData;
@@ -630,6 +652,27 @@
 				69D1DCA71D6191B700DF29B5 /* logo60x3.png */,
 			);
 			path = AppIcons;
+			sourceTree = "<group>";
+		};
+		69863BC31FE3AEDE001530C1 /* DataCategories */ = {
+			isa = PBXGroup;
+			children = (
+				69863BC91FE3AF16001530C1 /* DataCategory.h */,
+				69863BC71FE3AF0A001530C1 /* DataCategory.m */,
+				69863BC61FE3AEFE001530C1 /* SurfData.h */,
+				69863BC41FE3AEF7001530C1 /* SurfData.m */,
+				69863BCC1FE3B733001530C1 /* WeatherData.h */,
+				69863BCA1FE3B72B001530C1 /* WeatherData.m */,
+				69863BCD1FE3B73A001530C1 /* WindData.h */,
+				69863BCE1FE3B743001530C1 /* WindData.m */,
+				69863BD21FE3B750001530C1 /* TideData.h */,
+				69863BD01FE3B749001530C1 /* TideData.m */,
+				69863BD31FE3B757001530C1 /* SwellData.h */,
+				69863BD41FE3B75F001530C1 /* SwellData.m */,
+				69863BD81FE3B983001530C1 /* WaterTempData.h */,
+				69863BD61FE3B97B001530C1 /* WaterTempData.m */,
+			);
+			path = DataCategories;
 			sourceTree = "<group>";
 		};
 		699EBEF01FCFEBA8000BA1BB /* SettingsIcons */ = {
@@ -1027,6 +1070,8 @@
 				690601F61D3DE8AF009696DE /* DateHandler.m in Sources */,
 				6992DFD41D668556005A4368 /* WaterTempPacket.m in Sources */,
 				696D2BCA1D4DCDB700A45E45 /* AboutPageViewController.m in Sources */,
+				69863BCF1FE3B743001530C1 /* WindData.m in Sources */,
+				69863BD11FE3B749001530C1 /* TideData.m in Sources */,
 				697C89A21D485AAC00DDB435 /* NearByPacket.m in Sources */,
 				693EA5351D51A823008CBEEE /* LogViewController.m in Sources */,
 				690CE32A1D4406CF00450774 /* PreferenceFactory.m in Sources */,
@@ -1041,6 +1086,7 @@
 				696D2BD71D4DD83D00A45E45 /* SecondaryLabelCell.m in Sources */,
 				69B426241D472EE6006E4712 /* arrowCell.m in Sources */,
 				696D2BDC1D4EC89A00A45E45 /* DayRangeViewController.m in Sources */,
+				69863BC81FE3AF0A001530C1 /* DataCategory.m in Sources */,
 				697A29011D652DF700EDF8BC /* CompassView.m in Sources */,
 				6934B9E21D5BA281001D729A /* DBTableColumn.m in Sources */,
 				69A8DEF91D4DA090000D4412 /* SubSettingsViewController.m in Sources */,
@@ -1058,10 +1104,12 @@
 				69310B6D1D38976C0087C5BE /* CountyInfoPacket.m in Sources */,
 				696D2BD31D4DD2D200A45E45 /* SubSettingColorViewController.m in Sources */,
 				697C89A81D4908A600DDB435 /* AddPlaceViewController.m in Sources */,
+				69863BD51FE3B75F001530C1 /* SwellData.m in Sources */,
 				69EDF4301D7B6A5B00B310EA /* SubInfoView.m in Sources */,
 				696D2BD01D4DCF0E00A45E45 /* subViewController.m in Sources */,
 				69D051C61D58145B00C46CDF /* SwellPacket.m in Sources */,
 				690F86441D408A1E00C33918 /* ReportViewController.m in Sources */,
+				69863BCB1FE3B72B001530C1 /* WeatherData.m in Sources */,
 				6975BD7D1D826AF70012B029 /* SurfDataProviderViewController.m in Sources */,
 				69DB19F81D484E63000F500B /* TidePacket.m in Sources */,
 				69405C9D1D4DACC8007E4617 /* SegmentedControlCell.m in Sources */,
@@ -1069,7 +1117,9 @@
 				697A29041D657B9300EDF8BC /* DatumView.m in Sources */,
 				690CE33F1D452EB600450774 /* CountyHandler.m in Sources */,
 				69CBBA811D52E077005E3BCA /* WeatherPacket.m in Sources */,
+				69863BD71FE3B97B001530C1 /* WaterTempData.m in Sources */,
 				69D72D2A1D41521D00980CF6 /* TextInputCell.m in Sources */,
+				69863BC51FE3AEF7001530C1 /* SurfData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

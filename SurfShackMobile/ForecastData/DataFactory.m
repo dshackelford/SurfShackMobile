@@ -12,6 +12,12 @@
 
 @implementation DataFactory
 
+typedef enum{
+    waiting,
+    valid,
+    invalid,
+} spotDictState;
+
 -(id)init
 {
     self = [super init];
@@ -73,17 +79,19 @@
         {
             dateOnLastDownload = [[DateHandler getCurrentDateString] intValue];
 
-            NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+            [[spotsDict objectForKey:spotName] setObject:[NSNumber numberWithInteger:waiting] forKey:@"state"];
             
-            NSBlockOperation* spotEndOp = [NSBlockOperation blockOperationWithBlock:^{
-                [self checkForCompletionForSpot:spotName andID:spotID];
-            }];
+            NSOperationQueue *queue = [[NSOperationQueue alloc] init];
             
             AsyncBlockOperation *surfOp = [AsyncBlockOperation blockOperationWithBlock:^(AsyncBlockOperation *surfOp) {
                 [self.surfSource startSurfDataDownloadForSpotID:spotID andSpotName:spotName andOp:surfOp];
             }];
             AsyncBlockOperation *weatherOp = [AsyncBlockOperation blockOperationWithBlock:^(AsyncBlockOperation *weatherOp) {
                 [self.weatherSource startWeatherDownloadForLoc:aLoc andSpotID:spotID andSpotName:spotName andOp:weatherOp];
+            }];
+            
+            NSBlockOperation* spotEndOp = [NSBlockOperation blockOperationWithBlock:^{
+                [self checkForCompletionForSpot:spotName andID:spotID];
             }];
             
             [spotEndOp addDependency:surfOp];
@@ -218,7 +226,7 @@
         
         [spotsDict setObject:aSpotDict forKey:[surfData objectForKey:@"spotName"]];
     }
-    //[self checkSpotDict];
+
 }
 
 - (void)weatherDataDictReceived:(NSMutableDictionary *)weatherData
