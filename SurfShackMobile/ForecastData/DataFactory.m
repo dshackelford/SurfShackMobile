@@ -45,7 +45,7 @@
         if([fmdb open])
         {
             FMResultSet* set = [fmdb executeQuery:@"SELECT spotLat,spotLon FROM SpitcastSpots WHERE SpotID = %d",intNum];
-            CLLocation* loc
+            //CLLocation* loc
         }
         
         [db openDatabase];
