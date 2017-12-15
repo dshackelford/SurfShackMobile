@@ -68,6 +68,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
     [self restrictRotation:YES];
 }
 

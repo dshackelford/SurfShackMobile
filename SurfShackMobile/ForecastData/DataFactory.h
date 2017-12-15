@@ -30,6 +30,8 @@
 
 @property id<DataSource> surfSource;
 @property id<DataSource> weatherSource;
+@property NSMutableDictionary* notificationTrackerDict;
+@property NSMutableDictionary* spotNameVCs;
 
 -(void)getDataForSpots:(NSArray*)spotIDArray andCounties:(NSArray*)countiesArray;
 

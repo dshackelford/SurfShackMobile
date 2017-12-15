@@ -21,6 +21,8 @@
     
     spotsDict = [[NSMutableDictionary alloc] init]; //a spot: surf heights and weather
     countiesDict = [[NSMutableDictionary alloc] init];
+    self.notificationTrackerDict = [NSMutableDictionary dictionary]; //hold whether or not a notification has already been sent
+    self.spotNameVCs = [NSMutableDictionary dictionary];
     
     db = [[DBManager alloc] init];
     
@@ -44,6 +46,8 @@
         [db openDatabase];
         [arrOfLocs addObject: [db getLocationOfSpot:intNum]];
         [arrOfSpotNames addObject:[db getSpotNameOfSpotID:intNum]];
+        
+        [self.notificationTrackerDict setObject:[NSNumber numberWithBool:false] forKey:[db getSpotNameOfSpotID:intNum]];
         [db closeDatabase];
     }
     
@@ -72,13 +76,7 @@
             NSOperationQueue *queue = [[NSOperationQueue alloc] init];
             
             NSBlockOperation* spotEndOp = [NSBlockOperation blockOperationWithBlock:^{
-                NSOperationQueue* q = [NSOperationQueue mainQueue];
-                NSBlockOperation* notifOp = [NSBlockOperation blockOperationWithBlock:^{
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:spotName object:nil];
-                }];
-                [q addOperation:notifOp];
-                NSLog(@"%@ spot dict finished. Should do smeothing here",spotName);
-               //we know the users list of spots, iterate through that list, check for county name, and then send notifications out for spotname to reportViewcontroller rather then having report vie controller check it twice, they should have no knowledge of both spot/county differences.
+                [self checkForCompletionForSpot:spotName andID:spotID];
             }];
             
             AsyncBlockOperation *surfOp = [AsyncBlockOperation blockOperationWithBlock:^(AsyncBlockOperation *surfOp) {
@@ -107,13 +105,7 @@
             NSOperationQueue *queue = [[NSOperationQueue alloc] init];
             
             NSBlockOperation* countyEndOp = [NSBlockOperation blockOperationWithBlock:^{
-                NSOperationQueue* q = [NSOperationQueue mainQueue];
-                NSBlockOperation* notifOp = [NSBlockOperation blockOperationWithBlock:^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:spitCounty object:nil];
-                }];
-                [q addOperation:notifOp];
-                NSLog(@"%@ county dict finished. Should do smeothing here",spitCounty);
-                
+                [self checkForCompletionForCounty:spitCounty];
             }];
             
             AsyncBlockOperation *waterTempOp = [AsyncBlockOperation blockOperationWithBlock:^(AsyncBlockOperation *waterTempOp) {
@@ -140,6 +132,67 @@
             [queue addOperation:swellOp];
             [queue addOperation:countyEndOp];
         }
+    }
+}
+
+-(void)checkForCompletionForSpot:(NSString*)spotName andID:(int)spotID
+{
+    NSString* county = [CountyHandler getCountyOfSpot:spotID];
+    
+    NSMutableDictionary* countyDict = [countiesDict objectForKey:county];
+    
+    if(countyDict)
+    {
+        if(![[self.notificationTrackerDict objectForKey:spotName] boolValue])
+        {
+            [self.notificationTrackerDict setObject:[NSNumber numberWithBool:true] forKey:spotName];
+            
+            NSOperationQueue* q = [NSOperationQueue mainQueue];
+            NSBlockOperation* notifOp = [NSBlockOperation blockOperationWithBlock:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:spotName object:nil];
+            }];
+            [q addOperation:notifOp];
+        }
+    }
+    
+}
+
+-(void)checkForCompletionForCounty:(NSString*)countyName
+{
+    NSMutableArray* favoriteSpotsArr = [NSMutableArray array];
+    
+    if ([db openDatabase])
+    {
+        favoriteSpotsArr = [db getSpotFavorites];
+    }
+    [db closeDatabase];
+    
+    for(NSNumber* spotID in favoriteSpotsArr)
+    {
+        NSString* county = [CountyHandler getCountyOfSpot:[spotID intValue]];
+            
+        if([county isEqualToString:countyName])
+        {
+            NSString* spotName = @"";
+            
+            if([db openDatabase])
+            {
+                spotName = [db getSpotNameOfSpotID:[spotID intValue]];
+            }
+            
+            if([[[spotsDict objectForKey:spotName] allKeys] count] == 2 && ![[self.notificationTrackerDict objectForKey:spotName] boolValue])
+            {
+                [self.notificationTrackerDict setObject:[NSNumber numberWithBool:true] forKey:spotName];
+                
+                NSOperationQueue* q = [NSOperationQueue mainQueue];
+                NSBlockOperation* notifOp = [NSBlockOperation blockOperationWithBlock:^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:spotName object:nil];
+                }];
+                [q addOperation:notifOp];
+            }
+
+        }
+        
     }
 }
 #pragma mark - Spot Data Receivers
@@ -320,15 +373,16 @@
 
 -(NSMutableDictionary*)setCurrentWindDirection:(NSMutableDictionary*)aSpotDictInit
 {
-        NSLog(@"setting current wind direction");
+    NSLog(@"setting current wind direction");
     NSMutableDictionary* windDict = [aSpotDictInit objectForKey:@"wind"];
 
     int currentIndex = [DateHandler getIndexFromCurrentTime];
     
     NSNumber* currentDirection = [[windDict objectForKey:@"windDirectionArray"] objectAtIndex:currentIndex];
-    
-    [aSpotDictInit setObject:currentDirection forKey:@"windDirection"];
-    
+    if(currentDirection != nil)
+        [aSpotDictInit setObject:currentDirection forKey:@"windDirection"];
+    else
+        NSLog(@"nil wind direction found!");
     return aSpotDictInit;
 }
 

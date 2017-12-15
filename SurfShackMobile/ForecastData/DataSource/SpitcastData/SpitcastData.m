@@ -51,6 +51,12 @@
           if(error)
           {
               NSLog(@"there was an error in getting json data from url in spitcast");
+              NSLog(@"%@ spot no surf data was downloaded",spotNameInit);
+              NSMutableDictionary* surfDict = [NSMutableDictionary dictionary];
+              [surfDict setValue:spotNameInit forKey:@"spotName"];
+              [self.collector surfDataDictReceived:nil];
+              [op complete];
+              return;
           }
           /*else if(httpResponse.statusCode  == 500)
            {
@@ -70,7 +76,7 @@
                   NSLog(@"%@ spot no surf data was downloaded",spotNameInit);
                   NSMutableDictionary* surfDict = [NSMutableDictionary dictionary];
                   [surfDict setValue:spotNameInit forKey:@"spotName"];
-                  [self.collector surfDataDictReceived:surfDict];
+                  [self.collector surfDataDictReceived:nil];
                   [op complete];
                   return;
               }
@@ -128,6 +134,12 @@
           if(error)
           {
               NSLog(@"there was an error in getting json data from url in spitcast");
+              NSLog(@"%@ wind data was downloaded",countyInit);
+              NSMutableDictionary* windDict = [NSMutableDictionary dictionary];
+              [windDict setValue:countyInit forKey:@"countyID"];
+              [self.collector windDataDictReceived:nil];
+              [op complete];
+              return;
           }
           /*else if(httpResponse.statusCode  == 500)
            {
@@ -148,7 +160,7 @@
                   NSLog(@"%@ wind data was downloaded",countyInit);
                   NSMutableDictionary* windDict = [NSMutableDictionary dictionary];
                   [windDict setValue:countyInit forKey:@"countyID"];
-                  [self.collector windDataDictReceived:windDict];
+                  [self.collector windDataDictReceived:nil];
                   [op complete];
                   return;
               }
@@ -223,6 +235,12 @@
           if(error)
           {
               NSLog(@"there was an error in getting json data from url in spitcast");
+              NSLog(@"%@ county no tide data was downloaded",countyInit);
+              NSMutableDictionary* tidDict = [NSMutableDictionary dictionary];
+              [tidDict setValue:countyInit forKey:@"countyID"];
+              [self.collector tideDataDictReceived:nil];
+              [op complete];
+              return;
           }
           /*else if(httpResponse.statusCode  == 500)
            {
@@ -243,7 +261,7 @@
                   NSLog(@"%@ county no tide data was downloaded",countyInit);
                   NSMutableDictionary* tidDict = [NSMutableDictionary dictionary];
                   [tidDict setValue:countyInit forKey:@"countyID"];
-                  [self.collector tideDataDictReceived:tidDict];
+                  [self.collector tideDataDictReceived:nil];
                   [op complete];
                   return;
               }
@@ -303,6 +321,11 @@
           if(error)
           {
               NSLog(@"there was an error in getting json data from url in spitcast");
+              NSLog(@"%@ county no water temp data was downloaded",countyInit);
+              NSMutableDictionary* waterTempDict = [NSMutableDictionary dictionary];
+              [waterTempDict setValue:countyInit forKey:@"countyID"];
+              [self.collector waterTempDataDictReceived:nil];
+              [op complete];
           }
           /*else if(httpResponse.statusCode  == 500)
            {
@@ -320,7 +343,7 @@
                   NSLog(@"%@ county no water temp data was downloaded",countyInit);
                   NSMutableDictionary* waterTempDict = [NSMutableDictionary dictionary];
                   [waterTempDict setValue:countyInit forKey:@"countyID"];
-                  [self.collector waterTempDataDictReceived:waterTempDict];
+                  [self.collector waterTempDataDictReceived:nil];
                   [op complete];
                   return;
               }
@@ -351,6 +374,11 @@
           if(error)
           {
               NSLog(@"there was an error in getting json data from url in spitcast");
+              NSLog(@"%@ county: no swell data was downloaded",countyInit);
+              NSMutableDictionary* swellDict = [NSMutableDictionary dictionary];
+              [swellDict setValue:countyInit forKey:@"countyID"];
+              [self.collector swellDataDictReceived:nil];
+              [op complete];
           }
           /*else if(httpResponse.statusCode  == 500)
            {
@@ -368,7 +396,7 @@
                   NSLog(@"%@ county: no swell data was downloaded",countyInit);
                   NSMutableDictionary* swellDict = [NSMutableDictionary dictionary];
                   [swellDict setValue:countyInit forKey:@"countyID"];
-                  [self.collector swellDataDictReceived:swellDict];
+                  [self.collector swellDataDictReceived:nil];
                   [op complete];
                   return;
               }

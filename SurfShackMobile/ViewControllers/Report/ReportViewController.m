@@ -41,10 +41,11 @@
 
     NSLog(@"current spot:%@",spotName);
     
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actOnSpotData:) name:spotName object:nil];
     NSLog(@"registered spot notification under %@",spotName);
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actOnCountyData:) name:county object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actOnCountyData:) name:county object:nil];
     
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
