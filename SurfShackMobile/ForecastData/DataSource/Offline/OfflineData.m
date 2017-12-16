@@ -18,21 +18,29 @@
     NSLog(@"path: %@",[AppUtilities getPathToOfflineData]);
     
     //remove non-textual data for storage
-    [aSpotDict removeObjectForKey:@"swellDict"];
+    //[aSpotDict removeObjectForKey:@"swellDict"];
 
-    NSMutableDictionary* offlineDict = [NSMutableDictionary dictionaryWithContentsOfFile:[AppUtilities getPathToOfflineData]];
+    NSURL* url = [NSURL fileURLWithPath:[AppUtilities getPathToOfflineData]];
     
-    if(offlineDict == nil)
-    {
-        offlineDict = [NSMutableDictionary dictionary];
+    if (@available(iOS 11.0, *)) {
+        NSMutableDictionary* offlineDict = [[NSMutableDictionary alloc] initWithContentsOfURL:url error:nil];
+        
+        if(offlineDict == nil)
+        {
+            offlineDict = [NSMutableDictionary dictionary];
+        }
+        NSString* idStr = [NSString stringWithFormat:@"%i",idInit];
+        
+        [offlineDict removeObjectForKey:idStr];
+        
+        [offlineDict setObject:aSpotDict forKey:idStr];
+        
+        
+        
+        [[offlineDict objectForKey:@"wind"] writeToURL:url error:nil];
+    } else {
+        // Fallback on earlier versions
     }
-    NSString* idStr = [NSString stringWithFormat:@"%i",idInit];
-    
-    [offlineDict removeObjectForKey:idStr];
-    
-    [offlineDict setObject:aSpotDict forKey:idStr];
-    
-    [offlineDict writeToFile:[AppUtilities getPathToOfflineData] atomically:YES];
 }
 
 +(NSMutableDictionary*)getOfflineDataForID:(int)idInit

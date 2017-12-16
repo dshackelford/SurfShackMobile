@@ -30,15 +30,8 @@
     int shortDataLength;
     int longDataLength;
     
-    
-    //NSMutableDictionary* dataDict;
-    //NSMutableDictionary* swellDict;
     NSMutableArray* countyList;
 }
-
-//@property id<DataCollector> dataCollector;
-
-//-(NSMutableArray*)organizeArrayByTime:(NSMutableArray*)arrayInit andDate:(NSString*)dateInit;
 
 @end
 
