@@ -17,7 +17,7 @@
 @property NSString* _Nonnull urlStr;
 @property (nullable) NSData* downloadedData;
 @property AsyncBlockOperation* _Nonnull op;
-@property id<DataCollector> collector;
+@property id<DataCollector> _Nonnull collector;
 
 -(id)initWithSpotID:(int)spotIDInit andSpotName:(NSString*)spotName andOp:(AsyncBlockOperation*)op andCollector:(id<DataCollector>)collectorInit;
 -(id)initWithCounty:(NSString*)countyInit andOp:(AsyncBlockOperation*)op andCollector:(id<DataCollector>)collectorInit;

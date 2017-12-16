@@ -59,20 +59,20 @@
 
 -(void)startTideDataDownloadForCounty:(NSString*)countyInit andOp:(AsyncBlockOperation *)op
 {
-    TideData* data = [[TideData alloc] initWithCounty:countyInit andOp:op andCollector:self.dataCollector];
+    TideData* data = [[TideData alloc] initWithCounty:countyInit andOp:op andCollector:self.collector];
     [data grabData];
 }
 
 
 -(void)startWaterTempDownloadForCounty:(NSString*)countyInit andOp:(AsyncBlockOperation*)op
 {
-    WaterTempData* data = [[WaterTempData alloc] initWithCounty:countyInit andOp:op andCollector:self.dataCollector];
+    WaterTempData* data = [[WaterTempData alloc] initWithCounty:countyInit andOp:op andCollector:self.collector];
     [data grabData];
 }
 
 -(void)startSwellDataDownloadForCounty:(NSString*)countyInit andOp:(AsyncBlockOperation *)op
 {
-    SwellData* data = [[SwellData alloc] initWithCounty:countyInit andOp:op andCollector:self.dataCollector];
+    SwellData* data = [[SwellData alloc] initWithCounty:countyInit andOp:op andCollector:self.collector];
     [data grabData];
 }
 

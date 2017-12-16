@@ -12,6 +12,7 @@
 #import "InfoPacket.h"
 
 @implementation DataCategory
+@synthesize collector;
 
 -(id)initWithSpotID:(int)spotIDInit andSpotName:(NSString*)spotName andOp:(AsyncBlockOperation*)op andCollector:(id<DataCollector>)collectorInit
 {

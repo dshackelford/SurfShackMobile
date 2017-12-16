@@ -36,7 +36,7 @@
     NSMutableArray* countyList;
 }
 
-@property id<DataCollector> dataCollector;
+//@property id<DataCollector> dataCollector;
 
 //-(NSMutableArray*)organizeArrayByTime:(NSMutableArray*)arrayInit andDate:(NSString*)dateInit;
 
