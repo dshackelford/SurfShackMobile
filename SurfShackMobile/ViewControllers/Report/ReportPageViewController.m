@@ -527,6 +527,9 @@
     swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:nil];
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     
+    longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPress:)];
+    longPress.minimumPressDuration = 1;
+    
 //    swipeDown = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDown:)];
 //    [swipeDown requireGestureRecognizerToFail:swipeLeft];
 //    [swipeDown requireGestureRecognizerToFail:swipeRight];
@@ -538,13 +541,59 @@
     [self.view addGestureRecognizer:swipeRight];
     [self.view addGestureRecognizer:swipeLeft];
     [self.view addGestureRecognizer:singleTap];
-//    [self.view addGestureRecognizer:swipeDown];
+}
+
+-(IBAction)longPressBegan:(UILongPressGestureRecognizer *)recognizer
+{
+    if (recognizer.state == UIGestureRecognizerStateBegan)
+    {
+        NSLog(@"long press began");
+        CGPoint touchPoint = [recognizer locationInView:self.view];
+        
+        double futureIndexRatio = touchPoint.x/screenSize.width;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"futureIndexRatio" object:[NSNumber numberWithDouble:futureIndexRatio]];
+        
+        self.pageController.dataSource = nil;
+        // Long press detected, start the timer
+    }
+    else if(recognizer.state == UIGestureRecognizerStateChanged)
+    {
+        CGPoint touchPoint = [recognizer locationInView:self.view];
+        
+        double futureIndexRatio = touchPoint.x/screenSize.width;
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"futureIndexRatio" object:[NSNumber numberWithDouble:futureIndexRatio]];
+        NSLog(@"touch point x: %f and ratio: %f",touchPoint.x,futureIndexRatio);
+    }
+    else
+    {
+        if (recognizer.state == UIGestureRecognizerStateCancelled
+            || recognizer.state == UIGestureRecognizerStateFailed
+            || recognizer.state == UIGestureRecognizerStateEnded)
+        {
+            self.pageController.dataSource = self;
+            [self.pageController reloadInputViews];
+            NSLog(@"long press ended");
+            
+            double currentIndex = (double)[DateHandler getIndexFromCurrentTime];
+        
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"futureIndexRatio" object:[NSNumber numberWithDouble:currentIndex]];
+            
+            // Long press ended, stop the timer
+        }
+    }
 }
 
 -(void)didSingleTap:(UITapGestureRecognizer*)tapGesture
 {
     //post notification
     [[NSNotificationCenter defaultCenter] postNotificationName:@"tap" object:nil];
+}
+
+-(void)didLongPress:(UILongPressGestureRecognizer*)longPress
+{
+    self.pageController.dataSource = nil;
 }
 
 #pragma mark - PageControl ReportVC methods

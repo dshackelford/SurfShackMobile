@@ -55,6 +55,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveTap:) name:@"tap" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:@"refreshData" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(futureIndexSet:) name:@"futureIndexRatio" object:nil];
+    
+    
     
     //ADD SUBVIEWS (OFFSET Y BY 70 FOR THE TITLE BAR BEING PRESENT)
 //    infoView = [[SubInfoView alloc] initWithFrame:CGRectMake(0, 70, screenSize.width, screenSize.height/4)];
@@ -107,7 +110,7 @@
 
 }
 
-
+/*
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touches began");
@@ -160,7 +163,7 @@
         break;
     }
 }
-
+*/
 -(void)changeColor:(NSNotification*)notification
 {
     NSDictionary* dict = [PreferenceFactory getPreferences];
@@ -170,7 +173,6 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    //[self.view becomeFirstResponder];
     [self restrictRotation:NO];
     
     NSLog(@"view %d WILL appear",(int)self.index);
@@ -240,6 +242,13 @@
     aPlotView.hidden = YES;
     [self.activityDelegate isLoadingData:true];
     NSLog(@"attempt resfresh");
+}
+
+-(void)futureIndexSet:(NSNotification*)notification
+{
+    int index = [notification.object doubleValue]*[[[spotDict objectForKey:@"surf"] objectForKey:@"mags"] count];
+    NSMutableDictionary* futureDict = [dataFactory setCurrentValuesForSpotDict:spotDict.mutableCopy];
+    
 }
 
 //if there is data, then current values can be derived thusly

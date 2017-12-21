@@ -45,6 +45,7 @@
     UISwipeGestureRecognizer* swipeRight;
     UISwipeGestureRecognizer* swipeLeft;
     UITapGestureRecognizer* singleTap;
+    UILongPressGestureRecognizer* longPress;
     
     CGPoint startSwipePoint;
 }
@@ -58,5 +59,7 @@
 
 -(void)userIsForceTouching;
 -(void)goBackToNormal;
+
+-(IBAction)longPressBegan:(UILongPressGestureRecognizer *)recognizer;
 
 @end

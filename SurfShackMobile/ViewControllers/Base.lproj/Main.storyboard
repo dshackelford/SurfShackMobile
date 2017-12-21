@@ -51,10 +51,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="zyJ-gM-zdf" appends="YES" id="na3-aY-kW3"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="U6B-gd-Cli"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y3m-Xa-h4O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="zyJ-gM-zdf">
+                    <connections>
+                        <action selector="longPressBegan:" destination="XzX-6b-Iq1" id="f3p-gt-wDC"/>
+                        <outlet property="delegate" destination="XzX-6b-Iq1" id="EOv-wK-pPS"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="840.79999999999995" y="337.78110944527737"/>
         </scene>

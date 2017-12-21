@@ -37,13 +37,44 @@
     
     self.isOfflineData = true; //default to offline color sceme
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(futureIndexSet:) name:@"futureIndexRatio" object:nil];
+    
+    [self setUserInteractionEnabled:NO];
+    
     return self;
+}
+
+-(void)futureIndexSet:(NSNotification*)notification
+{
+    NSNumber* indexRatio = notification.object;
+    int index = [indexRatio doubleValue]*[yData count];
+    NSLog(@"plot changing index line to %i",index);
+    //CURRENT TIME BAR
+    NSMutableArray* currentBarVals = [[NSMutableArray alloc] init];
+    [currentBarVals addObject:[[ChartDataEntry alloc] initWithX:index y:0]];
+    [currentBarVals addObject:[[ChartDataEntry alloc] initWithX:index y:[[yData objectAtIndex:index] doubleValue]]];
+    
+    LineChartDataSet* dCurrentBar = [[LineChartDataSet alloc] initWithValues:currentBarVals label:@"Current Time"];
+    dCurrentBar.lineWidth = 5;
+    [dCurrentBar setCircleColor:[UIColor clearColor]];
+    [dCurrentBar setColor:[UIColor blackColor]];
+    dCurrentBar.circleRadius = 0;
+    
+    [_theChartView.data removeDataSetByIndex:1];
+    
+    [dCurrentBar setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:0]];
+    [_theChartView.data addDataSet:dCurrentBar];
+    
+    [_theChartView setData:_theChartView.data];
 }
 
 -(void)updateFrame:(CGRect)newFrame forCurrentView:(int)currentViewTag
 {
     _theChartView.pinchZoomEnabled = NO;
     _theChartView.doubleTapToZoomEnabled = NO;
+    _theChartView.highlightPerTapEnabled = NO;
+    _theChartView.highlightPerDragEnabled = NO;
+    
     self.frame = newFrame;
     _theChartView.frame = CGRectMake(0, 30, newFrame.size.width, newFrame.size.height - 30);
     spitcastLabel.frame = CGRectMake(self.frame.size.width - 155, 0, 175, 25);
