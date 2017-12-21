@@ -61,7 +61,7 @@
             }
         }
         */
-        [aSpotDict writeToURL:url error:nil];
+        [offlineDict writeToURL:url error:nil];
     }
     else
     {
