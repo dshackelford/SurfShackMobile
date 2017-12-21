@@ -33,10 +33,10 @@
         NSNumber* dir = [obj objectForKey:@"dir"];
         //double dirDouble = [dir doubleValue];
         
-        if (dir == nil)
+        if ([dir isEqual:[NSNull null]] || dir == nil)
         {
 #warning still need to figure out how to handle nill portions
-            NSLog(@"swell data portion is null");
+            //NSLog(@"swell data portion is null");
         }
 
         else

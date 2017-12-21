@@ -593,6 +593,10 @@ typedef enum{
             }
         }
     }
+    else
+    {
+        return nil;
+    }
     
     if([[subSpotDict allKeys] count] == 2)
     {

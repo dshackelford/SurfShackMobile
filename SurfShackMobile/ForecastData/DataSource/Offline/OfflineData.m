@@ -18,7 +18,7 @@
     NSLog(@"path: %@",[AppUtilities getPathToOfflineData]);
     
     //remove non-textual data for storage
-    //[aSpotDict removeObjectForKey:@"swellDict"];
+    //[aSpotDict removeObjectForKey:@"swell"];
 
     NSURL* url = [NSURL fileURLWithPath:[AppUtilities getPathToOfflineData]];
     
@@ -35,10 +35,36 @@
         
         [offlineDict setObject:aSpotDict forKey:idStr];
         
+        /*
+        NSMutableDictionary* swellDict = [aSpotDict objectForKey:@"swell"];
+        NSMutableArray* swellArray = [swellDict objectForKey:@"swellArray"];
         
-        
-        [[offlineDict objectForKey:@"wind"] writeToURL:url error:nil];
-    } else {
+        for(NSMutableArray* daySwellArray in swellArray)
+        {
+            for(int i = 0; i < [daySwellArray count]; i = i + 1)
+            {
+                NSMutableDictionary* hourSwellDict = [daySwellArray objectAtIndex:i];
+                
+                NSMutableArray* hourSubSwellArray = [hourSwellDict objectForKey:@"hourSwellDict"];
+                for(int j =0; j < [hourSubSwellArray count]; j = j + 1)
+                {
+                    NSMutableDictionary* subSwellDict = [hourSubSwellArray objectAtIndex:j];
+                    
+                    for(id obj in [subSwellDict allValues])
+                    {
+                        if([obj isEqual:[NSNull null]])
+                        {
+                            NSLog(@"need to remove this");
+                        }
+                    }
+                }
+            }
+        }
+        */
+        [aSpotDict writeToURL:url error:nil];
+    }
+    else
+    {
         // Fallback on earlier versions
     }
 }
