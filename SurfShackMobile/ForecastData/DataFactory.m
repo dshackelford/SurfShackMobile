@@ -204,16 +204,16 @@ typedef enum{
     }
 }
 #pragma mark - Spot Data Receivers
--(void)surfDataDictReceived:(NSMutableDictionary*)surfData
+-(void)surfDataDictReceived:(NSMutableDictionary*)surfData forSpot:(NSString *)spotNameInit
 {
-    NSMutableDictionary* aSpotDict = [spotsDict objectForKey:[surfData objectForKey:@"spotName"]];
-    if(aSpotDict == nil)
+    if(surfData != nil)
     {
-        aSpotDict = [NSMutableDictionary dictionary];
-    }
-    
-    if([[surfData allKeys] count] != 1)
-    {
+        NSMutableDictionary* aSpotDict = [spotsDict objectForKey:spotNameInit];
+        if(aSpotDict == nil)
+        {
+            aSpotDict = [NSMutableDictionary dictionary];
+        }
+        
         [aSpotDict setObject:surfData forKey:@"surf"];
         
         [spotsDict setObject:aSpotDict forKey:[surfData objectForKey:@"spotName"]];
@@ -222,120 +222,113 @@ typedef enum{
     {
         NSLog(@"surf data not found for spot %@",[surfData objectForKey:@"spotName"]);
         NSString* str = @"no data";
-        [aSpotDict setObject:str forKey:@"surf"];
+        //[aSpotDict setObject:str forKey:@"surf"];
         
-        [spotsDict setObject:aSpotDict forKey:[surfData objectForKey:@"spotName"]];
+        //[spotsDict setObject:aSpotDict forKey:[surfData objectForKey:@"spotName"]];
     }
 
 }
 
-- (void)weatherDataDictReceived:(NSMutableDictionary *)weatherData
+- (void)weatherDataDictReceived:(NSMutableDictionary *)weatherData forSpot:(NSString *)spotNameInit
 {
-    NSMutableDictionary* aSpotDict = [spotsDict objectForKey:[weatherData objectForKey:@"spotName"]];
-    if(aSpotDict == nil)
+    if(weatherData != nil)
     {
-        aSpotDict = [NSMutableDictionary dictionary];
-    }
-    
-    if([[weatherData allKeys] count] != 1)
-    {
+        NSMutableDictionary* aSpotDict = [spotsDict objectForKey:spotNameInit];
+        if(aSpotDict == nil)
+        {
+            aSpotDict = [NSMutableDictionary dictionary];
+        }
+        
+        
         [aSpotDict setObject:weatherData forKey:@"weatherDict"];
+        [spotsDict setObject:aSpotDict forKey:[weatherData objectForKey:@"spotName"]];
     }
     else
     {
         NSLog(@"weather data no found for spot %@",[weatherData objectForKey:@"spotName"]);
-        [aSpotDict setObject:@"no data" forKey:@"weatherDict"];
+        //[aSpotDict setObject:@"no data" forKey:@"weatherDict"];
     }
-    [spotsDict setObject:aSpotDict forKey:[weatherData objectForKey:@"spotName"]];
-    //[self checkSpotDict];
 }
 
 #pragma mark - County Data Receivers
 
--(void)tideDataDictReceived:(NSMutableDictionary *)tideData
+-(void)tideDataDictReceived:(NSMutableDictionary *)tideData forCounty:(NSString *)countyNameInit
 {
-    NSMutableDictionary* aCountyDict = [countiesDict objectForKey:[tideData objectForKey:@"countyID"]];
-    if(aCountyDict == nil)
+    if(tideData != nil)
     {
-        aCountyDict = [NSMutableDictionary dictionary];
-    }
-    
-    if([[tideData allKeys] count] != 1)
-    {
+        NSMutableDictionary* aCountyDict = [countiesDict objectForKey:countyNameInit];
+        if(aCountyDict == nil)
+        {
+            aCountyDict = [NSMutableDictionary dictionary];
+        }
         [aCountyDict setObject:tideData forKey:@"tide"];
+        [countiesDict setObject:aCountyDict forKey:[tideData objectForKey:@"countyID"]];
     }
     else
     {
         NSLog(@"tide data not found for spot %@",[tideData objectForKey:@"countyID"]);
         NSString* str = @"no data";
-        [aCountyDict setObject:str forKey:@"tide"];
+        //[aCountyDict setObject:str forKey:@"tide"];
     }
-
-    [countiesDict setObject:aCountyDict forKey:[tideData objectForKey:@"countyID"]];
 }
 
--(void)windDataDictReceived:(NSMutableDictionary *)windData
+-(void)windDataDictReceived:(NSMutableDictionary *)windData forCounty:(NSString *)countyNameInit
 {
-    NSMutableDictionary* aCountyDict = [countiesDict objectForKey:[windData objectForKey:@"countyID"]];
-    if(aCountyDict == nil)
-    {
-        aCountyDict = [NSMutableDictionary dictionary];
-    }
     
-    if([[windData allKeys] count] != 1)
+    if(windData != nil)
     {
+        NSMutableDictionary* aCountyDict = [countiesDict objectForKey:countyNameInit];
+        if(aCountyDict == nil)
+        {
+            aCountyDict = [NSMutableDictionary dictionary];
+        }
         [aCountyDict setObject:windData forKey:@"wind"];
+        [countiesDict setObject:aCountyDict forKey:[windData objectForKey:@"countyID"]];
     }
     else
     {
         NSLog(@"wind data not found for spot %@",[windData objectForKey:@"countyID"]);
-        [aCountyDict setObject:@"no data" forKey:@"wind"];
+        //[aCountyDict setObject:@"no data" forKey:@"wind"];
     }
-    
-    [countiesDict setObject:aCountyDict forKey:[windData objectForKey:@"countyID"]];
 }
 
--(void)swellDataDictReceived:(NSMutableDictionary *)swellData
+-(void)swellDataDictReceived:(NSMutableDictionary *)swellData forCounty:(NSString *)countyNameInit
 {
-    NSMutableDictionary* aCountyDict = [countiesDict objectForKey:[swellData objectForKey:@"countyID"]];
-    
-    if(aCountyDict == nil)
+    if(swellData != nil)
     {
-        aCountyDict = [NSMutableDictionary dictionary];
-    }
-    
-    if(!([[swellData allKeys] count] == 1))
-    {
+        NSMutableDictionary* aCountyDict = [countiesDict objectForKey:countyNameInit];
+        
+        if(aCountyDict == nil)
+        {
+            aCountyDict = [NSMutableDictionary dictionary];
+        }
         [aCountyDict setObject:swellData forKey:@"swell"];
+        [countiesDict setObject:aCountyDict forKey:[swellData objectForKey:@"countyID"]];
     }
     else
     {
         NSLog(@"swell data not found for spot %@",[swellData objectForKey:@"countyID"]);
-        [aCountyDict setObject:@"no data" forKey:@"swell"];
     }
     
-    [countiesDict setObject:aCountyDict forKey:[swellData objectForKey:@"countyID"]];
 }
 
-- (void)waterTempDataDictReceived:(NSMutableDictionary *)waterTempData
+- (void)waterTempDataDictReceived:(NSMutableDictionary *)waterTempData forCounty:(NSString *)countyNameInit
 {
-    NSMutableDictionary* aCountyDict = [countiesDict objectForKey:[waterTempData objectForKey:@"countyID"]];
-    if(aCountyDict == nil)
+    if(waterTempData != nil)
     {
-        aCountyDict = [NSMutableDictionary dictionary];
-    }
-    
-    if([[waterTempData allKeys] count] != 1)
-    {
+        NSMutableDictionary* aCountyDict = [countiesDict objectForKey:countyNameInit];
+        if(aCountyDict == nil)
+        {
+            aCountyDict = [NSMutableDictionary dictionary];
+        }
         [aCountyDict setObject:[waterTempData objectForKey:@"waterTemp"] forKey:@"waterTemp"];
+        [countiesDict setObject:aCountyDict forKey:[waterTempData objectForKey:@"countyID"]];
     }
     else
     {
         NSLog(@"water temp data not found for spot %@",[waterTempData objectForKey:@"countyID"]);
-        [aCountyDict setObject:@"no data" forKey:@"waterTemp"];
     }
     
-    [countiesDict setObject:aCountyDict forKey:[waterTempData objectForKey:@"countyID"]];
 }
 
 //this gets called every time a report view will appear, therefore I find it prudent not have to download anything, all the data should be present, this method just parses it
@@ -493,6 +486,11 @@ typedef enum{
     double previousLowTide = 0;
     int previousLowTideIndex = 0;
     int nextLowTideIndex = 0;
+    
+    if(currentTime == 0)
+    {
+        currentTime = 1;
+    }
     
     for (int i = currentTime; i < [tideArrInit count]; i++)
     {

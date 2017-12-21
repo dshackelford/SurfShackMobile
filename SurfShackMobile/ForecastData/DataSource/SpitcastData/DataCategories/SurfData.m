@@ -31,15 +31,13 @@
       
         //INITIALIZE ARRAY TO HOLD THE 25 HOURS WORTH OF SURF DATA AT SPECIFIC LOCATION
         NSMutableArray* aDayDataArray = [[NSMutableArray alloc] init];
-      /*
+      
         if([jsonDataArray count] == 0 || jsonDataArray == nil)
         {
-          NSMutableDictionary* surfDict = [NSMutableDictionary dictionary];
-          [surfDict setValue:spotNameInit forKey:@"spotName"];
-          [self.collector surfDataDictReceived:nil];
-          [op complete];
+          [self.collector surfDataDictReceived:nil forSpot:self.spotName];
+          [self.op complete];
           return;
-        }*/
+        }
         NSLog(@"%@ spot surf data download completed",self.spotName);
       
         //ITERATE THROUGH AND INIT INDIVIDUAL HOURLY DATA
@@ -74,7 +72,7 @@
       NSMutableDictionary* aSurfDict =[self makeDictionaryForData:weekArray ofTypeHeight:YES];
       [aSurfDict setObject:@"Surf Height (Powered by Spitcast)" forKey:@"plotLabel"];
       [aSurfDict setObject:self.spotName forKey:@"spotName"];
-      [self.collector surfDataDictReceived:aSurfDict];
+      [self.collector surfDataDictReceived:aSurfDict forSpot:self.spotName];
       [self.op complete];
   }
 }

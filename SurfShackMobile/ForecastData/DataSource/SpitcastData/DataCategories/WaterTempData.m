@@ -28,18 +28,16 @@
 {
     if(dataInit != nil)
     {
-    NSDictionary* jsonDataDict = [NSJSONSerialization JSONObjectWithData:dataInit options:0 error:nil];
-    //NSLog(@"%@",jsonDataArray);
+        NSDictionary* jsonDataDict = [NSJSONSerialization JSONObjectWithData:dataInit options:0 error:nil];
+        //NSLog(@"%@",jsonDataArray);
 
 
     if([[jsonDataDict allKeys] count] == 0 || jsonDataDict == nil)
     {
-      NSLog(@"%@ county no water temp data was downloaded",self.countyName);
-      NSMutableDictionary* waterTempDict = [NSMutableDictionary dictionary];
-      [waterTempDict setValue:self.countyName forKey:@"countyID"];
-      [self.collector waterTempDataDictReceived:nil];
-      [self.op complete];
-      return;
+        NSLog(@"%@ county no water temp data was downloaded",self.countyName);
+        [self.collector waterTempDataDictReceived:nil forCounty:self.countyName];
+        [self.op complete];
+        return;
     }
     NSLog(@"%@ county water temp data download completed",self.countyName);
     WaterTempPacket* waterTemp = [[WaterTempPacket alloc] init:jsonDataDict];
@@ -49,7 +47,7 @@
     
     [tempDict setObject:[NSNumber numberWithDouble:[waterTemp getTempF]] forKey:@"waterTemp"];
     [tempDict setValue:self.countyName forKey:@"countyID"];
-    [self.collector waterTempDataDictReceived:tempDict];
+    [self.collector waterTempDataDictReceived:tempDict forCounty:self.countyName];
     [self.op complete];
     }
 }

@@ -38,9 +38,7 @@
       if([jsonDataArray count] == 0 || jsonDataArray == nil)
       {
           NSLog(@"%@ county no tide data was downloaded",self.countyName);
-          NSMutableDictionary* tidDict = [NSMutableDictionary dictionary];
-          [tidDict setValue:self.countyName forKey:@"countyID"];
-          [self.collector tideDataDictReceived:nil];
+          [self.collector tideDataDictReceived:nil forCounty:self.countyName];
           [self.op complete];
           return;
       }
@@ -79,7 +77,7 @@
     
       [tideDict setObject:@"Tide (Powered by Spitcast)" forKey:@"plotLabel"];
       [tideDict setValue:self.countyName forKey:@"countyID"];
-      [self.collector tideDataDictReceived:tideDict];
+      [self.collector tideDataDictReceived:tideDict forCounty:self.countyName];
       [self.op complete];
     }
 }

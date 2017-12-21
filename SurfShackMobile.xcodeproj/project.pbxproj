@@ -182,6 +182,7 @@
 		69405C9C1D4DACC8007E4617 /* SegmentedControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentedControlCell.m; sourceTree = "<group>"; };
 		69405CA11D4DACD1007E4617 /* SegmentedControlCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SegmentedControlCell.h; sourceTree = "<group>"; };
 		69405CA21D4DACDB007E4617 /* SegmentedControlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedControlCell.xib; sourceTree = "<group>"; };
+		694127041FEA225C0013E60A /* ForceRecevier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForceRecevier.h; sourceTree = "<group>"; };
 		6949876D1F971070008AE728 /* OfflineData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OfflineData.h; sourceTree = "<group>"; };
 		6949876E1F97107A008AE728 /* OfflineData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OfflineData.m; sourceTree = "<group>"; };
 		696963321D349B4C00CC3734 /* SurfShackMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfShackMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -470,6 +471,7 @@
 			children = (
 				69281ECA1D5427E700FD39BF /* ReportPageViewController.h */,
 				69281EC51D5427DD00FD39BF /* ReportPageViewController.m */,
+				694127041FEA225C0013E60A /* ForceRecevier.h */,
 				690F86451D408A2400C33918 /* ReportViewController.h */,
 				690F86431D408A1E00C33918 /* ReportViewController.m */,
 				69AA89C51FBECA090052DE1B /* ActivityResponder.h */,

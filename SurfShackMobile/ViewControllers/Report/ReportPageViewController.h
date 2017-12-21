@@ -15,10 +15,11 @@
 #import "DBManager.h"
 #import "DateHandler.h"
 #import "ActivityResponder.h"
+#import "ForceRecevier.h"
 
 #import "DataFactory.h"
 
-@interface ReportPageViewController : UIViewController <UIPageViewControllerDataSource,UIPageViewControllerDelegate, UITableViewDelegate, UITableViewDataSource,ActivityResponder>
+@interface ReportPageViewController : UIViewController <UIPageViewControllerDataSource,UIPageViewControllerDelegate, UITableViewDelegate, UITableViewDataSource,ActivityResponder,ForceReceiver>
 {
     DBManager* db;
     DataFactory* dataFactory;
@@ -32,7 +33,7 @@
     NSMutableArray* tableData;
     UITableView* theTableView;
     
-    UIPageControl *pageControl;
+    IBOutlet UIPageControl *pageControl;
     
     UIVisualEffectView *blurEffectView;
     
@@ -54,5 +55,8 @@
 @property NSArray* favoriteSpotsArr;
 @property NSArray* favoriteCounties;
 @property UIPageViewController* pageController;
+
+-(void)userIsForceTouching;
+-(void)goBackToNormal;
 
 @end

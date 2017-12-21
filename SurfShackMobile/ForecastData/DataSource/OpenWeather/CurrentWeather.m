@@ -38,9 +38,7 @@
           {
               NSLog(@"there was an error in getting json data from url in spitcast");
               NSLog(@"no %@ spot weather data download completed",spotNameInit);
-              NSMutableDictionary* weatherDict = [NSMutableDictionary dictionary];
-              [weatherDict setObject:spotNameInit forKey:@"spotName"];
-              [self.collector weatherDataDictReceived:weatherDict];
+              [self.collector weatherDataDictReceived:nil forSpot:spotNameInit];
               [op complete];
           }
           else
@@ -51,7 +49,7 @@
               self.weatherPacket = [[WeatherPacket alloc] init:jsonDataDict];
               NSMutableDictionary* weatherDict = [self.weatherPacket makeDict];
               [weatherDict setObject:spotNameInit forKey:@"spotName"];
-              [self.collector weatherDataDictReceived:weatherDict];
+              [self.collector weatherDataDictReceived:weatherDict forSpot:spotNameInit];
               [op complete];
           }
       }] resume];

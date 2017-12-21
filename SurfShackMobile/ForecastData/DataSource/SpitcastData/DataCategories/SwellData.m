@@ -35,9 +35,7 @@
               if([jsonDataArray count] == 0 || jsonDataArray == nil)
               {
                   NSLog(@"%@ county: no swell data was downloaded",self.countyName);
-                  NSMutableDictionary* swellDict = [NSMutableDictionary dictionary];
-                  [swellDict setValue:self.countyName forKey:@"countyID"];
-                  [self.collector swellDataDictReceived:nil];
+                  [self.collector swellDataDictReceived:nil forCounty:self.countyName];
                   [self.op complete];
                   return;
               }
@@ -94,7 +92,7 @@
               NSMutableDictionary* swellDict = [NSMutableDictionary dictionary];
               [swellDict setObject:dictWeekArray forKey:@"swellArray"];
               [swellDict setValue:self.countyName forKey:@"countyID"];
-              [self.collector swellDataDictReceived:swellDict];
+              [self.collector swellDataDictReceived:swellDict forCounty:self.countyName];
               [self.op complete];
     }
 }

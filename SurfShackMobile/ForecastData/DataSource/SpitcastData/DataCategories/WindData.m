@@ -37,10 +37,8 @@
     
     if([jsonDataArray count] == 0 || jsonDataArray == nil)
     {
-        NSLog(@"%@ wind data was downloaded",self.countyName);
-        NSMutableDictionary* windDict = [NSMutableDictionary dictionary];
-        [windDict setValue:self.countyName forKey:@"countyID"];
-        [self.collector windDataDictReceived:nil];
+        NSLog(@"No %@ wind data was downloaded",self.countyName);
+        [self.collector windDataDictReceived:nil forCounty:self.countyName];
         [self.op complete];
         return;
     }
@@ -93,7 +91,7 @@
     
     [aWindDict setObject:@"Surf Height (Powered by Spitcast)" forKey:@"plotLabel"];
     [aWindDict setValue:self.countyName forKey:@"countyID"];
-    [self.collector windDataDictReceived:aWindDict];
+    [self.collector windDataDictReceived:aWindDict forCounty:self.countyName];
     [self.op complete];
     }
 }

@@ -104,6 +104,61 @@
     [self.activityDelegate isLoadingData:true];
     spotDict = [OfflineData getOfflineDataForID:[[favSpots objectAtIndex:self.index] intValue]];
     [self chooseDataToDisplay];
+
+}
+
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"touches began");
+    
+    for (UITouch *touch in touches) {
+        CGFloat force = touch.force;
+        CGFloat percentage = force/touch.maximumPossibleForce;
+        if(percentage > 0.6)
+        {
+            
+            //[self setForcePercentage:percentage];
+            CGPoint plotViewPoint = [touch locationInView:aPlotView];
+            NSLog(@"force touch point x: %f y: %f",plotViewPoint.x,plotViewPoint.y);
+            [pageController userIsForceTouching];
+        }
+        NSLog(@"force percent: %f",percentage);
+        //[self setForcePercentage:percentage];
+        break;
+    }
+}
+
+-(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    for (UITouch *touch in touches) {
+        CGFloat force = touch.force;
+        CGFloat percentage = force/touch.maximumPossibleForce;
+        CGPoint plotViewPoint = [touch locationInView:aPlotView];
+        NSLog(@"force touch point x: %f y: %f",plotViewPoint.x,plotViewPoint.y);
+        if(percentage > 0.6)
+        {
+            
+            //[self setForcePercentage:percentage];
+            CGPoint plotViewPoint = [touch locationInView:aPlotView];
+            NSLog(@"force touch point x: %f y: %f",plotViewPoint.x,plotViewPoint.y);
+            [pageController userIsForceTouching];
+        }
+        break;
+    }
+}
+
+-(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"touches ended");
+    for (UITouch *touch in touches) {
+        //CGFloat force = touch.force;
+        //CGFloat percentage = force/touch.maximumPossibleForce;
+        //[pageController goBackToNormal];
+        //NSLog(@"force percent: %f",percentage);
+        //[self setForcePercentage:percentage];
+        break;
+    }
 }
 
 -(void)changeColor:(NSNotification*)notification
@@ -115,6 +170,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    //[self.view becomeFirstResponder];
     [self restrictRotation:NO];
     
     NSLog(@"view %d WILL appear",(int)self.index);
@@ -348,6 +404,11 @@
 -(void)setSpotDict:(NSMutableDictionary *)dictInit
 {
     spotDict = dictInit;
+}
+
+-(void)setForceReceiver:(id<ForceReceiver>)receiverInit;
+{
+    pageController = receiverInit;
 }
 
 -(void)didReceiveTap:(NSNotification*)notification

@@ -24,7 +24,9 @@
 #import "SubInfoView.h"
 
 #import "ActivityResponder.h"
+#import "ReportPageViewController.h"
 
+#import "ForceRecevier.h"
 
 @import Charts;
 @interface ReportViewController : MasterViewController <CLLocationManagerDelegate,UIGestureRecognizerDelegate>
@@ -58,6 +60,8 @@
     UILabel* headingLabel;
     
     CGPoint startSwipePoint;
+    
+    id<ForceReceiver> pageController;
 }
 
 @property NSInteger index;
@@ -69,5 +73,6 @@
 #pragma mark - Setters
 -(void)setSpotDict:(NSMutableDictionary*)dictInit;
 -(void)setDataFactory:(DataFactory*)aDataFactory;
+-(void)setForceReceiver:(id<ForceReceiver>)receiverInit;
 
 @end

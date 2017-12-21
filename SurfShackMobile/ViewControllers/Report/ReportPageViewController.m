@@ -40,7 +40,6 @@
     pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
     pageControl.backgroundColor = [UIColor clearColor];
 
-    
     //CHOOSE COLORS FROM THE COLOR SCHEME IN PREFERENCE, IT SHOULD BE A DICTIONARY FOR EACH COLOR SCHEME THAT HAS PLOT VIEW COLORS AND BAR COLORS.
     NSDictionary* prefs = [PreferenceFactory getPreferences];
     UIColor* color = [prefs objectForKey:kColorScheme];
@@ -65,7 +64,6 @@
         // Create page view controller
         self.pageController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
         self.pageController.dataSource = self;
-        
         [self addPageViewController];
     }
     else
@@ -79,7 +77,7 @@
         [alertController addAction:defaultAction];
         [self presentViewController:alertController animated:YES completion:nil];
     }
-    
+
     [self establishGestures];
 }
 
@@ -298,6 +296,7 @@
         [pageContentViewController setSpotDict:[dataFactory getASpotDictionary:aSpotName andCounty:aCounty]];
     }
     [pageContentViewController setDataFactory:dataFactory];
+    [pageContentViewController setForceReceiver:self];
     [db closeDatabase]; //jsut added
     
     return pageContentViewController;
@@ -533,6 +532,7 @@
 //    [swipeDown requireGestureRecognizerToFail:swipeRight];
 //    [swipeDown requireGestureRecognizerToFail:singleTap];
     
+    
     singleTap.cancelsTouchesInView = YES;
     
     [self.view addGestureRecognizer:swipeRight];
@@ -545,6 +545,20 @@
 {
     //post notification
     [[NSNotificationCenter defaultCenter] postNotificationName:@"tap" object:nil];
-    
 }
+
+#pragma mark - PageControl ReportVC methods
+-(void)userIsForceTouching
+{
+    //remove the black dots and disable the ability to swipe.
+    self.pageController.dataSource = nil;
+    NSLog(@"force touch deteced, hide pages!");
+}
+
+-(void)goBackToNormal
+{
+    self.pageController.dataSource = self;
+    NSLog(@"force touch ended, go back to pages!");
+}
+
 @end
