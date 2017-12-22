@@ -15,11 +15,10 @@
 #import "DBManager.h"
 #import "DateHandler.h"
 #import "ActivityResponder.h"
-#import "ForceRecevier.h"
 
 #import "DataFactory.h"
 
-@interface ReportPageViewController : UIViewController <UIPageViewControllerDataSource,UIPageViewControllerDelegate, UITableViewDelegate, UITableViewDataSource,ActivityResponder,ForceReceiver>
+@interface ReportPageViewController : UIViewController <UIPageViewControllerDataSource,UIPageViewControllerDelegate, UITableViewDelegate, UITableViewDataSource,ActivityResponder>
 {
     DBManager* db;
     DataFactory* dataFactory;
@@ -56,9 +55,6 @@
 @property NSArray* favoriteSpotsArr;
 @property NSArray* favoriteCounties;
 @property UIPageViewController* pageController;
-
--(void)userIsForceTouching;
--(void)goBackToNormal;
 
 -(IBAction)longPressBegan:(UILongPressGestureRecognizer *)recognizer;
 

@@ -280,7 +280,8 @@
 
 - (ReportViewController *)viewControllerAtIndex:(NSUInteger)index
 {
-    if (([self.favoriteSpotsArr count] == 0) || (index >= [self.favoriteSpotsArr count])) {
+    if (([self.favoriteSpotsArr count] == 0) || (index >= [self.favoriteSpotsArr count]))
+    {
         return nil;
     }
     
@@ -291,13 +292,12 @@
     
     if([db openDatabase])
     {
-        NSString* aSpotName = [db getSpotNameOfSpotID:[[_favoriteSpotsArr objectAtIndex:index] intValue]];
-        NSString* aCounty = [db getCountyOfSpotID:[[_favoriteSpotsArr objectAtIndex:index] intValue]];
-        [pageContentViewController setSpotDict:[dataFactory getASpotDictionary:aSpotName andCounty:aCounty]];
+        NSNumber* spotID = [_favoriteSpotsArr objectAtIndex:index];
+        [pageContentViewController setDataFactory:dataFactory];
+        pageContentViewController.activityDelegate = self;
     }
-    [pageContentViewController setDataFactory:dataFactory];
-    [pageContentViewController setForceReceiver:self];
-    [db closeDatabase]; //jsut added
+    
+    [db closeDatabase];
     
     return pageContentViewController;
 }
@@ -527,15 +527,6 @@
     swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:nil];
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     
-    longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPress:)];
-    longPress.minimumPressDuration = 1;
-    
-//    swipeDown = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDown:)];
-//    [swipeDown requireGestureRecognizerToFail:swipeLeft];
-//    [swipeDown requireGestureRecognizerToFail:swipeRight];
-//    [swipeDown requireGestureRecognizerToFail:singleTap];
-    
-    
     singleTap.cancelsTouchesInView = YES;
     
     [self.view addGestureRecognizer:swipeRight];
@@ -543,6 +534,7 @@
     [self.view addGestureRecognizer:singleTap];
 }
 
+//long press is added via the main story board
 -(IBAction)longPressBegan:(UILongPressGestureRecognizer *)recognizer
 {
     if (recognizer.state == UIGestureRecognizerStateBegan)
@@ -575,12 +567,7 @@
             self.pageController.dataSource = self;
             [self.pageController reloadInputViews];
             NSLog(@"long press ended");
-            
-            double currentIndex = (double)[DateHandler getIndexFromCurrentTime];
-        
             [[NSNotificationCenter defaultCenter] postNotificationName:@"futureIndexRatio" object:[NSNumber numberWithDouble:-1]];
-            
-            // Long press ended, stop the timer
         }
     }
 }
@@ -591,23 +578,5 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"tap" object:nil];
 }
 
--(void)didLongPress:(UILongPressGestureRecognizer*)longPress
-{
-    self.pageController.dataSource = nil;
-}
-
-#pragma mark - PageControl ReportVC methods
--(void)userIsForceTouching
-{
-    //remove the black dots and disable the ability to swipe.
-    self.pageController.dataSource = nil;
-    NSLog(@"force touch deteced, hide pages!");
-}
-
--(void)goBackToNormal
-{
-    self.pageController.dataSource = self;
-    NSLog(@"force touch ended, go back to pages!");
-}
 
 @end

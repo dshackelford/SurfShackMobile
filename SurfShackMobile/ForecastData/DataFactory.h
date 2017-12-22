@@ -16,11 +16,16 @@
 #import "DataSource.h" //spitcast
 #import "DataCollector.h"
 
+@class ReportViewController;
+
 @interface DataFactory : NSObject <DataCollector>
 {
     NSMutableDictionary* spotsDict; //obj: array of surf, key is the spotID
     NSMutableDictionary* countiesDict; //obj: array of countyDictionaries
+    NSMutableDictionary* reportDicts;
     NSMutableDictionary* viewControllersDict;
+    
+    int currentReportID;
     
     DBManager* db;
     
@@ -34,7 +39,7 @@
 
 -(void)getDataForSpots:(NSArray*)spotIDArray andCounties:(NSArray*)countiesArray;
 
--(NSMutableDictionary*)getASpotDictionary:(NSString*)spotNameInit andCounty:(NSString*)countyInit;
+-(NSMutableDictionary*)getASpotDictionary:(NSString*)spotNameInit andCounty:(NSString*)countyInit andID:(int)idInit;
 
 -(NSMutableArray*)getShorternedVersionOfArray:(NSMutableArray*)arrInit ofLength:(int)rangeInit;
 
@@ -48,6 +53,10 @@
 -(NSMutableDictionary*)setCurrentValuesForSpotDict:(NSMutableDictionary*)spotDictInit;
 
 -(void)removeSpotDictionary:(int)spotName;
+-(void)addReportVC:(ReportViewController*)vcInit ForID:(int)idInit;
 -(void)removeData;
+
+-(NSMutableDictionary*)dataForSpotID:(int)idInit;
+-(void)removeReportVCForID:(int)idInit;
 
 @end

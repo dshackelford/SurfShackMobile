@@ -67,13 +67,16 @@
     
     //spotDict = [OfflineData getOfflineDataForID:[[favSpots objectAtIndex:self.index] intValue]];
     //[self chooseDataToDisplay];
+
+    
+    [dataFactory addReportVC:self ForID:spotID]; //essentially this is just saying that this report view is the main view???
     
     [super viewDidLoad];
 }
 
 -(void)registerForNotifications
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actOnSpotData:) name:spotName object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actOnSpotData:) name:spotName object:nil];
 
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
     
@@ -116,22 +119,35 @@
     //set the title bar in the pageview controller
     [[NSNotificationCenter defaultCenter] postNotificationName:@"changeTitle" object:[NSNumber numberWithInteger:self.index]];
     
-    NSMutableDictionary* tempDict  = [dataFactory getASpotDictionary:spotName andCounty:county];
+    spotDict = [dataFactory dataForSpotID:spotID];
     
-    if (tempDict != nil)
+    if(spotDict)
     {
-        spotDict = tempDict;
-        [self spotHasData];
+        [self.activityDelegate isLoadingData:false];
+        
+        aPlotView.isOfflineData = [[spotDict objectForKey:@"isOld"] boolValue];
+        
+        [self chooseDataToDisplay];
     }
-    else
-    {
-         [self.activityDelegate isLoadingData:true];
-    }
-    
+
     [super viewWillAppear:YES];
 }
 
+//called when new data downloaded from data factory
+-(void)youHaveData:(NSMutableDictionary*)reportDictInit
+{
+    if(reportDictInit)
+    {
+        spotDict = reportDictInit;
+        
+        [self.activityDelegate isLoadingData:false];
+        
+        aPlotView.isOfflineData = [[reportDictInit objectForKey:@"isOld"] boolValue]; //read from the report Dict, there should be a value for if the data is old or not.
+        [self chooseDataToDisplay];
+    }
+}
 
+/*
 -(void)actOnSpotData:(NSNotification*)notification
 {
     NSLog(@"%@ received spot data notifcation",spotName);
@@ -142,10 +158,12 @@
 {
     NSLog(@"%@ received county data notification",county);
     [self grabData];
-}
+}*/
+
+/*
 -(void)grabData
 {
-    spotDict  = [dataFactory getASpotDictionary:spotName andCounty:county];
+    spotDict  = [dataFactory getASpotDictionary:spotName andCounty:county andID:spotID];
     if (spotDict != nil)
     {
         [self spotHasData];
@@ -160,7 +178,7 @@
             [self showNoDataAlert];
         }
     }
-}
+}*/
 
 -(void)showNoDataAlert
 {
@@ -351,10 +369,6 @@
     spotDict = dictInit;
 }
 
--(void)setForceReceiver:(id<ForceReceiver>)receiverInit;
-{
-    pageController = receiverInit;
-}
 
 -(void)didReceiveTap:(NSNotification*)notification
 {
@@ -376,4 +390,10 @@
 
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    
+    [dataFactory removeReportVCForID:spotID];
+}
 @end

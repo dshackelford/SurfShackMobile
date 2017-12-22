@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "DataFactory.h"
 #import <AsyncBlockOperation/AsyncBlockOperation.h>
+#import "OfflineData.h"
+#import "ReportViewController.h"
 
 @implementation DataFactory
 
@@ -27,17 +29,47 @@ typedef enum{
     
     spotsDict = [[NSMutableDictionary alloc] init]; //a spot: surf heights and weather
     countiesDict = [[NSMutableDictionary alloc] init];
+    reportDicts = [[NSMutableDictionary alloc] init]; //completed report view dictionaries
+    viewControllersDict = [[NSMutableDictionary alloc] init];
+    
     self.notificationTrackerDict = [NSMutableDictionary dictionary]; //hold whether or not a notification has already been sent
     self.spotNameVCs = [NSMutableDictionary dictionary];
     
     db = [[DBManager alloc] init];
     
     dateOnLastDownload = 0; //probably should read from a file?
-    
+    currentReportID = 0;
     return self;
 }
 
-//arrOfLocs holds an array of spotID's
+-(void)addReportVC:(ReportViewController*)vcInit ForID:(int)idInit
+{
+    [viewControllersDict setObject:vcInit forKey:[NSNumber numberWithInteger:idInit]];
+}
+
+-(void)removeReportVCForID:(int)idInit
+{
+    [viewControllersDict removeObjectForKey:[NSNumber numberWithInt:idInit]];
+}
+
+-(NSMutableDictionary*)dataForSpotID:(int)idInit
+{
+    currentReportID = idInit; //only views that are live call this
+    
+    //check for already locally cached data
+    if([reportDicts objectForKey:[NSNumber numberWithInt:idInit]])
+    {
+        //we have already a completed
+#warning need to check if this is old? we could just keep never quitting the app....
+        return [reportDicts objectForKey:[NSNumber numberWithInt:idInit]];
+    }
+    else
+    {
+        //nothing already cached. If its nil, then the report view will continue waiting
+        return [OfflineData getOfflineDataForID:idInit];
+    }
+}
+
 //this is called from report page view contorller
 -(void)getDataForSpots:(NSArray*)spotIDArray andCounties:(NSArray*)countiesArray
 {
@@ -157,7 +189,9 @@ typedef enum{
             
             NSOperationQueue* q = [NSOperationQueue mainQueue];
             NSBlockOperation* notifOp = [NSBlockOperation blockOperationWithBlock:^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:spotName object:nil];
+                
+                ReportViewController* vc = [viewControllersDict objectForKey:[NSNumber numberWithInt:spotID]];
+                [vc youHaveData:[self getASpotDictionary:spotName andCounty:county andID:spotID]];
             }];
             [q addOperation:notifOp];
         }
@@ -194,7 +228,9 @@ typedef enum{
                 
                 NSOperationQueue* q = [NSOperationQueue mainQueue];
                 NSBlockOperation* notifOp = [NSBlockOperation blockOperationWithBlock:^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:spotName object:nil];
+                    
+                    ReportViewController* vc = [viewControllersDict objectForKey:spotID];
+                    [vc youHaveData:[self getASpotDictionary:spotName andCounty:county andID:[spotID intValue]]];
                 }];
                 [q addOperation:notifOp];
             }
@@ -274,7 +310,6 @@ typedef enum{
 
 -(void)windDataDictReceived:(NSMutableDictionary *)windData forCounty:(NSString *)countyNameInit
 {
-    
     if(windData != nil)
     {
         NSMutableDictionary* aCountyDict = [countiesDict objectForKey:countyNameInit];
@@ -568,7 +603,7 @@ typedef enum{
     return spotDictInit;
 }
 
--(NSMutableDictionary*)getASpotDictionary:(NSString*)spotNameInit andCounty:(NSString*)countyInit
+-(NSMutableDictionary*)getASpotDictionary:(NSString*)spotNameInit andCounty:(NSString*)countyInit andID:(int)idInit
 {
     NSMutableDictionary* subSpotDict = [spotsDict objectForKey:spotNameInit];
     NSMutableDictionary* subCountyDict = [countiesDict objectForKey:countyInit];
@@ -613,6 +648,11 @@ typedef enum{
     else{
         return nil;
     }
+    
+    aSpotDict = [self setCurrentValuesForSpotDict:aSpotDict];
+    [aSpotDict setObject:[NSNumber numberWithBool:false] forKey:@"isOld"];
+    [reportDicts setObject:aSpotDict forKey:[NSNumber numberWithInteger:idInit]];
+    [OfflineData saveSpotDict:aSpotDict withID:idInit];
     
     return aSpotDict;
 }
