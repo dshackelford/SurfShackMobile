@@ -578,7 +578,7 @@
             
             double currentIndex = (double)[DateHandler getIndexFromCurrentTime];
         
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"futureIndexRatio" object:[NSNumber numberWithDouble:currentIndex]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"futureIndexRatio" object:[NSNumber numberWithDouble:-1]];
             
             // Long press ended, stop the timer
         }

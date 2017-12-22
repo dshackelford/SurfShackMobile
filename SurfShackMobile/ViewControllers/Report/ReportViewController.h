@@ -37,6 +37,7 @@
     DataFactory* dataFactory;
     NSString* county;
     NSString* spotName;
+    int spotID;
     NSMutableDictionary* spotDict;
     NSArray* favSpots;
     

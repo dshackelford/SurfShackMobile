@@ -14,12 +14,10 @@
 
 -(void)viewDidLoad
 {
-    db = [[DBManager alloc] init];
     
     [self restrictRotation:NO];
     
     screenSize = [UIScreen mainScreen].bounds.size;
-    
     if (screenSize.width > screenSize.height) //maintain a constant screen size for consistency
     {
         //swap the values for a load in horizontal
@@ -28,40 +26,18 @@
         screenSize.height = x;
     }
     
+    db = [[DBManager alloc] init];
     [db openDatabase];
     favSpots = [db getSpotFavorites];
-    county = [db getCountyOfSpotID:[[favSpots objectAtIndex:self.index] intValue]];
+    spotID = [[favSpots objectAtIndex:self.index] intValue];
+    county = [db getCountyOfSpotID:spotID];
     county = [CountyHandler moldStringForURL:county];
-    spotName = [db getSpotNameOfSpotID:[[favSpots objectAtIndex:self.index] intValue]];
-    NSString* spotID = [NSString stringWithFormat:@"%i",[[favSpots objectAtIndex:self.index] intValue]];
-    NSLog(@"this report view's spotID : \"%@\"",spotID);
+    spotName = [db getSpotNameOfSpotID:spotID];
     [db closeDatabase];
     
     self.view.backgroundColor = [UIColor clearColor];
 
-    NSLog(@"current spot:%@",spotName);
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actOnSpotData:) name:spotName object:nil];
-    NSLog(@"registered spot notification under %@",spotName);
-    
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actOnCountyData:) name:county object:nil];
-    
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRotate:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveTap:) name:@"tap" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:@"refreshData" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(futureIndexSet:) name:@"futureIndexRatio" object:nil];
-    
-    
-    
-    //ADD SUBVIEWS (OFFSET Y BY 70 FOR THE TITLE BAR BEING PRESENT)
-//    infoView = [[SubInfoView alloc] initWithFrame:CGRectMake(0, 70, screenSize.width, screenSize.height/4)];
-//    [self.view addSubview:infoView];
+    [self registerForNotifications];
     
     aCompView = [[CompassView alloc] initWithFrame:CGRectMake(0,100, screenSize.width, screenSize.height/3)];
     [self.view addSubview:aCompView];
@@ -69,14 +45,8 @@
     aPlotView = [[PlotView alloc] initWithFrame:CGRectMake(0,100 + aCompView.frame.size.height, screenSize.width, 200)];
     [self.view addSubview:aPlotView];
     
-
-//    aPlotView.layer.borderWidth = 2;
-//    aPlotView.layer.borderColor = [UIColor blackColor].CGColor;
-    
     aCompView.hidden = YES;
-//    infoView.hidden = YES;
     aPlotView.hidden = YES;
-    
     
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, screenSize.width/3 - 20, 25)];
     titleLabel.font = [UIFont boldSystemFontOfSize:23];
@@ -91,6 +61,36 @@
     //maybe determine this from the preference on what the user wants to see first?
     currentView = 1;
     
+    [self initializeCLLocationManager];
+    
+    self.noDataCount = 0;
+    
+    //spotDict = [OfflineData getOfflineDataForID:[[favSpots objectAtIndex:self.index] intValue]];
+    //[self chooseDataToDisplay];
+    
+    [super viewDidLoad];
+}
+
+-(void)registerForNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actOnSpotData:) name:spotName object:nil];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRotate:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveTap:) name:@"tap" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:@"refreshData" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(futureIndexSet:) name:@"futureIndexRatio" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeColor:) name:@"changeColorPref" object:nil];
+}
+
+-(void)initializeCLLocationManager
+{
     //LOCATION MANAGER FOR COMPASS
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -98,72 +98,8 @@
     locationManager.distanceFilter = kCLDistanceFilterNone;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager requestAlwaysAuthorization];
-    
-    [super viewDidLoad];
-    
-    self.noDataCount = 0;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeColor:) name:@"changeColorPref" object:nil];
-    [self.activityDelegate isLoadingData:true];
-    spotDict = [OfflineData getOfflineDataForID:[[favSpots objectAtIndex:self.index] intValue]];
-    [self chooseDataToDisplay];
-
 }
 
-/*
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"touches began");
-    
-    for (UITouch *touch in touches) {
-        CGFloat force = touch.force;
-        CGFloat percentage = force/touch.maximumPossibleForce;
-        if(percentage > 0.6)
-        {
-            
-            //[self setForcePercentage:percentage];
-            CGPoint plotViewPoint = [touch locationInView:aPlotView];
-            NSLog(@"force touch point x: %f y: %f",plotViewPoint.x,plotViewPoint.y);
-            [pageController userIsForceTouching];
-        }
-        NSLog(@"force percent: %f",percentage);
-        //[self setForcePercentage:percentage];
-        break;
-    }
-}
-
--(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    for (UITouch *touch in touches) {
-        CGFloat force = touch.force;
-        CGFloat percentage = force/touch.maximumPossibleForce;
-        CGPoint plotViewPoint = [touch locationInView:aPlotView];
-        NSLog(@"force touch point x: %f y: %f",plotViewPoint.x,plotViewPoint.y);
-        if(percentage > 0.6)
-        {
-            
-            //[self setForcePercentage:percentage];
-            CGPoint plotViewPoint = [touch locationInView:aPlotView];
-            NSLog(@"force touch point x: %f y: %f",plotViewPoint.x,plotViewPoint.y);
-            [pageController userIsForceTouching];
-        }
-        break;
-    }
-}
-
--(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"touches ended");
-    for (UITouch *touch in touches) {
-        //CGFloat force = touch.force;
-        //CGFloat percentage = force/touch.maximumPossibleForce;
-        //[pageController goBackToNormal];
-        //NSLog(@"force percent: %f",percentage);
-        //[self setForcePercentage:percentage];
-        break;
-    }
-}
-*/
 -(void)changeColor:(NSNotification*)notification
 {
     NSDictionary* dict = [PreferenceFactory getPreferences];
@@ -175,7 +111,7 @@
 {
     [self restrictRotation:NO];
     
-    NSLog(@"view %d WILL appear",(int)self.index);
+    [self.activityDelegate isLoadingData:true];
     
     //set the title bar in the pageview controller
     [[NSNotificationCenter defaultCenter] postNotificationName:@"changeTitle" object:[NSNumber numberWithInteger:self.index]];

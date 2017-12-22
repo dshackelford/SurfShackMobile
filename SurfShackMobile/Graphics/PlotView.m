@@ -48,8 +48,14 @@
 {
     NSNumber* indexRatio = notification.object;
     int index = [indexRatio doubleValue]*[yData count];
+    
+    if([indexRatio doubleValue] == -1)
+    {
+        //go to current time
+        index = [DateHandler getIndexFromCurrentTime];
+    }
+    
     NSLog(@"plot changing index line to %i",index);
-    //CURRENT TIME BAR
     NSMutableArray* currentBarVals = [[NSMutableArray alloc] init];
     [currentBarVals addObject:[[ChartDataEntry alloc] initWithX:index y:0]];
     [currentBarVals addObject:[[ChartDataEntry alloc] initWithX:index y:[[yData objectAtIndex:index] doubleValue]]];

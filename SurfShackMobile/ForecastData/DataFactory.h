@@ -20,8 +20,7 @@
 {
     NSMutableDictionary* spotsDict; //obj: array of surf, key is the spotID
     NSMutableDictionary* countiesDict; //obj: array of countyDictionaries
-    
-    SpitcastData* spitData;
+    NSMutableDictionary* viewControllersDict;
     
     DBManager* db;
     
