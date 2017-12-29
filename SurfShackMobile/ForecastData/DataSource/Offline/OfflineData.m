@@ -74,9 +74,8 @@
     NSString* idStr = [NSString stringWithFormat:@"%i",idInit];
     
     NSMutableDictionary* offlineDict = [NSMutableDictionary dictionaryWithContentsOfFile:[AppUtilities getPathToOfflineData]];
-    
     NSMutableDictionary* spotDict = [offlineDict objectForKey:idStr];
-    
+    [spotDict setObject:[NSNumber numberWithBool:true] forKey:@"isOld"];
     return spotDict;
 }
 

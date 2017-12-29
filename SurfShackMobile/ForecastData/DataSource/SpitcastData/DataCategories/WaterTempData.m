@@ -16,7 +16,7 @@
 {
     self = [super init];
     
-    self.urlStr = [NSString stringWithFormat:@"http://api.spitcast.com/api/county/water-temperature/%@/?dcat=week",countyInit];
+    self.urlStr = [NSString stringWithFormat:@"http://api.spitcast.com/api/county/water-temperature/%@/",countyInit];
     self.countyName = countyInit;
     self.downloadedData = nil;
     self.op = op;

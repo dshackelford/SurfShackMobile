@@ -123,10 +123,8 @@
     
     if(spotDict)
     {
-        [self.activityDelegate isLoadingData:false];
-        
         aPlotView.isOfflineData = [[spotDict objectForKey:@"isOld"] boolValue];
-        
+        [self.activityDelegate isLoadingData:aPlotView.isOfflineData];
         [self chooseDataToDisplay];
     }
 
@@ -140,45 +138,14 @@
     {
         spotDict = reportDictInit;
         
-        [self.activityDelegate isLoadingData:false];
-        
         aPlotView.isOfflineData = [[reportDictInit objectForKey:@"isOld"] boolValue]; //read from the report Dict, there should be a value for if the data is old or not.
+        [self.activityDelegate isLoadingData:aPlotView.isOfflineData];
+        
         [self chooseDataToDisplay];
     }
 }
 
-/*
--(void)actOnSpotData:(NSNotification*)notification
-{
-    NSLog(@"%@ received spot data notifcation",spotName);
-    [self grabData];
-}
 
--(void)actOnCountyData:(NSNotification*)notification
-{
-    NSLog(@"%@ received county data notification",county);
-    [self grabData];
-}*/
-
-/*
--(void)grabData
-{
-    spotDict  = [dataFactory getASpotDictionary:spotName andCounty:county andID:spotID];
-    if (spotDict != nil)
-    {
-        [self spotHasData];
-    }
-    else
-    {
-        self.noDataCount = self.noDataCount + 1;
-        if(self.noDataCount == 2)
-        {
-            //no data for this site!
-            [self.activityDelegate isLoadingData:false];
-            [self showNoDataAlert];
-        }
-    }
-}*/
 
 -(void)showNoDataAlert
 {

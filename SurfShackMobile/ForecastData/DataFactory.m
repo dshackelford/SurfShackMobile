@@ -60,7 +60,26 @@ typedef enum{
     if([reportDicts objectForKey:[NSNumber numberWithInt:idInit]])
     {
         //we have already a completed
-#warning need to check if this is old? we could just keep never quitting the app....
+        
+        NSString* downloadDate = [[reportDicts objectForKey:[NSNumber numberWithInt:idInit]] objectForKey:@"downloadDate"];
+        int date = [downloadDate intValue];
+        
+        if([[DateHandler getCurrentDateString] intValue] > date)
+        {
+            [[reportDicts objectForKey:[NSNumber numberWithInt:idInit]] setObject:[NSNumber numberWithBool:true] forKey:@"isOld"];
+            
+            if([db openDatabase])
+            {
+                NSArray* spotFavIDs = [db getSpotFavorites];
+                NSArray* countyFavs = [db getCountyFavorites];
+                
+                [self getDataForSpots:spotFavIDs andCounties:countyFavs];
+            }
+            
+            [db closeDatabase];
+            
+        }
+        
         return [reportDicts objectForKey:[NSNumber numberWithInt:idInit]];
     }
     else
@@ -651,7 +670,10 @@ typedef enum{
     
     aSpotDict = [self setCurrentValuesForSpotDict:aSpotDict];
     [aSpotDict setObject:[NSNumber numberWithBool:false] forKey:@"isOld"];
+    [aSpotDict setObject:[DateHandler getCurrentDateString] forKey:@"downloadDate"];
+    
     [reportDicts setObject:aSpotDict forKey:[NSNumber numberWithInteger:idInit]];
+    
     [OfflineData saveSpotDict:aSpotDict withID:idInit];
     
     return aSpotDict;
