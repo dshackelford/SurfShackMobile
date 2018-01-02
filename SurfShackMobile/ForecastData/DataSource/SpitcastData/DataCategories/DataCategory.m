@@ -52,7 +52,7 @@
     [[session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
         //NSInteger internalServerError = 500;
-        NSLog(@"Error code: %ld",(long)httpResponse.statusCode);
+        //NSLog(@"Error code: %ld",(long)httpResponse.statusCode);
         if(error)
         {
             //return false;

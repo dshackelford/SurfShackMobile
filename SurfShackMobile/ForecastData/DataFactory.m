@@ -85,6 +85,7 @@ typedef enum{
     else
     {
         //nothing already cached. If its nil, then the report view will continue waiting
+        NSLog(@"Returing offline data");
         return [OfflineData getOfflineDataForID:idInit];
     }
 }
@@ -210,6 +211,7 @@ typedef enum{
             NSBlockOperation* notifOp = [NSBlockOperation blockOperationWithBlock:^{
                 
                 ReportViewController* vc = [viewControllersDict objectForKey:[NSNumber numberWithInt:spotID]];
+                NSLog(@"%@ has data in spot check",spotName);
                 [vc youHaveData:[self getASpotDictionary:spotName andCounty:county andID:spotID]];
             }];
             [q addOperation:notifOp];
@@ -249,6 +251,7 @@ typedef enum{
                 NSBlockOperation* notifOp = [NSBlockOperation blockOperationWithBlock:^{
                     
                     ReportViewController* vc = [viewControllersDict objectForKey:spotID];
+                    NSLog(@"%@ has data in county check",spotName);
                     [vc youHaveData:[self getASpotDictionary:spotName andCounty:county andID:[spotID intValue]]];
                 }];
                 [q addOperation:notifOp];

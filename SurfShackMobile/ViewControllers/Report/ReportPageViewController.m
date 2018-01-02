@@ -53,7 +53,7 @@
     
     if ([_favoriteSpotsArr count] > 0)
     {
-        refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(didPressRefreshButton:)];
+        //refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(didPressRefreshButton:)];
         
         self.activityView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
         self.activityIndicatorButton = [[UIBarButtonItem alloc] initWithCustomView:self.activityView];
@@ -227,7 +227,6 @@
     else
     {
         [self.activityView stopAnimating];
-        self.navigationItem.leftBarButtonItem = refreshButton;
     }
 }
 #pragma mark - Page View Controller Delegate Methods

@@ -65,10 +65,6 @@
     
     self.noDataCount = 0;
     
-    //spotDict = [OfflineData getOfflineDataForID:[[favSpots objectAtIndex:self.index] intValue]];
-    //[self chooseDataToDisplay];
-
-    
     [dataFactory addReportVC:self ForID:spotID]; //essentially this is just saying that this report view is the main view???
     
     [super viewDidLoad];
@@ -76,8 +72,6 @@
 
 -(void)registerForNotifications
 {
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actOnSpotData:) name:spotName object:nil];
-
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
     
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -140,7 +134,7 @@
         
         aPlotView.isOfflineData = [[reportDictInit objectForKey:@"isOld"] boolValue]; //read from the report Dict, there should be a value for if the data is old or not.
         [self.activityDelegate isLoadingData:aPlotView.isOfflineData];
-        
+        NSLog(@"%@ choosing to display new data it received",spotName);
         [self chooseDataToDisplay];
     }
 }
