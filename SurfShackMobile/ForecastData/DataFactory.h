@@ -15,6 +15,7 @@
 
 #import "DataSource.h" //spitcast
 #import "DataCollector.h"
+#import <FMDB/FMDB.h>
 
 @class ReportViewController;
 
@@ -28,7 +29,7 @@
     int currentReportID;
     
     DBManager* db;
-    
+    FMDatabase* fmdb;
     int dateOnLastDownload;
 }
 

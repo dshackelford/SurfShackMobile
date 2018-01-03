@@ -8,18 +8,26 @@
 
 #import <Foundation/Foundation.h>
 #import "CountyHandler.h"
-
+#import "DBQueries.h"
 
 @implementation CountyHandler
 
 +(NSString*)getCountyOfSpot:(int)locInit
 {
-    DBManager* db = [[DBManager alloc] init];
-    [db openDatabase];
+    FMDatabase* fmdb = [FMDatabase databaseWithPath:[AppUtilities getPathToAppDatabase]];
     
-    NSString* county = [db getCountyOfSpotID:locInit];
     
-    [db closeDatabase];
+    NSString* county = @"unkown";
+    if([fmdb open])
+    {
+        FMResultSet* set = [fmdb executeQuery:[DBQueries getCountyOfSpotID:locInit]];
+        
+        while([set next])
+        {
+            county = [set stringForColumn:@"spotCounty"];
+        }
+    }
+    [fmdb close];
     
     return [self moldStringForURL:county];
 }
