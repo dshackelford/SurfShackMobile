@@ -102,11 +102,12 @@ typedef enum{
     {
         int intNum = [num intValue];
         
+        /*
         if([fmdb open])
         {
             FMResultSet* set = [fmdb executeQuery:@"SELECT spotLat,spotLon FROM SpitcastSpots WHERE SpotID = %d",intNum];
             //CLLocation* loc
-        }
+        }*/
         
         [db openDatabase];
         [arrOfLocs addObject: [db getLocationOfSpot:intNum]];

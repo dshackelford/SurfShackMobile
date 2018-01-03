@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ReportViewController.h"
 #import "OfflineData.h"
+#import "DBQueries.h"
 
 @implementation ReportViewController
 
@@ -27,13 +28,13 @@
     }
     
     db = [[DBManager alloc] init];
-    [db openDatabase];
-    favSpots = [db getSpotFavorites];
+    
+    favSpots = [DBQueries getSpotFavorites];
     spotID = [[favSpots objectAtIndex:self.index] intValue];
-    county = [db getCountyOfSpotID:spotID];
-    county = [CountyHandler moldStringForURL:county];
-    spotName = [db getSpotNameOfSpotID:spotID];
-    [db closeDatabase];
+    
+    county = [CountyHandler getCountyOfSpot:spotID];
+    
+    spotName = [DBQueries getSpotNameOfSpotID:spotID];
     
     self.view.backgroundColor = [UIColor clearColor];
 

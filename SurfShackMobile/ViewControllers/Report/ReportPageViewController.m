@@ -10,6 +10,7 @@
 #import "ReportPageViewController.h"
 
 #import "OfflineData.h"
+#import "DBQueries.h"
 
 @implementation ReportPageViewController
 
@@ -26,12 +27,9 @@
     dataFactory = [[DataFactory alloc] init];
     
     db = [[DBManager alloc] init];
-    if ([db openDatabase])
-    {
-        _favoriteSpotsArr = [db getSpotFavorites]; //array of NSNumbers integers
-        _favoriteCounties = [db getCountyFavorites]; //array of strings
-    }
-    [db closeDatabase];
+    
+    _favoriteSpotsArr = [DBQueries getSpotFavorites];
+    _favoriteCounties = [DBQueries getCountyFavorites];
 
     screenSize = [UIScreen mainScreen].bounds.size;
     
@@ -86,12 +84,8 @@
     [super viewDidAppear:YES];
     
     //check to see there are favorite spots selected by the user
-    if ([db openDatabase])
-    {
-        _favoriteSpotsArr = [db getSpotFavorites];
-        _favoriteCounties = [db getCountyFavorites];
-    }
-    [db closeDatabase];
+    _favoriteSpotsArr = [DBQueries getSpotFavorites];
+    _favoriteCounties = [DBQueries getCountyFavorites];
     
     NSLog(@"Report Page Appeared");
     
@@ -131,13 +125,10 @@
 
 -(void)changeTitle:(NSNotification*)notification
 {
-    [db openDatabase];
-    _favoriteSpotsArr = [db getSpotFavorites];
-    if ([[db getSpotFavorites] count] > 0)
+    if ([[DBQueries getSpotFavorites] count] > 0)
     {
-        self.title = [[db getSpotNameFavorites] objectAtIndex:[notification.object integerValue]];
+        self.title = [[DBQueries getSpotNameFavorites] objectAtIndex:[notification.object integerValue]];
     }
-    [db closeDatabase];
     
 }
 
@@ -196,10 +187,8 @@
 
 -(void)changedSpotFavorites:(NSNotification*)notification
 {
-    [db openDatabase];
-    _favoriteSpotsArr = [db getSpotFavorites];
+    _favoriteSpotsArr =  [DBQueries getSpotFavorites];
     [theTableView reloadData];
-    [db closeDatabase];
     
     NSLog(@"changed spot favorites %@",_favoriteSpotsArr);
     
@@ -289,14 +278,9 @@
     
     pageContentViewController.index = index;
     
-    if([db openDatabase])
-    {
-        NSNumber* spotID = [_favoriteSpotsArr objectAtIndex:index];
-        [pageContentViewController setDataFactory:dataFactory];
-        pageContentViewController.activityDelegate = self;
-    }
-    
-    [db closeDatabase];
+    NSNumber* spotID = [_favoriteSpotsArr objectAtIndex:index];
+    [pageContentViewController setDataFactory:dataFactory];
+    pageContentViewController.activityDelegate = self;
     
     return pageContentViewController;
 }
@@ -317,9 +301,7 @@
 -(void)addFavoritesTable
 {
     //show list of spaces
-    [db openDatabase];
-    tableData = [[NSMutableArray alloc] initWithArray:[db getSpotNameFavorites]];
-    [db closeDatabase];
+    tableData = [[NSMutableArray alloc] initWithArray:[DBQueries getSpotNameFavorites]];
     
     int rowHeight = 40;
     

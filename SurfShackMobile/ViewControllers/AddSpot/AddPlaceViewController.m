@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AddPlaceViewController.h"
+#import "DBQueries.h"
 
 
 @implementation AddPlaceViewController
@@ -36,11 +37,7 @@
     
     countyArr = [[NSMutableArray alloc] init];
     
-    Boolean success;
     db = [[DBManager alloc] init];
-    success = [db openDatabase];
-    int mrCount = [db getCountOfAllSpots];
-    [db closeDatabase];
     
     screenSize = [UIScreen mainScreen].bounds.size;
     
@@ -59,18 +56,15 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeColor:) name:@"changeColorPref" object:nil];
     
-    if(mrCount > 1 && success == YES)
+    if([DBQueries getCountOfAllSpots] > 1)
     {
-        [db openDatabase];
-        countyArr = [db getAllCounties];
-        favSpots = [db getSpotFavorites];
-        favSpotNames = [db getSpotNameFavorites];
-        favCountyArr = [db getCountyFavorites];
+        countyArr = [DBQueries getAllCounties];
+        favSpots = [DBQueries getSpotFavorites];
+        favSpotNames = [DBQueries getSpotNameFavorites];
+        favCountyArr = [DBQueries getCountyFavorites];
         
         tableData = countyArr;
         NSLog(@"%@",countyArr);
-        [db closeDatabase];
-        
     }
     else
     {
@@ -96,10 +90,8 @@
     dispatch_async(dispatch_get_main_queue(), ^(){
         NSLog(@"ot some spots");
     [alertController dismissViewControllerAnimated:YES completion:nil];
-    [db openDatabase];
-    tableData = [db getAllCounties];
+    tableData = [DBQueries getAllCounties];
     [self.tableView reloadData];
-    [db closeDatabase];
         
     });
 }
@@ -112,12 +104,12 @@
     [self restrictRotation:YES];
     [super viewWillAppear:NO];
     
-    if([db openDatabase] && [[db getAllCounties] count] > 0)
+    if([[DBQueries getAllCounties] count] > 0)
     {
-        tableData = [db getAllCounties];
+        tableData = [DBQueries getAllCounties];
         [self.tableView reloadData];
-        favSpots = [db getSpotFavorites];
-        favCountyArr = [db getCountyFavorites];
+        favSpots = [DBQueries getSpotFavorites];
+        favCountyArr = [DBQueries getCountyFavorites];
     }
     
     [db closeDatabase];
@@ -171,14 +163,10 @@
 #pragma mark - DataCollector Methods
 -(void)countyAndSpotsReceived:(NSMutableArray *)countiesArray
 {
-    [db openDatabase];
-    
     for (CountyInfoPacket* spotData in countiesArray)
     {
-        [db addSpotID:[spotData getSpotID] SpotName:[spotData getSpotName] andCounty:[spotData getCountyName] withLat:[spotData getLat] andLon:[spotData getLon]];
+        [DBQueries addSpotID:[spotData getSpotID] SpotName:[spotData getSpotName] andCounty:[spotData getCountyName] withLat:[spotData getLat] andLon:[spotData getLon]];
     }
-    
-    [db closeDatabase];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"AddedSpotsToDB" object:nil];
 }

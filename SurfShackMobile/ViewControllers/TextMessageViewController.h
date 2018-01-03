@@ -13,7 +13,7 @@
 
 @interface TextMessageViewController : MasterViewController
 {
-    DBManager* db;
+    
 }
 
 @end
