@@ -255,7 +255,7 @@
             
             [aPlotView establishViewWithData:shortMags withXVals:shortXVals withIndicatorVal:indicatorStr andPlotLabel:[infoDict objectForKey:@"plotLabel"]];
             
-            [aPlotView updateFrame:CGRectMake(0,screenSize.height - screenSize.height/3 - 75, screenSize.width, screenSize.height/3) forCurrentView:currentView];
+            [aPlotView updateFrame:CGRectMake(0,screenSize.height - screenSize.height/3 - 90, screenSize.width, screenSize.height/3) forCurrentView:currentView];
   
             [self.tabBarController.tabBar setHidden:NO];
             aCompView.hidden = NO;

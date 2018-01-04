@@ -69,9 +69,14 @@ typedef enum{
             
             NSArray* spotFavIDs = [DBQueries getSpotFavorites];
             NSArray* countyFavs = [DBQueries getCountyFavorites];
-                
+            
+            //start background thread for downloading dictionaries
             [self getDataForSpots:spotFavIDs andCounties:countyFavs];
             
+        }
+        else
+        {
+            [[reportDicts objectForKey:[NSNumber numberWithInt:idInit]] setObject:[NSNumber numberWithBool:false] forKey:@"isOld"];
         }
         
         return [reportDicts objectForKey:[NSNumber numberWithInt:idInit]];
@@ -195,9 +200,9 @@ typedef enum{
     
     if(countyDict)
     {
-        if(![[self.notificationTrackerDict objectForKey:spotName] boolValue])
-        {
-            [self.notificationTrackerDict setObject:[NSNumber numberWithBool:true] forKey:spotName];
+        //if(![[self.notificationTrackerDict objectForKey:spotName] boolValue])
+        //{
+           // [self.notificationTrackerDict setObject:[NSNumber numberWithBool:true] forKey:spotName];
             
             NSOperationQueue* q = [NSOperationQueue mainQueue];
             NSBlockOperation* notifOp = [NSBlockOperation blockOperationWithBlock:^{
@@ -207,41 +212,30 @@ typedef enum{
                 [vc youHaveData:[self getASpotDictionary:spotName andCounty:county andID:spotID]];
             }];
             [q addOperation:notifOp];
-        }
+        //}
     }
     
 }
 
 -(void)checkForCompletionForCounty:(NSString*)countyName
 {
-    NSMutableArray* favoriteSpotsArr = [NSMutableArray array];
-    
-    favoriteSpotsArr = [DBQueries getSpotFavorites];
-
-    for(NSNumber* spotID in favoriteSpotsArr)
+    for(NSNumber* spotID in [DBQueries getSpotFavorites])
     {
         NSString* county = [CountyHandler getCountyOfSpot:[spotID intValue]];
             
         if([county isEqualToString:countyName])
         {
-            NSString* spotName = @"";
+            NSString* spotName = [DBQueries getSpotNameOfSpotID:[spotID intValue]];
             
-            spotName = [DBQueries getSpotNameOfSpotID:[spotID intValue]];
-            
-            if([[[spotsDict objectForKey:spotName] allKeys] count] == 2 && ![[self.notificationTrackerDict objectForKey:spotName] boolValue])
-            {
                 [self.notificationTrackerDict setObject:[NSNumber numberWithBool:true] forKey:spotName];
                 
                 NSOperationQueue* q = [NSOperationQueue mainQueue];
                 NSBlockOperation* notifOp = [NSBlockOperation blockOperationWithBlock:^{
-                    
                     ReportViewController* vc = [viewControllersDict objectForKey:spotID];
                     NSLog(@"%@ has data in county check",spotName);
                     [vc youHaveData:[self getASpotDictionary:spotName andCounty:county andID:[spotID intValue]]];
                 }];
                 [q addOperation:notifOp];
-            }
-
         }
         
     }
@@ -617,43 +611,29 @@ typedef enum{
     
     NSMutableDictionary* aSpotDict = [[NSMutableDictionary alloc] init];
     
-    if ([[subSpotDict allKeys] count] < 1 || [[subCountyDict allKeys] count] < 1)
-    {
-        return nil;
-    }
-    if([[subCountyDict allKeys] count] == 4)
-    {
+    //if ([[subSpotDict allKeys] count] < 1 || [[subCountyDict allKeys] count] < 1)
+    //{
+      //  return nil;
+    //}
+    //if([[subCountyDict allKeys] count] == 4)
+    //{
         for (NSString* key in [subCountyDict allKeys])
         {
-            if([subCountyDict objectForKey:key] == nil)
-            {
-                return nil;
-            }
-            if([subCountyDict objectForKey:key] != nil && [[subCountyDict allKeys] count] == 4)
+            if([subCountyDict objectForKey:key] != nil)
             {
                 [aSpotDict setObject:[subCountyDict objectForKey:key] forKey:key];
             }
         }
-    }
+    /*}
     else
     {
         return nil;
-    }
+    }*/
     
-    if([[subSpotDict allKeys] count] == 2)
+
+    for (NSString* key in [subSpotDict allKeys])
     {
-        NSDictionary* surfDict =[subSpotDict objectForKey:@"surf"];
-        if(![surfDict isKindOfClass:[NSDictionary class]] || surfDict == nil || [[surfDict allKeys] count] < 2)
-        {
-            return nil;
-        }
-        for (NSString* key in [subSpotDict allKeys])
-        {
-            [aSpotDict setObject:[subSpotDict objectForKey:key] forKey:key];
-        }
-    }
-    else{
-        return nil;
+        [aSpotDict setObject:[subSpotDict objectForKey:key] forKey:key];
     }
     
     aSpotDict = [self setCurrentValuesForSpotDict:aSpotDict];

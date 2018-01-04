@@ -125,6 +125,7 @@
     else //there is no data!!
     {
         _theChartView.noDataText = @" Sorry, there seems to be no surf data \n for this spot, try another spot close to this one.";
+        [_theChartView setData:nil];
         //these don't work anymore?
 //        _theChartView.infoTextColor = [UIColor blackColor];
 //        _theChartView.infoFont = [UIFont boldSystemFontOfSize:15];
