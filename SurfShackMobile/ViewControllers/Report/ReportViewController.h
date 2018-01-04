@@ -17,7 +17,6 @@
 #import "DataFactory.h"
 
 #import "AppDelegate.h"
-#import "DBManager.h"
 
 #import "CompassView.h"
 #import "DatumView.h"
@@ -29,8 +28,6 @@
 @import Charts;
 @interface ReportViewController : MasterViewController <CLLocationManagerDelegate,UIGestureRecognizerDelegate>
 {
-    DBManager* db; //local database manager for use surf spot selections
-
     //CURRENT SPOT
     DataFactory* dataFactory;
     NSString* county;

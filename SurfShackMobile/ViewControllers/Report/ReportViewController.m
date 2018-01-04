@@ -27,8 +27,6 @@
         screenSize.height = x;
     }
     
-    db = [[DBManager alloc] init];
-    
     favSpots = [DBQueries getSpotFavorites];
     spotID = [[favSpots objectAtIndex:self.index] intValue];
     

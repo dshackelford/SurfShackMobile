@@ -51,6 +51,23 @@
     return arrOfSpots;
 }
 
++(int)getCountOfSpotFavorites
+{
+    int count = 0;
+    FMDatabase* fmdb = [FMDatabase databaseWithPath:[AppUtilities getPathToAppDatabase]];
+    if([fmdb open])
+    {
+        FMResultSet* set = [fmdb executeQuery:@"SELECT count(*) FROM SpitcastSpots WHERE SpotFavorite = 1"];
+        while([set next])
+        {
+            count = [set intForColumn:@"count(*)"];
+        }
+    }
+    [fmdb close];
+    
+    return count;
+}
+
 +(NSMutableArray*)getCountyFavorites
 {
     NSMutableArray* arrOfCounties = [NSMutableArray array];
@@ -108,6 +125,43 @@
     return arrOfSpotFavoriteNames;
 }
 
++(NSMutableArray*)getSpotsInCounty:(NSString*)countyInit
+{
+    NSMutableArray* spots = [NSMutableArray array];
+    FMDatabase* fmdb = [FMDatabase databaseWithPath:[AppUtilities getPathToAppDatabase]];
+    if([fmdb open])
+    {
+        FMResultSet* set = [fmdb executeQuery:[NSString stringWithFormat:@"SELECT * FROM SpitcastSpots WHERE SpotCounty LIKE '%%%@%%' ORDER BY SpotLat DESC",countyInit]];
+        while([set next])
+        {
+            NSString* spotName = [set stringForColumn:@"SpotName"];
+            [spots addObject:spotName];
+        }
+    }
+    [fmdb close];
+    
+    return spots;
+    
+}
+
++(NSMutableArray*)getSpotNamesFromSearchString:(NSString*)searchString
+{
+    NSMutableArray* spots = [NSMutableArray array];
+    FMDatabase* fmdb = [FMDatabase databaseWithPath:[AppUtilities getPathToAppDatabase]];
+    if([fmdb open])
+    {
+        FMResultSet* set = [fmdb executeQuery:[NSString stringWithFormat:@"SELECT * FROM SpitcastSpots WHERE SpotName LIKE '%%%@%%'",searchString]];
+        while([set next])
+        {
+            NSString* spotName = [set stringForColumn:@"SpotName"];
+            [spots addObject:spotName];
+        }
+    }
+    [fmdb close];
+    
+    return spots;
+}
+
 +(int)getCountOfAllSpots
 {
     int count = 0;
@@ -124,9 +178,44 @@
     [fmdb close];
     
     return count;
-    
 }
 
++(CLLocation*)getLocationOfSpot:(int)idInit
+{
+    CLLocation* aLoc;
+    
+    FMDatabase* fmdb = [FMDatabase databaseWithPath:[AppUtilities getPathToAppDatabase]];
+    if([fmdb open])
+    {
+        FMResultSet* set = [fmdb executeQuery:[NSString stringWithFormat:@"SELECT * FROM SpitcastSpots WHERE SpotID = %d",idInit]];
+        while([set next])
+        {
+            double lat = [set doubleForColumn:@"SpotLat"];
+            double lon = [set doubleForColumn:@"SpotLon"];
+            aLoc = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+        }
+    }
+    [fmdb close];
+
+    return aLoc;
+}
+
+#pragma mark - Update Database
++(void)addSpitcastTable
+{
+    FMDatabase* fmdb = [FMDatabase databaseWithPath:[AppUtilities getPathToAppDatabase]];
+    
+    if([fmdb open])
+    {
+        bool isTable = [fmdb tableExists:@"SpitcastSpots"];
+        if(!isTable)
+        {
+            NSLog(@"no table, need to CREATE TABLE");
+            [fmdb executeUpdate:@"CREATE TABLE IF NOT EXISTS SpitcastSpots (SpotID int NOT NULL PRIMARY KEY ON CONFLICT REPLACE UNIQUE, SpotName text, SpotCounty text, SpotLat double DEFAULT 0.0, SpotLon double DEFAULT 0.0, SpotFavorite boolean DEFAULT false)"];
+        }
+    }
+    [fmdb close];
+}
 +(Boolean)addSpotID:(int)spotIDInit SpotName:(NSString*)spotNameInit andCounty:(NSString*)spotCountyInit withLat:(double)latInit andLon:(double)lonInit
 {
     NSMutableString* sql = [NSMutableString stringWithString:@"INSERT INTO SpitcastSpots "];
@@ -142,10 +231,6 @@
     
     FMDatabase* fmdb = [FMDatabase databaseWithPath:[AppUtilities getPathToAppDatabase]];
     
-    NSString* query = @"CREATE TABLE IF NOT EXISTS SpitcastSpots (SpotID int NOT NULL PRIMARY KEY ON CONFLICT REPLACE UNIQUE, SpotName text, SpotCounty text, SpotLat double DEFAULT 0.0, SpotLon double DEFAULT 0.0, SpotFavorite boolean DEFAULT false)";
-    [fmdb executeQuery:query];
-    
-    
     if([fmdb open])
     {
         FMResultSet* set = [fmdb executeQuery:sql];
@@ -159,11 +244,35 @@
         }
     }
 
-    
     [fmdb close];
     
     return true;
 }
+
++(void)setSpot:(NSString*)spotNameInit toFav:(BOOL)favInit
+{
+    NSString* sql;
+    
+    if (favInit == true)
+    {
+        sql = [NSString stringWithFormat:@"UPDATE SpitcastSpots SET SpotFavorite = 1 WHERE SpotName = '%@'",spotNameInit];
+    }
+    else
+    {
+        sql = [NSString stringWithFormat:@"UPDATE SpitcastSpots SET SpotFavorite = 0 WHERE SpotName = '%@'",spotNameInit];
+    }
+    
+    FMDatabase* fmdb = [FMDatabase databaseWithPath:[AppUtilities getPathToAppDatabase]];
+    
+    if([fmdb open])
+    {
+        [fmdb executeUpdate:sql];
+    }
+    
+    [fmdb close];
+    
+}
+
 
 +(NSString*)countOfFavoriteSpots
 {

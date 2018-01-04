@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SpitcastData.h"
 #import "CountyHandler.h"
-#import "DBManager.h"
 #import "CurrentWeather.h"
 #import "DateHandler.h"
 
@@ -28,8 +27,6 @@
     
     int currentReportID;
     
-    DBManager* db;
-    FMDatabase* fmdb;
     int dateOnLastDownload;
 }
 

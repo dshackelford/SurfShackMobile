@@ -12,7 +12,6 @@
 #import "PreferenceFactory.h"
 #import "CoreLocation/CoreLocation.h"
 #import "arrowCell.h"
-#import "DBManager.h"
 #import "DateHandler.h"
 #import "ActivityResponder.h"
 
@@ -20,7 +19,6 @@
 
 @interface ReportPageViewController : UIViewController <UIPageViewControllerDataSource,UIPageViewControllerDelegate, UITableViewDelegate, UITableViewDataSource,ActivityResponder>
 {
-    DBManager* db;
     DataFactory* dataFactory;
     
     UIAlertController* alertController;

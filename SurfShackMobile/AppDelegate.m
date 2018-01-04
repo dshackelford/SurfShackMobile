@@ -7,8 +7,7 @@
 //
 
 #import "AppDelegate.h"
-//testing commit
-//testing commit for base branch
+
 @interface AppDelegate ()
 
 @end
@@ -17,7 +16,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
     return YES;
 }
 

@@ -22,15 +22,12 @@
 #import <CoreLocation/CoreLocation.h>
 
 #import "SpotListViewController.h"
-#import "DBManager.h"
 #import "AppDelegate.h"
 
 #import "DataCollector.h"
 
 @interface AddPlaceViewController : UITableViewController <CLLocationManagerDelegate,UISearchBarDelegate, UISearchControllerDelegate,DataCollector>
 {
-    DBManager* db;
-    
     CGSize screenSize;
     IBOutlet UILabel* titleLabel;
     UITableView* theTableView;

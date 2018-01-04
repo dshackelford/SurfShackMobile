@@ -26,8 +26,6 @@
     
     dataFactory = [[DataFactory alloc] init];
     
-    db = [[DBManager alloc] init];
-    
     _favoriteSpotsArr = [DBQueries getSpotFavorites];
     _favoriteCounties = [DBQueries getCountyFavorites];
 

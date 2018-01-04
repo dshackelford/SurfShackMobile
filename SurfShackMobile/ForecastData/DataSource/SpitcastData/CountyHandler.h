@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "AppUtilities.h"
-#import "DBManager.h"
 #import <FMDB/FMDB.h>
 
 @interface CountyHandler : NSObject

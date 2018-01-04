@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DBManager.h"
 #import "PreferenceFactory.h"
 #import "CountyHandler.h"
 

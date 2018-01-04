@@ -11,6 +11,7 @@
 #import <AsyncBlockOperation/AsyncBlockOperation.h>
 #import "OfflineData.h"
 #import "ReportViewController.h"
+#import "DBQueries.h"
 
 @implementation DataFactory
 
@@ -34,9 +35,6 @@ typedef enum{
     
     self.notificationTrackerDict = [NSMutableDictionary dictionary]; //hold whether or not a notification has already been sent
     self.spotNameVCs = [NSMutableDictionary dictionary];
-    
-    db = [[DBManager alloc] init];
-    fmdb = [FMDatabase databaseWithPath:[AppUtilities getPathToAppDatabase]];
     
     dateOnLastDownload = 0; //probably should read from a file?
     currentReportID = 0;
@@ -69,15 +67,10 @@ typedef enum{
         {
             [[reportDicts objectForKey:[NSNumber numberWithInt:idInit]] setObject:[NSNumber numberWithBool:true] forKey:@"isOld"];
             
-            if([db openDatabase])
-            {
-                NSArray* spotFavIDs = [db getSpotFavorites];
-                NSArray* countyFavs = [db getCountyFavorites];
+            NSArray* spotFavIDs = [DBQueries getSpotFavorites];
+            NSArray* countyFavs = [DBQueries getCountyFavorites];
                 
-                [self getDataForSpots:spotFavIDs andCounties:countyFavs];
-            }
-            
-            [db closeDatabase];
+            [self getDataForSpots:spotFavIDs andCounties:countyFavs];
             
         }
         
@@ -102,19 +95,10 @@ typedef enum{
     {
         int intNum = [num intValue];
         
-        /*
-        if([fmdb open])
-        {
-            FMResultSet* set = [fmdb executeQuery:@"SELECT spotLat,spotLon FROM SpitcastSpots WHERE SpotID = %d",intNum];
-            //CLLocation* loc
-        }*/
+        [arrOfLocs addObject: [DBQueries getLocationOfSpot:intNum]];
+        [arrOfSpotNames addObject:[DBQueries getSpotNameOfSpotID:intNum]];
         
-        [db openDatabase];
-        [arrOfLocs addObject: [db getLocationOfSpot:intNum]];
-        [arrOfSpotNames addObject:[db getSpotNameOfSpotID:intNum]];
-        
-        [self.notificationTrackerDict setObject:[NSNumber numberWithBool:false] forKey:[db getSpotNameOfSpotID:intNum]];
-        [db closeDatabase];
+        [self.notificationTrackerDict setObject:[NSNumber numberWithBool:false] forKey:[DBQueries getSpotNameOfSpotID:intNum]];
     }
     
     int currentDownloadTry = [[DateHandler getCurrentDateString] intValue];
@@ -232,12 +216,8 @@ typedef enum{
 {
     NSMutableArray* favoriteSpotsArr = [NSMutableArray array];
     
-    if ([db openDatabase])
-    {
-        favoriteSpotsArr = [db getSpotFavorites];
-    }
-    [db closeDatabase];
-    
+    favoriteSpotsArr = [DBQueries getSpotFavorites];
+
     for(NSNumber* spotID in favoriteSpotsArr)
     {
         NSString* county = [CountyHandler getCountyOfSpot:[spotID intValue]];
@@ -246,10 +226,7 @@ typedef enum{
         {
             NSString* spotName = @"";
             
-            if([db openDatabase])
-            {
-                spotName = [db getSpotNameOfSpotID:[spotID intValue]];
-            }
+            spotName = [DBQueries getSpotNameOfSpotID:[spotID intValue]];
             
             if([[[spotsDict objectForKey:spotName] allKeys] count] == 2 && ![[self.notificationTrackerDict objectForKey:spotName] boolValue])
             {
@@ -749,10 +726,7 @@ typedef enum{
 
 -(void)removeSpotDictionary:(int)spotID
 {
-    [db openDatabase];
-    NSString* spotName = [db getSpotNameOfSpotID:spotID];
-//    NSString* countyName
-    [db closeDatabase];
+    NSString* spotName = [DBQueries getSpotNameOfSpotID:spotID];
     [spotsDict removeObjectForKey:spotName];
 }
 

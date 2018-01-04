@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MyTabBarController.h"
 #import "DBQueries.h"
+#import "PreferenceFactory.h"
 
 
 @implementation MyTabBarController
@@ -18,18 +19,8 @@
     [super viewDidLoad];
     NSLog(@"tab bar controller loaded");
     
-    int count = 0;
-    fmdb = [FMDatabase databaseWithPath:[AppUtilities getPathToAppDatabase]];
-    if([fmdb open])
-    {
-        FMResultSet* set = [fmdb executeQuery:[DBQueries countOfFavoriteSpots]];
-        while([set next])
-        {
-            count = [set intForColumn:@"count(*)"];
-            NSLog(@"favorite spots count = %i",count);
-        }
-    }
-    [fmdb close];
+    [DBQueries addSpitcastTable]; //make sure there is table at the very begining
+    int count = [DBQueries getCountOfSpotFavorites];
     
     self.view.backgroundColor = [UIColor colorWithRed:240/255.f green:240/255.f blue:240/255.f alpha:1];
 

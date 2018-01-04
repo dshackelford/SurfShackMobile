@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SpotListViewController.h"
+#import "DBQueries.h"
 
 @implementation SpotListViewController
 
@@ -19,11 +20,7 @@
 
 -(void)viewDidLoad
 {
-    
-    db = [[DBManager alloc] init];
-    [db openDatabase];
-        favSpots = [db getSpotNameFavorites];
-    [db closeDatabase];
+    favSpots = [DBQueries getSpotNameFavorites];
     
     screenSize = CGSizeMake([UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height);
     [super viewDidLoad];
@@ -116,24 +113,18 @@
     
     UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    [db openDatabase];
-    
     if (cell.accessoryType == UITableViewCellAccessoryCheckmark)
     {
         //remove the spot from the list of favorites
         cell.accessoryType = UITableViewCellAccessoryNone;
-
-        [db setSpot:[tableData objectAtIndex:indexPath.row] toFav:NO];
+        [DBQueries setSpot:[tableData objectAtIndex:indexPath.row] toFav:NO];
     }
     else
     {
         //ass the spot to the list of favorites
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
-
-        [db setSpot:[tableData objectAtIndex:indexPath.row] toFav:YES];
+        [DBQueries setSpot:[tableData objectAtIndex:indexPath.row] toFav:YES];
     }
-    
-    [db closeDatabase];
     
     [self reloadTheTable];
     
@@ -143,12 +134,9 @@
 //need to reload the data immediately so that the check marks will appear when the user scrolls away from checkmarked spot
 -(void)reloadTheTable
 {
-    if ([db openDatabase])
-    {
-        tableData = [db getSpotNamesInCounty:county];
-        favSpots = [db getSpotNameFavorites];
-    }
-    [db closeDatabase];
+    tableData = [DBQueries getSpotsInCounty:county];
+    favSpots = [DBQueries getSpotNameFavorites];
+
     [self.tableView reloadData];
 }
 
