@@ -258,10 +258,6 @@ typedef enum{
     else
     {
         NSLog(@"surf data not found for spot %@",[surfData objectForKey:@"spotName"]);
-        NSString* str = @"no data";
-        //[aSpotDict setObject:str forKey:@"surf"];
-        
-        //[spotsDict setObject:aSpotDict forKey:[surfData objectForKey:@"spotName"]];
     }
 
 }
@@ -283,7 +279,6 @@ typedef enum{
     else
     {
         NSLog(@"weather data no found for spot %@",[weatherData objectForKey:@"spotName"]);
-        //[aSpotDict setObject:@"no data" forKey:@"weatherDict"];
     }
 }
 
@@ -304,8 +299,6 @@ typedef enum{
     else
     {
         NSLog(@"tide data not found for spot %@",[tideData objectForKey:@"countyID"]);
-        NSString* str = @"no data";
-        //[aCountyDict setObject:str forKey:@"tide"];
     }
 }
 

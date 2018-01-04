@@ -276,7 +276,6 @@
     
     pageContentViewController.index = index;
     
-    NSNumber* spotID = [_favoriteSpotsArr objectAtIndex:index];
     [pageContentViewController setDataFactory:dataFactory];
     pageContentViewController.activityDelegate = self;
     

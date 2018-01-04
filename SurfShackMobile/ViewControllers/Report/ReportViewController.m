@@ -160,8 +160,8 @@
 
 -(void)futureIndexSet:(NSNotification*)notification
 {
-    int index = [notification.object doubleValue]*[[[spotDict objectForKey:@"surf"] objectForKey:@"mags"] count];
-    NSMutableDictionary* futureDict = [dataFactory setCurrentValuesForSpotDict:spotDict.mutableCopy];
+    //int index = [notification.object doubleValue]*[[[spotDict objectForKey:@"surf"] objectForKey:@"mags"] count];
+    //NSMutableDictionary* futureDict = [dataFactory setCurrentValuesForSpotDict:spotDict.mutableCopy];
     
 }
 
