@@ -18,7 +18,6 @@
 		69281EC61D5427DD00FD39BF /* ReportPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69281EC51D5427DD00FD39BF /* ReportPageViewController.m */; };
 		69310B681D3882EF0087C5BE /* AppUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 69310B671D3882EF0087C5BE /* AppUtilities.m */; };
 		69310B6D1D38976C0087C5BE /* CountyInfoPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 69310B6C1D38976C0087C5BE /* CountyInfoPacket.m */; };
-		6934B9E21D5BA281001D729A /* DBTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 6934B9E11D5BA281001D729A /* DBTableColumn.m */; };
 		69371B421D3727FF00562493 /* PlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69371B411D3727FF00562493 /* PlotView.m */; };
 		693EA5351D51A823008CBEEE /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EA5341D51A823008CBEEE /* LogViewController.m */; };
 		69405C9D1D4DACC8007E4617 /* SegmentedControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69405C9C1D4DACC8007E4617 /* SegmentedControlCell.m */; };
@@ -82,8 +81,6 @@
 		69CBBA7B1D52DF34005E3BCA /* CurrentWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBBA7A1D52DF34005E3BCA /* CurrentWeather.m */; };
 		69CBBA811D52E077005E3BCA /* WeatherPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBBA801D52E077005E3BCA /* WeatherPacket.m */; };
 		69CBBA891D52E5D4005E3BCA /* CurrentWeatherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBBA881D52E5D4005E3BCA /* CurrentWeatherTests.m */; };
-		69CC59521D5AE95B00F504B0 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CC59511D5AE95B00F504B0 /* DBManager.m */; };
-		69CC59541D5AE9D300F504B0 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 69CC59531D5AE9D300F504B0 /* libsqlite3.tbd */; };
 		69D051C61D58145B00C46CDF /* SwellPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D051C51D58145B00C46CDF /* SwellPacket.m */; };
 		69D1DC931D60E90000DF29B5 /* MyTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D1DC921D60E90000DF29B5 /* MyTabBarController.m */; };
 		69D1DC9A1D618C8800DF29B5 /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 69D1DC971D618C8800DF29B5 /* Base.lproj */; };
@@ -174,8 +171,6 @@
 		69310B671D3882EF0087C5BE /* AppUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUtilities.m; sourceTree = "<group>"; };
 		69310B6C1D38976C0087C5BE /* CountyInfoPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountyInfoPacket.m; sourceTree = "<group>"; };
 		69310B6E1D3897730087C5BE /* CountyInfoPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountyInfoPacket.h; sourceTree = "<group>"; };
-		6934B9E11D5BA281001D729A /* DBTableColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBTableColumn.m; sourceTree = "<group>"; };
-		6934B9E61D5BA28C001D729A /* DBTableColumn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBTableColumn.h; sourceTree = "<group>"; };
 		69371B401D3727F800562493 /* PlotView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlotView.h; sourceTree = "<group>"; };
 		69371B411D3727FF00562493 /* PlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlotView.m; sourceTree = "<group>"; };
 		693EA5341D51A823008CBEEE /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
@@ -281,9 +276,6 @@
 		69CBBA801D52E077005E3BCA /* WeatherPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherPacket.m; sourceTree = "<group>"; };
 		69CBBA861D52E0E9005E3BCA /* WeatherPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherPacket.h; sourceTree = "<group>"; };
 		69CBBA881D52E5D4005E3BCA /* CurrentWeatherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentWeatherTests.m; sourceTree = "<group>"; };
-		69CC594D1D5AE95500F504B0 /* DBManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
-		69CC59511D5AE95B00F504B0 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
-		69CC59531D5AE9D300F504B0 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		69D051C51D58145B00C46CDF /* SwellPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwellPacket.m; sourceTree = "<group>"; };
 		69D051CA1D58146200C46CDF /* SwellPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwellPacket.h; sourceTree = "<group>"; };
 		69D1DC8E1D60E8F700DF29B5 /* MyTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTabBarController.h; sourceTree = "<group>"; };
@@ -330,7 +322,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69CC59541D5AE9D300F504B0 /* libsqlite3.tbd in Frameworks */,
 				697C89A51D485CD300DDB435 /* CoreLocation.framework in Frameworks */,
 				521F8A4DDE57B9D20C68883D /* Pods_SurfShackMobile.framework in Frameworks */,
 			);
@@ -358,7 +349,6 @@
 		691B6A931FCE88F400774AC3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				692951961FD13D46001F6FA8 /* SQL_DB */,
 				690601F11D3DE8A8009696DE /* DateHandler.h */,
 				690601F51D3DE8AF009696DE /* DateHandler.m */,
 				69310B661D3882EF0087C5BE /* AppUtilities.h */,
@@ -509,21 +499,9 @@
 			path = Offline;
 			sourceTree = "<group>";
 		};
-		692951961FD13D46001F6FA8 /* SQL_DB */ = {
-			isa = PBXGroup;
-			children = (
-				69CC594D1D5AE95500F504B0 /* DBManager.h */,
-				69CC59511D5AE95B00F504B0 /* DBManager.m */,
-				6934B9E61D5BA28C001D729A /* DBTableColumn.h */,
-				6934B9E11D5BA281001D729A /* DBTableColumn.m */,
-			);
-			path = SQL_DB;
-			sourceTree = "<group>";
-		};
 		696963291D349B4C00CC3734 = {
 			isa = PBXGroup;
 			children = (
-				69CC59531D5AE9D300F504B0 /* libsqlite3.tbd */,
 				697C89A41D485CD300DDB435 /* CoreLocation.framework */,
 				696963341D349B4C00CC3734 /* SurfShackMobile */,
 				6969634E1D349B4C00CC3734 /* SurfShackMobileTests */,
@@ -1085,7 +1063,6 @@
 				69D72D321D41527100980CF6 /* PickerInputCell.m in Sources */,
 				6969633A1D349B4C00CC3734 /* AppDelegate.m in Sources */,
 				690CE3421D4533F000450774 /* WindPacket.m in Sources */,
-				69CC59521D5AE95B00F504B0 /* DBManager.m in Sources */,
 				6969636C1D349B8B00CC3734 /* SettingsViewController.m in Sources */,
 				699521181D3619DA0073114D /* SpitcastData.m in Sources */,
 				696D2BD71D4DD83D00A45E45 /* SecondaryLabelCell.m in Sources */,
@@ -1093,7 +1070,6 @@
 				696D2BDC1D4EC89A00A45E45 /* DayRangeViewController.m in Sources */,
 				69863BC81FE3AF0A001530C1 /* DataCategory.m in Sources */,
 				697A29011D652DF700EDF8BC /* CompassView.m in Sources */,
-				6934B9E21D5BA281001D729A /* DBTableColumn.m in Sources */,
 				69A8DEF91D4DA090000D4412 /* SubSettingsViewController.m in Sources */,
 				6949876F1F97107A008AE728 /* OfflineData.m in Sources */,
 				690CE3311D441D6700450774 /* Bezier.m in Sources */,
