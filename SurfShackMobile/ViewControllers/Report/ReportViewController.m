@@ -83,6 +83,25 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(futureIndexSet:) name:@"futureIndexRatio" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeColor:) name:@"changeColorPref" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterForeground:) name:@"didEnterForeground" object:nil];
+}
+
+-(void)didEnterForeground:(NSNotification*)notification
+{
+    [self.activityDelegate isLoadingData:true];
+    
+    //set the title bar in the pageview controller
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeTitle" object:[NSNumber numberWithInteger:self.index]];
+    
+    spotDict = [dataFactory dataForSpotID:spotID];
+    
+    if(spotDict)
+    {
+        aPlotView.isOfflineData = [[spotDict objectForKey:@"isOld"] boolValue];
+        [self.activityDelegate isLoadingData:aPlotView.isOfflineData];
+        [self chooseDataToDisplay];
+    }
 }
 
 -(void)initializeCLLocationManager
