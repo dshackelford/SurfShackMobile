@@ -195,7 +195,6 @@
 		696963511D349B4C00CC3734 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../SurfShackMobileTests/Info.plist; sourceTree = "<group>"; };
 		696963561D349B4C00CC3734 /* SurfShackMobileUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurfShackMobileUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6969635A1D349B4C00CC3734 /* SurfShackMobileUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SurfShackMobileUITests.m; sourceTree = "<group>"; };
-		6969635C1D349B4C00CC3734 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6969636B1D349B8B00CC3734 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		6969636D1D349B9400CC3734 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		696D2BC91D4DCDB700A45E45 /* AboutPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutPageViewController.m; sourceTree = "<group>"; };
@@ -568,7 +567,6 @@
 			children = (
 				696963511D349B4C00CC3734 /* Info.plist */,
 				6969635A1D349B4C00CC3734 /* SurfShackMobileUITests.m */,
-				6969635C1D349B4C00CC3734 /* Info.plist */,
 			);
 			path = SurfShackMobileUITests;
 			sourceTree = "<group>";
