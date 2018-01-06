@@ -3,7 +3,7 @@ SurfShackMobile/.DS_Store
 
 pods/
 Podfile.lock
-
+SurfShackMobile.xcodeproj/xcuserdata/Dshack.xcuserdatad/*
 SurfShackMobile.xcodeproj/xcuserdata/
 SurfShackMobile.xcworkspace/xcuserdata/*
 SurfShackMobile.xcodeproj/project.xcworkspace/xcuserdata/
