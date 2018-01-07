@@ -36,11 +36,51 @@
     spitcastLabel.text = @"(Powered by Spitcast.com)";
     
     self.isOfflineData = true; //default to offline color sceme
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(futureIndexSet:) name:@"futureIndexRatio" object:nil];
+    
+    [self setUserInteractionEnabled:NO];
+    
     return self;
+}
+
+-(void)futureIndexSet:(NSNotification*)notification
+{
+    NSNumber* indexRatio = notification.object;
+    int index = [indexRatio doubleValue]*[yData count];
+    
+    if([indexRatio doubleValue] == -1)
+    {
+        //go to current time
+        index = [DateHandler getIndexFromCurrentTime];
+    }
+    
+    NSLog(@"plot changing index line to %i",index);
+    NSMutableArray* currentBarVals = [[NSMutableArray alloc] init];
+    [currentBarVals addObject:[[ChartDataEntry alloc] initWithX:index y:0]];
+    [currentBarVals addObject:[[ChartDataEntry alloc] initWithX:index y:[[yData objectAtIndex:index] doubleValue]]];
+    
+    LineChartDataSet* dCurrentBar = [[LineChartDataSet alloc] initWithValues:currentBarVals label:@"Current Time"];
+    dCurrentBar.lineWidth = 5;
+    [dCurrentBar setCircleColor:[UIColor clearColor]];
+    [dCurrentBar setColor:[UIColor blackColor]];
+    dCurrentBar.circleRadius = 0;
+    
+    [_theChartView.data removeDataSetByIndex:1];
+    
+    [dCurrentBar setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:0]];
+    [_theChartView.data addDataSet:dCurrentBar];
+    
+    [_theChartView setData:_theChartView.data];
 }
 
 -(void)updateFrame:(CGRect)newFrame forCurrentView:(int)currentViewTag
 {
+    _theChartView.pinchZoomEnabled = NO;
+    _theChartView.doubleTapToZoomEnabled = NO;
+    _theChartView.highlightPerTapEnabled = NO;
+    _theChartView.highlightPerDragEnabled = NO;
+    
     self.frame = newFrame;
     _theChartView.frame = CGRectMake(0, 30, newFrame.size.width, newFrame.size.height - 30);
     spitcastLabel.frame = CGRectMake(self.frame.size.width - 155, 0, 175, 25);
@@ -85,6 +125,7 @@
     else //there is no data!!
     {
         _theChartView.noDataText = @" Sorry, there seems to be no surf data \n for this spot, try another spot close to this one.";
+        [_theChartView setData:nil];
         //these don't work anymore?
 //        _theChartView.infoTextColor = [UIColor blackColor];
 //        _theChartView.infoFont = [UIFont boldSystemFontOfSize:15];
@@ -225,8 +266,8 @@
     dCurrentBar.circleRadius = 0;
     
     //ADD THE DATA SETS
-    [dataSets addObject:dCurrentBar];
     [dataSets addObject:dYData];
+    [dataSets addObject:dCurrentBar];
     LineChartData* data = [[LineChartData alloc] initWithDataSets:dataSets];
     [_theChartView setData:data];
     [data setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:0]];     //removes the number values of each point
@@ -306,7 +347,8 @@
     [legend setEnabled:NO]; //don't add the legend in the ui view
     
     //UIVIEW HANDLING
-    _theChartView.userInteractionEnabled = NO; //cannot click and drag the on the plot
+    //_theChartView.userInteractionEnabled = NO; //cannot click and drag the on the plot
+    
     [_theChartView sizeToFit];
     [_theChartView setDescriptionText:@""];
 }
@@ -339,19 +381,50 @@
         return str;
     }
 }
-////CHART DELEGATE METHODS
-//- (void)chartValueSelected:(ChartViewBase* __nonnull)chartView entry:(ChartDataEntry*__nonnull)entry dataSetIndex:(NSInteger)dataSetIndex highlight:(ChartHighlight*__nonnull)highlight
-//{
-////    CLLocationCoordinate2D aCoord = [[[theElevHandler getAllCoordArray] objectAtIndex:entry.xIndex] coordinate];
-//    
-//    NSLog(@"chartValueSelected %@",entry);
-//    //    infoLabel.text = [NSString stringWithFormat:@"Lat:%3.3f Long:%3.3f Elev:%3.0f",aCoord.latitude,aCoord.longitude,entry.value];
-//}
-//- (void)chartValueNothingSelected:(ChartViewBase * __nonnull)chartView
-//{
-//    NSLog(@"chartValueNothingSelected");
-//    //    infoLabel.text = @"";
-//}
-//
+//CHART DELEGATE METHODS
+
+-(void)chartValueSelected:(ChartViewBase *)chartView entry:(ChartDataEntry *)entry highlight:(ChartHighlight *)highlight
+{
+    //CURRENT TIME BAR
+    NSLog(@"current time count: %f",entry.x);
+    NSMutableArray* currentBarVals = [[NSMutableArray alloc] init];
+    [currentBarVals addObject:[[ChartDataEntry alloc] initWithX:entry.x y:0]];
+    [currentBarVals addObject:[[ChartDataEntry alloc] initWithX:entry.x y:[[yData objectAtIndex:entry.x] doubleValue]]];
+    
+    LineChartDataSet* dCurrentBar = [[LineChartDataSet alloc] initWithValues:currentBarVals label:@"Current Time"];
+    dCurrentBar.lineWidth = 5;
+    [dCurrentBar setCircleColor:[UIColor clearColor]];
+    [dCurrentBar setColor:[UIColor blackColor]];
+    dCurrentBar.circleRadius = 0;
+    
+    [_theChartView.data removeDataSetByIndex:1];
+    
+    [dCurrentBar setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:0]];
+    [_theChartView.data addDataSet:dCurrentBar];
+    [chartView highlightValue:nil];
+}
+
+-(void)chartValueNothingSelected:(ChartViewBase *)chartView
+{
+    NSLog(@"nothing selected on chart view");
+    
+    int currentTimeCount = [DateHandler getIndexFromCurrentTime];
+    NSLog(@"current time count: %i",currentTimeCount);
+    NSMutableArray* currentBarVals = [[NSMutableArray alloc] init];
+    [currentBarVals addObject:[[ChartDataEntry alloc] initWithX:currentTimeCount y:0]];
+    [currentBarVals addObject:[[ChartDataEntry alloc] initWithX:currentTimeCount y:[[yData objectAtIndex:currentTimeCount] doubleValue]]];
+    
+    LineChartDataSet* dCurrentBar = [[LineChartDataSet alloc] initWithValues:currentBarVals label:@"Current Time"];
+    dCurrentBar.lineWidth = 5;
+    [dCurrentBar setCircleColor:[UIColor clearColor]];
+    [dCurrentBar setColor:[UIColor blackColor]];
+    dCurrentBar.circleRadius = 0;
+    
+    [_theChartView.data removeDataSetByIndex:1];
+    
+    [dCurrentBar setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:0]];
+    [_theChartView.data addDataSet:dCurrentBar];
+}
+
 
 @end

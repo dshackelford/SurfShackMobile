@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AddPlaceViewController.h"
+#import "DBQueries.h"
 
 
 @implementation AddPlaceViewController
@@ -36,12 +37,6 @@
     
     countyArr = [[NSMutableArray alloc] init];
     
-    Boolean success;
-    db = [[DBManager alloc] init];
-    success = [db openDatabase];
-    int mrCount = [db getCountOfAllSpots];
-    [db closeDatabase];
-    
     screenSize = [UIScreen mainScreen].bounds.size;
     
     self.title = @"Counties";
@@ -59,18 +54,15 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeColor:) name:@"changeColorPref" object:nil];
     
-    if(mrCount > 1 && success == YES)
+    if([DBQueries getCountOfAllSpots] > 1)
     {
-        [db openDatabase];
-        countyArr = [db getAllCounties];
-        favSpots = [db getSpotFavorites];
-        favSpotNames = [db getSpotNameFavorites];
-        favCountyArr = [db getCountyFavorites];
+        countyArr = [DBQueries getAllCounties];
+        favSpots = [DBQueries getSpotFavorites];
+        favSpotNames = [DBQueries getSpotNameFavorites];
+        favCountyArr = [DBQueries getCountyFavorites];
         
         tableData = countyArr;
         NSLog(@"%@",countyArr);
-        [db closeDatabase];
-        
     }
     else
     {
@@ -96,10 +88,8 @@
     dispatch_async(dispatch_get_main_queue(), ^(){
         NSLog(@"ot some spots");
     [alertController dismissViewControllerAnimated:YES completion:nil];
-    [db openDatabase];
-    tableData = [db getAllCounties];
+    tableData = [DBQueries getAllCounties];
     [self.tableView reloadData];
-    [db closeDatabase];
         
     });
 }
@@ -107,20 +97,17 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     NSLog(@"Add Spot View will appear");
-//    NSLog(@"%@",favSpots);
     downloaded = 0;
     [self restrictRotation:YES];
     [super viewWillAppear:NO];
     
-    if([db openDatabase] && [[db getAllCounties] count] > 0)
+    if([[DBQueries getAllCounties] count] > 0)
     {
-        tableData = [db getAllCounties];
+        tableData = [DBQueries getAllCounties];
         [self.tableView reloadData];
-        favSpots = [db getSpotFavorites];
-        favCountyArr = [db getCountyFavorites];
+        favSpots = [DBQueries getSpotFavorites];
+        favCountyArr = [DBQueries getCountyFavorites];
     }
-    
-    [db closeDatabase];
 }
 
 -(IBAction)didPressCurrentLocationButton:(id)sender
@@ -171,14 +158,10 @@
 #pragma mark - DataCollector Methods
 -(void)countyAndSpotsReceived:(NSMutableArray *)countiesArray
 {
-    [db openDatabase];
-    
     for (CountyInfoPacket* spotData in countiesArray)
     {
-        [db addSpotID:[spotData getSpotID] SpotName:[spotData getSpotName] andCounty:[spotData getCountyName] withLat:[spotData getLat] andLon:[spotData getLon]];
+        [DBQueries addSpotID:[spotData getSpotID] SpotName:[spotData getSpotName] andCounty:[spotData getCountyName] withLat:[spotData getLat] andLon:[spotData getLon]];
     }
-    
-    [db closeDatabase];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"AddedSpotsToDB" object:nil];
 }
@@ -282,24 +265,20 @@
     {
         UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
         
-        [db openDatabase];
-        
         if (cell.accessoryType == UITableViewCellAccessoryCheckmark)
         {
             //remove the spot from the list of favorites
             cell.accessoryType = UITableViewCellAccessoryNone;
             
-            [db setSpot:[searchResults objectAtIndex:indexPath.row] toFav:NO];
+            [DBQueries setSpot:[searchResults objectAtIndex:indexPath.row] toFav:NO];
         }
         else
         {
             //ass the spot to the list of favorites
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
             
-            [db setSpot:[searchResults objectAtIndex:indexPath.row] toFav:YES];
+            [DBQueries setSpot:[searchResults objectAtIndex:indexPath.row] toFav:YES];
         }
-        
-        [db closeDatabase];
         
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
@@ -330,12 +309,8 @@
     }
     else
     {
-        if ([db openDatabase])
-        {
-            NSMutableArray* arrOfSpotsInCounty = [db getSpotNamesInCounty:[tableData objectAtIndex:self.selectedIndex]];
-            [destViewController setTableData:arrOfSpotsInCounty];
-        }
-        [db closeDatabase];
+        NSMutableArray* arrOfSpotsInCounty = [DBQueries getSpotsInCounty:[tableData objectAtIndex:self.selectedIndex]];
+        [destViewController setTableData:arrOfSpotsInCounty];
         
         NSString* title = [tableData objectAtIndex:self.selectedIndex];
         NSLog(@"%@",title);
@@ -347,13 +322,9 @@
 
 -(void)reloadTheTable
 {
-    if ([db openDatabase])
-    {
-        favSpots = [db getSpotFavorites];
-        favSpotNames = [db getSpotNameFavorites];
-        favCountyArr = [db getCountyFavorites];
-    }
-    [db closeDatabase];
+    favSpots = [DBQueries getSpotFavorites];
+    favSpotNames = [DBQueries getSpotNameFavorites];
+    favCountyArr = [DBQueries getCountyFavorites];
     [self.tableView reloadData];
 }
 
@@ -364,10 +335,7 @@
 {
     searchString = searchText;
     
-    [db openDatabase];
-    searchResults = [db getSpotNamesFromSearchString:searchText];
-    [db closeDatabase];
-    
+    searchResults = [DBQueries getSpotNamesFromSearchString:searchText];
     
     if([searchString isEqualToString: @""]) //if user hits the 'x' in the search bar, makes the table view return back to counties. Also returns the shadowed area back to county list
     {

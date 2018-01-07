@@ -13,14 +13,13 @@
 
 -(void)viewDidLoad
 {
+    /*
     [super viewDidLoad];
     NSMutableArray* spotArray;
     NSLog(@"HomeDirectory: %@",NSHomeDirectory());
     
     Boolean success;
-    db = [[DBManager alloc] init];
-    success = [db openDatabase];
-    int mrCount = [db getCountOfAllSpots];
+
     
     if(mrCount > 1 && success == YES)
     {
@@ -33,14 +32,11 @@
     else
     {
 //        NSArray* allSpots = [PreferenceFactory getAllSpots];
-//        success = [db openDatabase];
     }
     
     mrCount = [db getCountOfAllSpots];
     NSLog(@"%d",mrCount);
-    
-    
-    [db closeDatabase];
+    */
 }
 
 @end

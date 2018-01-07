@@ -23,7 +23,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>11282017</string>
+	<string>11282018</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
@@ -33,10 +33,12 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Surf_Shack can use GPS to give better surf forecasting data. </string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
+	<string>Surf_Shack can use GPS to give better surf forecasting data. </string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your message goes here</string>
+	<string>Surf_Shack can use GPS to give better surf forecasting data. </string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

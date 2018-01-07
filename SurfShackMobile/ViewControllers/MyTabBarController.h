@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PreferenceFactory.h"
-#import "DBManager.h"
 
 @interface MyTabBarController : UITabBarController
 {
-    DBManager* db;
+
 }
 @end

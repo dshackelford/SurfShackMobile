@@ -9,14 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "arrowCell.h"
 #import "PreferenceFactory.h"
-#import "DBManager.h"
 #import "AppDelegate.h"
 
 
 @interface SpotListViewController : UITableViewController
 {
-    DBManager* db;
-    
     NSMutableArray* tableData;
     
     int sectionHeader;

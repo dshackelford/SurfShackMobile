@@ -12,17 +12,17 @@
 @protocol DataCollector
 
 @optional
--(void)surfDataDictReceived:(NSMutableDictionary*)surfData;
--(void)tideDataDictReceived:(NSMutableDictionary*)tideData;
--(void)windDataDictReceived:(NSMutableDictionary*)windData;
--(void)swellDataDictReceived:(NSMutableDictionary*)windData;
+-(void)surfDataDictReceived:(NSMutableDictionary*)surfData forSpot:(NSString*)spotNameInit;
+- (void)weatherDataDictReceived:(NSMutableDictionary *)weatherData forSpot:(NSString*)spotNameInit;
 
-
-- (void)weatherDataDictReceived:(NSMutableDictionary *)weatherData;
-- (void)waterTempDataDictReceived:(NSMutableDictionary *)waterTempData;
+-(void)tideDataDictReceived:(NSMutableDictionary*)tideData forCounty:(NSString*)countyNameInit;
+-(void)windDataDictReceived:(NSMutableDictionary*)windData forCounty:(NSString*)countyNameInit;
+-(void)swellDataDictReceived:(NSMutableDictionary*)windData forCounty:(NSString*)countyNameInit;
+- (void)waterTempDataDictReceived:(NSMutableDictionary *)waterTempData  forCounty:(NSString*)countyNameInit;
 
 -(void)countyAndSpotsReceived:(NSMutableArray*)countiesArray;
 -(void)nearbySpotsReceived:(NSMutableArray*)nearbySpotsArray;
+
 @end
 
 #endif /* DataCollecter_h */

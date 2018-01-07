@@ -10,6 +10,7 @@
 #import "ReportPageViewController.h"
 
 #import "OfflineData.h"
+#import "DBQueries.h"
 
 @implementation ReportPageViewController
 
@@ -25,13 +26,8 @@
     
     dataFactory = [[DataFactory alloc] init];
     
-    db = [[DBManager alloc] init];
-    if ([db openDatabase])
-    {
-        _favoriteSpotsArr = [db getSpotFavorites]; //array of NSNumbers integers
-        _favoriteCounties = [db getCountyFavorites]; //array of strings
-    }
-    [db closeDatabase];
+    _favoriteSpotsArr = [DBQueries getSpotFavorites];
+    _favoriteCounties = [DBQueries getCountyFavorites];
 
     screenSize = [UIScreen mainScreen].bounds.size;
     
@@ -40,7 +36,6 @@
     pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
     pageControl.backgroundColor = [UIColor clearColor];
 
-    
     //CHOOSE COLORS FROM THE COLOR SCHEME IN PREFERENCE, IT SHOULD BE A DICTIONARY FOR EACH COLOR SCHEME THAT HAS PLOT VIEW COLORS AND BAR COLORS.
     NSDictionary* prefs = [PreferenceFactory getPreferences];
     UIColor* color = [prefs objectForKey:kColorScheme];
@@ -54,7 +49,7 @@
     
     if ([_favoriteSpotsArr count] > 0)
     {
-        refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(didPressRefreshButton:)];
+        //refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(didPressRefreshButton:)];
         
         self.activityView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
         self.activityIndicatorButton = [[UIBarButtonItem alloc] initWithCustomView:self.activityView];
@@ -65,7 +60,6 @@
         // Create page view controller
         self.pageController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
         self.pageController.dataSource = self;
-        
         [self addPageViewController];
     }
     else
@@ -79,7 +73,7 @@
         [alertController addAction:defaultAction];
         [self presentViewController:alertController animated:YES completion:nil];
     }
-    
+
     [self establishGestures];
 }
 
@@ -88,12 +82,8 @@
     [super viewDidAppear:YES];
     
     //check to see there are favorite spots selected by the user
-    if ([db openDatabase])
-    {
-        _favoriteSpotsArr = [db getSpotFavorites];
-        _favoriteCounties = [db getCountyFavorites];
-    }
-    [db closeDatabase];
+    _favoriteSpotsArr = [DBQueries getSpotFavorites];
+    _favoriteCounties = [DBQueries getCountyFavorites];
     
     NSLog(@"Report Page Appeared");
     
@@ -133,13 +123,10 @@
 
 -(void)changeTitle:(NSNotification*)notification
 {
-    [db openDatabase];
-    _favoriteSpotsArr = [db getSpotFavorites];
-    if ([[db getSpotFavorites] count] > 0)
+    if ([[DBQueries getSpotFavorites] count] > 0)
     {
-        self.title = [[db getSpotNameFavorites] objectAtIndex:[notification.object integerValue]];
+        self.title = [[DBQueries getSpotNameFavorites] objectAtIndex:[notification.object integerValue]];
     }
-    [db closeDatabase];
     
 }
 
@@ -198,10 +185,8 @@
 
 -(void)changedSpotFavorites:(NSNotification*)notification
 {
-    [db openDatabase];
-    _favoriteSpotsArr = [db getSpotFavorites];
+    _favoriteSpotsArr =  [DBQueries getSpotFavorites];
     [theTableView reloadData];
-    [db closeDatabase];
     
     NSLog(@"changed spot favorites %@",_favoriteSpotsArr);
     
@@ -229,7 +214,6 @@
     else
     {
         [self.activityView stopAnimating];
-        self.navigationItem.leftBarButtonItem = refreshButton;
     }
 }
 #pragma mark - Page View Controller Delegate Methods
@@ -282,7 +266,8 @@
 
 - (ReportViewController *)viewControllerAtIndex:(NSUInteger)index
 {
-    if (([self.favoriteSpotsArr count] == 0) || (index >= [self.favoriteSpotsArr count])) {
+    if (([self.favoriteSpotsArr count] == 0) || (index >= [self.favoriteSpotsArr count]))
+    {
         return nil;
     }
     
@@ -291,14 +276,8 @@
     
     pageContentViewController.index = index;
     
-    if([db openDatabase])
-    {
-        NSString* aSpotName = [db getSpotNameOfSpotID:[[_favoriteSpotsArr objectAtIndex:index] intValue]];
-        NSString* aCounty = [db getCountyOfSpotID:[[_favoriteSpotsArr objectAtIndex:index] intValue]];
-        [pageContentViewController setSpotDict:[dataFactory getASpotDictionary:aSpotName andCounty:aCounty]];
-    }
     [pageContentViewController setDataFactory:dataFactory];
-    [db closeDatabase]; //jsut added
+    pageContentViewController.activityDelegate = self;
     
     return pageContentViewController;
 }
@@ -319,9 +298,7 @@
 -(void)addFavoritesTable
 {
     //show list of spaces
-    [db openDatabase];
-    tableData = [[NSMutableArray alloc] initWithArray:[db getSpotNameFavorites]];
-    [db closeDatabase];
+    tableData = [[NSMutableArray alloc] initWithArray:[DBQueries getSpotNameFavorites]];
     
     int rowHeight = 40;
     
@@ -506,7 +483,6 @@
             }];
         
     }
-    
 }
 
 
@@ -529,23 +505,56 @@
     swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:nil];
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     
-//    swipeDown = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDown:)];
-//    [swipeDown requireGestureRecognizerToFail:swipeLeft];
-//    [swipeDown requireGestureRecognizerToFail:swipeRight];
-//    [swipeDown requireGestureRecognizerToFail:singleTap];
-    
     singleTap.cancelsTouchesInView = YES;
     
     [self.view addGestureRecognizer:swipeRight];
     [self.view addGestureRecognizer:swipeLeft];
     [self.view addGestureRecognizer:singleTap];
-//    [self.view addGestureRecognizer:swipeDown];
+}
+
+//long press is added via the main story board
+-(IBAction)longPressBegan:(UILongPressGestureRecognizer *)recognizer
+{
+    if (recognizer.state == UIGestureRecognizerStateBegan)
+    {
+        NSLog(@"long press began");
+        CGPoint touchPoint = [recognizer locationInView:self.view];
+        
+        double futureIndexRatio = touchPoint.x/screenSize.width;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"futureIndexRatio" object:[NSNumber numberWithDouble:futureIndexRatio]];
+        
+        self.pageController.dataSource = nil;
+        // Long press detected, start the timer
+    }
+    else if(recognizer.state == UIGestureRecognizerStateChanged)
+    {
+        CGPoint touchPoint = [recognizer locationInView:self.view];
+        
+        double futureIndexRatio = touchPoint.x/screenSize.width;
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"futureIndexRatio" object:[NSNumber numberWithDouble:futureIndexRatio]];
+        NSLog(@"touch point x: %f and ratio: %f",touchPoint.x,futureIndexRatio);
+    }
+    else
+    {
+        if (recognizer.state == UIGestureRecognizerStateCancelled
+            || recognizer.state == UIGestureRecognizerStateFailed
+            || recognizer.state == UIGestureRecognizerStateEnded)
+        {
+            self.pageController.dataSource = self;
+            [self.pageController reloadInputViews];
+            NSLog(@"long press ended");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"futureIndexRatio" object:[NSNumber numberWithDouble:-1]];
+        }
+    }
 }
 
 -(void)didSingleTap:(UITapGestureRecognizer*)tapGesture
 {
     //post notification
     [[NSNotificationCenter defaultCenter] postNotificationName:@"tap" object:nil];
-    
 }
+
+
 @end

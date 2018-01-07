@@ -10,6 +10,7 @@
 #define DataSource_h
 
 #import "DataCollector.h"
+#import <AsyncBlockOperation/AsyncBlockOperation.h>
 @import CoreLocation;
 
 @protocol DataSource
@@ -20,13 +21,13 @@
 -(id)initWithCollector:(id<DataCollector>)collectorInit;
 
 //NSURLSession workarounds
--(void)startSurfDataDownloadForSpotID:(int)spotIDInit andSpotName:(NSString*)spotNameInit;
--(void)startTideDataDownloadForCounty:(NSString*)countyInit;
--(void)startWindDataDownloadForCounty:(NSString*)countyInit;
--(void)startSwellDataDownloadForCounty:(NSString*)countyInit;
+-(void)startSurfDataDownloadForSpotID:(int)spotIDInit andSpotName:(NSString*)spotNameInit andOp:(AsyncBlockOperation*)op;
+-(void)startWeatherDownloadForLoc:(CLLocation*)locInit andSpotID:(int)spotID andSpotName:(NSString*)spotNameInit andOp:(AsyncBlockOperation*)op;
 
--(void)startWaterTempDownloadForCounty:(NSString*)countyInit;
--(void)startWeatherDownloadForLoc:(CLLocation*)locInit andSpotID:(int)spotID andSpotName:(NSString*)spotNameInit;
+-(void)startTideDataDownloadForCounty:(NSString*)countyInit andOp:(AsyncBlockOperation*)op;
+-(void)startWindDataDownloadForCounty:(NSString*)countyInit andOp:(AsyncBlockOperation*)op;
+-(void)startSwellDataDownloadForCounty:(NSString*)countyInit andOp:(AsyncBlockOperation*)op;
+-(void)startWaterTempDownloadForCounty:(NSString*)countyInit andOp:(AsyncBlockOperation*)op;
 
 
 -(void)getNearBySpots:(NSString*)latInit andLon:(NSString*)lonInit;

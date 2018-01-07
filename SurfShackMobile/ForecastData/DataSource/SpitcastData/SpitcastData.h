@@ -18,27 +18,18 @@
 #import "SwellPacket.h"
 #import "WaterTempPacket.h"
 
-#import "DBManager.h"
 #import "DataCollector.h"
 #import "DataSource.h"
 
 @interface SpitcastData : NSObject <DataSource>
 {
     //these values will be set in the factory based of the preferences
-    DBManager* db;
 
     int shortDataLength;
     int longDataLength;
     
-    
-    NSMutableDictionary* dataDict;
-    NSMutableDictionary* swellDict;
     NSMutableArray* countyList;
 }
-
-@property id<DataCollector> dataCollector;
-
-//-(NSMutableArray*)organizeArrayByTime:(NSMutableArray*)arrayInit andDate:(NSString*)dateInit;
 
 @end
 

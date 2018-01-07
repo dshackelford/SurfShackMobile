@@ -18,7 +18,6 @@
 		69281EC61D5427DD00FD39BF /* ReportPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69281EC51D5427DD00FD39BF /* ReportPageViewController.m */; };
 		69310B681D3882EF0087C5BE /* AppUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 69310B671D3882EF0087C5BE /* AppUtilities.m */; };
 		69310B6D1D38976C0087C5BE /* CountyInfoPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 69310B6C1D38976C0087C5BE /* CountyInfoPacket.m */; };
-		6934B9E21D5BA281001D729A /* DBTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 6934B9E11D5BA281001D729A /* DBTableColumn.m */; };
 		69371B421D3727FF00562493 /* PlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69371B411D3727FF00562493 /* PlotView.m */; };
 		693EA5351D51A823008CBEEE /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693EA5341D51A823008CBEEE /* LogViewController.m */; };
 		69405C9D1D4DACC8007E4617 /* SegmentedControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69405C9C1D4DACC8007E4617 /* SegmentedControlCell.m */; };
@@ -27,6 +26,7 @@
 		695D66581FDA7BE800FC562D /* MapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 695D66571FDA7BE800FC562D /* MapVC.m */; };
 		695D665B1FDA7C6000FC562D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 695D665A1FDA7C6000FC562D /* MapKit.framework */; };
 		695D665E1FDBC52A00FC562D /* SpotAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 695D665D1FDBC52A00FC562D /* SpotAnnotation.m */; };
+		695D66601FDBCCB700FC562D /* DBQueries.m in Sources */ = {isa = PBXBuildFile; fileRef = 695D665F1FDBCCB700FC562D /* DBQueries.m */; };
 		696963371D349B4C00CC3734 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 696963361D349B4C00CC3734 /* main.m */; };
 		6969633A1D349B4C00CC3734 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 696963391D349B4C00CC3734 /* AppDelegate.m */; };
 		696963401D349B4C00CC3734 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6969633E1D349B4C00CC3734 /* Main.storyboard */; };
@@ -52,9 +52,17 @@
 		697B48631FCE98D500BC0698 /* logo20x3.png in Resources */ = {isa = PBXBuildFile; fileRef = 697B485C1FCE98D400BC0698 /* logo20x3.png */; };
 		697B48641FCE98D500BC0698 /* logo40x2.png in Resources */ = {isa = PBXBuildFile; fileRef = 697B485D1FCE98D400BC0698 /* logo40x2.png */; };
 		697B48651FCE98D500BC0698 /* logo40x3.png in Resources */ = {isa = PBXBuildFile; fileRef = 697B485E1FCE98D400BC0698 /* logo40x3.png */; };
+		697C34911FDE319E00D719C8 /* AsyncOperationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 697C34901FDE319E00D719C8 /* AsyncOperationTests.m */; };
 		697C89A21D485AAC00DDB435 /* NearByPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 697C89A11D485AAC00DDB435 /* NearByPacket.m */; };
 		697C89A51D485CD300DDB435 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697C89A41D485CD300DDB435 /* CoreLocation.framework */; };
 		697C89A81D4908A600DDB435 /* AddPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697C89A71D4908A600DDB435 /* AddPlaceViewController.m */; };
+		69863BC51FE3AEF7001530C1 /* SurfData.m in Sources */ = {isa = PBXBuildFile; fileRef = 69863BC41FE3AEF7001530C1 /* SurfData.m */; };
+		69863BC81FE3AF0A001530C1 /* DataCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 69863BC71FE3AF0A001530C1 /* DataCategory.m */; };
+		69863BCB1FE3B72B001530C1 /* WeatherData.m in Sources */ = {isa = PBXBuildFile; fileRef = 69863BCA1FE3B72B001530C1 /* WeatherData.m */; };
+		69863BCF1FE3B743001530C1 /* WindData.m in Sources */ = {isa = PBXBuildFile; fileRef = 69863BCE1FE3B743001530C1 /* WindData.m */; };
+		69863BD11FE3B749001530C1 /* TideData.m in Sources */ = {isa = PBXBuildFile; fileRef = 69863BD01FE3B749001530C1 /* TideData.m */; };
+		69863BD51FE3B75F001530C1 /* SwellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 69863BD41FE3B75F001530C1 /* SwellData.m */; };
+		69863BD71FE3B97B001530C1 /* WaterTempData.m in Sources */ = {isa = PBXBuildFile; fileRef = 69863BD61FE3B97B001530C1 /* WaterTempData.m */; };
 		6992DFD21D667D64005A4368 /* DataFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992DFD11D667D64005A4368 /* DataFactory.m */; };
 		6992DFD41D668556005A4368 /* WaterTempPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992DFD31D668556005A4368 /* WaterTempPacket.m */; };
 		699521181D3619DA0073114D /* SpitcastData.m in Sources */ = {isa = PBXBuildFile; fileRef = 699521171D3619DA0073114D /* SpitcastData.m */; };
@@ -76,8 +84,6 @@
 		69CBBA7B1D52DF34005E3BCA /* CurrentWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBBA7A1D52DF34005E3BCA /* CurrentWeather.m */; };
 		69CBBA811D52E077005E3BCA /* WeatherPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBBA801D52E077005E3BCA /* WeatherPacket.m */; };
 		69CBBA891D52E5D4005E3BCA /* CurrentWeatherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CBBA881D52E5D4005E3BCA /* CurrentWeatherTests.m */; };
-		69CC59521D5AE95B00F504B0 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CC59511D5AE95B00F504B0 /* DBManager.m */; };
-		69CC59541D5AE9D300F504B0 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 69CC59531D5AE9D300F504B0 /* libsqlite3.tbd */; };
 		69D051C61D58145B00C46CDF /* SwellPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D051C51D58145B00C46CDF /* SwellPacket.m */; };
 		69D1DC931D60E90000DF29B5 /* MyTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D1DC921D60E90000DF29B5 /* MyTabBarController.m */; };
 		69D1DC9A1D618C8800DF29B5 /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 69D1DC971D618C8800DF29B5 /* Base.lproj */; };
@@ -168,8 +174,6 @@
 		69310B671D3882EF0087C5BE /* AppUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUtilities.m; sourceTree = "<group>"; };
 		69310B6C1D38976C0087C5BE /* CountyInfoPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountyInfoPacket.m; sourceTree = "<group>"; };
 		69310B6E1D3897730087C5BE /* CountyInfoPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountyInfoPacket.h; sourceTree = "<group>"; };
-		6934B9E11D5BA281001D729A /* DBTableColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBTableColumn.m; sourceTree = "<group>"; };
-		6934B9E61D5BA28C001D729A /* DBTableColumn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBTableColumn.h; sourceTree = "<group>"; };
 		69371B401D3727F800562493 /* PlotView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlotView.h; sourceTree = "<group>"; };
 		69371B411D3727FF00562493 /* PlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlotView.m; sourceTree = "<group>"; };
 		693EA5341D51A823008CBEEE /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
@@ -184,6 +188,8 @@
 		695D665A1FDA7C6000FC562D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		695D665C1FDBC52100FC562D /* SpotAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpotAnnotation.h; sourceTree = "<group>"; };
 		695D665D1FDBC52A00FC562D /* SpotAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpotAnnotation.m; sourceTree = "<group>"; };
+		695D665F1FDBCCB700FC562D /* DBQueries.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBQueries.m; sourceTree = "<group>"; };
+		695D66611FDBCCBE00FC562D /* DBQueries.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBQueries.h; sourceTree = "<group>"; };
 		696963321D349B4C00CC3734 /* SurfShackMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfShackMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		696963361D349B4C00CC3734 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		696963381D349B4C00CC3734 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -197,7 +203,6 @@
 		696963511D349B4C00CC3734 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../SurfShackMobileTests/Info.plist; sourceTree = "<group>"; };
 		696963561D349B4C00CC3734 /* SurfShackMobileUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurfShackMobileUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6969635A1D349B4C00CC3734 /* SurfShackMobileUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SurfShackMobileUITests.m; sourceTree = "<group>"; };
-		6969635C1D349B4C00CC3734 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6969636B1D349B8B00CC3734 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		6969636D1D349B9400CC3734 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		696D2BC91D4DCDB700A45E45 /* AboutPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutPageViewController.m; sourceTree = "<group>"; };
@@ -225,11 +230,26 @@
 		697B485C1FCE98D400BC0698 /* logo20x3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo20x3.png; sourceTree = "<group>"; };
 		697B485D1FCE98D400BC0698 /* logo40x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo40x2.png; sourceTree = "<group>"; };
 		697B485E1FCE98D400BC0698 /* logo40x3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo40x3.png; sourceTree = "<group>"; };
+		697C34901FDE319E00D719C8 /* AsyncOperationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AsyncOperationTests.m; sourceTree = "<group>"; };
 		697C89A11D485AAC00DDB435 /* NearByPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearByPacket.m; sourceTree = "<group>"; };
 		697C89A31D485AB300DDB435 /* NearByPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NearByPacket.h; sourceTree = "<group>"; };
 		697C89A41D485CD300DDB435 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		697C89A61D49089D00DDB435 /* AddPlaceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddPlaceViewController.h; sourceTree = "<group>"; };
 		697C89A71D4908A600DDB435 /* AddPlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPlaceViewController.m; sourceTree = "<group>"; };
+		69863BC41FE3AEF7001530C1 /* SurfData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SurfData.m; sourceTree = "<group>"; };
+		69863BC61FE3AEFE001530C1 /* SurfData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurfData.h; sourceTree = "<group>"; };
+		69863BC71FE3AF0A001530C1 /* DataCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataCategory.m; sourceTree = "<group>"; };
+		69863BC91FE3AF16001530C1 /* DataCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataCategory.h; sourceTree = "<group>"; };
+		69863BCA1FE3B72B001530C1 /* WeatherData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherData.m; sourceTree = "<group>"; };
+		69863BCC1FE3B733001530C1 /* WeatherData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherData.h; sourceTree = "<group>"; };
+		69863BCD1FE3B73A001530C1 /* WindData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindData.h; sourceTree = "<group>"; };
+		69863BCE1FE3B743001530C1 /* WindData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WindData.m; sourceTree = "<group>"; };
+		69863BD01FE3B749001530C1 /* TideData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TideData.m; sourceTree = "<group>"; };
+		69863BD21FE3B750001530C1 /* TideData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TideData.h; sourceTree = "<group>"; };
+		69863BD31FE3B757001530C1 /* SwellData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwellData.h; sourceTree = "<group>"; };
+		69863BD41FE3B75F001530C1 /* SwellData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwellData.m; sourceTree = "<group>"; };
+		69863BD61FE3B97B001530C1 /* WaterTempData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaterTempData.m; sourceTree = "<group>"; };
+		69863BD81FE3B983001530C1 /* WaterTempData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaterTempData.h; sourceTree = "<group>"; };
 		6992DFCD1D667D5C005A4368 /* DataFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataFactory.h; sourceTree = "<group>"; };
 		6992DFD11D667D64005A4368 /* DataFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataFactory.m; sourceTree = "<group>"; };
 		6992DFD31D668556005A4368 /* WaterTempPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterTempPacket.m; sourceTree = "<group>"; };
@@ -263,9 +283,6 @@
 		69CBBA801D52E077005E3BCA /* WeatherPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherPacket.m; sourceTree = "<group>"; };
 		69CBBA861D52E0E9005E3BCA /* WeatherPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherPacket.h; sourceTree = "<group>"; };
 		69CBBA881D52E5D4005E3BCA /* CurrentWeatherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentWeatherTests.m; sourceTree = "<group>"; };
-		69CC594D1D5AE95500F504B0 /* DBManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
-		69CC59511D5AE95B00F504B0 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
-		69CC59531D5AE9D300F504B0 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		69D051C51D58145B00C46CDF /* SwellPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwellPacket.m; sourceTree = "<group>"; };
 		69D051CA1D58146200C46CDF /* SwellPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwellPacket.h; sourceTree = "<group>"; };
 		69D1DC8E1D60E8F700DF29B5 /* MyTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTabBarController.h; sourceTree = "<group>"; };
@@ -313,7 +330,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				695D665B1FDA7C6000FC562D /* MapKit.framework in Frameworks */,
-				69CC59541D5AE9D300F504B0 /* libsqlite3.tbd in Frameworks */,
 				697C89A51D485CD300DDB435 /* CoreLocation.framework in Frameworks */,
 				521F8A4DDE57B9D20C68883D /* Pods_SurfShackMobile.framework in Frameworks */,
 			);
@@ -341,13 +357,14 @@
 		691B6A931FCE88F400774AC3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				692951961FD13D46001F6FA8 /* SQL_DB */,
 				690601F11D3DE8A8009696DE /* DateHandler.h */,
 				690601F51D3DE8AF009696DE /* DateHandler.m */,
 				69310B661D3882EF0087C5BE /* AppUtilities.h */,
 				69310B671D3882EF0087C5BE /* AppUtilities.m */,
 				690CE32E1D4406D600450774 /* PreferenceFactory.h */,
 				690CE3291D4406CF00450774 /* PreferenceFactory.m */,
+				695D66611FDBCCBE00FC562D /* DBQueries.h */,
+				695D665F1FDBCCB700FC562D /* DBQueries.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -370,6 +387,7 @@
 				690CE33E1D452EB600450774 /* CountyHandler.m */,
 				699521191D3619E60073114D /* SpitcastData.h */,
 				699521171D3619DA0073114D /* SpitcastData.m */,
+				69863BC31FE3AEDE001530C1 /* DataCategories */,
 				691B6A971FCE89A800774AC3 /* Packets */,
 			);
 			path = SpitcastData;
@@ -531,7 +549,6 @@
 		696963291D349B4C00CC3734 = {
 			isa = PBXGroup;
 			children = (
-				69CC59531D5AE9D300F504B0 /* libsqlite3.tbd */,
 				697C89A41D485CD300DDB435 /* CoreLocation.framework */,
 				696963341D349B4C00CC3734 /* SurfShackMobile */,
 				6969634E1D349B4C00CC3734 /* SurfShackMobileTests */,
@@ -588,6 +605,7 @@
 				690CE33C1D442ED900450774 /* SurfShackMobileCountyCollectingTests.m */,
 				69CBBA881D52E5D4005E3BCA /* CurrentWeatherTests.m */,
 				69D5B9E11FD1122F0094B637 /* downloadOperationTests.m */,
+				697C34901FDE319E00D719C8 /* AsyncOperationTests.m */,
 			);
 			path = SurfShackMobileTests;
 			sourceTree = "<group>";
@@ -597,7 +615,6 @@
 			children = (
 				696963511D349B4C00CC3734 /* Info.plist */,
 				6969635A1D349B4C00CC3734 /* SurfShackMobileUITests.m */,
-				6969635C1D349B4C00CC3734 /* Info.plist */,
 			);
 			path = SurfShackMobileUITests;
 			sourceTree = "<group>";
@@ -664,6 +681,27 @@
 				69D1DCA71D6191B700DF29B5 /* logo60x3.png */,
 			);
 			path = AppIcons;
+			sourceTree = "<group>";
+		};
+		69863BC31FE3AEDE001530C1 /* DataCategories */ = {
+			isa = PBXGroup;
+			children = (
+				69863BC91FE3AF16001530C1 /* DataCategory.h */,
+				69863BC71FE3AF0A001530C1 /* DataCategory.m */,
+				69863BC61FE3AEFE001530C1 /* SurfData.h */,
+				69863BC41FE3AEF7001530C1 /* SurfData.m */,
+				69863BCC1FE3B733001530C1 /* WeatherData.h */,
+				69863BCA1FE3B72B001530C1 /* WeatherData.m */,
+				69863BCD1FE3B73A001530C1 /* WindData.h */,
+				69863BCE1FE3B743001530C1 /* WindData.m */,
+				69863BD21FE3B750001530C1 /* TideData.h */,
+				69863BD01FE3B749001530C1 /* TideData.m */,
+				69863BD31FE3B757001530C1 /* SwellData.h */,
+				69863BD41FE3B75F001530C1 /* SwellData.m */,
+				69863BD81FE3B983001530C1 /* WaterTempData.h */,
+				69863BD61FE3B97B001530C1 /* WaterTempData.m */,
+			);
+			path = DataCategories;
 			sourceTree = "<group>";
 		};
 		699EBEF01FCFEBA8000BA1BB /* SettingsIcons */ = {
@@ -922,11 +960,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SurfShackMobile/Pods-SurfShackMobile-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AsyncBlockOperation/AsyncBlockOperation.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AsyncBlockOperation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 			);
@@ -1060,6 +1100,8 @@
 				690601F61D3DE8AF009696DE /* DateHandler.m in Sources */,
 				6992DFD41D668556005A4368 /* WaterTempPacket.m in Sources */,
 				696D2BCA1D4DCDB700A45E45 /* AboutPageViewController.m in Sources */,
+				69863BCF1FE3B743001530C1 /* WindData.m in Sources */,
+				69863BD11FE3B749001530C1 /* TideData.m in Sources */,
 				697C89A21D485AAC00DDB435 /* NearByPacket.m in Sources */,
 				693EA5351D51A823008CBEEE /* LogViewController.m in Sources */,
 				690CE32A1D4406CF00450774 /* PreferenceFactory.m in Sources */,
@@ -1069,20 +1111,20 @@
 				69D72D321D41527100980CF6 /* PickerInputCell.m in Sources */,
 				6969633A1D349B4C00CC3734 /* AppDelegate.m in Sources */,
 				690CE3421D4533F000450774 /* WindPacket.m in Sources */,
-				69CC59521D5AE95B00F504B0 /* DBManager.m in Sources */,
 				6969636C1D349B8B00CC3734 /* SettingsViewController.m in Sources */,
 				699521181D3619DA0073114D /* SpitcastData.m in Sources */,
 				696D2BD71D4DD83D00A45E45 /* SecondaryLabelCell.m in Sources */,
 				69B426241D472EE6006E4712 /* arrowCell.m in Sources */,
 				696D2BDC1D4EC89A00A45E45 /* DayRangeViewController.m in Sources */,
+				69863BC81FE3AF0A001530C1 /* DataCategory.m in Sources */,
 				697A29011D652DF700EDF8BC /* CompassView.m in Sources */,
-				6934B9E21D5BA281001D729A /* DBTableColumn.m in Sources */,
 				69A8DEF91D4DA090000D4412 /* SubSettingsViewController.m in Sources */,
 				6949876F1F97107A008AE728 /* OfflineData.m in Sources */,
 				690CE3311D441D6700450774 /* Bezier.m in Sources */,
 				69CBBA7B1D52DF34005E3BCA /* CurrentWeather.m in Sources */,
 				69281EC61D5427DD00FD39BF /* ReportPageViewController.m in Sources */,
 				69371B421D3727FF00562493 /* PlotView.m in Sources */,
+				695D66601FDBCCB700FC562D /* DBQueries.m in Sources */,
 				69A8DEEB1D4D11F1000D4412 /* InfoPacket.m in Sources */,
 				69A8DEEF1D4D13BE000D4412 /* SurfPacket.m in Sources */,
 				69D4608B1D5D7D80005275EF /* TextMessageViewController.m in Sources */,
@@ -1093,10 +1135,12 @@
 				69310B6D1D38976C0087C5BE /* CountyInfoPacket.m in Sources */,
 				696D2BD31D4DD2D200A45E45 /* SubSettingColorViewController.m in Sources */,
 				697C89A81D4908A600DDB435 /* AddPlaceViewController.m in Sources */,
+				69863BD51FE3B75F001530C1 /* SwellData.m in Sources */,
 				69EDF4301D7B6A5B00B310EA /* SubInfoView.m in Sources */,
 				696D2BD01D4DCF0E00A45E45 /* subViewController.m in Sources */,
 				69D051C61D58145B00C46CDF /* SwellPacket.m in Sources */,
 				690F86441D408A1E00C33918 /* ReportViewController.m in Sources */,
+				69863BCB1FE3B72B001530C1 /* WeatherData.m in Sources */,
 				6975BD7D1D826AF70012B029 /* SurfDataProviderViewController.m in Sources */,
 				69DB19F81D484E63000F500B /* TidePacket.m in Sources */,
 				69405C9D1D4DACC8007E4617 /* SegmentedControlCell.m in Sources */,
@@ -1104,7 +1148,9 @@
 				697A29041D657B9300EDF8BC /* DatumView.m in Sources */,
 				690CE33F1D452EB600450774 /* CountyHandler.m in Sources */,
 				69CBBA811D52E077005E3BCA /* WeatherPacket.m in Sources */,
+				69863BD71FE3B97B001530C1 /* WaterTempData.m in Sources */,
 				69D72D2A1D41521D00980CF6 /* TextInputCell.m in Sources */,
+				69863BC51FE3AEF7001530C1 /* SurfData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1113,6 +1159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				690CE33D1D442ED900450774 /* SurfShackMobileCountyCollectingTests.m in Sources */,
+				697C34911FDE319E00D719C8 /* AsyncOperationTests.m in Sources */,
 				69CBBA891D52E5D4005E3BCA /* CurrentWeatherTests.m in Sources */,
 				696963501D349B4C00CC3734 /* SurfShackMobileStringTests.m in Sources */,
 				69D5B9E21FD1122F0094B637 /* downloadOperationTests.m in Sources */,

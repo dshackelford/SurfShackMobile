@@ -9,17 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "ReportViewController.h"
 #import "OfflineData.h"
+#import "DBQueries.h"
 
 @implementation ReportViewController
 
 -(void)viewDidLoad
 {
-    db = [[DBManager alloc] init];
     
     [self restrictRotation:NO];
     
     screenSize = [UIScreen mainScreen].bounds.size;
-    
     if (screenSize.width > screenSize.height) //maintain a constant screen size for consistency
     {
         //swap the values for a load in horizontal
@@ -28,36 +27,16 @@
         screenSize.height = x;
     }
     
-    [db openDatabase];
-    favSpots = [db getSpotFavorites];
-    county = [db getCountyOfSpotID:[[favSpots objectAtIndex:self.index] intValue]];
-    county = [CountyHandler moldStringForURL:county];
-    spotName = [db getSpotNameOfSpotID:[[favSpots objectAtIndex:self.index] intValue]];
-    NSString* spotID = [NSString stringWithFormat:@"%i",[[favSpots objectAtIndex:self.index] intValue]];
-    NSLog(@"this report view's spotID : \"%@\"",spotID);
-    [db closeDatabase];
+    favSpots = [DBQueries getSpotFavorites];
+    spotID = [[favSpots objectAtIndex:self.index] intValue];
+    
+    county = [CountyHandler getCountyOfSpot:spotID];
+    
+    spotName = [DBQueries getSpotNameOfSpotID:spotID];
     
     self.view.backgroundColor = [UIColor clearColor];
 
-    NSLog(@"current spot:%@",spotName);
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actOnSpotData:) name:spotName object:nil];
-    NSLog(@"registered spot notification under %@",spotName);
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actOnCountyData:) name:county object:nil];
-    
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRotate:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveTap:) name:@"tap" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:@"refreshData" object:nil];
-    
-    
-    //ADD SUBVIEWS (OFFSET Y BY 70 FOR THE TITLE BAR BEING PRESENT)
-//    infoView = [[SubInfoView alloc] initWithFrame:CGRectMake(0, 70, screenSize.width, screenSize.height/4)];
-//    [self.view addSubview:infoView];
+    [self registerForNotifications];
     
     aCompView = [[CompassView alloc] initWithFrame:CGRectMake(0,100, screenSize.width, screenSize.height/3)];
     [self.view addSubview:aCompView];
@@ -65,14 +44,8 @@
     aPlotView = [[PlotView alloc] initWithFrame:CGRectMake(0,100 + aCompView.frame.size.height, screenSize.width, 200)];
     [self.view addSubview:aPlotView];
     
-
-//    aPlotView.layer.borderWidth = 2;
-//    aPlotView.layer.borderColor = [UIColor blackColor].CGColor;
-    
     aCompView.hidden = YES;
-//    infoView.hidden = YES;
     aPlotView.hidden = YES;
-    
     
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, screenSize.width/3 - 20, 25)];
     titleLabel.font = [UIFont boldSystemFontOfSize:23];
@@ -87,6 +60,52 @@
     //maybe determine this from the preference on what the user wants to see first?
     currentView = 1;
     
+    [self initializeCLLocationManager];
+    
+    self.noDataCount = 0;
+    
+    [dataFactory addReportVC:self ForID:spotID]; //essentially this is just saying that this report view is the main view???
+    
+    [super viewDidLoad];
+}
+
+-(void)registerForNotifications
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRotate:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveTap:) name:@"tap" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:@"refreshData" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(futureIndexSet:) name:@"futureIndexRatio" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeColor:) name:@"changeColorPref" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterForeground:) name:@"didEnterForeground" object:nil];
+}
+
+-(void)didEnterForeground:(NSNotification*)notification
+{
+    [self.activityDelegate isLoadingData:true];
+    
+    //set the title bar in the pageview controller
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeTitle" object:[NSNumber numberWithInteger:self.index]];
+    
+    spotDict = [dataFactory dataForSpotID:spotID];
+    
+    if(spotDict)
+    {
+        aPlotView.isOfflineData = [[spotDict objectForKey:@"isOld"] boolValue];
+        [self.activityDelegate isLoadingData:aPlotView.isOfflineData];
+        [self chooseDataToDisplay];
+    }
+}
+
+-(void)initializeCLLocationManager
+{
     //LOCATION MANAGER FOR COMPASS
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -94,13 +113,6 @@
     locationManager.distanceFilter = kCLDistanceFilterNone;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager requestAlwaysAuthorization];
-    
-    [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeColor:) name:@"changeColorPref" object:nil];
-    [self.activityDelegate isLoadingData:true];
-    spotDict = [OfflineData getOfflineDataForID:[[favSpots objectAtIndex:self.index] intValue]];
-    [self chooseDataToDisplay];
 }
 
 -(void)changeColor:(NSNotification*)notification
@@ -114,47 +126,46 @@
 {
     [self restrictRotation:NO];
     
-    NSLog(@"view %d WILL appear",(int)self.index);
+    [self.activityDelegate isLoadingData:true];
     
     //set the title bar in the pageview controller
     [[NSNotificationCenter defaultCenter] postNotificationName:@"changeTitle" object:[NSNumber numberWithInteger:self.index]];
     
-    NSMutableDictionary* tempDict  = [dataFactory getASpotDictionary:spotName andCounty:county];
+    spotDict = [dataFactory dataForSpotID:spotID];
     
-    if (tempDict != nil)
+    if(spotDict)
     {
-        spotDict = tempDict;
-        [self spotHasData];
+        aPlotView.isOfflineData = [[spotDict objectForKey:@"isOld"] boolValue];
+        [self.activityDelegate isLoadingData:aPlotView.isOfflineData];
+        [self chooseDataToDisplay];
     }
-    else
-    {
-         [self.activityDelegate isLoadingData:true];
-    }
-    
+
     [super viewWillAppear:YES];
 }
 
-
--(void)actOnSpotData:(NSNotification*)notification
+//called when new data downloaded from data factory
+-(void)youHaveData:(NSMutableDictionary*)reportDictInit
 {
-    NSLog(@"got some spot data for %@",spotName);
-    spotDict  = [dataFactory getASpotDictionary:spotName andCounty:county];
-    if (spotDict != nil)
+    if(reportDictInit)
     {
-        [self spotHasData];
+        spotDict = reportDictInit;
+        
+        aPlotView.isOfflineData = [[reportDictInit objectForKey:@"isOld"] boolValue]; //read from the report Dict, there should be a value for if the data is old or not.
+        [self.activityDelegate isLoadingData:aPlotView.isOfflineData];
+        NSLog(@"%@ choosing to display new data it received",spotName);
+        [self chooseDataToDisplay];
     }
 }
 
--(void)actOnCountyData:(NSNotification*)notification
-{
-    NSLog(@"got some county data for %@",county);
-    spotDict  = [dataFactory getASpotDictionary:spotName andCounty:county];
-    if (spotDict != nil)
-    {
-        [self spotHasData];
-    }
-}
 
+
+-(void)showNoDataAlert
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Data Missing" message:@"There seems to be missing data for this spot, try another spot close to this one." preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
 -(void)refreshData:(NSNotification*)notification
 {
     aCompView.hidden = YES;
@@ -164,6 +175,13 @@
     aPlotView.hidden = YES;
     [self.activityDelegate isLoadingData:true];
     NSLog(@"attempt resfresh");
+}
+
+-(void)futureIndexSet:(NSNotification*)notification
+{
+    //int index = [notification.object doubleValue]*[[[spotDict objectForKey:@"surf"] objectForKey:@"mags"] count];
+    //NSMutableDictionary* futureDict = [dataFactory setCurrentValuesForSpotDict:spotDict.mutableCopy];
+    
 }
 
 //if there is data, then current values can be derived thusly
@@ -256,7 +274,7 @@
             
             [aPlotView establishViewWithData:shortMags withXVals:shortXVals withIndicatorVal:indicatorStr andPlotLabel:[infoDict objectForKey:@"plotLabel"]];
             
-            [aPlotView updateFrame:CGRectMake(0,screenSize.height - screenSize.height/3 - 75, screenSize.width, screenSize.height/3) forCurrentView:currentView];
+            [aPlotView updateFrame:CGRectMake(0,screenSize.height - screenSize.height/3 - 90, screenSize.width, screenSize.height/3) forCurrentView:currentView];
   
             [self.tabBarController.tabBar setHidden:NO];
             aCompView.hidden = NO;
@@ -330,6 +348,7 @@
     spotDict = dictInit;
 }
 
+
 -(void)didReceiveTap:(NSNotification*)notification
 {
     NSLog(@"tapped the screen, call the next view up");
@@ -350,4 +369,10 @@
 
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    
+    [dataFactory removeReportVCForID:spotID];
+}
 @end

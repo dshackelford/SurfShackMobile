@@ -35,7 +35,7 @@
     
     CurrentWeather* aweath = [[CurrentWeather alloc] init];
     CLLocation* aLoc = [[CLLocation alloc] initWithLatitude:32.75 longitude:-117.25];
-    [aweath getCurrentWeatherForLoc:aLoc];
+    //[aweath getCurrentWeatherForLoc:aLoc];
     NSLog(@"Temp: %f",[aweath getTemp]);
     NSLog(@"Description: %@",[aweath getDescription]);
     NSLog(@"sunset: %f",[aweath getSunset]);

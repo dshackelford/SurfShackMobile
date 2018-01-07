@@ -7,13 +7,12 @@
 //
 
 #import "MasterViewController.h"
-#import "DBManager.h"
 #import "PreferenceFactory.h"
 #import "CountyHandler.h"
 
 @interface TextMessageViewController : MasterViewController
 {
-    DBManager* db;
+    
 }
 
 @end

@@ -16,5 +16,6 @@
 
 -(NSMutableArray*)getSwellDataArray;
 -(double)getHST;
+-(NSMutableDictionary*)makeDictFromPacket;
 
 @end

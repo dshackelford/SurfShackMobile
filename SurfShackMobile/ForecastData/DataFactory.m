@@ -1,4 +1,4 @@
-//
+;//
 //  DataFactory.m
 //  SurfShackMobile
 //
@@ -8,8 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import "DataFactory.h"
+#import <AsyncBlockOperation/AsyncBlockOperation.h>
+#import "OfflineData.h"
+#import "ReportViewController.h"
+#import "DBQueries.h"
 
 @implementation DataFactory
+
+typedef enum{
+    waiting,
+    valid,
+    invalid,
+} spotDictState;
 
 -(id)init
 {
@@ -20,15 +30,65 @@
     
     spotsDict = [[NSMutableDictionary alloc] init]; //a spot: surf heights and weather
     countiesDict = [[NSMutableDictionary alloc] init];
+    reportDicts = [[NSMutableDictionary alloc] init]; //completed report view dictionaries
+    viewControllersDict = [[NSMutableDictionary alloc] init];
     
-    db = [[DBManager alloc] init];
+    self.notificationTrackerDict = [NSMutableDictionary dictionary]; //hold whether or not a notification has already been sent
+    self.spotNameVCs = [NSMutableDictionary dictionary];
     
     dateOnLastDownload = 0; //probably should read from a file?
-    
+    currentReportID = 0;
     return self;
 }
 
-//arrOfLocs holds an array of spotID's
+-(void)addReportVC:(ReportViewController*)vcInit ForID:(int)idInit
+{
+    [viewControllersDict setObject:vcInit forKey:[NSNumber numberWithInteger:idInit]];
+}
+
+-(void)removeReportVCForID:(int)idInit
+{
+    [viewControllersDict removeObjectForKey:[NSNumber numberWithInt:idInit]];
+}
+
+-(NSMutableDictionary*)dataForSpotID:(int)idInit
+{
+    currentReportID = idInit; //only views that are live call this
+    
+    //check for already locally cached data
+    if([reportDicts objectForKey:[NSNumber numberWithInt:idInit]])
+    {
+        //we have already a completed
+        
+        NSString* downloadDate = [[reportDicts objectForKey:[NSNumber numberWithInt:idInit]] objectForKey:@"downloadDate"];
+        int date = [downloadDate intValue];
+        
+        if([[DateHandler getCurrentDateString] intValue] > date)
+        {
+            [[reportDicts objectForKey:[NSNumber numberWithInt:idInit]] setObject:[NSNumber numberWithBool:true] forKey:@"isOld"];
+            
+            NSArray* spotFavIDs = [DBQueries getSpotFavorites];
+            NSArray* countyFavs = [DBQueries getCountyFavorites];
+            
+            //start background thread for downloading dictionaries
+            [self getDataForSpots:spotFavIDs andCounties:countyFavs];
+            
+        }
+        else
+        {
+            [[reportDicts objectForKey:[NSNumber numberWithInt:idInit]] setObject:[NSNumber numberWithBool:false] forKey:@"isOld"];
+        }
+        
+        return [reportDicts objectForKey:[NSNumber numberWithInt:idInit]];
+    }
+    else
+    {
+        //nothing already cached. If its nil, then the report view will continue waiting
+        NSLog(@"Returing offline data");
+        return [OfflineData getOfflineDataForID:idInit];
+    }
+}
+
 //this is called from report page view contorller
 -(void)getDataForSpots:(NSArray*)spotIDArray andCounties:(NSArray*)countiesArray
 {
@@ -40,10 +100,10 @@
     {
         int intNum = [num intValue];
         
-        [db openDatabase];
-        [arrOfLocs addObject: [db getLocationOfSpot:intNum]];
-        [arrOfSpotNames addObject:[db getSpotNameOfSpotID:intNum]];
-        [db closeDatabase];
+        [arrOfLocs addObject: [DBQueries getLocationOfSpot:intNum]];
+        [arrOfSpotNames addObject:[DBQueries getSpotNameOfSpotID:intNum]];
+        
+        [self.notificationTrackerDict setObject:[NSNumber numberWithBool:false] forKey:[DBQueries getSpotNameOfSpotID:intNum]];
     }
     
     int currentDownloadTry = [[DateHandler getCurrentDateString] intValue];
@@ -64,13 +124,31 @@
         CLLocation* aLoc = [arrOfLocs objectAtIndex:i];
         NSString* spotName = [arrOfSpotNames objectAtIndex:i];
 
-        //If I haven't already downloaed the spotsDict, don't redownload it!
         if ([spotsDict objectForKey:spotName] == nil)
         {
             dateOnLastDownload = [[DateHandler getCurrentDateString] intValue];
 
-            [self.surfSource startSurfDataDownloadForSpotID:spotID andSpotName:spotName];
-            [self.weatherSource startWeatherDownloadForLoc:aLoc andSpotID:spotID andSpotName:spotName];
+            [[spotsDict objectForKey:spotName] setObject:[NSNumber numberWithInteger:waiting] forKey:@"state"];
+            
+            NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+            
+            AsyncBlockOperation *surfOp = [AsyncBlockOperation blockOperationWithBlock:^(AsyncBlockOperation *surfOp) {
+                [self.surfSource startSurfDataDownloadForSpotID:spotID andSpotName:spotName andOp:surfOp];
+            }];
+            AsyncBlockOperation *weatherOp = [AsyncBlockOperation blockOperationWithBlock:^(AsyncBlockOperation *weatherOp) {
+                [self.weatherSource startWeatherDownloadForLoc:aLoc andSpotID:spotID andSpotName:spotName andOp:weatherOp];
+            }];
+            
+            NSBlockOperation* spotEndOp = [NSBlockOperation blockOperationWithBlock:^{
+                [self checkForCompletionForSpot:spotName andID:spotID];
+            }];
+            
+            [spotEndOp addDependency:surfOp];
+            [spotEndOp addDependency:weatherOp];
+            
+            [queue addOperation:spotEndOp];
+            [queue addOperation:surfOp];
+            [queue addOperation:weatherOp];
         }
     }
     
@@ -81,136 +159,206 @@
         {
            NSString* spitCounty = [CountyHandler moldStringForURL:county];
             
-            [self.surfSource startWaterTempDownloadForCounty:spitCounty];
-            [self.surfSource startWindDataDownloadForCounty:spitCounty];
-            [self.surfSource startTideDataDownloadForCounty:spitCounty];
-            [self.surfSource startSwellDataDownloadForCounty:spitCounty];
-        }
-    }
-}
-
--(void)surfDataDictReceived:(NSMutableDictionary*)surfData
-{
-    NSMutableDictionary* aSpotDict = [spotsDict objectForKey:[surfData objectForKey:@"spotName"]];
-    if(aSpotDict == nil)
-    {
-        aSpotDict = [NSMutableDictionary dictionary];
-    }
-    
-    [aSpotDict setObject:surfData forKey:@"surf"];
-    
-    [spotsDict setObject:aSpotDict forKey:[surfData objectForKey:@"spotName"]];
-    [self checkSpotDict];
-}
-
--(void)tideDataDictReceived:(NSMutableDictionary *)tideData
-{
-    NSMutableDictionary* aCountyDict = [countiesDict objectForKey:[tideData objectForKey:@"countyID"]];
-    if(aCountyDict == nil)
-    {
-        aCountyDict = [NSMutableDictionary dictionary];
-    }
-    
-    [aCountyDict setObject:tideData forKey:@"tide"];
-    
-    [countiesDict setObject:aCountyDict forKey:[tideData objectForKey:@"countyID"]];
-    [self checkCountyDict];
-}
-
--(void)windDataDictReceived:(NSMutableDictionary *)windData
-{
-    NSMutableDictionary* aCountyDict = [countiesDict objectForKey:[windData objectForKey:@"countyID"]];
-    if(aCountyDict == nil)
-    {
-        aCountyDict = [NSMutableDictionary dictionary];
-    }
-    
-    [aCountyDict setObject:windData forKey:@"wind"];
-    
-    [countiesDict setObject:aCountyDict forKey:[windData objectForKey:@"countyID"]];
-    [self checkCountyDict];
-}
-
--(void)swellDataDictReceived:(NSMutableDictionary *)swellData
-{
-    NSMutableDictionary* aCountyDict = [countiesDict objectForKey:[swellData objectForKey:@"countyID"]];
-    if(aCountyDict == nil)
-    {
-        aCountyDict = [NSMutableDictionary dictionary];
-    }
-    
-    [aCountyDict setObject:swellData forKey:@"swell"];
-    
-    [countiesDict setObject:aCountyDict forKey:[swellData objectForKey:@"countyID"]];
-    [self checkCountyDict];
-}
-
-- (void)waterTempDataDictReceived:(NSMutableDictionary *)waterTempData
-{
-    NSMutableDictionary* aCountyDict = [countiesDict objectForKey:[waterTempData objectForKey:@"countyID"]];
-    if(aCountyDict == nil)
-    {
-        aCountyDict = [NSMutableDictionary dictionary];
-    }
-    
-    [aCountyDict setObject:[waterTempData objectForKey:@"waterTemp"] forKey:@"waterTemp"];
-    
-    [countiesDict setObject:aCountyDict forKey:[waterTempData objectForKey:@"countyID"]];
-    [self checkCountyDict];
-}
-
-
-- (void)weatherDataDictReceived:(NSMutableDictionary *)weatherData
-{
-    NSMutableDictionary* aSpotDict = [spotsDict objectForKey:[weatherData objectForKey:@"spotName"]];
-    if(aSpotDict == nil)
-    {
-        aSpotDict = [NSMutableDictionary dictionary];
-    }
-    [aSpotDict setObject:weatherData forKey:@"weatherDict"];
-
-    [spotsDict setObject:aSpotDict forKey:[weatherData objectForKey:@"spotName"]];
-     [self checkSpotDict];
-}
-
--(void)checkCountyDict
-{
-    for(NSString* key in [countiesDict allKeys])
-    {
-        NSMutableDictionary* countyDict = [countiesDict objectForKey:key];
-        
-        NSLog(@"county keys %@",[countyDict allKeys]);
-        if([[countyDict allKeys] count] == 4) //swell/wind/tide/watertemp
-        {
-            NSLog(@"sent county notification under key: %@",key);
-            NSOperationQueue* q = [NSOperationQueue mainQueue];
-            NSBlockOperation* op = [NSBlockOperation blockOperationWithBlock:^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:key object:countyDict];
+            NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+            
+            NSBlockOperation* countyEndOp = [NSBlockOperation blockOperationWithBlock:^{
+                [self checkForCompletionForCounty:spitCounty];
             }];
-            [q addOperation:op];
-        }
-    }
-}
-
--(void)checkSpotDict
-{
-    for(NSString* key in [spotsDict allKeys])
-    {
-        NSMutableDictionary* spotDict = [spotsDict objectForKey:key];
-        
-        NSLog(@"spot keys %@",[spotDict allKeys]);
-        if([[spotDict allKeys] count] == 2)
-        {
-            NSLog(@"sent spot notification under key: %@",key);
-            NSOperationQueue* q = [NSOperationQueue mainQueue];
-            NSBlockOperation* op = [NSBlockOperation blockOperationWithBlock:^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:key object:spotDict];
+            
+            AsyncBlockOperation *waterTempOp = [AsyncBlockOperation blockOperationWithBlock:^(AsyncBlockOperation *waterTempOp) {
+                [self.surfSource startWaterTempDownloadForCounty:spitCounty andOp:waterTempOp];
             }];
-            [q addOperation:op];
+            AsyncBlockOperation *windOp = [AsyncBlockOperation blockOperationWithBlock:^(AsyncBlockOperation *windOp) {
+                [self.surfSource startWindDataDownloadForCounty:spitCounty andOp:windOp];
+            }];
+            AsyncBlockOperation *tideOp = [AsyncBlockOperation blockOperationWithBlock:^(AsyncBlockOperation *tideOp) {
+                [self.surfSource startTideDataDownloadForCounty:spitCounty andOp:tideOp];
+            }];
+            AsyncBlockOperation *swellOp = [AsyncBlockOperation blockOperationWithBlock:^(AsyncBlockOperation *swellOp) {
+                [self.surfSource startSwellDataDownloadForCounty:spitCounty andOp:swellOp];
+            }];
+            
+            [countyEndOp addDependency:waterTempOp];
+            [countyEndOp addDependency:windOp];
+            [countyEndOp addDependency:tideOp];
+            [countyEndOp addDependency:swellOp];
+
+            [queue addOperation:waterTempOp];
+            [queue addOperation:windOp];
+            [queue addOperation:tideOp];
+            [queue addOperation:swellOp];
+            [queue addOperation:countyEndOp];
         }
     }
 }
 
+-(void)checkForCompletionForSpot:(NSString*)spotName andID:(int)spotID
+{
+    NSString* county = [CountyHandler getCountyOfSpot:spotID];
+    
+    NSMutableDictionary* countyDict = [countiesDict objectForKey:county];
+    
+    if(countyDict)
+    {
+        //if(![[self.notificationTrackerDict objectForKey:spotName] boolValue])
+        //{
+           // [self.notificationTrackerDict setObject:[NSNumber numberWithBool:true] forKey:spotName];
+            
+            NSOperationQueue* q = [NSOperationQueue mainQueue];
+            NSBlockOperation* notifOp = [NSBlockOperation blockOperationWithBlock:^{
+                
+                ReportViewController* vc = [viewControllersDict objectForKey:[NSNumber numberWithInt:spotID]];
+                NSLog(@"%@ has data in spot check",spotName);
+                [vc youHaveData:[self getASpotDictionary:spotName andCounty:county andID:spotID]];
+            }];
+            [q addOperation:notifOp];
+        //}
+    }
+    
+}
+
+-(void)checkForCompletionForCounty:(NSString*)countyName
+{
+    for(NSNumber* spotID in [DBQueries getSpotFavorites])
+    {
+        NSString* county = [CountyHandler getCountyOfSpot:[spotID intValue]];
+            
+        if([county isEqualToString:countyName])
+        {
+            NSString* spotName = [DBQueries getSpotNameOfSpotID:[spotID intValue]];
+            
+                [self.notificationTrackerDict setObject:[NSNumber numberWithBool:true] forKey:spotName];
+                
+                NSOperationQueue* q = [NSOperationQueue mainQueue];
+                NSBlockOperation* notifOp = [NSBlockOperation blockOperationWithBlock:^{
+                    ReportViewController* vc = [viewControllersDict objectForKey:spotID];
+                    NSLog(@"%@ has data in county check",spotName);
+                    [vc youHaveData:[self getASpotDictionary:spotName andCounty:county andID:[spotID intValue]]];
+                }];
+                [q addOperation:notifOp];
+        }
+        
+    }
+}
+#pragma mark - Spot Data Receivers
+-(void)surfDataDictReceived:(NSMutableDictionary*)surfData forSpot:(NSString *)spotNameInit
+{
+    if(surfData != nil)
+    {
+        NSMutableDictionary* aSpotDict = [spotsDict objectForKey:spotNameInit];
+        if(aSpotDict == nil)
+        {
+            aSpotDict = [NSMutableDictionary dictionary];
+        }
+        
+        [aSpotDict setObject:surfData forKey:@"surf"];
+        
+        [spotsDict setObject:aSpotDict forKey:[surfData objectForKey:@"spotName"]];
+    }
+    else
+    {
+        NSLog(@"surf data not found for spot %@",[surfData objectForKey:@"spotName"]);
+    }
+
+}
+
+- (void)weatherDataDictReceived:(NSMutableDictionary *)weatherData forSpot:(NSString *)spotNameInit
+{
+    if(weatherData != nil)
+    {
+        NSMutableDictionary* aSpotDict = [spotsDict objectForKey:spotNameInit];
+        if(aSpotDict == nil)
+        {
+            aSpotDict = [NSMutableDictionary dictionary];
+        }
+        
+        
+        [aSpotDict setObject:weatherData forKey:@"weatherDict"];
+        [spotsDict setObject:aSpotDict forKey:[weatherData objectForKey:@"spotName"]];
+    }
+    else
+    {
+        NSLog(@"weather data no found for spot %@",[weatherData objectForKey:@"spotName"]);
+    }
+}
+
+#pragma mark - County Data Receivers
+
+-(void)tideDataDictReceived:(NSMutableDictionary *)tideData forCounty:(NSString *)countyNameInit
+{
+    if(tideData != nil)
+    {
+        NSMutableDictionary* aCountyDict = [countiesDict objectForKey:countyNameInit];
+        if(aCountyDict == nil)
+        {
+            aCountyDict = [NSMutableDictionary dictionary];
+        }
+        [aCountyDict setObject:tideData forKey:@"tide"];
+        [countiesDict setObject:aCountyDict forKey:[tideData objectForKey:@"countyID"]];
+    }
+    else
+    {
+        NSLog(@"tide data not found for spot %@",[tideData objectForKey:@"countyID"]);
+    }
+}
+
+-(void)windDataDictReceived:(NSMutableDictionary *)windData forCounty:(NSString *)countyNameInit
+{
+    if(windData != nil)
+    {
+        NSMutableDictionary* aCountyDict = [countiesDict objectForKey:countyNameInit];
+        if(aCountyDict == nil)
+        {
+            aCountyDict = [NSMutableDictionary dictionary];
+        }
+        [aCountyDict setObject:windData forKey:@"wind"];
+        [countiesDict setObject:aCountyDict forKey:[windData objectForKey:@"countyID"]];
+    }
+    else
+    {
+        NSLog(@"wind data not found for spot %@",[windData objectForKey:@"countyID"]);
+        //[aCountyDict setObject:@"no data" forKey:@"wind"];
+    }
+}
+
+-(void)swellDataDictReceived:(NSMutableDictionary *)swellData forCounty:(NSString *)countyNameInit
+{
+    if(swellData != nil)
+    {
+        NSMutableDictionary* aCountyDict = [countiesDict objectForKey:countyNameInit];
+        
+        if(aCountyDict == nil)
+        {
+            aCountyDict = [NSMutableDictionary dictionary];
+        }
+        [aCountyDict setObject:swellData forKey:@"swell"];
+        [countiesDict setObject:aCountyDict forKey:[swellData objectForKey:@"countyID"]];
+    }
+    else
+    {
+        NSLog(@"swell data not found for spot %@",[swellData objectForKey:@"countyID"]);
+    }
+    
+}
+
+- (void)waterTempDataDictReceived:(NSMutableDictionary *)waterTempData forCounty:(NSString *)countyNameInit
+{
+    if(waterTempData != nil)
+    {
+        NSMutableDictionary* aCountyDict = [countiesDict objectForKey:countyNameInit];
+        if(aCountyDict == nil)
+        {
+            aCountyDict = [NSMutableDictionary dictionary];
+        }
+        [aCountyDict setObject:[waterTempData objectForKey:@"waterTemp"] forKey:@"waterTemp"];
+        [countiesDict setObject:aCountyDict forKey:[waterTempData objectForKey:@"countyID"]];
+    }
+    else
+    {
+        NSLog(@"water temp data not found for spot %@",[waterTempData objectForKey:@"countyID"]);
+    }
+    
+}
 
 //this gets called every time a report view will appear, therefore I find it prudent not have to download anything, all the data should be present, this method just parses it
 -(NSMutableDictionary*)setCurrentValuesForSpotDict:(NSMutableDictionary*)spotDictInit
@@ -226,20 +374,24 @@
 
 -(NSMutableDictionary*)setCurrentSwellDirection:(NSMutableDictionary*)aSpotDictInit
 {
+    NSLog(@"setting current swell direction");
     //get the first day array of swells
+    NSMutableArray* swellArray = [[aSpotDictInit objectForKey:@"swell"] objectForKey:@"swellArray"];
     
-    if ([[[aSpotDictInit objectForKey:@"swellDict"] objectAtIndex:0] count] > 0)
+    if ([swellArray count] > 0)
     {
-        NSMutableArray* swellArr = [[aSpotDictInit objectForKey:@"swellDict"] objectAtIndex:0];
+        //NSMutableArray* swellArr = [[aSpotDictInit objectForKey:@"swellDict"] objectAtIndex:0];
     
         int currentIndex = [DateHandler getIndexFromCurrentTime];
     
-        NSMutableDictionary* hourSwellDict = [[[swellArr objectAtIndex:currentIndex] getSwellDataArray] objectAtIndex:0];
-    
-    
-        if ([hourSwellDict objectForKey:@"dir"] != nil)
+#warning this should include a division of current index by day number, not just day 0 especially when I add the movable bar in the plot view
+        NSMutableArray* hourSwellArray = [[[swellArray objectAtIndex:0] objectAtIndex:currentIndex] objectForKey:@"swellArray"];
+        
+#warning should iterate through the hour array for all potential swells
+#warning also need to check if its nill as well
+        if (![[[hourSwellArray objectAtIndex:0] objectForKey:@"dir"] isEqual:[NSNull null]])
         {
-            double currentDirection = [[hourSwellDict objectForKey:@"dir"] doubleValue];
+            double currentDirection = [[[hourSwellArray objectAtIndex:0] objectForKey:@"dir"] doubleValue];
             currentDirection = currentDirection + 180;
             
             [aSpotDictInit setObject:[NSNumber numberWithDouble:currentDirection] forKey:@"currentSwellDirection"];
@@ -251,71 +403,63 @@
 
 -(NSMutableDictionary*)setCurrentWindDirection:(NSMutableDictionary*)aSpotDictInit
 {
+    NSLog(@"setting current wind direction");
     NSMutableDictionary* windDict = [aSpotDictInit objectForKey:@"wind"];
 
     int currentIndex = [DateHandler getIndexFromCurrentTime];
     
     NSNumber* currentDirection = [[windDict objectForKey:@"windDirectionArray"] objectAtIndex:currentIndex];
-    
-    [aSpotDictInit setObject:currentDirection forKey:@"windDirection"];
-    
+    if(currentDirection != nil)
+        [aSpotDictInit setObject:currentDirection forKey:@"windDirection"];
+    else
+        NSLog(@"nil wind direction found!");
     return aSpotDictInit;
 }
 
 -(NSMutableDictionary*)setCurrentImportantSwells:(NSMutableDictionary*)aSpotDictInit
 {
-    if ([[aSpotDictInit objectForKey:@"swellDict"] count] > 0)
+        NSLog(@"setting current important swells");
+    NSMutableArray* weekSwellArray = [[aSpotDictInit objectForKey:@"swell"] objectForKey:@"swellArray"];
+    NSMutableArray* daySwellArray = [weekSwellArray objectAtIndex:0];
+    int currentIndex = [DateHandler getIndexFromCurrentTime];
+    NSMutableArray* hourSwellArray = [[daySwellArray  objectAtIndex:currentIndex] objectForKey:@"swellArray"];
+    
+    double hst = 0;
+    if([[daySwellArray objectAtIndex:currentIndex] objectForKey:@"hst"] != nil)
     {
-        //get the first day array of swells
-        NSMutableArray* swellArr = [[aSpotDictInit objectForKey:@"swellDict"] objectAtIndex:0];
+        hst = [[[daySwellArray  objectAtIndex:currentIndex] objectForKey:@"hst"] doubleValue];
+    }
+    int count = 0;
     
-        int currentIndex = [DateHandler getIndexFromCurrentTime];
-    
-        NSMutableDictionary* hourSwellDict = [[NSMutableDictionary alloc] init];
-    
-        if ([[swellArr objectAtIndex:currentIndex] getSwellDataArray] > 0 &&[[swellArr objectAtIndex:currentIndex] getSwellDataArray] != nil )
+    for(int i = 0; i < 5; i = i + 1)
+    {
+        NSMutableDictionary* aSwellDict = [hourSwellArray objectAtIndex:0];
+        
+        if(aSwellDict != nil)
         {
-
-            hourSwellDict = [[[swellArr objectAtIndex:currentIndex] getSwellDataArray] objectAtIndex:0];
-    
-            if(hourSwellDict != nil)
+            if(![[aSwellDict objectForKey:@"tp"] isEqual:[NSNull null]] && ![[aSwellDict objectForKey:@"hs"] isEqual:[NSNull null]] && ![[aSwellDict objectForKey:@"dir"] isEqual:[NSNull null]])
             {
-                double hst = [[swellArr objectAtIndex:currentIndex] getHST];
-                double tp = [[hourSwellDict objectForKey:@"tp"] doubleValue];
-                double hs = [[hourSwellDict objectForKey:@"hs"] doubleValue];
+                double tp = [[aSwellDict objectForKey:@"tp"] doubleValue];
+                double hs = [[aSwellDict objectForKey:@"hs"] doubleValue];
+                
                 double height = hs*hst;
                 height = ceil(height);
-        
-                int direction = [[hourSwellDict objectForKey:@"dir"] intValue] + 180;
-        
+                
+                int direction = [[aSwellDict objectForKey:@"dir"] intValue] + 180;
                 NSString* dirStr = [self getDirectionStrFromDegree:direction];
-            
-                NSString* mainSwellInfo = [NSString stringWithFormat:@"Dir: %@ \nTP: %.fs \nHt: %.f ft",dirStr,tp,height];
-        
-                [aSpotDictInit setObject:mainSwellInfo forKey:@"mainSwellInfo"];
-            }
-
-        }
-        if ([[[swellArr objectAtIndex:currentIndex] getSwellDataArray] count] > 1)
-        {
-            hourSwellDict = [[[swellArr objectAtIndex:currentIndex] getSwellDataArray] objectAtIndex:1];
-    
-            if(hourSwellDict != nil)
-            {
-                double hst = [[swellArr objectAtIndex:currentIndex] getHST];
-                double tp = [[hourSwellDict objectForKey:@"tp"] doubleValue];
-                double hs = [[hourSwellDict objectForKey:@"hs"] doubleValue];
-                double height = hs*hst;
-                height = ceil(height);
-            
-                int direction = [[hourSwellDict objectForKey:@"dir"] intValue];
-        
-                direction = direction + 180;
-                NSString* dirStr = [self getDirectionStrFromDegree:direction];
-            
-                NSString* secondSwellInfo = [NSString stringWithFormat:@"Dir: %@ \nTP: %.fs \nHt: %.f ft",dirStr,tp,height];
-        
-                [aSpotDictInit setObject:secondSwellInfo forKey:@"secondSwellInfo"];
+                
+                NSString* swellInfoStr = [NSString stringWithFormat:@"Dir: %@ \nTP: %.fs \nHt: %.f ft",dirStr,tp,height];
+                
+                if(count == 0)
+                {
+                    [aSpotDictInit setObject:swellInfoStr forKey:@"mainSwellInfo"];
+                    count = count + 1;
+                }
+                else
+                {
+                    [aSpotDictInit setObject:swellInfoStr forKey:@"secondSwellInfo"];
+                    break;
+                }
             }
         }
     }
@@ -372,6 +516,11 @@
     int previousLowTideIndex = 0;
     int nextLowTideIndex = 0;
     
+    if(currentTime == 0)
+    {
+        currentTime = 1;
+    }
+    
     for (int i = currentTime; i < [tideArrInit count]; i++)
     {
         if ([[tideArrInit objectAtIndex:i] doubleValue] > [[tideArrInit objectAtIndex:i+1] doubleValue] && [[tideArrInit objectAtIndex:i] doubleValue] > [[tideArrInit objectAtIndex:i-1] doubleValue])
@@ -416,8 +565,10 @@
     }
     [spotDictInit setObject:[NSNumber numberWithDouble:tideRatio] forKey:@"tideRatio"];
     
-    
-    
+    if(currentTime == 0)
+    {
+        currentTime = 1; //push it up one for checking. we automatcially know that the next low tide of consequence will bein the future.
+    }
     for (int i = currentTime; i < [tideArrInit count]; i++)
     {
         if ([[tideArrInit objectAtIndex:i] doubleValue] < [[tideArrInit objectAtIndex:i+1] doubleValue]  && [[tideArrInit objectAtIndex:i] doubleValue] < [[tideArrInit objectAtIndex:i-1] doubleValue])
@@ -446,27 +597,45 @@
     return spotDictInit;
 }
 
--(NSMutableDictionary*)getASpotDictionary:(NSString*)spotNameInit andCounty:(NSString*)countyInit
+-(NSMutableDictionary*)getASpotDictionary:(NSString*)spotNameInit andCounty:(NSString*)countyInit andID:(int)idInit
 {
     NSMutableDictionary* subSpotDict = [spotsDict objectForKey:spotNameInit];
     NSMutableDictionary* subCountyDict = [countiesDict objectForKey:countyInit];
     
     NSMutableDictionary* aSpotDict = [[NSMutableDictionary alloc] init];
     
-    if ([[subSpotDict allKeys] count] < 1 || [[subCountyDict allKeys] count] < 1)
+    //if ([[subSpotDict allKeys] count] < 1 || [[subCountyDict allKeys] count] < 1)
+    //{
+      //  return nil;
+    //}
+    //if([[subCountyDict allKeys] count] == 4)
+    //{
+        for (NSString* key in [subCountyDict allKeys])
+        {
+            if([subCountyDict objectForKey:key] != nil)
+            {
+                [aSpotDict setObject:[subCountyDict objectForKey:key] forKey:key];
+            }
+        }
+    /*}
+    else
     {
         return nil;
-    }
+    }*/
     
-    for (NSString* key in [subCountyDict allKeys])
-    {
-        [aSpotDict setObject:[subCountyDict objectForKey:key] forKey:key];
-    }
-    
+
     for (NSString* key in [subSpotDict allKeys])
     {
         [aSpotDict setObject:[subSpotDict objectForKey:key] forKey:key];
     }
+    
+    aSpotDict = [self setCurrentValuesForSpotDict:aSpotDict];
+    [aSpotDict setObject:[NSNumber numberWithBool:false] forKey:@"isOld"];
+    [aSpotDict setObject:[DateHandler getCurrentDateString] forKey:@"downloadDate"];
+    
+    [reportDicts setObject:aSpotDict forKey:[NSNumber numberWithInteger:idInit]];
+    
+    [OfflineData saveSpotDict:aSpotDict withID:idInit];
     
     return aSpotDict;
 }
@@ -530,10 +699,7 @@
 
 -(void)removeSpotDictionary:(int)spotID
 {
-    [db openDatabase];
-    NSString* spotName = [db getSpotNameOfSpotID:spotID];
-//    NSString* countyName
-    [db closeDatabase];
+    NSString* spotName = [DBQueries getSpotNameOfSpotID:spotID];
     [spotsDict removeObjectForKey:spotName];
 }
 

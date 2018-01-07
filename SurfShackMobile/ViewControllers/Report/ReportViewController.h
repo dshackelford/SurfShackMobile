@@ -17,24 +17,22 @@
 #import "DataFactory.h"
 
 #import "AppDelegate.h"
-#import "DBManager.h"
 
 #import "CompassView.h"
 #import "DatumView.h"
 #import "SubInfoView.h"
 
 #import "ActivityResponder.h"
-
+#import "ReportPageViewController.h"
 
 @import Charts;
 @interface ReportViewController : MasterViewController <CLLocationManagerDelegate,UIGestureRecognizerDelegate>
 {
-    DBManager* db; //local database manager for use surf spot selections
-
     //CURRENT SPOT
     DataFactory* dataFactory;
     NSString* county;
     NSString* spotName;
+    int spotID;
     NSMutableDictionary* spotDict;
     NSArray* favSpots;
     
@@ -62,8 +60,10 @@
 
 @property NSInteger index;
 @property id<ActivityResponder> activityDelegate;
+@property int noDataCount;
 
 -(void)chooseDataToDisplay;
+-(void)youHaveData:(NSMutableDictionary*)reportDictInit;
 
 #pragma mark - Setters
 -(void)setSpotDict:(NSMutableDictionary*)dictInit;
