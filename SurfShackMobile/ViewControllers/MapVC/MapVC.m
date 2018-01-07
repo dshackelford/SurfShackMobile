@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "MapVC.h"
-#import "DBManager.h"
 #import <FMDB/FMDB.h>
 #import "AppUtilities.h"
 #import "SpotAnnotation.h"
