@@ -16,6 +16,9 @@
 
 -(void)viewDidLoad
 {
+    [super viewDidLoad];
+    
+    [self restrictRotation:YES];
     self.mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
     
     [self.view addSubview:self.mapView];
@@ -28,7 +31,7 @@
     
     self.mapView.mapType = MKMapTypeHybrid;
     self.mapView.showsCompass = YES;
-    
+    self.mapView.delegate = self;
     
     FMDatabase* fmDB = [FMDatabase databaseWithPath:[AppUtilities getPathToAppDatabase]];
     
@@ -45,6 +48,11 @@
             [self.mapView addAnnotation:annot];
         }
     }
+    
+    OpenMapOverlay* openMap = [[OpenMapOverlay alloc] init];
+    openMap.canReplaceMapContent = YES;
+    self.openMapRenderer = [[MKTileOverlayRenderer alloc] initWithTileOverlay:openMap];
+    [self.mapView addOverlay:openMap];
 }
 
 - (nullable MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
@@ -73,6 +81,11 @@
     }
     
     return nil;
+}
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id <MKOverlay>)overlay
+{
+    return self.openMapRenderer;
 }
 
 @end

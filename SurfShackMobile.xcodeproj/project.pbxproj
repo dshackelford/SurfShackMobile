@@ -52,6 +52,7 @@
 		697B48631FCE98D500BC0698 /* logo20x3.png in Resources */ = {isa = PBXBuildFile; fileRef = 697B485C1FCE98D400BC0698 /* logo20x3.png */; };
 		697B48641FCE98D500BC0698 /* logo40x2.png in Resources */ = {isa = PBXBuildFile; fileRef = 697B485D1FCE98D400BC0698 /* logo40x2.png */; };
 		697B48651FCE98D500BC0698 /* logo40x3.png in Resources */ = {isa = PBXBuildFile; fileRef = 697B485E1FCE98D400BC0698 /* logo40x3.png */; };
+		697BF9E72005C2AD00E00154 /* OpenManOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 697BF9E62005C2AD00E00154 /* OpenManOverlay.m */; };
 		697C34911FDE319E00D719C8 /* AsyncOperationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 697C34901FDE319E00D719C8 /* AsyncOperationTests.m */; };
 		697C89A21D485AAC00DDB435 /* NearByPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 697C89A11D485AAC00DDB435 /* NearByPacket.m */; };
 		697C89A51D485CD300DDB435 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697C89A41D485CD300DDB435 /* CoreLocation.framework */; };
@@ -230,6 +231,8 @@
 		697B485C1FCE98D400BC0698 /* logo20x3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo20x3.png; sourceTree = "<group>"; };
 		697B485D1FCE98D400BC0698 /* logo40x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo40x2.png; sourceTree = "<group>"; };
 		697B485E1FCE98D400BC0698 /* logo40x3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo40x3.png; sourceTree = "<group>"; };
+		697BF9E52005C2A300E00154 /* OpenMapOverlay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenMapOverlay.h; sourceTree = "<group>"; };
+		697BF9E62005C2AD00E00154 /* OpenManOverlay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenManOverlay.m; sourceTree = "<group>"; };
 		697C34901FDE319E00D719C8 /* AsyncOperationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AsyncOperationTests.m; sourceTree = "<group>"; };
 		697C89A11D485AAC00DDB435 /* NearByPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearByPacket.m; sourceTree = "<group>"; };
 		697C89A31D485AB300DDB435 /* NearByPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NearByPacket.h; sourceTree = "<group>"; };
@@ -506,17 +509,6 @@
 			path = Offline;
 			sourceTree = "<group>";
 		};
-		692951961FD13D46001F6FA8 /* SQL_DB */ = {
-			isa = PBXGroup;
-			children = (
-				69CC594D1D5AE95500F504B0 /* DBManager.h */,
-				69CC59511D5AE95B00F504B0 /* DBManager.m */,
-				6934B9E61D5BA28C001D729A /* DBTableColumn.h */,
-				6934B9E11D5BA281001D729A /* DBTableColumn.m */,
-			);
-			path = SQL_DB;
-			sourceTree = "<group>";
-		};
 		695D66541FDA7BA300FC562D /* MapVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -524,6 +516,8 @@
 				695D66571FDA7BE800FC562D /* MapVC.m */,
 				695D665C1FDBC52100FC562D /* SpotAnnotation.h */,
 				695D665D1FDBC52A00FC562D /* SpotAnnotation.m */,
+				697BF9E52005C2A300E00154 /* OpenMapOverlay.h */,
+				697BF9E62005C2AD00E00154 /* OpenManOverlay.m */,
 			);
 			path = MapVC;
 			sourceTree = "<group>";
@@ -1115,6 +1109,7 @@
 				699521181D3619DA0073114D /* SpitcastData.m in Sources */,
 				696D2BD71D4DD83D00A45E45 /* SecondaryLabelCell.m in Sources */,
 				69B426241D472EE6006E4712 /* arrowCell.m in Sources */,
+				697BF9E72005C2AD00E00154 /* OpenManOverlay.m in Sources */,
 				696D2BDC1D4EC89A00A45E45 /* DayRangeViewController.m in Sources */,
 				69863BC81FE3AF0A001530C1 /* DataCategory.m in Sources */,
 				697A29011D652DF700EDF8BC /* CompassView.m in Sources */,

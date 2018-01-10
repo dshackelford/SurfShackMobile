@@ -11,11 +11,13 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "OpenMapOverlay.h"
+#import "MasterViewController.h"
 
-
-@interface MapVC : UIViewController <MKMapViewDelegate>
+@interface MapVC : MasterViewController <MKMapViewDelegate>
 
 @property MKMapView* mapView;
+@property MKTileOverlayRenderer* openMapRenderer;
 
 @end
 
