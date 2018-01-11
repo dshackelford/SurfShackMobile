@@ -367,7 +367,7 @@ typedef enum{
     spotDictInit = [self setCurrentWindDirection:spotDictInit forIndex:currentIndex];
     spotDictInit = [self setCurrentImportantSwells:spotDictInit forIndex:currentIndex];
     
-    spotDictInit = [self setMaxMinTideTimes:spotDictInit];
+    spotDictInit = [self setMaxMinTideTimes:spotDictInit forIndex:currentIndex];
     
     return spotDictInit;
 }
@@ -519,9 +519,8 @@ typedef enum{
     return dirStr;
 }
 
--(NSMutableDictionary*)setMaxMinTideTimes:(NSMutableDictionary*)spotDictInit
+-(NSMutableDictionary*)setMaxMinTideTimes:(NSMutableDictionary*)spotDictInit forIndex:(int)currentIndex
 {
-    int currentTime = [DateHandler getIndexFromCurrentTime];
     NSMutableArray* tideArrInit = [[spotDictInit objectForKey:@"tide"] objectForKey:kMags];
     double nextMaxTide = 0;
     int nextHighTideIndex = 0;
@@ -529,12 +528,12 @@ typedef enum{
     int previousLowTideIndex = 0;
     int nextLowTideIndex = 0;
     
-    if(currentTime == 0)
+    if(currentIndex == 0)
     {
-        currentTime = 1;
+        currentIndex = 1;
     }
     
-    for (int i = currentTime; i < [tideArrInit count]; i++)
+    for (int i = currentIndex; i < [tideArrInit count]; i++)
     {
         if ([[tideArrInit objectAtIndex:i] doubleValue] > [[tideArrInit objectAtIndex:i+1] doubleValue] && [[tideArrInit objectAtIndex:i] doubleValue] > [[tideArrInit objectAtIndex:i-1] doubleValue])
         {
@@ -566,7 +565,7 @@ typedef enum{
         }
     }
     
-    double currentTide = [[tideArrInit objectAtIndex:currentTime] doubleValue];
+    double currentTide = [[tideArrInit objectAtIndex:currentIndex] doubleValue];
     double tideRatio = 1 - ((nextMaxTide - previousLowTide) - (currentTide - previousLowTide))/(nextMaxTide - previousLowTide);
     if(tideRatio < 0.1)
     {
@@ -578,11 +577,11 @@ typedef enum{
     }
     [spotDictInit setObject:[NSNumber numberWithDouble:tideRatio] forKey:@"tideRatio"];
     
-    if(currentTime == 0)
+    if(currentIndex == 0)
     {
-        currentTime = 1; //push it up one for checking. we automatcially know that the next low tide of consequence will bein the future.
+        currentIndex = 1; //push it up one for checking. we automatcially know that the next low tide of consequence will bein the future.
     }
-    for (int i = currentTime; i < [tideArrInit count]; i++)
+    for (int i = currentIndex; i < [tideArrInit count]; i++)
     {
         if ([[tideArrInit objectAtIndex:i] doubleValue] < [[tideArrInit objectAtIndex:i+1] doubleValue]  && [[tideArrInit objectAtIndex:i] doubleValue] < [[tideArrInit objectAtIndex:i-1] doubleValue])
         {

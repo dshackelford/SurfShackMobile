@@ -45,14 +45,10 @@
 
 //update current values
 -(NSMutableDictionary*)setCurrentWindDirection:(NSMutableDictionary*)countyDictInit forIndex:(int)currentIndex;
-
 -(NSMutableDictionary*)setCurrentSwellDirection:(NSMutableDictionary*)aSpotDictInit forIndex:(int)currentIndex;
-
 -(NSMutableDictionary*)setCurrentValuesForSpotDict:(NSMutableDictionary*)spotDictInit forIndex:(int)currentIndex;
-
-
 -(NSMutableDictionary*)setCurrentImportantSwells:(NSMutableDictionary*)aSpotDictInit forIndex:(int)currentIndex;
-
+-(NSMutableDictionary*)setMaxMinTideTimes:(NSMutableDictionary*)spotDictInit forIndex:(int)currentIndex;
 
 -(void)removeSpotDictionary:(int)spotName;
 -(void)addReportVC:(ReportViewController*)vcInit ForID:(int)idInit;
