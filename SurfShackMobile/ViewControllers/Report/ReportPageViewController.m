@@ -517,9 +517,9 @@
 {
     if (recognizer.state == UIGestureRecognizerStateBegan)
     {
+        screenSize = [UIScreen mainScreen].bounds.size;
         NSLog(@"long press began");
         CGPoint touchPoint = [recognizer locationInView:self.view];
-        
         double futureIndexRatio = touchPoint.x/screenSize.width;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"futureIndexRatio" object:[NSNumber numberWithDouble:futureIndexRatio]];
@@ -529,6 +529,7 @@
     }
     else if(recognizer.state == UIGestureRecognizerStateChanged)
     {
+        screenSize = [UIScreen mainScreen].bounds.size;
         CGPoint touchPoint = [recognizer locationInView:self.view];
         
         double futureIndexRatio = touchPoint.x/screenSize.width;
