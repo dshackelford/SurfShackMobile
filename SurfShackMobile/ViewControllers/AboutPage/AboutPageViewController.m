@@ -30,13 +30,13 @@
     
     self.navigationItem.title = @"About";
     
-    paragraphEntries = @[@"SurfShack aims to provide a users a surf report app that tailers the information to how they want it. I am tired of seeing surf apps show data in ways they feel is best. Therefore, SurfShack allows users to change what data ranges to see, color schemes, surf data service packages.",
-                @"Logging surf sessinos is critical aspect to the usefulness of SurfShack. By recording the quality of a surf session, it will allow SurfShack to notify you when the same forecasted surf conditions are matched, increasing the probabliliy of a firing surf session.",
-                @"Here at surfShack, we feel the best surf sessions are those that you share with freinds, which is why we decided to implement 'share the Stoke' a text messaging service that easily lets you tell your friends when a spot is firing and to meet you there after class!",
-                @"Alot of of the inforatmion from the Bouys just off the shore of your favorite surf spots pass information in the form of direction. Rather then just tell you the direction, the active compass in the Report View tracks your phone's magnetic heading and adjusts the information direction such that your relative positions adds more value to the predicition.",
-                @"DshackTech first began as a YouTube technology review channel and expaned into both freelance promotional video work around San Diego and iOS App devolopment in the summer of 2013. The first public iOS ap was Mutable, a simple snake game that requires dexterity to manuever through the mutable environemtn to get the golden gem. DshackTech has several apps in the pipe line, so be on the look out for 'Cross Hairs', 'Habi-Path', and' Egalitarian Checkers'"];
+    paragraphEntries = @[@"SurfShack aims to provide a surf report that tailers the information to how they want it. By allowing users to change data ranges, choose surf data providers, and select future data sets, we beleive SurfShack can help any surfer choose the right time and place to go out.",
+                @"By recording the quality of a session, you can enable SurfShack to notify you when the same forecasted surf conditions are matched, thereby increasing the probability of a firing surf session.",
+                         @"Here at SurfShack, we feel the best surf sessions are those that you share with freind. This is why we decided to implement 'Share the Stoke' feature: a text messaging service that easily lets you tell your friends when a spot is firing and to meet you there after class!",
+                @"The active compass in the Report View tracks your phone's heading and adjusts the swell/wind direction relative to your own. We feel this can be a neat feature for exploring new surf spots at real time, especially coupled with the selective future data set feature.",
+                @"DshackTech first began as a YouTube technology review channel and expaned into both freelance promotional video work around San Diego and iOS App development in the summer of 2013. The first public iOS app was Mutable. DshackTech has several apps in the pipe line, so be on the look out for 'Cross Hairs', 'Habi-Path', and' Egalitarian Checkers'"];
     
-    tableData =[[NSMutableArray alloc] initWithArray: @[@"Why SurfShack",@"Logging Surf Sessions",@"Text Messaging",@"The Compass",@"About DShackTech"]];
+    tableData =[[NSMutableArray alloc] initWithArray: @[@"Why SurfShack",@"Logging Surf Sessions",@"Text Messaging",@"The Compass",@"About DshackTech"]];
 }
 
 
@@ -70,10 +70,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:HeaderCellIdentifier];
         cell.textLabel.text = [tableData objectAtIndex:section];
         cell.textLabel.font = [UIFont boldSystemFontOfSize:20];
+        cell.textLabel.textColor = [UIColor whiteColor];
     }
     
 
-    cell.backgroundColor = [UIColor lightGrayColor];
+    cell.backgroundColor = [UIColor blackColor];
     return cell;
 }
 
@@ -87,6 +88,7 @@
     cell.cellTextView.text = [NSString stringWithFormat:@"%@", [paragraphEntries objectAtIndex:indexPath.section]];
 
     cell.cellTextView.scrollEnabled  = NO;
+    cell.cellTextView.textAlignment = NSTextAlignmentLeft;
     return cell;
 }
 
