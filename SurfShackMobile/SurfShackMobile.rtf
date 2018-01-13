@@ -1,7 +1,7 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf200
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}
-{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red0\green116\blue0;}
-{\*\expandedcolortbl;;\csgenericrgb\c14902\c14902\c14902;\csgenericrgb\c0\c45490\c0;}
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;}
+{\*\expandedcolortbl;;\csgenericrgb\c14902\c14902\c14902;}
 \margl1440\margr1440\vieww12600\viewh19820\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc\partightenfactor0
 
@@ -12,46 +12,23 @@
 \b \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
-\fs30 \cf0 To Do List
-\b0 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-
-\b \cf0 NOW\
+\fs30 \cf0 To Do List\
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 Before submittal\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\b0 \cf0 <Data Source> ....spitcast is a DataSource\
-	StartWind/surf/tide downloads\
-\
-<DataCategory> ..those dictionaries that are similar between surf/tide/wind\
-\
-\
-when view appears and asks for data, need to check if that data is old. \
-	if its a day old, return a cached reportDict with isOld = true;\
-	it its a couple hours old, don't do anything?\
-	if its past sunset - how do we reconcile showing a plot that is a day in the future when the current index will be a full 24 hours in the future?\
-\
-when sliding into future, setting/updaing current values. \
+\b0 \cf0 - make units work\
+- fix tide datum to not go blank every time\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
 \b \cf0 	\
-\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
 \b0 \cf0 	
 \i \ul Report View
 \i0 \ulnone \
-- fix tide ratio\
-- make a dictionary class that better handles the received methods calls (i.e. if only one entry do this).\
-- handle blank spots\
-- force touch to start sliding the slide bar on plot view? this will then update the datums up top as well?\
-- another source is offline. offline data will just conform to the data source protocol.\
-- report view crashing as midninght...\
 - maybe update the temperature more often then the surf predictions?\
-- make the preferences connect to the units set in the settings\
-- when its the next day, reload the data, still doesn\'92t work\
-- handing nil swell data better\
-- Download Error handling!!\
 - Fix negative numbers on tide (don\'92t set the minimum as zero for the tide plot)\
 - Displaying the temperature units within the compass (also depending on preferences as well)\
 \
@@ -291,28 +268,8 @@ WindPackets\
 	-(double)getPlotMag \'97> returns waveHeight\
 TidePackets\
 	-(double)getPlotMag \'97> returns waveHeight\
-\
-//\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97
-\b \
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc\partightenfactor0
-\cf0 XCODE TIPS\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-
-\b0 \cf0 change app icon name by setting the bundle display name in plist\
-\
 \pard\tx674\pardeftab674\pardirnatural\partightenfactor0
-
-\f1 \cf3 \CocoaLigature0 //-(void)viewDidLayoutSubviews\cf0 \
-\cf3 //\{\cf0 \
-\cf3 //    if (viewSet == NO)\cf0 \
-\cf3 //    \{\cf0 \
-\cf3 //        [self chooseDataToDisplay];\cf0 \
-\cf3 //        viewSet = YES;\cf0 \
-\cf3 //    \}\cf0 \
-\cf3 //\}\
-
-\f0 \cf0 \CocoaLigature1 \
-to add the history back in, go to the view controller, right click, drag relationships to tab bar controller\
+\cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 //\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc\partightenfactor0
