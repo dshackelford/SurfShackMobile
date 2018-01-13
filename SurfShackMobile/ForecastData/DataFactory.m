@@ -361,52 +361,53 @@ typedef enum{
 }
 
 //this gets called every time a report view will appear, therefore I find it prudent not have to download anything, all the data should be present, this method just parses it
--(NSMutableDictionary*)setCurrentValuesForSpotDict:(NSMutableDictionary*)spotDictInit
+-(NSMutableDictionary*)setCurrentValuesForSpotDict:(NSMutableDictionary*)spotDictInit forIndex:(int)currentIndex
 {
-    spotDictInit = [self setCurrentSwellDirection:spotDictInit];
-    spotDictInit = [self setCurrentWindDirection:spotDictInit];
-    spotDictInit = [self setCurrentImportantSwells:spotDictInit];
+    spotDictInit = [self setCurrentSwellDirection:spotDictInit forIndex:currentIndex];
+    spotDictInit = [self setCurrentWindDirection:spotDictInit forIndex:currentIndex];
+    spotDictInit = [self setCurrentImportantSwells:spotDictInit forIndex:currentIndex];
     
-    spotDictInit = [self setMaxMinTideTimes:spotDictInit];
+    spotDictInit = [self setMaxMinTideTimes:spotDictInit forIndex:currentIndex];
     
     return spotDictInit;
 }
 
--(NSMutableDictionary*)setCurrentSwellDirection:(NSMutableDictionary*)aSpotDictInit
+-(NSMutableDictionary*)setCurrentSwellDirection:(NSMutableDictionary*)aSpotDictInit forIndex:(int)currentIndex
 {
     NSLog(@"setting current swell direction");
     //get the first day array of swells
     NSMutableArray* swellArray = [[aSpotDictInit objectForKey:@"swell"] objectForKey:@"swellArray"];
     
+    int dayIndex = currentIndex/24;
+    currentIndex = currentIndex - dayIndex*24;
     if ([swellArray count] > 0)
     {
-        //NSMutableArray* swellArr = [[aSpotDictInit objectForKey:@"swellDict"] objectAtIndex:0];
-    
-        int currentIndex = [DateHandler getIndexFromCurrentTime];
-    
-#warning this should include a division of current index by day number, not just day 0 especially when I add the movable bar in the plot view
-        NSMutableArray* hourSwellArray = [[[swellArray objectAtIndex:0] objectAtIndex:currentIndex] objectForKey:@"swellArray"];
-        
-#warning should iterate through the hour array for all potential swells
-#warning also need to check if its nill as well
-        if (![[[hourSwellArray objectAtIndex:0] objectForKey:@"dir"] isEqual:[NSNull null]])
+        if(dayIndex < [swellArray count])
         {
-            double currentDirection = [[[hourSwellArray objectAtIndex:0] objectForKey:@"dir"] doubleValue];
-            currentDirection = currentDirection + 180;
+            NSMutableArray* dayArray = [swellArray objectAtIndex:dayIndex];
             
-            [aSpotDictInit setObject:[NSNumber numberWithDouble:currentDirection] forKey:@"currentSwellDirection"];
+            if(currentIndex < [dayArray count])
+            {
+                NSMutableArray* hourSwellArray = [[dayArray objectAtIndex:currentIndex] objectForKey:@"swellArray"];
+
+                if (![[[hourSwellArray objectAtIndex:0] objectForKey:@"dir"] isEqual:[NSNull null]])
+                {
+                    double currentDirection = [[[hourSwellArray objectAtIndex:0] objectForKey:@"dir"] doubleValue];
+                    currentDirection = currentDirection + 180;
+                    
+                    [aSpotDictInit setObject:[NSNumber numberWithDouble:currentDirection] forKey:@"currentSwellDirection"];
+                }
+            }
         }
     }
     return aSpotDictInit;
     
 }
 
--(NSMutableDictionary*)setCurrentWindDirection:(NSMutableDictionary*)aSpotDictInit
+-(NSMutableDictionary*)setCurrentWindDirection:(NSMutableDictionary*)aSpotDictInit forIndex:(int)currentIndex
 {
     NSLog(@"setting current wind direction");
     NSMutableDictionary* windDict = [aSpotDictInit objectForKey:@"wind"];
-
-    int currentIndex = [DateHandler getIndexFromCurrentTime];
     
     NSNumber* currentDirection = [[windDict objectForKey:@"windDirectionArray"] objectAtIndex:currentIndex];
     if(currentDirection != nil)
@@ -416,53 +417,65 @@ typedef enum{
     return aSpotDictInit;
 }
 
--(NSMutableDictionary*)setCurrentImportantSwells:(NSMutableDictionary*)aSpotDictInit
+-(NSMutableDictionary*)setCurrentImportantSwells:(NSMutableDictionary*)aSpotDictInit forIndex:(int)currentIndex
 {
-        NSLog(@"setting current important swells");
+    NSLog(@"setting current important swells");
     NSMutableArray* weekSwellArray = [[aSpotDictInit objectForKey:@"swell"] objectForKey:@"swellArray"];
-    NSMutableArray* daySwellArray = [weekSwellArray objectAtIndex:0];
-    int currentIndex = [DateHandler getIndexFromCurrentTime];
-    NSMutableArray* hourSwellArray = [[daySwellArray  objectAtIndex:currentIndex] objectForKey:@"swellArray"];
+    int dayIndex = currentIndex/24;
+    currentIndex = currentIndex - dayIndex*24;
     
-    double hst = 0;
-    if([[daySwellArray objectAtIndex:currentIndex] objectForKey:@"hst"] != nil)
+    if(dayIndex < [weekSwellArray count])
     {
-        hst = [[[daySwellArray  objectAtIndex:currentIndex] objectForKey:@"hst"] doubleValue];
-    }
-    int count = 0;
-    
-    for(int i = 0; i < 5; i = i + 1)
-    {
-        NSMutableDictionary* aSwellDict = [hourSwellArray objectAtIndex:0];
+        NSMutableArray* daySwellArray = [weekSwellArray objectAtIndex:dayIndex];
         
-        if(aSwellDict != nil)
+        if(currentIndex < [daySwellArray count])
         {
-            if(![[aSwellDict objectForKey:@"tp"] isEqual:[NSNull null]] && ![[aSwellDict objectForKey:@"hs"] isEqual:[NSNull null]] && ![[aSwellDict objectForKey:@"dir"] isEqual:[NSNull null]])
+            NSMutableArray* hourSwellArray =[[daySwellArray  objectAtIndex:currentIndex] objectForKey:@"swellArray"];
             {
-                double tp = [[aSwellDict objectForKey:@"tp"] doubleValue];
-                double hs = [[aSwellDict objectForKey:@"hs"] doubleValue];
-                
-                double height = hs*hst;
-                height = ceil(height);
-                
-                int direction = [[aSwellDict objectForKey:@"dir"] intValue] + 180;
-                NSString* dirStr = [self getDirectionStrFromDegree:direction];
-                
-                NSString* swellInfoStr = [NSString stringWithFormat:@"Dir: %@ \nTP: %.fs \nHt: %.f ft",dirStr,tp,height];
-                
-                if(count == 0)
+                double hst = 0;
+                if([[daySwellArray objectAtIndex:currentIndex] objectForKey:@"hst"] != nil)
                 {
-                    [aSpotDictInit setObject:swellInfoStr forKey:@"mainSwellInfo"];
-                    count = count + 1;
+                    hst = [[[daySwellArray  objectAtIndex:currentIndex] objectForKey:@"hst"] doubleValue];
                 }
-                else
+                int count = 0;
+                
+                for(int i = 0; i < 5; i = i + 1)
                 {
-                    [aSpotDictInit setObject:swellInfoStr forKey:@"secondSwellInfo"];
-                    break;
+                    NSMutableDictionary* aSwellDict = [hourSwellArray objectAtIndex:0];
+                    
+                    if(aSwellDict != nil)
+                    {
+                        if(![[aSwellDict objectForKey:@"tp"] isEqual:[NSNull null]] && ![[aSwellDict objectForKey:@"hs"] isEqual:[NSNull null]] && ![[aSwellDict objectForKey:@"dir"] isEqual:[NSNull null]])
+                        {
+                            double tp = [[aSwellDict objectForKey:@"tp"] doubleValue];
+                            double hs = [[aSwellDict objectForKey:@"hs"] doubleValue];
+                            
+                            double height = hs*hst;
+                            height = ceil(height);
+                            
+                            int direction = [[aSwellDict objectForKey:@"dir"] intValue] + 180;
+                            NSString* dirStr = [self getDirectionStrFromDegree:direction];
+                            
+                            NSString* swellInfoStr = [NSString stringWithFormat:@"Dir: %@ \nTP: %.fs \nHt: %.f ft",dirStr,tp,height];
+                            
+                            if(count == 0)
+                            {
+                                [aSpotDictInit setObject:swellInfoStr forKey:@"mainSwellInfo"];
+                                count = count + 1;
+                            }
+                            else
+                            {
+                                [aSpotDictInit setObject:swellInfoStr forKey:@"secondSwellInfo"];
+                                break;
+                            }
+                        }
+                    }
                 }
             }
         }
     }
+    
+   
     return aSpotDictInit;
 }
 
@@ -506,9 +519,8 @@ typedef enum{
     return dirStr;
 }
 
--(NSMutableDictionary*)setMaxMinTideTimes:(NSMutableDictionary*)spotDictInit
+-(NSMutableDictionary*)setMaxMinTideTimes:(NSMutableDictionary*)spotDictInit forIndex:(int)currentIndex
 {
-    int currentTime = [DateHandler getIndexFromCurrentTime];
     NSMutableArray* tideArrInit = [[spotDictInit objectForKey:@"tide"] objectForKey:kMags];
     double nextMaxTide = 0;
     int nextHighTideIndex = 0;
@@ -516,12 +528,12 @@ typedef enum{
     int previousLowTideIndex = 0;
     int nextLowTideIndex = 0;
     
-    if(currentTime == 0)
+    if(currentIndex == 0)
     {
-        currentTime = 1;
+        currentIndex = 1;
     }
     
-    for (int i = currentTime; i < [tideArrInit count]; i++)
+    for (int i = currentIndex; i < [tideArrInit count]; i++)
     {
         if ([[tideArrInit objectAtIndex:i] doubleValue] > [[tideArrInit objectAtIndex:i+1] doubleValue] && [[tideArrInit objectAtIndex:i] doubleValue] > [[tideArrInit objectAtIndex:i-1] doubleValue])
         {
@@ -553,7 +565,7 @@ typedef enum{
         }
     }
     
-    double currentTide = [[tideArrInit objectAtIndex:currentTime] doubleValue];
+    double currentTide = [[tideArrInit objectAtIndex:currentIndex] doubleValue];
     double tideRatio = 1 - ((nextMaxTide - previousLowTide) - (currentTide - previousLowTide))/(nextMaxTide - previousLowTide);
     if(tideRatio < 0.1)
     {
@@ -565,11 +577,11 @@ typedef enum{
     }
     [spotDictInit setObject:[NSNumber numberWithDouble:tideRatio] forKey:@"tideRatio"];
     
-    if(currentTime == 0)
+    if(currentIndex == 0)
     {
-        currentTime = 1; //push it up one for checking. we automatcially know that the next low tide of consequence will bein the future.
+        currentIndex = 1; //push it up one for checking. we automatcially know that the next low tide of consequence will bein the future.
     }
-    for (int i = currentTime; i < [tideArrInit count]; i++)
+    for (int i = currentIndex; i < [tideArrInit count]; i++)
     {
         if ([[tideArrInit objectAtIndex:i] doubleValue] < [[tideArrInit objectAtIndex:i+1] doubleValue]  && [[tideArrInit objectAtIndex:i] doubleValue] < [[tideArrInit objectAtIndex:i-1] doubleValue])
         {
@@ -629,7 +641,7 @@ typedef enum{
         [aSpotDict setObject:[subSpotDict objectForKey:key] forKey:key];
     }
     
-    aSpotDict = [self setCurrentValuesForSpotDict:aSpotDict];
+    aSpotDict = [self setCurrentValuesForSpotDict:aSpotDict forIndex:[DateHandler getIndexFromCurrentTime]];
     [aSpotDict setObject:[NSNumber numberWithBool:false] forKey:@"isOld"];
     [aSpotDict setObject:[DateHandler getCurrentDateString] forKey:@"downloadDate"];
     

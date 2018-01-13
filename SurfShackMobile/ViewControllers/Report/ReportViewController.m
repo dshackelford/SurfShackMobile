@@ -179,8 +179,17 @@
 
 -(void)futureIndexSet:(NSNotification*)notification
 {
-    //int index = [notification.object doubleValue]*[[[spotDict objectForKey:@"surf"] objectForKey:@"mags"] count];
-    //NSMutableDictionary* futureDict = [dataFactory setCurrentValuesForSpotDict:spotDict.mutableCopy];
+    NSNumber* indexRatio = notification.object;
+    int index = [indexRatio doubleValue]*[[aPlotView getYData] count];
+    
+    if([indexRatio doubleValue] == -1)
+    {
+        //go to current time
+        index = [DateHandler getIndexFromCurrentTime];
+    }
+
+    spotDict = [dataFactory setCurrentValuesForSpotDict:spotDict forIndex:index];
+    [self chooseDataToDisplay];
     
 }
 
@@ -189,7 +198,7 @@
 {
     [self.activityDelegate isLoadingData:false]; //tell pageViewController that I'm done downloading
     
-    spotDict = [dataFactory setCurrentValuesForSpotDict:spotDict];
+    spotDict = [dataFactory setCurrentValuesForSpotDict:spotDict forIndex:[DateHandler getIndexFromCurrentTime]];
     [OfflineData saveSpotDict:spotDict withID:[[favSpots objectAtIndex:self.index] intValue]];
     aPlotView.isOfflineData = false;
     [self chooseDataToDisplay];

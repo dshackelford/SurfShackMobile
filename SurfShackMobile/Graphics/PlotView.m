@@ -426,5 +426,9 @@
     [_theChartView.data addDataSet:dCurrentBar];
 }
 
+-(NSMutableArray*)getYData
+{
+    return yData;
+}
 
 @end

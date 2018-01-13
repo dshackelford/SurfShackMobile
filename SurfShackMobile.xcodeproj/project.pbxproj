@@ -434,6 +434,7 @@
 				695D66541FDA7BA300FC562D /* MapVC */,
 				691B6A9A1FCE8A0B00774AC3 /* Settings */,
 				691B6A991FCE89FC00774AC3 /* AddSpot */,
+				69941E4420073A3B00C818F1 /* AboutPage */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -460,8 +461,6 @@
 				69A8DEF81D4DA090000D4412 /* SubSettingsViewController.m */,
 				696D2BD41D4DD2DF00A45E45 /* SubSettingColorViewController.h */,
 				696D2BD21D4DD2D200A45E45 /* SubSettingColorViewController.m */,
-				696D2BCE1D4DCDBE00A45E45 /* AboutPageViewController.h */,
-				696D2BC91D4DCDB700A45E45 /* AboutPageViewController.m */,
 				6975BD811D826AFC0012B029 /* SurfDataProviderViewController.h */,
 				6975BD7C1D826AF60012B029 /* SurfDataProviderViewController.m */,
 				696D2BDD1D4EC8A200A45E45 /* DayRangeViewController.h */,
@@ -696,6 +695,15 @@
 				69863BD61FE3B97B001530C1 /* WaterTempData.m */,
 			);
 			path = DataCategories;
+			sourceTree = "<group>";
+		};
+		69941E4420073A3B00C818F1 /* AboutPage */ = {
+			isa = PBXGroup;
+			children = (
+				696D2BCE1D4DCDBE00A45E45 /* AboutPageViewController.h */,
+				696D2BC91D4DCDB700A45E45 /* AboutPageViewController.m */,
+			);
+			path = AboutPage;
 			sourceTree = "<group>";
 		};
 		699EBEF01FCFEBA8000BA1BB /* SettingsIcons */ = {

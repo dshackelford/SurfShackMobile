@@ -35,5 +35,5 @@
 -(void)updateFrame:(CGRect)newFrame forCurrentView:(int)currentViewTag;
 
 -(void)establishViewWithData:(NSMutableArray*)yDataArr withXVals:(NSMutableArray*)xValInit withIndicatorVal:(NSString*)indicatorValStr andPlotLabel:(NSString*)plotLabelInit;
-
+-(NSMutableArray*)getYData;
 @end
