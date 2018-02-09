@@ -15,7 +15,6 @@
 
 -(void)viewDidLoad
 {
-    
     [self restrictRotation:NO];
     
     screenSize = [UIScreen mainScreen].bounds.size;
@@ -41,7 +40,8 @@
     aCompView = [[CompassView alloc] initWithFrame:CGRectMake(0,100, screenSize.width, screenSize.height/3)];
     [self.view addSubview:aCompView];
     
-    aPlotView = [[PlotView alloc] initWithFrame:CGRectMake(0,100 + aCompView.frame.size.height, screenSize.width, 200)];
+    aPlotView = [[PlotView alloc] initWithFrame:CGRectMake(0, screenSize.height/2.0, screenSize.width, screenSize.height/2.0)];
+//    aPlotView.backgroundColor = [UIColor redColor];
     [self.view addSubview:aPlotView];
     
     aCompView.hidden = YES;

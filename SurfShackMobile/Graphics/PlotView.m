@@ -11,21 +11,18 @@
 
 @implementation PlotView
 
-@synthesize chartView;
-
 #pragma mark - Set Up
 -(id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     
+    self = [[[NSBundle mainBundle] loadNibNamed:@"PlotView" owner:self options:nil] objectAtIndex:0];
     self.frame = frame;
-    
-    _theChartView = [[LineChartView alloc] initWithFrame:CGRectMake(0, 30, frame.size.width, frame.size.height -30)];
+
     _theChartView.delegate = self;
     
-//    [_theChartView setExtraLeftOffset:10];
+//    [_theChartView setClipsToBounds:false];
     
-    [self addSubview:_theChartView];
     _theChartView.noDataText = @"";
     _theChartView.backgroundColor = [UIColor clearColor];
     
@@ -84,19 +81,19 @@
     _theChartView.highlightPerTapEnabled = NO;
     _theChartView.highlightPerDragEnabled = NO;
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-        if (screenSize.height == 812)
-        {
-            _theChartView.frame = CGRectMake(0, 30, newFrame.size.width, newFrame.size.height - 75);
-        }
-        else
-        {
-            _theChartView.frame = CGRectMake(0, 30, newFrame.size.width, newFrame.size.height - 30);
-        }
-    }
+//    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+//        CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+//        if (screenSize.height == 812)
+//        {
+//            _theChartView.frame = CGRectMake(0, 30, newFrame.size.width, newFrame.size.height - 75);
+//        }
+//        else
+//        {
+//            _theChartView.frame = CGRectMake(0, 30, newFrame.size.width, newFrame.size.height - 30);
+//        }
+//    }
     
-    self.frame = newFrame;
+//    self.frame = newFrame;
 //    _theChartView.frame = CGRectMake(0, 30, newFrame.size.width, newFrame.size.height - 30);
     spitcastLabel.frame = CGRectMake(self.frame.size.width - 155, 0, 175, 25);
     if (currentViewTag == 1)
@@ -145,6 +142,7 @@
 //        _theChartView.infoTextColor = [UIColor blackColor];
 //        _theChartView.infoFont = [UIFont boldSystemFontOfSize:15];
     }
+
 }
 
 -(void)plotData

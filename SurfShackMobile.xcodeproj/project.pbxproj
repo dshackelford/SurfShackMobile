@@ -101,6 +101,7 @@
 		69D72D321D41527100980CF6 /* PickerInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D72D301D41527100980CF6 /* PickerInputCell.m */; };
 		69D72D331D41527100980CF6 /* PickerInputCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D72D311D41527100980CF6 /* PickerInputCell.xib */; };
 		69DB19F81D484E63000F500B /* TidePacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DB19F71D484E63000F500B /* TidePacket.m */; };
+		69DD00C9202D6FC100AA1F86 /* PlotView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69DD00C8202D6FC100AA1F86 /* PlotView.xib */; };
 		69EDF4301D7B6A5B00B310EA /* SubInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69EDF42F1D7B6A5B00B310EA /* SubInfoView.m */; };
 		69FC29EF1D59881F008F53E9 /* SpotListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FC29EE1D59881F008F53E9 /* SpotListViewController.m */; };
 		785283996923B476EBBD2DC2 /* Pods_SurfShackMobileUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9790ECBF83D3E980AC2053 /* Pods_SurfShackMobileUITests.framework */; };
@@ -304,6 +305,7 @@
 		69D72D311D41527100980CF6 /* PickerInputCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerInputCell.xib; sourceTree = "<group>"; };
 		69DB19F71D484E63000F500B /* TidePacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TidePacket.m; sourceTree = "<group>"; };
 		69DB19F91D484E69000F500B /* TidePacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TidePacket.h; sourceTree = "<group>"; };
+		69DD00C8202D6FC100AA1F86 /* PlotView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlotView.xib; sourceTree = "<group>"; };
 		69EDF42F1D7B6A5B00B310EA /* SubInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubInfoView.m; sourceTree = "<group>"; };
 		69EDF4341D7B6A6100B310EA /* SubInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubInfoView.h; sourceTree = "<group>"; };
 		69FC29EE1D59881F008F53E9 /* SpotListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotListViewController.m; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 			children = (
 				69371B401D3727F800562493 /* PlotView.h */,
 				69371B411D3727FF00562493 /* PlotView.m */,
+				69DD00C8202D6FC100AA1F86 /* PlotView.xib */,
 				690CE3321D441D6C00450774 /* Bezier.h */,
 				690CE3301D441D6700450774 /* Bezier.m */,
 			);
@@ -869,6 +872,7 @@
 				697B48561FCE959200BC0698 /* logo1024.png in Resources */,
 				69A29FA01FCFF8730060854E /* alarms.pxm in Resources */,
 				69D72D271D41521D00980CF6 /* TableView.xib in Resources */,
+				69DD00C9202D6FC100AA1F86 /* PlotView.xib in Resources */,
 				69A29FA21FCFF8730060854E /* colorScheme.pxm in Resources */,
 				696963401D349B4C00CC3734 /* Main.storyboard in Resources */,
 				697B48641FCE98D500BC0698 /* logo40x2.png in Resources */,

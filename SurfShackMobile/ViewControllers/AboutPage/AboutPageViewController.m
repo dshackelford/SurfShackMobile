@@ -30,11 +30,11 @@
     
     self.navigationItem.title = @"About";
     
-    paragraphEntries = @[@"SurfShack aims to provide a surf report that tailers the information to how they want it. By allowing users to change data ranges, choose surf data providers, and select future data sets, we beleive SurfShack can help any surfer choose the right time and place to go out.",
+    paragraphEntries = @[@"SurfShack aims to provide a surf report that tailers the information to the user. By allowing users to change data ranges, choose surf data providers, and select future data sets, we believe SurfShack can help any surfer choose the right time and place to go out.",
                 @"By recording the quality of a session, you can enable SurfShack to notify you when the same forecasted surf conditions are matched, thereby increasing the probability of a firing surf session.",
-                         @"Here at SurfShack, we feel the best surf sessions are those that you share with freind. This is why we decided to implement 'Share the Stoke' feature: a text messaging service that easily lets you tell your friends when a spot is firing and to meet you there after class!",
-                @"The active compass in the Report View tracks your phone's heading and adjusts the swell/wind direction relative to your own. We feel this can be a neat feature for exploring new surf spots at real time, especially coupled with the selective future data set feature.",
-                @"DshackTech first began as a YouTube technology review channel and expaned into both freelance promotional video work around San Diego and iOS App development in the summer of 2013. The first public iOS app was Mutable. DshackTech has several apps in the pipe line, so be on the look out for 'Cross Hairs', 'Habi-Path', and' Egalitarian Checkers'"];
+                         @"Here at SurfShack, we feel the best surf sessions are those that you share with freinds. This is why we decided to implement 'Share the Stoke' feature: a text messaging service that easily lets you tell your friends when a spot is firing and to meet you there after class!",
+                @"The active compass in the Report View tracks your phone's heading and adjusts the swell/wind direction relative to your own. We feel this can be a neat feature for exploring new surf spots in real time, especially coupled with the selective future data set feature.",
+                @"DshackTech first began as a YouTube technology review channel and expanded into both freelance promotional video work around San Diego and iOS App development in the summer of 2013. The first public iOS app was Mutable. DshackTech has several apps in the pipe line, so be on the look out for 'Cross Hairs', 'Habi-Path', and' Egalitarian Checkers'"];
     
     tableData =[[NSMutableArray alloc] initWithArray: @[@"Why SurfShack",@"Logging Surf Sessions",@"Text Messaging",@"The Compass",@"About DshackTech"]];
 }

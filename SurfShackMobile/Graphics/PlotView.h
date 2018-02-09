@@ -26,11 +26,8 @@
 }
 
 @property BOOL isOfflineData;
-@property (nonatomic, strong) IBOutlet LineChartView* chartView;
+//@property (nonatomic, strong) IBOutlet LineChartView* chartView;
 @property (nonatomic,strong) IBOutlet LineChartView* theChartView;
-
-@property (nonatomic, strong) UIView *containerView;
-@property (nonatomic, strong) NSMutableArray *customConstraints;
 
 -(void)updateFrame:(CGRect)newFrame forCurrentView:(int)currentViewTag;
 

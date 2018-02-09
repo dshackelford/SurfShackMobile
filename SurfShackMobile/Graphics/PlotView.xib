@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PlotView">
+            <rect key="frame" x="0.0" y="0.0" width="396" height="259"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2TT-eR-nR7" customClass="LineChartView" customModule="Charts">
+                    <rect key="frame" x="0.0" y="30" width="396" height="224"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="2TT-eR-nR7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="CYa-kJ-WPr"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="2TT-eR-nR7" secondAttribute="bottom" constant="5" id="Fck-4g-8Vl"/>
+                <constraint firstItem="2TT-eR-nR7" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="30" id="mge-eC-46R"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="2TT-eR-nR7" secondAttribute="trailing" id="rkL-c6-6WP"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="theChartView" destination="2TT-eR-nR7" id="OFg-T5-Hab"/>
+            </connections>
+            <point key="canvasLocation" x="16" y="-151"/>
+        </view>
+    </objects>
+</document>
