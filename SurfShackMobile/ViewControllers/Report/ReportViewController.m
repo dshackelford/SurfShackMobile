@@ -283,8 +283,17 @@
             
             [aPlotView establishViewWithData:shortMags withXVals:shortXVals withIndicatorVal:indicatorStr andPlotLabel:[infoDict objectForKey:@"plotLabel"]];
             
-            [aPlotView updateFrame:CGRectMake(0,screenSize.height - screenSize.height/3 - 90, screenSize.width, screenSize.height/3) forCurrentView:currentView];
-  
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+                CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+                if (screenSize.height == 812)
+                {
+                    [aPlotView updateFrame:CGRectMake(0,0.6*screenSize.height - 100, screenSize.width, screenSize.height*0.42) forCurrentView:currentView];
+                }
+                else
+                {
+                    [aPlotView updateFrame:CGRectMake(0,2.0/3.0*screenSize.height - 100, screenSize.width, screenSize.height/3) forCurrentView:currentView];
+                }
+            }
             [self.tabBarController.tabBar setHidden:NO];
             aCompView.hidden = NO;
             infoView.hidden = NO;
